@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">CodeBag</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="action_help">help</string>
+    <string name="action_help_msg">New a java file Extends CaseListView and put it in the Folder of mycode. your method should be start with \"run_\" perfix.</string>
+    <string name="action_about">about</string>
+    <string name="action_about_msg">This a simple programe for collect your own code.</string>
+    <string name="action_feedback">feedback</string>
+    <string name="action_search">search</string>
+    <string name="action_refresh">refresh</string>
+
+</resources>
