@@ -15,6 +15,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Debug;
 import android.os.Looper;
 import android.os.MessageQueue.IdleHandler;
 import android.view.Gravity;
@@ -43,7 +44,6 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         getOverflowMenu();
         Node mNode = (Node) getIntent().getSerializableExtra(NODE_NAME);
-        
         if(mNode == null) {//root 
         	showSplash();  
         }else {
@@ -53,7 +53,7 @@ public class MainActivity extends Activity {
     }
 
 	private void showSplash() {
-		setContentView(new SplashView(MainActivity.this));
+		setContentView(new SplashView1(MainActivity.this));
 		
 		IdleHandler handler = new IdleHandler() {
 
@@ -71,6 +71,7 @@ public class MainActivity extends Activity {
 
 	private void showMainView(Node node) {
 		getActionBar().setTitle(node.mName);
+		
 		switch(node.mType) {
 			case Node.DIR:
 				getActionBar().setIcon(R.drawable.folder);
@@ -85,6 +86,7 @@ public class MainActivity extends Activity {
 				showMethodView(node);
 				break;
 		}
+//		Debug.stopMethodTracing();
 	}
 
 	private void showMethodView(Node node) {
@@ -263,6 +265,9 @@ public class MainActivity extends Activity {
         	break;
         case R.id.action_feedback:
         	break;
+        case R.id.action_exit:
+        	android.os.Process.killProcess(android.os.Process.myPid()); 
+        	break;
         }
         return super.onOptionsItemSelected(item);
     }
@@ -315,6 +320,21 @@ public class MainActivity extends Activity {
 				tv.setLayoutParams(params);
 				addView(tv, params);
 			}
-		}
+	 }
+	 
+	 public class SplashView1 extends TextView {
+
+			public SplashView1(Context context) {
+				super(context);
+				init(context);
+			}
+
+			private void init(Context context) {
+				setText("Loading...");
+				setTextColor(Color.BLACK);
+				setTextSize(50);
+				setGravity(Gravity.CENTER);
+			}
+	 }
 
 }

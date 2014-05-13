@@ -27,5 +27,9 @@
         android:id="@+id/action_refresh"
         android:orderInCategory="6"
         android:title="@string/action_refresh"/>
+    <item
+        android:id="@+id/action_exit"
+        android:orderInCategory="7"
+        android:title="@string/action_exit"/>
 
 </menu>

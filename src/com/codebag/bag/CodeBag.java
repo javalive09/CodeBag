@@ -8,6 +8,7 @@ import java.util.Enumeration;
 import dalvik.system.DexFile;
 import android.app.Application;
 import android.content.pm.PackageManager.NameNotFoundException;
+import android.os.Debug;
 import android.util.Log;
 import android.view.View;
 
@@ -20,6 +21,13 @@ public class CodeBag extends Application {
 	public static View mCurrentMethodView = null;
 	public static Node mRootNode = new Node(ROOT_DIR, Node.DIR);
 	
+	
+	
+	@Override
+	public void onCreate() {
+//		Debug.startMethodTracing("mytrace"); 
+	}
+
 	public void init() {
 		
 		if(mHashInit) {
