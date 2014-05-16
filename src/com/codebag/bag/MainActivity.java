@@ -37,7 +37,8 @@ public class MainActivity extends Activity {
 
 	public static final String NODE_NAME = "nodeName";
 	
-	 AlertDialog mDialog = null;
+	AlertDialog mDialog = null;
+	 
 	
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,7 +50,7 @@ public class MainActivity extends Activity {
         }else {
         	showMainView(mNode);
         }
-        
+        ((CodeBag) getApplication()).addActivity(this);
     }
 
 	private void showSplash() {
@@ -61,7 +62,8 @@ public class MainActivity extends Activity {
 			public boolean queueIdle() {
 				CodeBag app = (CodeBag) getApplication();
 				app.init();
-				showMainView(CodeBag.mRootNode);
+				CodeBag codeBag = (CodeBag) getApplication();
+				showMainView(codeBag.getRootNode());
 				return false;
 			}
 			
@@ -83,14 +85,11 @@ public class MainActivity extends Activity {
 				break;
 			case Node.METHOD:
 				getActionBar().setIcon(R.drawable.method);
-				showMethodView(node);
+				CodeBag codeBage = (CodeBag) getApplication();
+				setContentView(codeBage.getCurrentMethodView());
 				break;
 		}
 //		Debug.stopMethodTracing();
-	}
-
-	private void showMethodView(Node node) {
-		setContentView(CodeBag.mCurrentMethodView);
 	}
 
 	private void showClassView(Node node) {
@@ -266,11 +265,18 @@ public class MainActivity extends Activity {
         case R.id.action_feedback:
         	break;
         case R.id.action_exit:
-        	android.os.Process.killProcess(android.os.Process.myPid()); 
+        	CodeBag codeBag = (CodeBag) getApplication();
+        	codeBag.exit();
         	break;
         }
         return super.onOptionsItemSelected(item);
     }
+    
+	@Override
+	protected void onDestroy() {
+		super.onDestroy();
+		((CodeBag) getApplication()).removeActivity(this);
+	}
     
     public static class ListAdapter<T> extends BaseAdapter {
     	ArrayList<T> mList;

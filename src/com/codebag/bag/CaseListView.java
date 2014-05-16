@@ -16,15 +16,16 @@ public class CaseListView extends ListView {
 		super(context);
 	}
 	
-	public void showView(View v) {
+	public void showView(View view) {
 		StackTraceElement[] e = Thread.currentThread().getStackTrace();
 		Intent intent = new Intent(getContext(), MainActivity.class);
 		Node node = new Node();
 		node.mName = e[3].getMethodName();
 		node.mType = Node.METHOD;
-		CodeBag.mCurrentMethodView = v;
-		intent.putExtra(MainActivity.NODE_NAME, node);
 		MainActivity act = (MainActivity) getContext();
+		CodeBag codeBag = (CodeBag) act.getApplication();
+		codeBag.setCurrentMethodView(view);
+		intent.putExtra(MainActivity.NODE_NAME, node);
 		act.startActivity(intent);
 	}
 

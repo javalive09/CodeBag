@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Enumeration;
+import java.util.LinkedList;
 
 import dalvik.system.DexFile;
 import android.app.Application;
@@ -17,10 +18,10 @@ public class CodeBag extends Application {
 	public static final String ROOT_DIR = "com.codebag.code.mycode";
 	public static final int FILE = 0;
 	public static final int DIR = 1;
+	private View mCurrentMethodView = null;
 	private boolean mHashInit = false;
-	public static View mCurrentMethodView = null;
-	public static Node mRootNode = new Node(ROOT_DIR, Node.DIR);
-	
+	private Node mRootNode = new Node(ROOT_DIR, Node.DIR);
+	private LinkedList<MainActivity> mActContainer = new LinkedList<MainActivity>();
 	
 	
 	@Override
@@ -76,6 +77,33 @@ public class CodeBag extends Application {
 		printNode(mRootNode);
 		
 		mHashInit = true;
+	}
+	
+	public void addActivity(MainActivity act) {
+		mActContainer.add(act);
+	}
+	
+	public void removeActivity(MainActivity act) {
+		mActContainer.remove(act);
+	}
+	
+	public void exit() {
+		for(MainActivity act : mActContainer) {
+			act.finish();
+		}
+		android.os.Process.killProcess(android.os.Process.myPid());
+	}
+	
+	public Node getRootNode() {
+		return mRootNode;
+	}
+	
+	public View getCurrentMethodView() {
+		return mCurrentMethodView;
+	}
+	
+	public void setCurrentMethodView(View view) {
+		mCurrentMethodView = view;
 	}
 	
 	private void printNode(Node node) {
