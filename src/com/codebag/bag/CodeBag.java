@@ -19,6 +19,7 @@ public class CodeBag extends Application {
 	public static final int FILE = 0;
 	public static final int DIR = 1;
 	private View mCurrentMethodView = null;
+	private Node mCurrentNode = null;
 	private boolean mHashInit = false;
 	private Node mRootNode = new Node(ROOT_DIR, Node.DIR);
 	private LinkedList<MainActivity> mActContainer = new LinkedList<MainActivity>();
@@ -104,6 +105,14 @@ public class CodeBag extends Application {
 	
 	public void setCurrentMethodView(View view) {
 		mCurrentMethodView = view;
+	}
+	
+	public Node getCurrentNode() {
+		return mCurrentNode;
+	}
+	
+	public void setCurrentNode(Node node) {
+		mCurrentNode = node;
 	}
 	
 	private void printNode(Node node) {

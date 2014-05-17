@@ -35,7 +35,7 @@ import android.widget.TextView;
 
 public class MainActivity extends Activity {
 
-	public static final String NODE_NAME = "nodeName";
+//	public static final String NODE_TYPE = "nodeType";
 	
 	AlertDialog mDialog = null;
 	 
@@ -44,13 +44,15 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getOverflowMenu();
-        Node mNode = (Node) getIntent().getSerializableExtra(NODE_NAME);
-        if(mNode == null) {//root 
+//        Node mNode = (Node) getIntent().getSerializableExtra(NODE_NAME);
+        CodeBag codeBag = (CodeBag) getApplication();
+        Node currentNode = codeBag.getCurrentNode();
+        if(currentNode == null) {//root 
         	showSplash();  
         }else {
-        	showMainView(mNode);
+        	showMainView(currentNode);
         }
-        ((CodeBag) getApplication()).addActivity(this);
+        codeBag.addActivity(this);
     }
 
 	private void showSplash() {
@@ -216,7 +218,8 @@ public class MainActivity extends Activity {
 		    	
 		    	if(mNode != null) { 
 					Intent intent = new Intent(MainActivity.this, MainActivity.class);
-					intent.putExtra(NODE_NAME, mNode);
+					CodeBag codeBag = (CodeBag) getApplication();
+					codeBag.setCurrentNode(mNode);
 					startActivity(intent);
 		    	}
 			}
@@ -275,7 +278,10 @@ public class MainActivity extends Activity {
 	@Override
 	protected void onDestroy() {
 		super.onDestroy();
-		((CodeBag) getApplication()).removeActivity(this);
+		CodeBag codeBag = (CodeBag) getApplication();
+		codeBag.setCurrentNode(null);
+		codeBag.setCurrentMethodView(null);
+		codeBag.removeActivity(this);
 	}
     
     public static class ListAdapter<T> extends BaseAdapter {

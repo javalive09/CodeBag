@@ -25,7 +25,8 @@ public class CaseListView extends ListView {
 		MainActivity act = (MainActivity) getContext();
 		CodeBag codeBag = (CodeBag) act.getApplication();
 		codeBag.setCurrentMethodView(view);
-		intent.putExtra(MainActivity.NODE_NAME, node);
+		codeBag.setCurrentNode(node);
+//		intent.putExtra(MainActivity.NODE_NAME, node);
 		act.startActivity(intent);
 	}
 
