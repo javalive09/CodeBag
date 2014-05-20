@@ -18,6 +18,7 @@ import android.os.Bundle;
 import android.os.Debug;
 import android.os.Looper;
 import android.os.MessageQueue.IdleHandler;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -53,6 +54,7 @@ public class MainActivity extends Activity {
         	showMainView(currentNode);
         }
         codeBag.addActivity(this);
+        Log.i("--", "onCreate()");
     }
 
 	private void showSplash() {
