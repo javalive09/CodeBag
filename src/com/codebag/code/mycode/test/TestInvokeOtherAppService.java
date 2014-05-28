@@ -15,7 +15,7 @@ public class TestInvokeOtherAppService extends CaseListView {
 	}
 	
 	public void run_otherService() {
-		Toast.makeText(getContext(), "run_otherActivity", Toast.LENGTH_SHORT).show();
+		Toast.makeText(getContext(), "run_otherService", Toast.LENGTH_SHORT).show();
 		Intent intent = new Intent();
 		ComponentName componentName = new ComponentName("com.lockscreen", "com.lockscreen.LockService");
 		intent.setComponent(componentName);

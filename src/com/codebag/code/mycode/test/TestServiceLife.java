@@ -14,7 +14,6 @@ import com.codebag.code.mlib.myService;
 
 public class TestServiceLife extends CaseListView {
 
-	private Service mService = null;
 	
 	public TestServiceLife(Context context) {
 		super(context);

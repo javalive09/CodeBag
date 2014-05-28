@@ -4,7 +4,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import android.content.Context;
-import android.util.Log;
 import android.widget.Toast;
 
 import com.codebag.bag.CaseListView;
