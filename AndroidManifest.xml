@@ -27,6 +27,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        
+        <activity android:name=".code.mlib.FragmentActivity"/>
 
         <service android:name="com.codebag.code.mlib.myService" />
     </application>

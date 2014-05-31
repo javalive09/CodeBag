@@ -15,10 +15,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.os.Debug;
 import android.os.Looper;
 import android.os.MessageQueue.IdleHandler;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -32,20 +30,17 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 public class MainActivity extends Activity {
 
-//	public static final String NODE_TYPE = "nodeType";
-	
 	AlertDialog mDialog = null;
 	 
-	
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getOverflowMenu();
-//        Node mNode = (Node) getIntent().getSerializableExtra(NODE_NAME);
         CodeBag codeBag = (CodeBag) getApplication();
         Node currentNode = codeBag.getCurrentNode();
         if(currentNode == null) {//root 
@@ -54,7 +49,6 @@ public class MainActivity extends Activity {
         	showMainView(currentNode);
         }
         codeBag.addActivity(this);
-        Log.i("--", "onCreate()");
     }
 
 	private void showSplash() {
@@ -268,6 +262,20 @@ public class MainActivity extends Activity {
         	mDialog.show();
         	break;
         case R.id.action_feedback:
+        	break;
+        case R.id.action_showlog:
+        	AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+        	
+        	ScrollView view = new ScrollView(MainActivity.this);
+    		TextView log = new TextView(MainActivity.this);
+    		log.setText(Log.getLog());
+    		view.addView(log);
+        	builder.setView(view);
+        	builder.create().show();
+        	
+        	break;
+        case R.id.action_clearlog:
+        	Log.clearLog();
         	break;
         case R.id.action_exit:
         	CodeBag codeBag = (CodeBag) getApplication();

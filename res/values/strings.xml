@@ -11,6 +11,8 @@
     <string name="action_feedback">feedback</string>
     <string name="action_search">search</string>
     <string name="action_refresh">refresh</string>
+    <string name="action_showlog">show log</string>
+    <string name="action_clearlog">clear log</string>
     <string name="action_exit">exit</string>
 
 </resources>

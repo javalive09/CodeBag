@@ -9,7 +9,6 @@ import java.util.LinkedList;
 import dalvik.system.DexFile;
 import android.app.Application;
 import android.content.pm.PackageManager.NameNotFoundException;
-import android.os.Debug;
 import android.util.Log;
 import android.view.View;
 
