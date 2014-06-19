@@ -5,6 +5,7 @@ import java.util.regex.Pattern;
 import android.content.Context;
 
 import com.codebag.bag.CaseListView;
+import com.codebag.bag.Entry;
 import com.codebag.bag.Log;
 
 public class TestPatternNum extends CaseListView {
@@ -13,7 +14,8 @@ public class TestPatternNum extends CaseListView {
 		super(context);
 	}
 
-	public void run_matcher() {
+	@Entry()
+	public void runMatcher() {
 		boolean isNum = isNumber("123");
 		Log.addLog("isNum = "  + isNum);
 	}

@@ -7,14 +7,16 @@ import android.content.Context;
 import android.widget.Toast;
 
 import com.codebag.bag.CaseListView;
+import com.codebag.bag.Entry;
 
 public class TestPatternFind extends CaseListView {
 
 	public TestPatternFind(Context context) {
 		super(context);
 	}
-
-	public void run_matcher() {
+	
+	@Entry()
+	public void runMatcher() {
 		String str = "1008 bytes from 61.135.169.125: icmp_seq=1 ttl=57 time=5.13 ms";
 		String regx = "time=.*ms";
     	Pattern pattern = Pattern.compile(regx);

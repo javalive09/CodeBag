@@ -9,6 +9,7 @@ import android.content.Context;
 
 import com.codebag.bag.CaseListView;
 import com.codebag.bag.Annotation;
+import com.codebag.bag.Entry;
 @Annotation("FixedThreadPool 保持固定数量线程的线程池")
 public class FixedThreadPool extends CaseListView {
 
@@ -16,7 +17,8 @@ public class FixedThreadPool extends CaseListView {
 		super(context);
 	}
 
-	public void run_fixedThreadPool() {
+	@Entry()
+	public void runFixedThreadPool() {
 		ExecutorService executor = Executors.newFixedThreadPool(3);
 		for(int i = 0; i < 10; i++ ) {
 			executor.execute(new Runnable() {

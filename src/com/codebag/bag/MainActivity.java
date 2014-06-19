@@ -123,7 +123,7 @@ public class MainActivity extends Activity {
 			
 			Method[] methods = caseListview.getClass().getDeclaredMethods();
 			for(Method m : methods) {
-				if(m.getName().indexOf(CaseListView.METHOD_PREFIX) >= 0) {
+				if(m.isAnnotationPresent(Entry.class)) {
 					list.add(m);
 				}
 			}

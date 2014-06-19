@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 
 import com.codebag.bag.CaseListView;
+import com.codebag.bag.Entry;
 import com.codebag.code.mlib.FragmentActivity;
 
 public class TestFragmentLife extends CaseListView {
@@ -13,7 +14,8 @@ public class TestFragmentLife extends CaseListView {
 		super(context);
 	}
 
-	public void run_FragmentActivity() {
+	@Entry()
+	public void runFragmentActivity() {
 		getContext().startActivity(new Intent(getContext(),FragmentActivity.class));
 	}
 	

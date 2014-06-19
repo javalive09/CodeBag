@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.widget.Toast;
 
 import com.codebag.bag.CaseListView;
+import com.codebag.bag.Entry;
 
 public class TestInvokeOtherAppService extends CaseListView {
 
@@ -14,7 +15,8 @@ public class TestInvokeOtherAppService extends CaseListView {
 		super(context);
 	}
 	
-	public void run_otherService() {
+	@Entry()
+	public void runOtherService() {
 		Toast.makeText(getContext(), "run_otherService", Toast.LENGTH_SHORT).show();
 		Intent intent = new Intent();
 		ComponentName componentName = new ComponentName("com.lockscreen", "com.lockscreen.LockService");

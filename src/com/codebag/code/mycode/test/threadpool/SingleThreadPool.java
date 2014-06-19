@@ -9,6 +9,7 @@ import android.content.Context;
 
 import com.codebag.bag.CaseListView;
 import com.codebag.bag.Annotation;
+import com.codebag.bag.Entry;
 
 @Annotation("SingleThreadPool: 有唯一线程的线程池，它和 Executors.newFixedThreadPool(1)的区别是：如果任务异常，会重新开启一个线程，继续执行")
 public class SingleThreadPool extends CaseListView {
@@ -17,7 +18,8 @@ public class SingleThreadPool extends CaseListView {
 		super(context);
 	}
 
-	public void run_singleThreadExecutor() {
+	@Entry()
+	public void runSingleThreadExecutor() {
 		ExecutorService executor = Executors.newSingleThreadExecutor();
 		for(int i = 0; i < 10; i++ ) {
 			executor.execute(new Runnable() {

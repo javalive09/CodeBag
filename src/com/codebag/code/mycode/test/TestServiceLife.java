@@ -9,6 +9,7 @@ import android.os.IBinder;
 import android.widget.TextView;
 
 import com.codebag.bag.CaseListView;
+import com.codebag.bag.Entry;
 import com.codebag.bag.Log;
 import com.codebag.code.mlib.myService;
 
@@ -19,16 +20,20 @@ public class TestServiceLife extends CaseListView {
 		super(context);
 	}
 
-	public void run_startservice() {
+	@Entry()
+	public void startservice() {
 		Intent intent = new Intent(getContext(),myService.class);
 		getContext().startService(intent);
 	}
-	public void run_stopservice() {
+	
+	@Entry()
+	public void stopservice() {
 		Intent intent = new Intent(getContext(),myService.class);
 		getContext().stopService(intent);
 	}
 	
-	public void run_bindservice() {
+	@Entry()
+	public void bindservice() {
 		Intent intent = new Intent(getContext(),myService.class);
 		getContext().bindService(intent, mServicecon, Service.BIND_AUTO_CREATE);
 	}
@@ -46,17 +51,9 @@ public class TestServiceLife extends CaseListView {
 			}
 	};
 	
-	public void run_unbindservice() {
+	@Entry()
+	public void unbindservice() {
 		getContext().unbindService(mServicecon);
 	}
 	
-	public void run_showLogView() {
-		TextView log = new TextView(getContext());
-		log.setText(Log.getLog());
-		showView(log);
-	}
-	
-	public void run_clearLog() {
-		Log.clearLog();
-	}
 }
