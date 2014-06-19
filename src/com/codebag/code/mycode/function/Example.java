@@ -6,9 +6,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.codebag.bag.CaseListView;
-import com.codebag.bag.MyAnnotation;
+import com.codebag.bag.Annotation;
 
-@MyAnnotation("Function example")
+@Annotation("Function example")
 public class Example extends CaseListView {
 
 	

@@ -8,7 +8,8 @@ import java.util.concurrent.TimeUnit;
 import android.content.Context;
 
 import com.codebag.bag.CaseListView;
-
+import com.codebag.bag.Annotation;
+@Annotation("FixedThreadPool 保持固定数量线程的线程池")
 public class FixedThreadPool extends CaseListView {
 
 	public FixedThreadPool(Context context) {

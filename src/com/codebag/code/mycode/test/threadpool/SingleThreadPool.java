@@ -8,11 +8,9 @@ import java.util.concurrent.TimeUnit;
 import android.content.Context;
 
 import com.codebag.bag.CaseListView;
+import com.codebag.bag.Annotation;
 
-/**
- * @author peter
- *
- */
+@Annotation("SingleThreadPool: 有唯一线程的线程池，它和 Executors.newFixedThreadPool(1)的区别是：如果任务异常，会重新开启一个线程，继续执行")
 public class SingleThreadPool extends CaseListView {
 
 	public SingleThreadPool(Context context) {

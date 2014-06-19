@@ -37,7 +37,7 @@ import android.widget.Toast;
 public class MainActivity extends Activity {
 
 	AlertDialog mDialog = null;
-	MyAnnotation mAnnotation = null;
+	Annotation mAnnotation = null;
 	 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -102,8 +102,8 @@ public class MainActivity extends Activity {
 				Constructor<?> con = cls.getConstructor(Context.class);
 				caseListview = (CaseListView) con.newInstance(MainActivity.this);
 				setContentView(caseListview);
-				if(cls.isAnnotationPresent(MyAnnotation.class)) {
-					mAnnotation  = ((MyAnnotation) cls.getAnnotation(MyAnnotation.class));
+				if(cls.isAnnotationPresent(Annotation.class)) {
+					mAnnotation  = ((Annotation) cls.getAnnotation(Annotation.class));
 				}else {
 					mAnnotation = null;
 				}
