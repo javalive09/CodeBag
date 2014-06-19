@@ -9,16 +9,17 @@ import android.content.Context;
 import com.codebag.bag.CaseListView;
 import com.codebag.bag.Annotation;
 import com.codebag.bag.Entry;
-@Annotation("FixedThreadPool 保持固定数量线程的线程池")
-public class FixedThreadPool extends CaseListView {
 
-	public FixedThreadPool(Context context) {
+@Annotation("缓冲线程池，工作线程上限：无限制。跟jvm的线程上限有关。 工作线程下限：0。如果任务结束，在60秒后，会回收所有工作线程")
+public class CachedThreadPool extends CaseListView {
+
+	public CachedThreadPool(Context context) {
 		super(context);
 	}
 
 	@Entry()
-	public void runFixedThreadPool() {
-		ExecutorService executor = Executors.newFixedThreadPool(3);
+	public void runCachedThreadPool() {
+		ExecutorService executor = Executors.newCachedThreadPool();
 		for(int i = 0; i < 10; i++ ) {
 			executor.execute(new Runnable() {
 
@@ -30,6 +31,7 @@ public class FixedThreadPool extends CaseListView {
 					} catch (InterruptedException e) {
 						e.printStackTrace();
 					}
+					
 				}
 				
 			});
