@@ -37,6 +37,7 @@ import android.widget.Toast;
 public class MainActivity extends Activity {
 
 	AlertDialog mDialog = null;
+	MyAnnotation mAnnotation = null;
 	 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -97,12 +98,15 @@ public class MainActivity extends Activity {
 			CaseListView caseListview = null;
 			ArrayList<Method> list = new ArrayList<Method>();
 			try {
-				@SuppressWarnings("rawtypes")
-				Class cls = Class.forName(className);
-				@SuppressWarnings({ "rawtypes", "unchecked" })
-				Constructor con = cls.getConstructor(Context.class);
+				Class<?> cls = Class.forName(className);
+				Constructor<?> con = cls.getConstructor(Context.class);
 				caseListview = (CaseListView) con.newInstance(MainActivity.this);
 				setContentView(caseListview);
+				if(cls.isAnnotationPresent(MyAnnotation.class)) {
+					mAnnotation  = ((MyAnnotation) cls.getAnnotation(MyAnnotation.class));
+				}else {
+					mAnnotation = null;
+				}
 			} catch (ClassNotFoundException e) {
 				e.printStackTrace();
 			} catch (NoSuchMethodException e) {
@@ -267,18 +271,15 @@ public class MainActivity extends Activity {
         case R.id.action_feedback:
         	break;
         case R.id.action_showlog:
-        	AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-        	
-        	ScrollView view = new ScrollView(MainActivity.this);
-    		TextView log = new TextView(MainActivity.this);
-    		log.setText(Log.getLog());
-    		view.addView(log);
-        	builder.setView(view);
-        	builder.create().show();
-        	
+        	showAlertDialog(Log.getLog());
         	break;
         case R.id.action_clearlog:
         	Log.clearLog();
+        	break;
+        case R.id.action_annotation:
+        	if (mAnnotation != null) {
+        		showAlertDialog(mAnnotation.value());
+        	}
         	break;
         case R.id.action_exit:
         	CodeBag codeBag = (CodeBag) getApplication();
@@ -286,6 +287,16 @@ public class MainActivity extends Activity {
         	break;
         }
         return super.onOptionsItemSelected(item);
+    }
+    
+    private void showAlertDialog(String text) {
+    	AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+    	ScrollView view = new ScrollView(MainActivity.this);
+		TextView log = new TextView(MainActivity.this);
+		log.setText(text);
+		view.addView(log);
+    	builder.setView(view);
+    	builder.create().show();
     }
     
 	@Override

@@ -36,6 +36,10 @@
         android:orderInCategory="8"
         android:title="@string/action_clearlog"/>
     <item
+        android:id="@+id/action_annotation"
+        android:orderInCategory="8"
+        android:title="@string/action_annotation"/>
+    <item
         android:id="@+id/action_exit"
         android:orderInCategory="9"
         android:title="@string/action_exit"/>

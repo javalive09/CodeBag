@@ -6,9 +6,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.codebag.bag.CaseListView;
+import com.codebag.bag.MyAnnotation;
 
+@MyAnnotation("Function example")
 public class Example extends CaseListView {
 
+	
 	public Example(Context context) {
 		super(context);
 	}
@@ -16,7 +19,7 @@ public class Example extends CaseListView {
 	public void run_functionA() {
 		Toast.makeText(getContext(), "run_functionA", Toast.LENGTH_SHORT).show();
 	}
-	
+
 	public void run_functionB() {
 		Toast.makeText(getContext(), "run_functionB", Toast.LENGTH_SHORT).show();
 	}
