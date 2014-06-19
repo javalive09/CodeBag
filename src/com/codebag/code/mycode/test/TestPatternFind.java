@@ -6,9 +6,11 @@ import java.util.regex.Pattern;
 import android.content.Context;
 import android.widget.Toast;
 
+import com.codebag.bag.Annotation;
 import com.codebag.bag.CaseListView;
 import com.codebag.bag.Entry;
 
+@Annotation("正则表达式查询字符串")
 public class TestPatternFind extends CaseListView {
 
 	public TestPatternFind(Context context) {

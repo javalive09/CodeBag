@@ -6,13 +6,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.os.IBinder;
-import android.widget.TextView;
 
+import com.codebag.bag.Annotation;
 import com.codebag.bag.CaseListView;
 import com.codebag.bag.Entry;
-import com.codebag.bag.Log;
 import com.codebag.code.mlib.myService;
 
+@Annotation("service的开启，关闭的2种方式")
 public class TestServiceLife extends CaseListView {
 
 	
