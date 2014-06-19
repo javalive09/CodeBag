@@ -32,6 +32,7 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class MainActivity extends Activity {
 
@@ -154,8 +155,9 @@ public class MainActivity extends Activity {
 						int position, long id) {
 					ListAdapter<Method> listAdapter = (ListAdapter<Method>) parent.getAdapter();
 					ArrayList<Method> list = listAdapter.getList();
+					Method method = list.get(position);
 					try {
-						list.get(position).invoke(parent);
+						method.invoke(parent);
 					} catch (IllegalAccessException e) {
 						e.printStackTrace();
 					} catch (IllegalArgumentException e) {
@@ -163,6 +165,7 @@ public class MainActivity extends Activity {
 					} catch (InvocationTargetException e) {
 						e.printStackTrace();
 					}
+					Toast.makeText(MainActivity.this, method.getName(), Toast.LENGTH_SHORT).show();
 				}
 			});
 	}
