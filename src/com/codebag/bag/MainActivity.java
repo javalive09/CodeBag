@@ -100,6 +100,10 @@ public class MainActivity extends Activity {
 			try {
 				Class<?> cls = Class.forName(className);
 				Constructor<?> con = cls.getConstructor(Context.class);
+				
+				if(!CaseListView.class.isAssignableFrom(cls)) {
+					return;
+				}
 				caseListview = (CaseListView) con.newInstance(MainActivity.this);
 				setContentView(caseListview);
 				if(cls.isAnnotationPresent(Annotation.class)) {
@@ -203,10 +207,32 @@ public class MainActivity extends Activity {
 					l.addView(icon);
 					l.addView(tv);
 					
+					if(!isEnabled(position)) {
+						l.setBackgroundResource(android.R.color.darker_gray);
+					}
 					convertView = l;
 				}
 				return convertView;
 			}
+
+			@Override
+			public boolean isEnabled(int position) {
+				Node node = (Node) getItem(position);
+				if(node.mType == Node.CLASS) {
+					String className = node.mFullName;
+					try {
+						Class<?> cls = Class.forName(className);
+						if(!CaseListView.class.isAssignableFrom(cls)) {
+							return false;
+						}
+					} catch (ClassNotFoundException e) {
+						e.printStackTrace();
+					}
+				}
+				return true;
+			}
+			
+			
 			
 		});
 		
