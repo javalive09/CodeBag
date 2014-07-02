@@ -10,7 +10,7 @@
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="a.b.c" />
-    <uses-permission android:name="android.permission.CHANGE_CONFIGURATION"/>
+    <uses-permission android:name="android.permission.CHANGE_CONFIGURATION" />
 
     <application
         android:name="com.codebag.bag.CodeBag"
@@ -35,6 +35,10 @@
         <activity
             android:name="com.codebag.code.mycode.test.activityconfigchange.MyActivity"
             android:configChanges="orientation|screenSize|locale|fontScale|mcc|mnc|keyboard" />
+        <activity
+            android:name="com.codebag.code.mycode.test.activitylife.MyActivityA"
+            android:launchMode="singleTask" />
+        <activity android:name="com.codebag.code.mycode.test.activitylife.MyActivityB" />
     </application>
 
 </manifest>

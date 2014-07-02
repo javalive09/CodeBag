@@ -15,7 +15,7 @@ public class myService extends Service{
 
 	@Override
 	public IBinder onBind(Intent intent) {
-		Log.addLog("onBind()----");
+		Log.addLog(this,"onBind()----");
 		return new IBinder(){
 
 			@Override
@@ -81,31 +81,31 @@ public class myService extends Service{
 
 	@Override
 	public void onCreate() {
-		Log.addLog("onCreate()----");
+		Log.addLog(this, "onCreate()----");
 		super.onCreate();
 	}
 
 	@Override
 	public int onStartCommand(Intent intent, int flags, int startId) {
-		Log.addLog("onStartCommand()----");
+		Log.addLog(this, "onStartCommand()----");
 		return super.onStartCommand(intent, flags, startId);
 	}
 
 	@Override
 	public void onDestroy() {
-		Log.addLog("onDestroy()----");
+		Log.addLog(this, "onDestroy()----");
 		super.onDestroy();
 	}
 
 	@Override
 	public boolean onUnbind(Intent intent) {
-		Log.addLog("onUnbind()----");
+		Log.addLog(this, "onUnbind()----");
 		return super.onUnbind(intent);
 	}
 
 	@Override
 	public void onRebind(Intent intent) {
-		Log.addLog("onRebind()----");
+		Log.addLog(this, "onRebind()----");
 		super.onRebind(intent);
 	}
 

@@ -19,7 +19,7 @@ public class TestPatternIP extends CaseListView {
 	@Entry()
 	public void runMatcher() {
 		boolean isValid = isValidIP("192.168.1.1");
-    	Log.addLog("isValid ip = " + isValid);
+    	Log.addLog(this, "isValid ip = " + isValid);
 	}
 	
 	public boolean isValidIP(String str) {

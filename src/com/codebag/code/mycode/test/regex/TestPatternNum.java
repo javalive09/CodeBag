@@ -19,7 +19,7 @@ public class TestPatternNum extends CaseListView {
 	@Entry()
 	public void runMatcher() {
 		boolean isNum = isNumber("123");
-		Log.addLog("isNum = "  + isNum);
+		Log.addLog(this, "isNum = "  + isNum);
 	}
 		
 	public boolean isNumber(String str) {

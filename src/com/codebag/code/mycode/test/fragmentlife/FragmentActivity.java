@@ -21,7 +21,7 @@ public class FragmentActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		Log.addLog("FragmentActivity====" + "onCreate");
+		Log.addLog(this, "FragmentActivity====" + "onCreate");
 		
 		setContentView(R.layout.activity_fragment);
 		
@@ -44,31 +44,31 @@ public class FragmentActivity extends Activity {
 	@Override
 	protected void onStart() {
 		super.onStart();
-		Log.addLog("FragmentActivity====" + "onStart");
+		Log.addLog(this, "FragmentActivity====" + "onStart");
 	}
 
 	@Override
 	protected void onResume() {
 		super.onResume();
-		Log.addLog("FragmentActivity====" + "onResume");
+		Log.addLog(this, "FragmentActivity====" + "onResume");
 	}
 
 	@Override
 	protected void onPause() {
 		super.onPause();
-		Log.addLog("FragmentActivity====" + "onPause");
+		Log.addLog(this, "FragmentActivity====" + "onPause");
 	}
 
 	@Override
 	protected void onStop() {
 		super.onStop();
-		Log.addLog("FragmentActivity====" + "onStop");
+		Log.addLog(this, "FragmentActivity====" + "onStop");
 	}
 
 	@Override
 	protected void onDestroy() {
 		super.onDestroy();
-		Log.addLog("FragmentActivity====" + "onDestroy");
+		Log.addLog(this, "FragmentActivity====" + "onDestroy");
 	}
 	
 	public static class MyFragment extends Fragment{
@@ -78,28 +78,28 @@ public class FragmentActivity extends Activity {
 				Intent data) {
 			// TODO Auto-generated method stub
 			super.onActivityResult(requestCode, resultCode, data);
-			Log.addLog("MyFragment====" + "onActivityResult");
+			Log.addLog(this, "MyFragment====" + "onActivityResult");
 		}
 
 		@Override
 		public void onAttach(Activity activity) {
 			// TODO Auto-generated method stub
 			super.onAttach(activity);
-			Log.addLog("MyFragment====" + "onAttach");
+			Log.addLog(this, "MyFragment====" + "onAttach");
 		}
 
 		@Override
 		public void onCreate(Bundle savedInstanceState) {
 			// TODO Auto-generated method stub
 			super.onCreate(savedInstanceState);
-			Log.addLog("MyFragment====" + "onCreate");
+			Log.addLog(this, "MyFragment====" + "onCreate");
 		}
 
 		@Override
 		public View onCreateView(LayoutInflater inflater, ViewGroup container,
 				Bundle savedInstanceState) {
 			// TODO Auto-generated method stub
-			Log.addLog("MyFragment====" + "onCreateView");
+			Log.addLog(this, "MyFragment====" + "onCreateView");
 			return super.onCreateView(inflater, container, savedInstanceState);
 			
 		}
@@ -108,62 +108,62 @@ public class FragmentActivity extends Activity {
 		public void onViewCreated(View view, Bundle savedInstanceState) {
 			// TODO Auto-generated method stub
 			super.onViewCreated(view, savedInstanceState);
-			Log.addLog("MyFragment====" + "onViewCreated");
+			Log.addLog(this, "MyFragment====" + "onViewCreated");
 		}
 
 		@Override
 		public void onActivityCreated(Bundle savedInstanceState) {
 			// TODO Auto-generated method stub
 			super.onActivityCreated(savedInstanceState);
-			Log.addLog("MyFragment====" + "onActivityCreated");
+			Log.addLog(this, "MyFragment====" + "onActivityCreated");
 		}
 
 		@Override
 		public void onStart() {
 			// TODO Auto-generated method stub
-			Log.addLog("MyFragment====" + "onStart");
+			Log.addLog(this, "MyFragment====" + "onStart");
 			super.onStart();
 		}
 
 		@Override
 		public void onResume() {
 			// TODO Auto-generated method stub
-			Log.addLog("MyFragment====" + "onResume");
+			Log.addLog(this, "MyFragment====" + "onResume");
 			super.onResume();
 		}
 
 		@Override
 		public void onPause() {
 			// TODO Auto-generated method stub
-			Log.addLog("MyFragment====" + "onPause");
+			Log.addLog(this, "MyFragment====" + "onPause");
 			super.onPause();
 		}
 
 		@Override
 		public void onStop() {
 			// TODO Auto-generated method stub
-			Log.addLog("MyFragment====" + "onStop");
+			Log.addLog(this, "MyFragment====" + "onStop");
 			super.onStop();
 		}
 
 		@Override
 		public void onDestroyView() {
 			// TODO Auto-generated method stub
-			Log.addLog("MyFragment====" + "onDestroyView");
+			Log.addLog(this, "MyFragment====" + "onDestroyView");
 			super.onDestroyView();
 		}
 
 		@Override
 		public void onDestroy() {
 			// TODO Auto-generated method stub
-			Log.addLog("MyFragment====" + "onDestroy");
+			Log.addLog(this , "MyFragment====" + "onDestroy");
 			super.onDestroy();
 		}
 
 		@Override
 		public void onDetach() {
 			// TODO Auto-generated method stub
-			Log.addLog("MyFragment====" + "onDetach");
+			Log.addLog(this, "MyFragment====" + "onDetach");
 			super.onDetach();
 		}
 		
