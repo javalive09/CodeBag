@@ -1,4 +1,4 @@
-package com.codebag.code.mycode.test;
+package com.codebag.code.mycode.test.regex;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -10,7 +10,7 @@ import com.codebag.bag.Annotation;
 import com.codebag.bag.CaseListView;
 import com.codebag.bag.Entry;
 
-@Annotation("正则表达式查询字符串")
+@Annotation("??????????????????????????????")
 public class TestPatternFind extends CaseListView {
 
 	public TestPatternFind(Context context) {

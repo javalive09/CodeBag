@@ -1,4 +1,4 @@
-package com.codebag.code.mlib;
+package com.codebag.code.mycode.test.servicelife;
 
 import java.io.FileDescriptor;
 

@@ -1,5 +1,5 @@
 
-package com.codebag.code.mycode.test;
+package com.codebag.code.mycode.test.invokeotherapp;
 
 import android.content.ComponentName;
 import android.content.Context;
@@ -10,7 +10,7 @@ import com.codebag.bag.Annotation;
 import com.codebag.bag.CaseListView;
 import com.codebag.bag.Entry;
 
-@Annotation("一个应用程序调用另一个应用程序的service")
+@Annotation("????????????????????????????????????????????????service")
 public class TestInvokeOtherAppService extends CaseListView {
 
 	public TestInvokeOtherAppService(Context context) {

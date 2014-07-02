@@ -1,4 +1,4 @@
-package com.codebag.code.mlib;
+package com.codebag.code.mycode.test.fragmentlife;
 
 import com.codebag.R;
 import com.codebag.bag.Log;

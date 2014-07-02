@@ -1,4 +1,4 @@
-package com.codebag.code.mycode.test;
+package com.codebag.code.mycode.test.regex;
 
 import java.util.regex.Pattern;
 
@@ -9,7 +9,7 @@ import com.codebag.bag.CaseListView;
 import com.codebag.bag.Entry;
 import com.codebag.bag.Log;
 
-@Annotation("正则表达式验证ip合法性")
+@Annotation("?????????????????????ip?????????")
 public class TestPatternIP extends CaseListView {
 
 	public TestPatternIP(Context context) {

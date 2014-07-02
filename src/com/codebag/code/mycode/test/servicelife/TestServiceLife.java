@@ -1,4 +1,4 @@
-package com.codebag.code.mycode.test;
+package com.codebag.code.mycode.test.servicelife;
 
 import android.app.Service;
 import android.content.ComponentName;
@@ -10,9 +10,8 @@ import android.os.IBinder;
 import com.codebag.bag.Annotation;
 import com.codebag.bag.CaseListView;
 import com.codebag.bag.Entry;
-import com.codebag.code.mlib.myService;
 
-@Annotation("service的开启，关闭的2种方式")
+@Annotation("service?????????????????????2?????????")
 public class TestServiceLife extends CaseListView {
 
 	

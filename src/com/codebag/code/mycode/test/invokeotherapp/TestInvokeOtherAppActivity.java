@@ -1,5 +1,5 @@
 
-package com.codebag.code.mycode.test;
+package com.codebag.code.mycode.test.invokeotherapp;
 
 import android.content.ComponentName;
 import android.content.Context;
@@ -9,7 +9,7 @@ import com.codebag.bag.Annotation;
 import com.codebag.bag.CaseListView;
 import com.codebag.bag.Entry;
 
-@Annotation("一个应用程序调用另一个应用程序的activity")
+@Annotation("????????????????????????????????????????????????activity")
 public class TestInvokeOtherAppActivity extends CaseListView {
 
 	public TestInvokeOtherAppActivity(Context context) {

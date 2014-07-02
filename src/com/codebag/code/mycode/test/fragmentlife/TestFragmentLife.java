@@ -1,5 +1,5 @@
 
-package com.codebag.code.mycode.test;
+package com.codebag.code.mycode.test.fragmentlife;
 
 import android.content.Context;
 import android.content.Intent;
@@ -7,9 +7,8 @@ import android.content.Intent;
 import com.codebag.bag.Annotation;
 import com.codebag.bag.CaseListView;
 import com.codebag.bag.Entry;
-import com.codebag.code.mlib.FragmentActivity;
 
-@Annotation("用于调试fragment生命周期")
+@Annotation("????????????fragment????????????")
 public class TestFragmentLife extends CaseListView {
 
 	public TestFragmentLife(Context context) {

@@ -28,9 +28,9 @@
             </intent-filter>
         </activity>
         
-        <activity android:name=".code.mlib.FragmentActivity"/>
+        <activity android:name="com.codebag.code.mycode.test.fragmentlife.FragmentActivity"/>
 
-        <service android:name="com.codebag.code.mlib.myService" />
+        <service android:name="com.codebag.code.mycode.test.servicelife.myService" />
     </application>
 
 </manifest>
