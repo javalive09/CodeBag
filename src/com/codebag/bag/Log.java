@@ -5,7 +5,7 @@ public class Log {
 	private static StringBuffer mLog = new StringBuffer();
 	
 	public static void addLog(Object invoker, String msg) {
-		mLog.append(invoker.getClass().getSimpleName() + msg + "\n");
+		mLog.append(invoker.getClass().getSimpleName() + ":" + msg + "\n");
 		android.util.Log.i("log="+ invoker.getClass().getSimpleName(), msg);
 	}
 	
