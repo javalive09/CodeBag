@@ -8,7 +8,7 @@ import com.codebag.bag.Annotation;
 import com.codebag.bag.CaseListView;
 import com.codebag.bag.Entry;
 
-@Annotation("????????????fragment????????????")
+@Annotation("测试fraemnt生命周期")
 public class TestFragmentLife extends CaseListView {
 
 	public TestFragmentLife(Context context) {
