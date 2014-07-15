@@ -2,14 +2,12 @@ package com.codebag.bag;
 
 import java.io.IOException;
 import java.io.Serializable;
-import java.lang.reflect.Constructor;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.LinkedList;
 
 import dalvik.system.DexFile;
 import android.app.Application;
-import android.content.Context;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.util.Log;
 import android.view.View;

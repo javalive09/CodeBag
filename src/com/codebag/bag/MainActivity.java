@@ -73,6 +73,10 @@ public class MainActivity extends Activity {
 
 	private void showMainView(Node node) {
 		getActionBar().setTitle(node.mName);
+		if(!node.mName.equals(CodeBag.ROOT_DIR)) {
+			getActionBar().setHomeButtonEnabled(true);
+			getActionBar().setDisplayHomeAsUpEnabled(true);
+		}
 		
 		switch(node.mType) {
 			case Node.DIR:
@@ -284,6 +288,9 @@ public class MainActivity extends Activity {
             return true;
         }
         switch(item.getItemId()) {
+        case android.R.id.home:
+        	finish();
+        	break;
         case R.id.action_help:
         	mDialog.setTitle(getResources().getString(R.string.action_help));
         	mDialog.setMessage(getResources().getString(R.string.action_help_msg));

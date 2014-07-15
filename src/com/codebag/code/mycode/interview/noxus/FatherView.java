@@ -34,7 +34,7 @@ public class FatherView extends LinearLayout {
 	@Override
 	public boolean onTouchEvent(MotionEvent event) {
 		boolean r = super.onTouchEvent(event);
-		Log.addLog(this, "onTouchEvent");
+		Log.addLog(this, "onTouchEvent＝" + r);
 		return false;
 	}
 
