@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project name="生成代码资源" default="main" basedir=".">
+<echo message="start ----- 生成代码资源"/>
+<property name="src" value="./src/com/codebag/code/mycode"/>
+<property name="res" value="./assets/com/codebag/code/mycode"/>
+	
+ <target name="main" >
+ 	<copy todir="${res}">   
+ 		<fileset dir="${src}"/>   
+ 	</copy>
+  </target>
+  <echo message="end ----- 生成代码资源"/>
+</project>

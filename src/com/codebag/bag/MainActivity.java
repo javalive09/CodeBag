@@ -1,5 +1,8 @@
 package com.codebag.bag;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
@@ -21,10 +24,12 @@ import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.View.OnLongClickListener;
 import android.view.ViewConfiguration;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.BaseAdapter;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -72,7 +77,7 @@ public class MainActivity extends Activity {
 	}
 
 	private void showMainView(Node node) {
-		getActionBar().setTitle(node.mName);
+		
 		if(!node.mName.equals(CodeBag.ROOT_DIR)) {
 			getActionBar().setHomeButtonEnabled(true);
 			getActionBar().setDisplayHomeAsUpEnabled(true);
@@ -80,15 +85,18 @@ public class MainActivity extends Activity {
 		
 		switch(node.mType) {
 			case Node.DIR:
+				getActionBar().setTitle(node.mName);
 				getActionBar().setIcon(R.drawable.folder);
 				showDirView(node);
 				break;
 			case Node.CLASS:
+				getActionBar().setTitle(node.mName + ".java");
 				getActionBar().setIcon(R.drawable.file);
 				showClassView(node);
 				break;
 			case Node.METHOD:
-				getActionBar().setIcon(R.drawable.method);
+				getActionBar().setDisplayShowHomeEnabled(false);
+				getActionBar().setTitle(node.mName + " ( )");
 				CodeBag codeBage = (CodeBag) getApplication();
 				setContentView(codeBage.getCurrentMethodView());
 				break;
@@ -137,6 +145,7 @@ public class MainActivity extends Activity {
 			}
 			
 			caseListview.setAdapter(new ListAdapter<Method>(MainActivity.this, list) {
+				
 				@Override
 				public View getView(int position, View convertView, ViewGroup parent) {
 					if(convertView == null) {
@@ -145,14 +154,10 @@ public class MainActivity extends Activity {
 						l.setMinimumHeight(80); 
 						l.setGravity(Gravity.CENTER_VERTICAL);
 						
-						ImageView icon = new ImageView(mContext);
-						icon.setImageResource(R.drawable.method);
-						
 						TextView tv = new TextView(mContext);
 						tv.setGravity(Gravity.CENTER_VERTICAL);
-						tv.setText(getList().get(position).getName());
-						
-						l.addView(icon);
+						tv.setText(" " + getList().get(position).getName() + " ( )");
+
 						l.addView(tv);
 						convertView = l;
 					}
@@ -197,21 +202,22 @@ public class MainActivity extends Activity {
 					l.setMinimumHeight(80); 
 					l.setGravity(Gravity.CENTER_VERTICAL);
 					
+					TextView tv = new TextView(mContext);
+					tv.setGravity(Gravity.CENTER_VERTICAL);
+					
 					ImageView icon = new ImageView(mContext);
 					if(node.mType == Node.CLASS) {
 						icon.setImageResource(R.drawable.file);
+						tv.setText(node.mName + ".java");
 					}else if(node.mType == Node.DIR) {
 						icon.setImageResource(R.drawable.folder);
+						tv.setText(node.mName);
 					}
-					
-					TextView tv = new TextView(mContext);
-					tv.setGravity(Gravity.CENTER_VERTICAL);
-					tv.setText(node.mName);
 					
 					l.addView(icon);
 					l.addView(tv);
 					
-					if(!isEnabled(position)) {
+					if(!isEntry(position)) {
 						l.setBackgroundResource(android.R.color.darker_gray);
 					}
 					convertView = l;
@@ -219,8 +225,7 @@ public class MainActivity extends Activity {
 				return convertView;
 			}
 
-			@Override
-			public boolean isEnabled(int position) {
+			public boolean isEntry(int position) {
 				Node node = (Node) getItem(position);
 				if(node.mType == Node.CLASS) {
 					String className = node.mFullName;
@@ -236,8 +241,6 @@ public class MainActivity extends Activity {
 				return true;
 			}
 			
-			
-			
 		});
 		
 		listView.setOnItemClickListener(new OnItemClickListener() {
@@ -248,8 +251,7 @@ public class MainActivity extends Activity {
 					int position, long id) {
 		    	ListAdapter<Node> adapter = ((ListAdapter<Node>) parent.getAdapter());
 		    	Node mNode = adapter.getList().get(position);
-		    	
-		    	if(mNode != null) { 
+		    	if(mNode != null && adapter.isEntry(position)) { 
 					Intent intent = new Intent(MainActivity.this, MainActivity.class);
 					CodeBag codeBag = (CodeBag) getApplication();
 					codeBag.setCurrentNode(mNode);
@@ -257,7 +259,65 @@ public class MainActivity extends Activity {
 		    	}
 			}
 		});
+		
+		listView.setOnItemLongClickListener(new OnItemLongClickListener() {
+			@SuppressWarnings("unchecked")
+			@Override
+			public boolean onItemLongClick(AdapterView<?> parent, View view,
+					int position, long id) {
+		    	ListAdapter<Node> adapter = ((ListAdapter<Node>) parent.getAdapter());
+		    	Node mNode = adapter.getList().get(position);
+		    	if(mNode != null) {
+		    		if(mNode.mFullName != null) {
+		    			Log.addLog(MainActivity.this, mNode.mFullName);
+		    			String dir = mNode.mFullName.replace(".", "/") + ".java";
+		    			Log.addLog(MainActivity.this, dir);
+		    			InputStream is = null;
+						try {
+							is = getAssets().open(dir);
+						} catch (IOException e) {
+							e.printStackTrace();
+						}
+						if(is != null) {
+							String content = readTextFile(is);
+							showAlertDialog(content);
+						}
+		    		}
+		    		
+		    	}
+				return true;
+			}
+		});
+
 	}
+	
+	private String readTextFile(InputStream inputStream) { 
+
+		  ByteArrayOutputStream outputStream = new ByteArrayOutputStream(); 
+
+		  byte buf[] = new byte[1024]; 
+
+		  int len; 
+
+		  try { 
+
+		   while ((len = inputStream.read(buf)) != -1) { 
+
+		    outputStream.write(buf, 0, len); 
+
+		   } 
+
+		   outputStream.close(); 
+
+		   inputStream.close(); 
+
+		  } catch (IOException e) { 
+
+		  } 
+
+		  return outputStream.toString(); 
+
+	} 
 
 	@Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -364,6 +424,9 @@ public class MainActivity extends Activity {
 		}
 		public ArrayList<T> getList() {
 			return mList;
+		}
+		public boolean isEntry(int position) {
+			return true;
 		}
 		@Override
 		public View getView(int position, View convertView, ViewGroup parent) {

@@ -1,9 +1,6 @@
 package com.codebag.code.mycode.view.scrollview;
 
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Color;
 import android.webkit.WebView;
 import android.widget.HorizontalScrollView;
 import android.widget.ImageView;

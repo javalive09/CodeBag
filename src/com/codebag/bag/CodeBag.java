@@ -157,18 +157,6 @@ public class CodeBag extends Application {
 	}
 	
 	private Node createSubNode(String nodeName, int type, String fullName, Node currentNode) {
-//		if(type == Node.CLASS) {
-//			String className = fullName;
-//			try {
-//				Class<?> cls = Class.forName(className);
-//				if(!CaseListView.class.isAssignableFrom(cls)) {
-//					return null;
-//				}
-//			} catch (ClassNotFoundException e) {
-//				e.printStackTrace();
-//			}
-//		}
-		
 		Node node = new Node();
 		node.mName = nodeName;
 		node.mFullName = fullName;
