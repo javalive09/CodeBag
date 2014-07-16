@@ -16,7 +16,14 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageManager;
+import android.content.pm.PackageManager.NameNotFoundException;
+import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.graphics.Matrix;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Looper;
 import android.os.MessageQueue.IdleHandler;
@@ -26,11 +33,13 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewConfiguration;
 import android.view.ViewGroup;
+import android.widget.Adapter;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.BaseAdapter;
 import android.widget.FrameLayout;
+import android.widget.HeaderViewListAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -97,9 +106,93 @@ public class MainActivity extends Activity {
 				getActionBar().setTitle(node.mName + " ( )");
 				CodeBag codeBage = (CodeBag) getApplication();
 				setContentView(codeBage.getCurrentMethodView());
+			case Node.APP:
+				getActionBar().setTitle(node.mName);
+				getActionBar().setIcon(R.drawable.folder);
+				showAppDemoView(node);
 				break;
 		}
 //		Debug.stopMethodTracing();
+	}
+	
+	private Drawable getRightSizeIcon(BitmapDrawable drawable) {
+		Drawable rightDrawable = getResources().getDrawable(R.drawable.ic_launcher);
+		int rightSize = rightDrawable.getIntrinsicWidth();
+		Bitmap bitmap = drawable.getBitmap();
+		int width = bitmap.getWidth();
+		float widths = width;
+		float scale = rightSize / widths;
+		Matrix matrix = new Matrix();
+		matrix.setScale(scale, scale);
+		Bitmap bm = Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(),
+				bitmap.getHeight(), matrix, true);
+		return new BitmapDrawable(getResources(), bm);
+	}
+	
+	
+	private void showAppDemoView(Node node) {
+		setContentView(R.layout.activity_main);
+		ListView listView = (ListView) findViewById(R.id.list);
+
+		listView.setAdapter(new ListAdapter<Node>(MainActivity.this, node.mSubNodeList) {
+			@Override
+			public View getView(int position, View convertView, ViewGroup parent) {
+				if(convertView == null) {
+					Node node = getItem(position);
+					
+					LinearLayout l = new LinearLayout(mContext);
+					l.setOrientation(LinearLayout.HORIZONTAL);
+					l.setMinimumHeight(80); 
+					l.setGravity(Gravity.CENTER_VERTICAL);
+					
+					TextView tv = new TextView(mContext);
+					tv.setGravity(Gravity.CENTER_VERTICAL);
+					
+					ImageView appIcon = new ImageView(mContext);
+					try {
+						PackageManager pm = getPackageManager();
+						
+						ApplicationInfo info = pm.getApplicationInfo(node.mFullName, 0);
+						
+						Drawable drawable = pm.getApplicationIcon(info);
+						BitmapDrawable bitmapDrawable = (BitmapDrawable) drawable;
+						Drawable icon = getRightSizeIcon(bitmapDrawable);
+						appIcon.setImageDrawable(icon);
+						tv.setText(pm.getApplicationLabel(info));
+						l.addView(appIcon);
+						l.addView(tv);
+					} catch (NameNotFoundException e) {
+						e.printStackTrace();
+					}    
+					
+					if(getItemViewType(position) == NO_ENTRY) {
+						l.setBackgroundResource(android.R.color.darker_gray);
+					}
+					convertView = l;
+				}
+				return convertView;
+			}
+
+			
+		});
+		
+		
+		listView.setOnItemClickListener(new OnItemClickListener() {
+
+			@SuppressWarnings("unchecked")
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view,
+					int position, long id) {
+				ListAdapter<Node> adapter = (ListAdapter<Node>) parent.getAdapter();
+		    	Node mNode = (Node) adapter.getItem(position);
+		    	if(mNode != null) {
+		    		Intent intent = getPackageManager().getLaunchIntentForPackage(mNode.mFullName);
+					startActivity(intent);
+		    	}
+
+			}
+		});
+		
 	}
 
 	private void showClassView(Node node) {
@@ -150,7 +243,7 @@ public class MainActivity extends Activity {
 						
 						TextView tv = new TextView(mContext);
 						tv.setGravity(Gravity.CENTER_VERTICAL);
-						tv.setText(" " + getList().get(position).getName() + " ( )");
+						tv.setText(" " + getItem(position).getName() + " ( )");
 
 						l.addView(tv);
 						convertView = l;
@@ -165,8 +258,7 @@ public class MainActivity extends Activity {
 				public void onItemClick(AdapterView<?> parent, View view,
 						int position, long id) {
 					ListAdapter<Method> listAdapter = (ListAdapter<Method>) parent.getAdapter();
-					ArrayList<Method> list = listAdapter.getList();
-					Method method = list.get(position);
+					Method method = listAdapter.getItem(position);
 					try {
 						method.invoke(parent);
 					} catch (IllegalAccessException e) {
@@ -180,16 +272,38 @@ public class MainActivity extends Activity {
 				}
 			});
 	}
+	
+	private View getFootView() {
+		LinearLayout l = new LinearLayout(getBaseContext());
+		l.setOrientation(LinearLayout.HORIZONTAL);
+		l.setMinimumHeight(80); 
+		l.setGravity(Gravity.CENTER_VERTICAL);
+		
+		TextView tv = new TextView(getBaseContext());
+		tv.setGravity(Gravity.CENTER_VERTICAL);
+		tv.setText("other app demo");
+		tv.setTextColor(Color.BLACK);
+		
+		ImageView icon = new ImageView(getBaseContext());
+		icon.setImageResource(R.drawable.folder);
+		l.addView(icon);
+		l.addView(tv);
+		return l;
+	}
 
 	private void showDirView(Node node) {
 		setContentView(R.layout.activity_main);
 		ListView listView = (ListView) findViewById(R.id.list);
 
+		if(CodeBag.ROOT_DIR.equals(node.mName) ) {
+			listView.addFooterView(getFootView());
+		}
+		
 		listView.setAdapter(new ListAdapter<Node>(MainActivity.this, node.mSubNodeList) {
 			@Override
 			public View getView(int position, View convertView, ViewGroup parent) {
 				if(convertView == null) {
-					Node node = getList().get(position);
+					Node node = getItem(position);
 					
 					LinearLayout l = new LinearLayout(mContext);
 					l.setOrientation(LinearLayout.HORIZONTAL);
@@ -211,56 +325,71 @@ public class MainActivity extends Activity {
 					l.addView(icon);
 					l.addView(tv);
 					
-					if(!isEntry(position)) {
+					
+					if(getItemViewType(position) == NO_ENTRY) {
 						l.setBackgroundResource(android.R.color.darker_gray);
 					}
 					convertView = l;
 				}
 				return convertView;
 			}
+			
+			
 
-			public boolean isEntry(int position) {
+			@Override
+			public int getItemViewType(int position) {
 				Node node = (Node) getItem(position);
 				if(node.mType == Node.CLASS) {
 					String className = node.mFullName;
 					try {
 						Class<?> cls = Class.forName(className);
-						if(!CaseListView.class.isAssignableFrom(cls)) {
-							return false;
+						if(CaseListView.class.isAssignableFrom(cls)) {
+							return ENTRY;
+						}else{
+							return NO_ENTRY;
 						}
 					} catch (ClassNotFoundException e) {
 						e.printStackTrace();
 					}
 				}
-				return true;
+				return super.getItemViewType(position);
 			}
+
 			
 		});
 		
 		listView.setOnItemClickListener(new OnItemClickListener() {
 
-			@SuppressWarnings("unchecked")
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
-		    	ListAdapter<Node> adapter = ((ListAdapter<Node>) parent.getAdapter());
-		    	Node mNode = adapter.getList().get(position);
-		    	if(mNode != null && adapter.isEntry(position)) { 
-					Intent intent = new Intent(MainActivity.this, MainActivity.class);
-					CodeBag codeBag = (CodeBag) getApplication();
-					codeBag.setCurrentNode(mNode);
-					startActivity(intent);
+				Adapter adapter = parent.getAdapter();
+		    	Node mNode = (Node) adapter.getItem(position);
+		    	if(mNode != null) {
+		    		if(adapter.getItemViewType(position) == ListAdapter.ENTRY) {
+						Intent intent = new Intent(MainActivity.this, MainActivity.class);
+						CodeBag codeBag = (CodeBag) getApplication();
+						codeBag.setCurrentNode(mNode);
+						startActivity(intent);
+		    		}
+		    	}else {
+		    		int count = adapter.getCount();
+		    		if(position == count - 1) {//footer
+		    			Intent intent = new Intent(MainActivity.this, MainActivity.class);
+						CodeBag codeBag = (CodeBag) getApplication();
+						codeBag.setCurrentNode(codeBag.getAppDemoNode());
+						startActivity(intent);
+		    		}
 		    	}
 			}
 		});
 		
 		listView.setOnItemLongClickListener(new OnItemLongClickListener() {
-			@SuppressWarnings("unchecked")
 			@Override
 			public boolean onItemLongClick(AdapterView<?> parent, View view,
 					int position, long id) {
-		    	ListAdapter<Node> adapter = ((ListAdapter<Node>) parent.getAdapter());
-		    	Node mNode = adapter.getList().get(position);
+				Adapter adapter = parent.getAdapter();
+		    	Node mNode = (Node) adapter.getItem(position);
 		    	if(mNode != null) {
 		    		if(mNode.mFullName != null) {
 		    			Log.addLog(MainActivity.this, mNode.mFullName);
@@ -393,6 +522,9 @@ public class MainActivity extends Activity {
     public static class ListAdapter<T> extends BaseAdapter {
     	ArrayList<T> mList;
     	Context mContext;
+    	public static final int NO_ENTRY = 0;
+    	public static final int ENTRY = 1;
+    	
 
     	public ListAdapter(Context context, ArrayList<T> list) {
     		mContext = context;
@@ -404,19 +536,19 @@ public class MainActivity extends Activity {
 			return mList.size();
 		}
 		@Override
-		public Object getItem(int position) {
+		public T getItem(int position) {
 			return mList.get(position);
 		}
 		@Override
 		public long getItemId(int position) {
 			return position;
 		}
-		public ArrayList<T> getList() {
-			return mList;
+		
+		@Override
+		public int getItemViewType(int position) {
+			return ENTRY;
 		}
-		public boolean isEntry(int position) {
-			return true;
-		}
+
 		@Override
 		public View getView(int position, View convertView, ViewGroup parent) {
 			return null;

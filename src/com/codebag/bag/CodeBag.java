@@ -5,9 +5,12 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.LinkedList;
+import java.util.List;
 
 import dalvik.system.DexFile;
 import android.app.Application;
+import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.util.Log;
 import android.view.View;
@@ -19,6 +22,7 @@ public class CodeBag extends Application {
 	public static final int DIR = 1;
 	private View mCurrentMethodView = null;
 	private Node mCurrentNode = null;
+	private Node mAppDemoNode = null;
 	private boolean mHashInit = false;
 	private Node mRootNode = new Node(ROOT_DIR, Node.DIR);
 	private LinkedList<MainActivity> mActContainer = new LinkedList<MainActivity>();
@@ -64,7 +68,7 @@ public class CodeBag extends Application {
 					String fileName = className.substring(startLen);
 					String[] strs = fileName.split("\\.");
 					
-					loadNode(className, strs, 0, mRootNode);
+					loadCodeBagNode(className, strs, 0, mRootNode);
 					
 					Log.i("~peter", "fileName = " + fileName);
 				}
@@ -73,6 +77,8 @@ public class CodeBag extends Application {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		
+		loadAppDemoNode();
 		
 		printNode(mRootNode);
 		
@@ -110,8 +116,41 @@ public class CodeBag extends Application {
 		return mCurrentNode;
 	}
 	
+	public Node getAppDemoNode() {
+		return mAppDemoNode;
+	}
+	
 	public void setCurrentNode(Node node) {
 		mCurrentNode = node;
+	}
+	
+	public void loadAppDemoNode() {
+		mAppDemoNode = new Node();
+		mAppDemoNode.mType = Node.APP;
+		mAppDemoNode.mName = "other app demo";
+		mAppDemoNode.mSubNodeList = new ArrayList<CodeBag.Node>();		
+		
+    	PackageManager pm = getPackageManager();
+		List<ApplicationInfo> appList = pm.getInstalledApplications(PackageManager.GET_UNINSTALLED_PACKAGES);
+		for(ApplicationInfo info : appList) {
+		    try {
+				ApplicationInfo appInfo = pm.getApplicationInfo(info.packageName, PackageManager.GET_META_DATA);
+				if(appInfo.metaData != null) {
+					
+					String type = appInfo.metaData.getString("appType");
+					
+					if("codebag_appdemo".equals(type)) {
+						Node node = new Node();
+						node.mFullName = appInfo.packageName;
+						mAppDemoNode.mSubNodeList.add(node);
+						Log.i("packageName", info.packageName );
+					}
+				}
+				
+			} catch (NameNotFoundException e) {
+				e.printStackTrace();
+			}
+		}
 	}
 	
 	private void printNode(Node node) {
@@ -126,7 +165,7 @@ public class CodeBag extends Application {
 		}
 	}
 	
-	private void loadNode(String className, String[] strs, int index, Node currentNode) {
+	private void loadCodeBagNode(String className, String[] strs, int index, Node currentNode) {
 		
 		if(index > strs.length - 1) {
 			return;
@@ -137,7 +176,7 @@ public class CodeBag extends Application {
 		}else {
 			Node subNode = getSubNode(nodeName, Node.DIR, null, currentNode);
 			index++;
-			loadNode(className, strs, index, subNode);
+			loadCodeBagNode(className, strs, index, subNode);
 		}
 		
 	}
@@ -170,8 +209,9 @@ public class CodeBag extends Application {
 		public static final int DIR = 0;
 		public static final int CLASS = 1;
 		public static final int METHOD = 2;
+		public static final int APP = 3;
 		
-		public int mType;
+		public int mType = -1;
 		public String mName;
 		public String mFullName;
 		public ArrayList<Node> mSubNodeList;
