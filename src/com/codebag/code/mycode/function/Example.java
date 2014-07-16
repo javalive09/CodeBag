@@ -6,10 +6,15 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.codebag.bag.CaseListView;
-import com.codebag.bag.Annotation;
 import com.codebag.bag.Entry;
 
-@Annotation("Function example")
+/**
+ * 
+ * Function example
+ * @author peter
+ *
+ */
+
 public class Example extends CaseListView {
 
 	

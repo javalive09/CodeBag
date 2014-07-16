@@ -24,7 +24,6 @@ import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.View.OnLongClickListener;
 import android.view.ViewConfiguration;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -42,7 +41,6 @@ import android.widget.Toast;
 public class MainActivity extends Activity {
 
 	AlertDialog mDialog = null;
-	Annotation mAnnotation = null;
 	 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -118,11 +116,7 @@ public class MainActivity extends Activity {
 				}
 				caseListview = (CaseListView) con.newInstance(MainActivity.this);
 				setContentView(caseListview);
-				if(cls.isAnnotationPresent(Annotation.class)) {
-					mAnnotation  = ((Annotation) cls.getAnnotation(Annotation.class));
-				}else {
-					mAnnotation = null;
-				}
+
 			} catch (ClassNotFoundException e) {
 				e.printStackTrace();
 			} catch (NoSuchMethodException e) {
@@ -368,11 +362,6 @@ public class MainActivity extends Activity {
         	break;
         case R.id.action_clearlog:
         	Log.clearLog();
-        	break;
-        case R.id.action_annotation:
-        	if (mAnnotation != null) {
-        		showAlertDialog(mAnnotation.value());
-        	}
         	break;
         case R.id.action_exit:
         	CodeBag codeBag = (CodeBag) getApplication();

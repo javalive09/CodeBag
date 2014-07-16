@@ -4,12 +4,16 @@ import java.util.regex.Pattern;
 
 import android.content.Context;
 
-import com.codebag.bag.Annotation;
 import com.codebag.bag.CaseListView;
 import com.codebag.bag.Entry;
 import com.codebag.bag.Log;
 
-@Annotation("用于测试ip合法性")
+/**
+ * 用于测试ip合法性
+ * 
+ * @author peter
+ *
+ */
 public class TestPatternIP extends CaseListView {
 
 	public TestPatternIP(Context context) {

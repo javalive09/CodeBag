@@ -7,10 +7,14 @@ import java.util.concurrent.Executors;
 import android.content.Context;
 
 import com.codebag.bag.CaseListView;
-import com.codebag.bag.Annotation;
 import com.codebag.bag.Entry;
 
-@Annotation("计划线程池，工作线程上限：无限制。跟jvm的线程上限有关。 工作线程下限：核心线程数。")
+/**
+ * 计划线程池，工作线程上限：无限制。跟jvm的线程上限有关。 工作线程下限：核心线程数。
+ * 
+ * @author peter
+ *
+ */
 public class ScheduleThreadPool extends CaseListView {
 
 	public ScheduleThreadPool(Context context) {

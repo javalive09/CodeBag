@@ -5,11 +5,15 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 
-import com.codebag.bag.Annotation;
 import com.codebag.bag.CaseListView;
 import com.codebag.bag.Entry;
 
-@Annotation("跨应用调用其他activity")
+/**
+ * 跨应用调用其他activity
+ * 
+ * @author peter
+ *
+ */
 public class TestInvokeOtherAppActivity extends CaseListView {
 
 	public TestInvokeOtherAppActivity(Context context) {

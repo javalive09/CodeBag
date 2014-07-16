@@ -6,11 +6,15 @@ import android.content.Context;
 import android.content.Intent;
 import android.widget.Toast;
 
-import com.codebag.bag.Annotation;
 import com.codebag.bag.CaseListView;
 import com.codebag.bag.Entry;
 
-@Annotation("跨应用调用其他程序的service")
+/**
+ * 跨应用调用其他程序的service
+ * 
+ * @author peter
+ *
+ */
 public class TestInvokeOtherAppService extends CaseListView {
 
 	public TestInvokeOtherAppService(Context context) {

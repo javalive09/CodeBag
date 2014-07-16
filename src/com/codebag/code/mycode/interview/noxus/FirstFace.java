@@ -5,12 +5,17 @@ import java.util.HashMap;
 import android.content.Context;
 import android.graphics.Color;
 
-import com.codebag.bag.Annotation;
 import com.codebag.bag.CaseListView;
 import com.codebag.bag.Entry;
 import com.codebag.bag.Log;
 
-@Annotation("onTouchEvent() 返回值的作用是：当前的view处理touch事件的反馈，返回true。说明已经处理。返回false，说明未处理，需要父容器处理。是一个反向流")
+/**
+ * onTouchEvent() 返回值的作用是：当前的view处理touch事件的反馈，返回true。说明已经处理。
+ * 返回false，说明未处理，需要父容器处理。是一个反向流
+ * 
+ * @author peter
+ *
+ */
 public class FirstFace extends CaseListView {
 
 	public FirstFace(Context context) {

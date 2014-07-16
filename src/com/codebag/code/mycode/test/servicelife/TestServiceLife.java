@@ -7,11 +7,15 @@ import android.content.Intent;
 import android.content.ServiceConnection;
 import android.os.IBinder;
 
-import com.codebag.bag.Annotation;
 import com.codebag.bag.CaseListView;
 import com.codebag.bag.Entry;
 
-@Annotation("service生命周期")
+/**
+ * service生命周期
+ * 
+ * @author peter
+ *
+ */
 public class TestServiceLife extends CaseListView {
 
 	

@@ -4,11 +4,15 @@ package com.codebag.code.mycode.test.fragmentlife;
 import android.content.Context;
 import android.content.Intent;
 
-import com.codebag.bag.Annotation;
 import com.codebag.bag.CaseListView;
 import com.codebag.bag.Entry;
 
-@Annotation("测试fraemnt生命周期")
+/**
+ * 测试fraemnt生命周期
+ * 
+ * @author peter
+ *
+ */
 public class TestFragmentLife extends CaseListView {
 
 	public TestFragmentLife(Context context) {

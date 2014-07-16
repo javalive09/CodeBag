@@ -1,13 +1,16 @@
 package com.codebag.code.mycode.function.recursion;
 
 import android.content.Context;
-
-import com.codebag.bag.Annotation;
 import com.codebag.bag.CaseListView;
 import com.codebag.bag.Entry;
 import com.codebag.bag.Log;
 
-@Annotation("阶乘")
+
+/**
+ *  阶乘
+ * @author peter
+ *
+ */
 public class Factorial extends CaseListView {
 
 	public Factorial(Context context) {

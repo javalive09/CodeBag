@@ -7,9 +7,13 @@ import java.util.concurrent.Executors;
 import android.content.Context;
 
 import com.codebag.bag.CaseListView;
-import com.codebag.bag.Annotation;
 import com.codebag.bag.Entry;
-@Annotation("FixedThreadPool 保持固定数量线程的线程池")
+/**
+ * FixedThreadPool 保持固定数量线程的线程池
+ * 
+ * @author peter
+ *
+ */
 public class FixedThreadPool extends CaseListView {
 
 	public FixedThreadPool(Context context) {
