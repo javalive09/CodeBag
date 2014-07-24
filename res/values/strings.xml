@@ -15,5 +15,6 @@
     <string name="action_showlog">show log</string>
     <string name="action_clearlog">clear log</string>
     <string name="action_exit">exit</string>
+    <string name="app_name_timewidget">timeWidget</string>
 
 </resources>
