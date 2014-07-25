@@ -5,7 +5,6 @@ import java.util.Date;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import android.annotation.SuppressLint;
 import android.app.Service;
 import android.appwidget.AppWidgetManager;
 import android.content.ComponentName;
@@ -26,7 +25,6 @@ public class TimerService extends Service {
 	}
 
 	private final class MyTimerTask extends TimerTask {
-		@SuppressLint("SimpleDateFormat")
 		@Override
 		public void run() {
 			SimpleDateFormat sdf = new SimpleDateFormat("hh:mm:ss");
