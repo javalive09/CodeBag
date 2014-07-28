@@ -1,4 +1,4 @@
-package com.codebag.code.mycode.view.widget;
+package com.codebag.code.mycode.cleanmastertest.homewidget;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,16 +19,12 @@ import com.codebag.bag.CaseListView;
 import com.codebag.bag.Entry;
 import com.codebag.bag.Log;
 
-/**
- * @author zhangrui-ms
- *
- */
-public class HomeWidget extends CaseListView {
+public class Inovker extends CaseListView {
 
-	public HomeWidget(Context context) {
+	public Inovker(Context context) {
 		super(context);
 	}
-
+	
 	@Entry
 	public void getLauncherPackageName() {
 		String name = getLauncherPackageName(getContext());
@@ -160,4 +156,44 @@ public class HomeWidget extends CaseListView {
 			return res.activityInfo.packageName;
 		}
 	}
+	
+	@Entry
+	public void getEnableWidget() {
+		Intent intent = new Intent(AppWidgetManager.ACTION_APPWIDGET_ENABLED);
+		List<ResolveInfo> list = getContext().getPackageManager().queryBroadcastReceivers(intent, 64);
+		for(ResolveInfo info : list) {
+			String packageName = info.activityInfo.packageName;
+			Log.addLog(this, "packageName =" + packageName);
+		}
+	}
+	
+	@Entry
+	public void getUpdateWidget() {
+		Intent intent = new Intent(AppWidgetManager.ACTION_APPWIDGET_UPDATE);
+		List<ResolveInfo> list = getContext().getPackageManager().queryBroadcastReceivers(intent, 64);
+		for(ResolveInfo info : list) {
+			String packageName = info.activityInfo.packageName;
+			Log.addLog(this, "packageName =" + packageName);
+		}
+	}
+	@Entry
+	public void getDeletedWidget() {
+		Intent intent = new Intent(AppWidgetManager.ACTION_APPWIDGET_DELETED);
+		List<ResolveInfo> list = getContext().getPackageManager().queryBroadcastReceivers(intent, 64);
+		for(ResolveInfo info : list) {
+			String packageName = info.activityInfo.packageName;
+			Log.addLog(this, "packageName =" + packageName);
+		}
+	}
+	@Entry
+	public void getPickWidget() {
+		Intent intent = new Intent(AppWidgetManager.ACTION_APPWIDGET_PICK);
+		List<ResolveInfo> list = getContext().getPackageManager().queryBroadcastReceivers(intent, 64);
+		for(ResolveInfo info : list) {
+			String packageName = info.activityInfo.packageName;
+			Log.addLog(this, "packageName =" + packageName);
+		}
+	}
+	
+
 }
