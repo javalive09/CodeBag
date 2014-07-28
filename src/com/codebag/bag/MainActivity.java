@@ -48,7 +48,10 @@ import android.widget.Toast;
 
 public class MainActivity extends Activity {
 
+	public static final int ITEM_HEIGHT = 45;
+	
 	AlertDialog mDialog = null;
+	
 	 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -128,6 +131,10 @@ public class MainActivity extends Activity {
 		return new BitmapDrawable(getResources(), bm);
 	}
 	
+	public int dip2px(Context context, float dipValue){
+		final float scale = context.getResources().getDisplayMetrics().density;
+		return (int)(dipValue * scale + 0.5f);
+	}
 	
 	private void showAppDemoView(Node node) {
 		setContentView(R.layout.activity_main);
@@ -141,8 +148,9 @@ public class MainActivity extends Activity {
 					
 					LinearLayout l = new LinearLayout(mContext);
 					l.setOrientation(LinearLayout.HORIZONTAL);
-					l.setMinimumHeight(80); 
 					l.setGravity(Gravity.CENTER_VERTICAL);
+					int height = dip2px(MainActivity.this, ITEM_HEIGHT);
+					l.setMinimumHeight(height); 
 					
 					TextView tv = new TextView(mContext);
 					tv.setGravity(Gravity.CENTER_VERTICAL);
@@ -237,13 +245,14 @@ public class MainActivity extends Activity {
 					if(convertView == null) {
 						LinearLayout l = new LinearLayout(mContext);
 						l.setOrientation(LinearLayout.HORIZONTAL);
-						l.setMinimumHeight(80); 
+						int height = dip2px(MainActivity.this, ITEM_HEIGHT);
+						l.setMinimumHeight(height); 
 						l.setGravity(Gravity.CENTER_VERTICAL);
 						
 						TextView tv = new TextView(mContext);
 						tv.setGravity(Gravity.CENTER_VERTICAL);
 						tv.setText(" " + getItem(position).getName() + " ( )");
-
+						
 						l.addView(tv);
 						convertView = l;
 					}
@@ -275,7 +284,8 @@ public class MainActivity extends Activity {
 	private View getFootView() {
 		LinearLayout l = new LinearLayout(getBaseContext());
 		l.setOrientation(LinearLayout.HORIZONTAL);
-		l.setMinimumHeight(80); 
+		int height = dip2px(MainActivity.this, ITEM_HEIGHT);
+		l.setMinimumHeight(height); 
 		l.setGravity(Gravity.CENTER_VERTICAL);
 		
 		TextView tv = new TextView(getBaseContext());
@@ -306,7 +316,8 @@ public class MainActivity extends Activity {
 					
 					LinearLayout l = new LinearLayout(mContext);
 					l.setOrientation(LinearLayout.HORIZONTAL);
-					l.setMinimumHeight(80); 
+					int height = dip2px(MainActivity.this, ITEM_HEIGHT);
+					l.setMinimumHeight(height); 
 					l.setGravity(Gravity.CENTER_VERTICAL);
 					
 					TextView tv = new TextView(mContext);

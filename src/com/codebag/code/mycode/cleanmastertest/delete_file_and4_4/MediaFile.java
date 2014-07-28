@@ -11,7 +11,7 @@
  * governing permissions and limitations under the License.
  */
 
-package com.codebag.code.mycode.function.delete_file_and4_4;
+package com.codebag.code.mycode.cleanmastertest.delete_file_and4_4;
 
 import java.io.File;
 import java.io.IOException;

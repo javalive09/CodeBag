@@ -1,4 +1,4 @@
-package com.codebag.code.mycode.view.audioplayerrun;
+package com.codebag.code.mycode.cleanmastertest.audioplayerrun;
 
 import com.codebag.R;
 

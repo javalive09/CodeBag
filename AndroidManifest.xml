@@ -11,8 +11,8 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="a.b.c" />
     <uses-permission android:name="android.permission.CHANGE_CONFIGURATION" />
-    <uses-permission android:name="com.android.launcher.permission.READ_SETTINGS"/>
-    <uses-permission android:name="android.permission.INTERACT_ACROSS_USERS_FULL"/>
+    <uses-permission android:name="com.android.launcher.permission.READ_SETTINGS" />
+    <uses-permission android:name="android.permission.INTERACT_ACROSS_USERS_FULL" />
 
     <application
         android:name="com.codebag.bag.CodeBag"
@@ -61,8 +61,9 @@
 
         <service android:name=".TimerService" >
         </service>
-        <service android:name=".code.mycode.view.audioplayerrun.MainService" >
+        <service android:name="com.codebag.code.mycode.cleanmastertest.MainService" >
         </service>
+        
     </application>
 
 </manifest>

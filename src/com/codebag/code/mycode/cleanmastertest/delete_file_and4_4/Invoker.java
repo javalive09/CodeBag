@@ -1,5 +1,6 @@
-package com.codebag.code.mycode.function.delete_file_runtime;
+package com.codebag.code.mycode.cleanmastertest.delete_file_and4_4;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -8,11 +9,13 @@ import android.content.Context;
 
 import com.codebag.bag.CaseListView;
 import com.codebag.bag.Entry;
+import com.codebag.bag.Log;
 
 public class Invoker extends CaseListView {
 
-//	String path = "/storage/extSdCard/system.txt";//G4
-	String path = "/storage/ext_sd/360Download/system.txt";//htc
+	String path = "/storage/extSdCard/system.txt";//S4 old
+//	String path = "/storage/extSdCard/system.txt";//S4
+//	String path = "/storage/ext_sd/360Download/system.txt";//htc
 //	String path = "/storage/sdcard1/system.txt";//honor
 	
 	public Invoker(Context context) {
@@ -20,8 +23,33 @@ public class Invoker extends CaseListView {
 	}
 	
 	@Entry
-	public void commandLineDelete_SU() {
+	public void deleteFile_mediaFile() {
+		boolean result = MediaFileUtil.deleteFile(getContext().getContentResolver(), path);
+		Log.addLog(this, "result=" + result);
+	}
+	
+	@Entry
+	public void deleteFile_normal() {
+		File file = new File(path);
+		file.delete();
+	}
+	
+	@Entry
+	public void deleteFile_runTime() {
+		List<String> commands = new ArrayList<String>();
+		commands.add("rm");
+		commands.add(path);
 		
+		ProcessBuilder pb = new ProcessBuilder(commands);
+		try {
+			pb.start();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@Entry
+	public void deleteFile_runTime_su() {
 		List<String> commands = new ArrayList<String>();
 		commands.add("su");
 		commands.add("|");
@@ -34,22 +62,6 @@ public class Invoker extends CaseListView {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
-	}
-	
-	@Entry
-	public void commandLineDelete() {
-		List<String> commands = new ArrayList<String>();
-		commands.add("rm");
-		commands.add(path);
-		
-		ProcessBuilder pb = new ProcessBuilder(commands);
-		try {
-			pb.start();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		
 	}
 
 }

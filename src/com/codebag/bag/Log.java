@@ -13,6 +13,10 @@ public class Log {
 		return mLog.toString();
 	}
 	
+	public static void showSystemLog(Object invoker, String msg) {
+		android.util.Log.i("log="+ invoker.getClass().getSimpleName(), msg);
+	}
+	
 	public static void clearLog() {
 		mLog.setLength(0);
 	}
