@@ -13,9 +13,9 @@ import com.codebag.bag.Log;
 
 public class Invoker extends CaseListView {
 
-	String path = "/storage/extSdCard/system.txt";//S4 old
-//	String path = "/storage/extSdCard/system.txt";//S4
-//	String path = "/storage/ext_sd/360Download/system.txt";//htc
+//	String path = "/storage/extSdCard/system.txt";//S4 old
+//	String path = "/storage/extSdCard/system.txt";//S4、
+	String path = "/storage/ext_sd/system.txt";//htc
 //	String path = "/storage/sdcard1/system.txt";//honor
 	
 	public Invoker(Context context) {

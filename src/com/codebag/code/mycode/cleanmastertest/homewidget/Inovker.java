@@ -19,6 +19,18 @@ import com.codebag.bag.CaseListView;
 import com.codebag.bag.Entry;
 import com.codebag.bag.Log;
 
+
+
+/**
+ * @author zhangrui-ms
+ * 
+ * 手机上db位置
+ * ./data/data/com.sec.android.app.launcher/databases/launcher.db
+ * 
+ * widget 包名位置
+ * /data/system/users/0/appwidgets.xml
+ *
+ */
 public class Inovker extends CaseListView {
 
 	public Inovker(Context context) {
