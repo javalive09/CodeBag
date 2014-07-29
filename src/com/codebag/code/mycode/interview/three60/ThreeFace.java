@@ -21,5 +21,15 @@ public class ThreeFace extends CaseListView {
 		
 	}
 	
+	
+	/**
+	 * 对称加密
+	 */
+	@Entry
+	public void symmetricEncryption() {
+		
+	}
+
+	
 
 }

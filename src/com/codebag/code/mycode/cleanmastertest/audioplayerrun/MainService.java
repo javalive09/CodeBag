@@ -1,6 +1,7 @@
 package com.codebag.code.mycode.cleanmastertest.audioplayerrun;
 
 import com.codebag.R;
+import com.codebag.bag.Log;
 
 import android.app.Service;
 import android.content.Context;
@@ -22,7 +23,7 @@ public class MainService extends Service {
 	@Override
 	public void onCreate() {
 
-		player = MediaPlayer.create(this, R.raw.child); // 在res目录下新建raw目录，复制一个
+		player = MediaPlayer.create(this, R.raw.song); // 在res目录下新建raw目录，复制一个
 														// mp3文件到此目录下。
 		player.setLooping(false);
 
@@ -47,11 +48,21 @@ public class MainService extends Service {
 		if (result == AudioManager.AUDIOFOCUS_REQUEST_GRANTED) {
 			// Start playback.
 			player.start();
+			quick();
 		} else {
 
 		}
 	}
-
+	
+	public void quick() {
+		int duration = player.getDuration();
+		int currentPos = player.getCurrentPosition();
+		if(currentPos < duration) {
+			player.seekTo(currentPos + duration/2);
+		}
+	}
+	
+	
 	@Override
 	public void onDestroy() {
 		Toast.makeText(this, "My Service Stoped", Toast.LENGTH_LONG).show();
@@ -64,7 +75,19 @@ public class MainService extends Service {
 			OnAudioFocusChangeListener {
 		@Override
 		public void onAudioFocusChange(int focusChange) {
-
+			if (focusChange == AudioManager.AUDIOFOCUS_LOSS_TRANSIENT) {
+				Log.addLog(this, "AUDIOFOCUS_LOSS_TRANSIENT");
+			} else if (focusChange == AudioManager.AUDIOFOCUS_GAIN) {
+				Log.addLog(this, "AUDIOFOCUS_GAIN");
+				// Resume playback
+			} else if (focusChange == AudioManager.AUDIOFOCUS_LOSS) {
+				Log.addLog(this, "AUDIOFOCUS_LOSS");
+				// Stop playback
+			} else if (focusChange == AudioManager.AUDIOFOCUS_REQUEST_GRANTED) {
+				Log.addLog(this, "AUDIOFOCUS_REQUEST_GRANTED");
+			} else if (focusChange == AudioManager.AUDIOFOCUS_REQUEST_FAILED) {
+				Log.addLog(this, "AUDIOFOCUS_REQUEST_FAILED");
+			}
 		}
 	}
 }

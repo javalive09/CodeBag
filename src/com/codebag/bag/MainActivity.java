@@ -49,6 +49,7 @@ import android.widget.Toast;
 public class MainActivity extends Activity {
 
 	public static final int ITEM_HEIGHT = 45;
+	public static final int ICON_PADDING = 10;
 	
 	AlertDialog mDialog = null;
 	
@@ -108,6 +109,7 @@ public class MainActivity extends Activity {
 				getActionBar().setTitle(node.mName + " ( )");
 				CodeBag codeBage = (CodeBag) getApplication();
 				setContentView(codeBage.getCurrentMethodView());
+				break;
 			case Node.APP:
 				getActionBar().setTitle(node.mName);
 				getActionBar().setIcon(R.drawable.folder);
@@ -165,6 +167,7 @@ public class MainActivity extends Activity {
 						BitmapDrawable bitmapDrawable = (BitmapDrawable) drawable;
 						Drawable icon = getRightSizeIcon(bitmapDrawable);
 						appIcon.setImageDrawable(icon);
+						appIcon.setPadding(ICON_PADDING, ICON_PADDING, ICON_PADDING, ICON_PADDING);
 						tv.setText(pm.getApplicationLabel(info));
 						l.addView(appIcon);
 						l.addView(tv);
@@ -295,6 +298,8 @@ public class MainActivity extends Activity {
 		
 		ImageView icon = new ImageView(getBaseContext());
 		icon.setImageResource(R.drawable.folder);
+		icon.setPadding(ICON_PADDING, ICON_PADDING, ICON_PADDING, ICON_PADDING);
+		
 		l.addView(icon);
 		l.addView(tv);
 		return l;
@@ -331,6 +336,7 @@ public class MainActivity extends Activity {
 						icon.setImageResource(R.drawable.folder);
 						tv.setText(node.mName);
 					}
+					icon.setPadding(ICON_PADDING, ICON_PADDING, ICON_PADDING, ICON_PADDING);
 					
 					l.addView(icon);
 					l.addView(tv);

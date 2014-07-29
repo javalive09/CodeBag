@@ -1,6 +1,9 @@
 package com.codebag.code.mycode.view.gradient;
 
 import android.content.Context;
+import android.widget.FrameLayout;
+
+import com.codebag.R;
 import com.codebag.bag.CaseListView;
 import com.codebag.bag.Entry;
 
@@ -19,9 +22,9 @@ public class Invoker extends CaseListView {
 	
 	@Entry()
 	public void showGradientTwo() {
-		GradientTwo g = new GradientTwo(getContext());
-		g.setGradient(0xffffffff, 0);
-		showView(g);
+		FrameLayout fl = new FrameLayout(getContext());
+		fl.setBackgroundResource(R.drawable.gradient);
+		showView(fl);
 	}
 
 }
