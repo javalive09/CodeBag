@@ -1,5 +1,6 @@
 package com.codebag.code.mycode.cleanmastertest.homewidget;
 
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,6 +11,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.pm.ProviderInfo;
 import android.content.pm.ResolveInfo;
 import android.database.Cursor;
@@ -18,17 +20,15 @@ import android.net.Uri;
 import com.codebag.bag.CaseListView;
 import com.codebag.bag.Entry;
 import com.codebag.bag.Log;
-
-
+import com.codebag.code.mycode.utils.ReflectUtils;
 
 /**
  * @author zhangrui-ms
  * 
- * 手机上db位置
- * ./data/data/com.sec.android.app.launcher/databases/launcher.db
+ *         手机上db位置
+ *         ./data/data/com.sec.android.app.launcher/databases/launcher.db
  * 
- * widget 包名位置
- * /data/system/users/0/appwidgets.xml
+ *         widget 包名位置 /data/system/users/0/appwidgets.xml
  *
  */
 public class Inovker extends CaseListView {
@@ -36,7 +36,7 @@ public class Inovker extends CaseListView {
 	public Inovker(Context context) {
 		super(context);
 	}
-	
+
 	@Entry
 	public void getLauncherPackageName() {
 		String name = getLauncherPackageName(getContext());
@@ -46,24 +46,43 @@ public class Inovker extends CaseListView {
 	@Entry
 	public void queryLauncherProvider() {
 		ArrayList<Integer> list = readLauncherProviderWidget(getContext());
-		if(list != null) {
-			AppWidgetManager manager = AppWidgetManager.getInstance(getContext());
-			for(int appWidgetId: list) {
-				AppWidgetProviderInfo info = manager.getAppWidgetInfo(appWidgetId);
+		if (list != null) {
+			Context launcherContext =  getLauncherContext();
+			
+			int id = (Integer) ReflectUtils.invoke(getContext(), "getUserId");
+			int launcherId = (Integer) ReflectUtils.invoke(launcherContext, "getUserId");		
+			
+			AppWidgetManager manager = AppWidgetManager
+					.getInstance(launcherContext);
+			for (int appWidgetId : list) {
+				AppWidgetProviderInfo info = manager
+						.getAppWidgetInfo(appWidgetId);
 				Log.addLog(this, "info=" + info);
 			}
 		}
 	}
-	
+
+	private Context getLauncherContext() {
+		String launcherPackageName = getLauncherPackageName(getContext());
+		Context launcherContext = null;
+		try {
+			launcherContext = getContext().createPackageContext(
+					launcherPackageName, Context.CONTEXT_IGNORE_SECURITY);
+		} catch (NameNotFoundException e) {
+			e.printStackTrace();
+		}
+		return launcherContext;
+	}
+
 	@Entry
 	public void getProviders() {
 		AppWidgetManager manager = AppWidgetManager.getInstance(getContext());
 		List<AppWidgetProviderInfo> list = manager.getInstalledProviders();
-		for(AppWidgetProviderInfo info : list) {
+		for (AppWidgetProviderInfo info : list) {
 			Log.addLog(this, info.toString());
 		}
 	}
-	
+
 	/**
 	 * 获取authority
 	 * 
@@ -98,7 +117,7 @@ public class Inovker extends CaseListView {
 	 * @param context
 	 */
 	public ArrayList<Integer> readLauncherProviderWidget(Context context) {
-		
+
 		final ContentResolver cr = context.getContentResolver();
 		String AUTHORITY = getAuthorityFromPermission(context,
 				"com.android.launcher.permission.READ_SETTINGS");
@@ -112,7 +131,6 @@ public class Inovker extends CaseListView {
 		}
 		Log.addLog(this, "authority:" + AUTHORITY);
 
-		
 		ArrayList<Integer> idList = new ArrayList<Integer>();
 		Uri CONTENT_URI = Uri.parse("content://" + AUTHORITY
 				+ "/favorites?notify=true");
@@ -139,12 +157,12 @@ public class Inovker extends CaseListView {
 						+ appWidgetId + "|iconType=" + "iconType =" + iconType
 						+ "|iconPackage =" + iconPackage;
 				idList.add(appWidgetId);
-				
+
 				Log.addLog(this, log);
 			}
 
 		}
-		
+
 		return idList;
 
 	}
@@ -168,44 +186,49 @@ public class Inovker extends CaseListView {
 			return res.activityInfo.packageName;
 		}
 	}
-	
+
 	@Entry
 	public void getEnableWidget() {
 		Intent intent = new Intent(AppWidgetManager.ACTION_APPWIDGET_ENABLED);
-		List<ResolveInfo> list = getContext().getPackageManager().queryBroadcastReceivers(intent, 64);
-		for(ResolveInfo info : list) {
+		List<ResolveInfo> list = getContext().getPackageManager()
+				.queryBroadcastReceivers(intent, 64);
+		for (ResolveInfo info : list) {
 			String packageName = info.activityInfo.packageName;
 			Log.addLog(this, "packageName =" + packageName);
 		}
 	}
-	
+
 	@Entry
 	public void getUpdateWidget() {
 		Intent intent = new Intent(AppWidgetManager.ACTION_APPWIDGET_UPDATE);
-		List<ResolveInfo> list = getContext().getPackageManager().queryBroadcastReceivers(intent, 64);
-		for(ResolveInfo info : list) {
+		List<ResolveInfo> list = getContext().getPackageManager()
+				.queryBroadcastReceivers(intent, 64);
+		for (ResolveInfo info : list) {
 			String packageName = info.activityInfo.packageName;
 			Log.addLog(this, "packageName =" + packageName);
 		}
 	}
+
 	@Entry
 	public void getDeletedWidget() {
 		Intent intent = new Intent(AppWidgetManager.ACTION_APPWIDGET_DELETED);
-		List<ResolveInfo> list = getContext().getPackageManager().queryBroadcastReceivers(intent, 64);
-		for(ResolveInfo info : list) {
+		List<ResolveInfo> list = getContext().getPackageManager()
+				.queryBroadcastReceivers(intent, 64);
+		for (ResolveInfo info : list) {
 			String packageName = info.activityInfo.packageName;
 			Log.addLog(this, "packageName =" + packageName);
 		}
 	}
+
 	@Entry
 	public void getPickWidget() {
 		Intent intent = new Intent(AppWidgetManager.ACTION_APPWIDGET_PICK);
-		List<ResolveInfo> list = getContext().getPackageManager().queryBroadcastReceivers(intent, 64);
-		for(ResolveInfo info : list) {
+		List<ResolveInfo> list = getContext().getPackageManager()
+				.queryBroadcastReceivers(intent, 64);
+		for (ResolveInfo info : list) {
 			String packageName = info.activityInfo.packageName;
 			Log.addLog(this, "packageName =" + packageName);
 		}
 	}
-	
 
 }
