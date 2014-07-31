@@ -1,12 +1,15 @@
 package com.codebag.bag;
 
 
-import com.codebag.bag.CodeBag.Node;
 
 import android.content.Context;
-import android.content.Intent;
+import android.graphics.Color;
+import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.ListView;
+import android.widget.PopupWindow;
 
 public class CaseListView extends ListView {
 
@@ -15,17 +18,22 @@ public class CaseListView extends ListView {
 	}
 	
 	public void showView(View view) {
-		StackTraceElement[] e = Thread.currentThread().getStackTrace();
-		Intent intent = new Intent(getContext(), MainActivity.class);
-		Node node = new Node();
-		node.mName = e[3].getMethodName();
-		node.mType = Node.METHOD;
-		MainActivity act = (MainActivity) getContext();
-		CodeBag codeBag = (CodeBag) act.getApplication();
-		codeBag.setCurrentMethodView(view);
-		codeBag.setCurrentNode(node);
-//		intent.putExtra(MainActivity.NODE_NAME, node);
-		act.startActivity(intent);
+		FrameLayout f = new FrameLayout(getContext());
+		f.setBackgroundColor(Color.BLUE);
+		f.addView(view);
+		final PopupWindow pw = new PopupWindow(f, LayoutParams.FILL_PARENT,LayoutParams.FILL_PARENT,true);
+		pw.showAtLocation(this, Gravity.CENTER, 0, 0);
+		pw.setFocusable(true);
+		view.setFocusableInTouchMode(true);
+		view.requestFocus();
+		view.setOnKeyListener(new OnKeyListener() {
+			
+			@Override
+			public boolean onKey(View v, int keyCode, KeyEvent event) {
+				pw.dismiss();
+				return false;
+			}
+		});
 	}
 	
 
