@@ -9,7 +9,7 @@ import android.content.Context;
 
 import com.codebag.bag.CaseListView;
 import com.codebag.bag.Entry;
-import com.codebag.bag.Log;
+import com.codebag.code.mycode.utils.Log;
 
 public class Invoker extends CaseListView {
 

@@ -1,7 +1,7 @@
 package com.codebag.code.mycode.test.fragmentlife;
 
 import com.codebag.R;
-import com.codebag.bag.Log;
+import com.codebag.code.mycode.utils.Log;
 
 import android.app.Activity;
 import android.app.Fragment;

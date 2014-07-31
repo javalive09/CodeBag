@@ -1,6 +1,6 @@
 package com.codebag.code.mycode.interview.noxus;
 
-import com.codebag.bag.Log;
+import com.codebag.code.mycode.utils.Log;
 
 import android.content.Context;
 import android.view.MotionEvent;

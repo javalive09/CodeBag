@@ -4,7 +4,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import com.codebag.R;
-import com.codebag.bag.Log;
+import com.codebag.code.mycode.utils.Log;
 
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;

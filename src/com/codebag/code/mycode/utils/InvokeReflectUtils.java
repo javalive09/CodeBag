@@ -4,7 +4,6 @@ import android.content.Context;
 
 import com.codebag.bag.CaseListView;
 import com.codebag.bag.Entry;
-import com.codebag.bag.Log;
 
 public class InvokeReflectUtils extends CaseListView {
 

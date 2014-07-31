@@ -19,7 +19,7 @@ import android.net.Uri;
 
 import com.codebag.bag.CaseListView;
 import com.codebag.bag.Entry;
-import com.codebag.bag.Log;
+import com.codebag.code.mycode.utils.Log;
 import com.codebag.code.mycode.utils.ReflectUtils;
 
 /**

@@ -2,7 +2,7 @@ package com.codebag.code.mycode.test.servicelife;
 
 import java.io.FileDescriptor;
 
-import com.codebag.bag.Log;
+import com.codebag.code.mycode.utils.Log;
 
 import android.app.Service;
 import android.content.Intent;

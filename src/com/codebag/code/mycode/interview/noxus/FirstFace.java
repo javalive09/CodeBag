@@ -7,7 +7,7 @@ import android.graphics.Color;
 
 import com.codebag.bag.CaseListView;
 import com.codebag.bag.Entry;
-import com.codebag.bag.Log;
+import com.codebag.code.mycode.utils.Log;
 
 /**
  * onTouchEvent() 返回值的作用是：当前的view处理touch事件的反馈，返回true。说明已经处理。

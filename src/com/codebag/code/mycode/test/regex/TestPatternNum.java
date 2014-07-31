@@ -6,7 +6,7 @@ import android.content.Context;
 
 import com.codebag.bag.CaseListView;
 import com.codebag.bag.Entry;
-import com.codebag.bag.Log;
+import com.codebag.code.mycode.utils.Log;
 
 /**
  * 测试字符串是否是数字

@@ -1,6 +1,6 @@
 package com.codebag.code.mycode.test.activityconfigchange;
 
-import com.codebag.bag.Log;
+import com.codebag.code.mycode.utils.Log;
 
 import android.R.color;
 import android.app.Activity;
