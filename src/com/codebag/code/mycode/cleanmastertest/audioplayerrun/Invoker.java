@@ -48,7 +48,7 @@ public class Invoker extends CaseListView {
 	@Entry
 	public void showPlayerList() {
 		Intent intent = new Intent(Intent.ACTION_VIEW);
-		Uri uri = Uri.withAppendedPath(MediaStore.Audio.Media.INTERNAL_CONTENT_URI,"1"); 
+		Uri uri = Uri.withAppendedPath(MediaStore.Audio.Media.INTERNAL_CONTENT_URI, "1"); 
 		intent.setDataAndType(uri, "audio/*");
         getContext().startActivity(intent);
 	}

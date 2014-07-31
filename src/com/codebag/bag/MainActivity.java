@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import com.codebag.R;
 import com.codebag.bag.CodeBag.Node;
 import com.codebag.code.mycode.utils.Log;
+import com.codebag.code.mycode.view.framelike.FrameLayoutView;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -61,6 +62,7 @@ public class MainActivity extends Activity {
         getOverflowMenu();
         CodeBag codeBag = (CodeBag) getApplication();
         Node currentNode = codeBag.getCurrentNode();
+        
         if(currentNode == null) {//root 
         	showSplash();  
         }else {
@@ -117,6 +119,7 @@ public class MainActivity extends Activity {
 				showAppDemoView(node);
 				break;
 		}
+		
 //		Debug.stopMethodTracing();
 	}
 	

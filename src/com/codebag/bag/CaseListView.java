@@ -10,8 +10,6 @@ import android.widget.ListView;
 
 public class CaseListView extends ListView {
 
-	public static final String METHOD_PREFIX = "run_";
-	
 	public CaseListView(Context context) {
 		super(context);
 	}

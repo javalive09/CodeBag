@@ -7,6 +7,8 @@ import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+
+import com.codebag.R;
 import com.codebag.bag.CaseListView;
 import com.codebag.bag.Entry;
 
@@ -24,7 +26,7 @@ public class Invoker extends CaseListView {
 		FrameLayout f2 = getMultiView();
 		
 		View v = new View(getContext());
-		v.setBackgroundColor(Color.BLACK);
+		v.setBackgroundResource(R.drawable.pic);
 		
 		FrameLayout.LayoutParams params_2 = new FrameLayout.LayoutParams(300, 300);
 		params_2.gravity = Gravity.CENTER;
@@ -42,17 +44,8 @@ public class Invoker extends CaseListView {
 	@Entry
 	public void frameLayout() {
 		FrameLayoutView f1 = new FrameLayoutView(getContext());
+		f1.setBackgroundResource(R.drawable.pic);
 		
-		f1.addView(getMultiView());
-		f1.addView(getMultiView());
-		f1.addView(getMultiView());
-		f1.addView(getMultiView());
-		f1.addView(getMultiView());
-		f1.addView(getMultiView());
-		f1.addView(getMultiView());
-		f1.addView(getMultiView());
-		f1.addView(getMultiView());
-		f1.addView(getMultiView());
 		showView(f1);
 	}
 	
@@ -134,7 +127,7 @@ public class Invoker extends CaseListView {
 		f7.addView(f8);
 		f8.addView(f9);
 		
-		f9.setBackgroundColor(Color.WHITE);
+		f9.setBackgroundColor(Color.CYAN);
 		return f1;
 		
 	}
