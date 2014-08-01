@@ -2,6 +2,8 @@ package com.codebag.bag;
 
 
 
+import com.codebag.R;
+
 import android.content.Context;
 import android.graphics.Color;
 import android.view.Gravity;
@@ -21,11 +23,14 @@ public class CaseListView extends ListView {
 		FrameLayout f = new FrameLayout(getContext());
 		f.setBackgroundColor(Color.BLUE);
 		f.addView(view);
-		final PopupWindow pw = new PopupWindow(f, LayoutParams.FILL_PARENT,LayoutParams.FILL_PARENT,true);
+		final PopupWindow pw = new PopupWindow(f, LayoutParams.FILL_PARENT,LayoutParams.FILL_PARENT, true);
+		pw.setAnimationStyle(R.style.popUpWindowAnimation);
 		pw.showAtLocation(this, Gravity.CENTER, 0, 0);
+		
+		//以下两句是按键能响应的关键代码
 		pw.setFocusable(true);
 		view.setFocusableInTouchMode(true);
-		view.requestFocus();
+		
 		view.setOnKeyListener(new OnKeyListener() {
 			
 			@Override

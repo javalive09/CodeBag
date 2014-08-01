@@ -55,13 +55,6 @@ public class Invoker extends CaseListView {
 	}
 	
 	@Entry
-	public void frameLayout() {
-		FrameLayoutView f1 = new FrameLayoutView(getContext());
-		f1.setBackgroundResource(R.drawable.pic);
-		showView(f1);
-	}
-	
-	@Entry
 	public void relativeLayoutView() {
 		RelativeLayoutView f1 = new RelativeLayoutView(getContext());
 		f1.setBackgroundColor(Color.BLUE);
