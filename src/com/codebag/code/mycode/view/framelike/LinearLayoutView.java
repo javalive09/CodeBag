@@ -14,7 +14,9 @@ public class LinearLayoutView extends LinearLayout {
 
 	@Override
 	protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+		Log.startCountTime(this);
 		super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+		Log.endCountTime(this);
 	}
 
 	@Override

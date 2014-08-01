@@ -11,10 +11,12 @@ public class RelativeLayoutView extends RelativeLayout {
 	public RelativeLayoutView(Context context) {
 		super(context);
 	}
-
+	
 	@Override
 	protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+		Log.startCountTime(this);
 		super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+		Log.endCountTime(this);
 	}
 
 	@Override
