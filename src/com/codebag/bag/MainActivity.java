@@ -12,7 +12,6 @@ import java.util.ArrayList;
 import com.codebag.R;
 import com.codebag.bag.CodeBag.Node;
 import com.codebag.code.mycode.utils.Log;
-import com.codebag.code.mycode.view.framelike.FrameLayoutView;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -52,22 +51,25 @@ public class MainActivity extends Activity {
 
 	public static final int ITEM_HEIGHT = 45;
 	public static final int ICON_PADDING = 10;
-	
-	AlertDialog mDialog = null;
-	
+	public static final String NODE = "node";
+	private AlertDialog mDialog = null;
 	 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getOverflowMenu();
-        CodeBag codeBag = (CodeBag) getApplication();
-        Node currentNode = codeBag.getCurrentNode();
+        Intent intent = getIntent();
+        Node currentNode = null;
+        if(intent != null) {
+        	currentNode = (Node) intent.getSerializableExtra(NODE);
+        }
         
         if(currentNode == null) {//root 
         	showSplash();  
         }else {
         	showMainView(currentNode);
         }
+        CodeBag codeBag = (CodeBag) getApplication();
         codeBag.addActivity(this);
     }
 
@@ -106,12 +108,6 @@ public class MainActivity extends Activity {
 				getActionBar().setTitle(node.mName + ".java");
 				getActionBar().setIcon(R.drawable.file);
 				showClassView(node);
-				break;
-			case Node.METHOD:
-				getActionBar().setDisplayShowHomeEnabled(false);
-				getActionBar().setTitle(node.mName + " ( )");
-				CodeBag codeBage = (CodeBag) getApplication();
-				setContentView(codeBage.getCurrentMethodView());
 				break;
 			case Node.APP:
 				getActionBar().setTitle(node.mName);
@@ -164,9 +160,7 @@ public class MainActivity extends Activity {
 					ImageView appIcon = new ImageView(mContext);
 					try {
 						PackageManager pm = getPackageManager();
-						
 						ApplicationInfo info = pm.getApplicationInfo(node.mFullName, 0);
-						
 						Drawable drawable = pm.getApplicationIcon(info);
 						BitmapDrawable bitmapDrawable = (BitmapDrawable) drawable;
 						Drawable icon = getRightSizeIcon(bitmapDrawable);
@@ -209,6 +203,8 @@ public class MainActivity extends Activity {
 		
 	}
 
+
+	
 	private void showClassView(Node node) {
 		//class file
 			String className = node.mFullName;
@@ -252,7 +248,7 @@ public class MainActivity extends Activity {
 					if(convertView == null) {
 						LinearLayout l = new LinearLayout(mContext);
 						l.setOrientation(LinearLayout.HORIZONTAL);
-						int height = dip2px(MainActivity.this, ITEM_HEIGHT);
+							int height = dip2px(MainActivity.this, ITEM_HEIGHT);
 						l.setMinimumHeight(height); 
 						l.setGravity(Gravity.CENTER_VERTICAL);
 						
@@ -287,35 +283,10 @@ public class MainActivity extends Activity {
 				}
 			});
 	}
-	
-	private View getFootView() {
-		LinearLayout l = new LinearLayout(getBaseContext());
-		l.setOrientation(LinearLayout.HORIZONTAL);
-		int height = dip2px(MainActivity.this, ITEM_HEIGHT);
-		l.setMinimumHeight(height); 
-		l.setGravity(Gravity.CENTER_VERTICAL);
-		
-		TextView tv = new TextView(getBaseContext());
-		tv.setGravity(Gravity.CENTER_VERTICAL);
-		tv.setText("other app demo");
-		tv.setTextColor(Color.BLACK);
-		
-		ImageView icon = new ImageView(getBaseContext());
-		icon.setImageResource(R.drawable.folder);
-		icon.setPadding(ICON_PADDING, ICON_PADDING, ICON_PADDING, ICON_PADDING);
-		
-		l.addView(icon);
-		l.addView(tv);
-		return l;
-	}
 
 	private void showDirView(Node node) {
 		setContentView(R.layout.activity_main);
 		ListView listView = (ListView) findViewById(R.id.list);
-
-		if(CodeBag.ROOT_DIR.equals(node.mName) ) {
-			listView.addFooterView(getFootView());
-		}
 		
 		listView.setAdapter(new ListAdapter<Node>(MainActivity.this, node.mSubNodeList) {
 			@Override
@@ -337,6 +308,9 @@ public class MainActivity extends Activity {
 						icon.setImageResource(R.drawable.file);
 						tv.setText(node.mName + ".java");
 					}else if(node.mType == Node.DIR) {
+						icon.setImageResource(R.drawable.folder);
+						tv.setText(node.mName);
+					}else if(node.mType == Node.APP) {
 						icon.setImageResource(R.drawable.folder);
 						tv.setText(node.mName);
 					}
@@ -388,16 +362,14 @@ public class MainActivity extends Activity {
 		    	if(mNode != null) {
 		    		if(adapter.getItemViewType(position) == ListAdapter.ENTRY) {
 						Intent intent = new Intent(MainActivity.this, MainActivity.class);
-						CodeBag codeBag = (CodeBag) getApplication();
-						codeBag.setCurrentNode(mNode);
+						intent.putExtra(NODE, mNode);
 						startActivity(intent);
 		    		}
 		    	}else {
 		    		int count = adapter.getCount();
 		    		if(position == count - 1) {//footer
 		    			Intent intent = new Intent(MainActivity.this, MainActivity.class);
-						CodeBag codeBag = (CodeBag) getApplication();
-						codeBag.setCurrentNode(codeBag.getAppDemoNode());
+						intent.putExtra(NODE, mNode);
 						startActivity(intent);
 		    		}
 		    	}
@@ -534,16 +506,14 @@ public class MainActivity extends Activity {
 	protected void onDestroy() {
 		super.onDestroy();
 		CodeBag codeBag = (CodeBag) getApplication();
-		codeBag.setCurrentNode(null);
-		codeBag.setCurrentMethodView(null);
 		codeBag.removeActivity(this);
 	}
     
     public static class ListAdapter<T> extends BaseAdapter {
     	ArrayList<T> mList;
     	Context mContext;
-    	public static final int NO_ENTRY = 0;
-    	public static final int ENTRY = 1;
+    	public static final int NO_ENTRY = 0; //不含有入口方法
+    	public static final int ENTRY = 1; //含有入口方法
     	
 
     	public ListAdapter(Context context, ArrayList<T> list) {

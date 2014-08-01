@@ -20,9 +20,6 @@ public class CodeBag extends Application {
 	public static final String ROOT_DIR = "com.codebag.code.mycode";
 	public static final int FILE = 0;
 	public static final int DIR = 1;
-	private View mCurrentMethodView = null;
-	private Node mCurrentNode = null;
-	private Node mAppDemoNode = null;
 	private boolean mHashInit = false;
 	private Node mRootNode = new Node(ROOT_DIR, Node.DIR);
 	private LinkedList<MainActivity> mActContainer = new LinkedList<MainActivity>();
@@ -78,7 +75,8 @@ public class CodeBag extends Application {
 			e.printStackTrace();
 		}
 		
-		loadAppDemoNode();
+		//加入appDemo节点
+		mRootNode.mSubNodeList.add(getAppDemoNode());
 		
 		printNode(mRootNode);
 		
@@ -104,31 +102,11 @@ public class CodeBag extends Application {
 		return mRootNode;
 	}
 	
-	public View getCurrentMethodView() {
-		return mCurrentMethodView;
-	}
-	
-	public void setCurrentMethodView(View view) {
-		mCurrentMethodView = view;
-	}
-	
-	public Node getCurrentNode() {
-		return mCurrentNode;
-	}
-	
 	public Node getAppDemoNode() {
-		return mAppDemoNode;
-	}
-	
-	public void setCurrentNode(Node node) {
-		mCurrentNode = node;
-	}
-	
-	public void loadAppDemoNode() {
-		mAppDemoNode = new Node();
-		mAppDemoNode.mType = Node.APP;
-		mAppDemoNode.mName = "other app demo";
-		mAppDemoNode.mSubNodeList = new ArrayList<CodeBag.Node>();		
+		Node appNode = new Node();
+		appNode.mType = Node.APP;
+		appNode.mName = "other app demo";
+		appNode.mSubNodeList = new ArrayList<CodeBag.Node>();		
 		
     	PackageManager pm = getPackageManager();
 		List<ApplicationInfo> appList = pm.getInstalledApplications(PackageManager.GET_UNINSTALLED_PACKAGES);
@@ -142,7 +120,7 @@ public class CodeBag extends Application {
 					if("codebag_appdemo".equals(type)) {
 						Node node = new Node();
 						node.mFullName = appInfo.packageName;
-						mAppDemoNode.mSubNodeList.add(node);
+						appNode.mSubNodeList.add(node);
 						Log.i("packageName", info.packageName );
 					}
 				}
@@ -151,6 +129,7 @@ public class CodeBag extends Application {
 				e.printStackTrace();
 			}
 		}
+		return appNode;
 	}
 	
 	private void printNode(Node node) {
@@ -165,15 +144,21 @@ public class CodeBag extends Application {
 		}
 	}
 	
+	/**
+	 * @param className     class全路径名
+	 * @param strs          class全路径名除去根路径，剩下的字符以“.”为划分记号，划分成的数组
+	 * @param index		       游标在strs数组中的位置
+	 * @param currentNode   当前节点（作为父节点）
+	 */
 	private void loadCodeBagNode(String className, String[] strs, int index, Node currentNode) {
 		
 		if(index > strs.length - 1) {
 			return;
 		}
 		String nodeName = strs[index];
-		if(index == strs.length - 1) {
+		if(index == strs.length - 1) {//数组的最后一个元素为class
 			getSubNode(nodeName, Node.CLASS, className, currentNode);
-		}else {
+		}else {//数组中其他元素为目录
 			Node subNode = getSubNode(nodeName, Node.DIR, null, currentNode);
 			index++;
 			loadCodeBagNode(className, strs, index, subNode);
@@ -181,18 +166,24 @@ public class CodeBag extends Application {
 		
 	}
 	
+	/**
+	 * @param nodeName    子节点名字（游标所在数组的元素名字）--- 是区分各个子节点的关键字
+	 * @param type        子节点类型（目录/类）
+	 * @param fullName    子节点全名（目录一般为null，类才有）
+	 * @param currentNode 父节点
+	 * @return
+	 */
 	private Node getSubNode(String nodeName, int type, String fullName, Node currentNode) {
-		if(currentNode.mSubNodeList == null) {
+		if(currentNode.mSubNodeList == null) {//创建子节点列表
 			currentNode.mSubNodeList = new ArrayList<Node>();
-			return createSubNode(nodeName, type, fullName, currentNode);
 		}else {
-			for(Node n : currentNode.mSubNodeList) {
+			for(Node n : currentNode.mSubNodeList) {//父节点有子节点列表，则遍历一下
 				if(n.mName.equals(nodeName)) {
 					return n;
 				}
 			}
-			return createSubNode(nodeName, type, fullName, currentNode);
 		}
+		return createSubNode(nodeName, type, fullName, currentNode);
 	}
 	
 	private Node createSubNode(String nodeName, int type, String fullName, Node currentNode) {
@@ -208,16 +199,14 @@ public class CodeBag extends Application {
 		private static final long serialVersionUID = 7667945539869687742L;
 		public static final int DIR = 0;
 		public static final int CLASS = 1;
-		public static final int METHOD = 2;
 		public static final int APP = 3;
 		
 		public int mType = -1;
 		public String mName;
-		public String mFullName;
+		public String mFullName;//类节点才有
 		public ArrayList<Node> mSubNodeList;
 		
 		public Node() {
-			
 		}
 		
 		public Node(String name, int type) {
