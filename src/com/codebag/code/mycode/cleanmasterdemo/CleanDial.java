@@ -29,7 +29,7 @@ public class CleanDial {
 		mRoatingMarkView = new ImageView(context);
 		mRoatingView = new View(context);
 		mNum = new TextView(context);
-		mRingView = new RingView(context);
+//		mRingView = new RingView(context);
 	}
 	
 	public CleanDial setDialMarkResource(int resid) {

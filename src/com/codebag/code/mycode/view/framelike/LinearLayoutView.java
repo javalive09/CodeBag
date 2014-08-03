@@ -12,19 +12,31 @@ public class LinearLayoutView extends LinearLayout {
 		super(context);
 	}
 
+	int totalCost = 0;
+
 	@Override
 	protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-		Log.startCountTime(this);
+		Log.startCountTime(this, "onMeasure");
 		super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-		Log.endCountTime(this);
+		totalCost +=Log.endCountTime(this , "onMeasure");
 	}
 
 	@Override
-	public void draw(Canvas canvas) {
-		Log.startCountTime(this);
-		super.draw(canvas);
-		Log.endCountTime(this);
+	protected void onLayout(boolean changed, int left, int top, int right,
+			int bottom) {
+		Log.startCountTime(this, "onLayout");
+		super.onLayout(changed, left, top, right, bottom);
+		totalCost += Log.endCountTime(this , "onLayout");
 	}
+	
+	protected void dispatchDraw(Canvas canvas) {
+		Log.startCountTime(this, "dispatchDraw");
+		super.dispatchDraw(canvas);
+		totalCost += Log.endCountTime(this, "dispatchDraw");
+		Log.addLog(this, "totalCost = " + totalCost);
+	}
+	
+	
 	
 
 }

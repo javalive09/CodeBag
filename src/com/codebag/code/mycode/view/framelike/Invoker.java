@@ -1,6 +1,7 @@
 package com.codebag.code.mycode.view.framelike;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.graphics.Point;
 import android.view.Gravity;
 import android.view.View;
@@ -8,6 +9,7 @@ import android.view.WindowManager;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.codebag.R;
 import com.codebag.bag.CaseListView;
@@ -33,8 +35,6 @@ public class Invoker extends CaseListView {
 	@Entry
 	public void framelayoutView() {
 		FrameLayoutView f1 = new FrameLayoutView(getContext());
-		f1.setBackgroundResource(R.drawable.pic);
-		
 		FrameLayout f2 = getMultiView();
 		
 		View v = new View(getContext());
@@ -56,8 +56,7 @@ public class Invoker extends CaseListView {
 	@Entry
 	public void relativeLayoutView() {
 		RelativeLayoutView f1 = new RelativeLayoutView(getContext());
-		f1.setBackgroundResource(R.drawable.pic);
-
+		
 		FrameLayout f2 = getMultiView();
 		
 		View v = new View(getContext());
@@ -78,7 +77,6 @@ public class Invoker extends CaseListView {
 	@Entry
 	public void linearLayoutView() {
 		LinearLayoutView f1 = new LinearLayoutView(getContext());
-		f1.setBackgroundResource(R.drawable.pic);
 		
 		FrameLayout f2 = getMultiView();
 		
@@ -109,39 +107,24 @@ public class Invoker extends CaseListView {
 		
 	}
 	
+	@Entry
+	public void showTextView() {
+		TextView v = new TextView(getContext());
+		v.setText("123456789");
+		v.setTextSize(50);
+		v.setTextColor(Color.WHITE);
+		v.setBackgroundColor(Color.BLUE);
+		showView(v);
+	}
+	
 	
 	private FrameLayout getMultiView() {
 		FrameLayout f1 = new FrameLayout(getContext());
-		FrameLayout f2 = new FrameLayout(getContext());
-		FrameLayout f3 = new FrameLayout(getContext());
-		FrameLayout f4 = new FrameLayout(getContext());
-		FrameLayout f5 = new FrameLayout(getContext());
-		FrameLayout f6 = new FrameLayout(getContext());
-		FrameLayout f7 = new FrameLayout(getContext());
-		FrameLayout f8 = new FrameLayout(getContext());
-		FrameLayout f9 = new FrameLayout(getContext());
-		
 		f1.setBackgroundResource(R.drawable.pic);
-		f2.setBackgroundResource(R.drawable.pic);
-		f3.setBackgroundResource(R.drawable.pic);
-		f4.setBackgroundResource(R.drawable.pic);
-		f5.setBackgroundResource(R.drawable.pic);
-		f6.setBackgroundResource(R.drawable.pic);
-		f7.setBackgroundResource(R.drawable.pic);
-		f8.setBackgroundResource(R.drawable.pic);
-		f9.setBackgroundResource(R.drawable.pic);
-		
-		f1.addView(f2);
-		f2.addView(f3);
-		f3.addView(f4);
-		f4.addView(f5);
-		f5.addView(f6);
-		f6.addView(f7);
-		f7.addView(f8);
-		f8.addView(f9);
-		
 		return f1;
 		
 	}
+	
+	
 
 }

@@ -1,14 +1,17 @@
 package com.codebag.bag;
 
-
+import java.lang.reflect.Field;
 
 import com.codebag.R;
+import com.codebag.code.mycode.utils.Log;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.graphics.Point;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.FrameLayout;
 import android.widget.ListView;
 import android.widget.PopupWindow;
@@ -18,28 +21,56 @@ public class CaseListView extends ListView {
 	public CaseListView(Context context) {
 		super(context);
 	}
-	
+
 	public void showView(View view) {
-		FrameLayout f = new FrameLayout(getContext());
-		f.setBackgroundColor(Color.BLUE);
-		f.addView(view);
-		final PopupWindow pw = new PopupWindow(f, LayoutParams.FILL_PARENT,LayoutParams.FILL_PARENT, true);
+		FrameLayout container = new FrameLayout(getContext());
+		container.setBackgroundColor(Color.BLACK);
+		container.addView(view);
+		
+		Point outSize = new Point();
+		WindowManager mWindowManager = (WindowManager) getContext().getSystemService(Context.WINDOW_SERVICE);
+		mWindowManager.getDefaultDisplay().getSize(outSize);
+		int statusBarHeight = getStatusBarHeight();
+		final PopupWindow pw = new PopupWindow(container, outSize.x, outSize.y - statusBarHeight, true);
 		pw.setAnimationStyle(R.style.popUpWindowAnimation);
-		pw.showAtLocation(this, Gravity.CENTER, 0, 0);
-		
+		pw.showAtLocation(this, Gravity.NO_GRAVITY, 0, statusBarHeight);
+
 		//以下两句是按键能响应的关键代码
-		pw.setFocusable(true);
-		view.setFocusableInTouchMode(true);
+		container.setFocusableInTouchMode(true);
+		container.requestFocus();
 		
-		view.setOnKeyListener(new OnKeyListener() {
+		container.setOnKeyListener(new OnKeyListener() {
 			
 			@Override
 			public boolean onKey(View v, int keyCode, KeyEvent event) {
-				pw.dismiss();
+				if(event.getAction() == KeyEvent.ACTION_UP) {
+					if(keyCode == KeyEvent.KEYCODE_BACK) {
+						Log.addLog(this, "window height =" + pw.getHeight());
+						pw.dismiss();
+						return true;
+					}
+				}
 				return false;
 			}
 		});
 	}
-	
+
+	/**
+	 * 用于获取状态栏的高度。
+	 * 
+	 * @return 返回状态栏高度的像素值。
+	 */
+	private int getStatusBarHeight() {
+		try {
+			Class<?> c = Class.forName("com.android.internal.R$dimen");
+			Object o = c.newInstance();
+			Field field = c.getField("status_bar_height");
+			int x = (Integer) field.get(o);
+			return getResources().getDimensionPixelSize(x);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return -1;
+	}
 
 }

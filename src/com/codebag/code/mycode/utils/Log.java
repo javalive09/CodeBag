@@ -22,14 +22,16 @@ public class Log {
 		mLog.setLength(0);
 	}
 	
-	public static void startCountTime(Object invoker) {
+	public static void startCountTime(Object invoker, String msg) {
 		startTime = System.currentTimeMillis();
-		Log.addLog(invoker, "startTime=" + startTime + ">>>>>>>>>>>>>>>>>>>>>>>");
+		Log.addLog(invoker, msg + " startTime=" + startTime + ">>>>>>>>>>>>>>>>>>>>>>>");
 	}
 	
-	public static void endCountTime(Object invoker) {
+	public static long endCountTime(Object invoker, String msg) {
 		long endTime = System.currentTimeMillis();
-		Log.addLog(invoker, "cost =" + (endTime - startTime) + ">>>>>>>>>>>>>>>>>>>>>>>");
+		long detaTime = endTime - startTime;
+		Log.addLog(invoker, msg + " cost =" + detaTime + ">>>>>>>>>>>>>>>>>>>>>>>");
+		return detaTime;
 	}
 	
 }
