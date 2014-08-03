@@ -15,8 +15,9 @@ public class Invoker extends CaseListView {
 
 //	String path = "/storage/extSdCard/system.txt";//S4 old
 //	String path = "/storage/extSdCard/system.txt";//S4、
-	String path = "/storage/ext_sd/system.txt";//htc
+//	String path = "/storage/ext_sd/system.txt";//htc/
 //	String path = "/storage/sdcard1/system.txt";//honor
+	String path = "/storage/extSdCard/system";
 	
 	public Invoker(Context context) {
 		super(context);
