@@ -1,7 +1,6 @@
 package com.codebag.code.mycode.view.framelike;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.graphics.Point;
 import android.view.Gravity;
 import android.view.View;
@@ -34,7 +33,7 @@ public class Invoker extends CaseListView {
 	@Entry
 	public void framelayoutView() {
 		FrameLayoutView f1 = new FrameLayoutView(getContext());
-		f1.setBackgroundColor(Color.BLUE);
+		f1.setBackgroundResource(R.drawable.pic);
 		
 		FrameLayout f2 = getMultiView();
 		
@@ -57,7 +56,7 @@ public class Invoker extends CaseListView {
 	@Entry
 	public void relativeLayoutView() {
 		RelativeLayoutView f1 = new RelativeLayoutView(getContext());
-		f1.setBackgroundColor(Color.BLUE);
+		f1.setBackgroundResource(R.drawable.pic);
 
 		FrameLayout f2 = getMultiView();
 		
@@ -79,7 +78,7 @@ public class Invoker extends CaseListView {
 	@Entry
 	public void linearLayoutView() {
 		LinearLayoutView f1 = new LinearLayoutView(getContext());
-		f1.setBackgroundColor(Color.BLUE);
+		f1.setBackgroundResource(R.drawable.pic);
 		
 		FrameLayout f2 = getMultiView();
 		

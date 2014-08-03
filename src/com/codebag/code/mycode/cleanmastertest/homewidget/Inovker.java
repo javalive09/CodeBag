@@ -1,6 +1,5 @@
 package com.codebag.code.mycode.cleanmastertest.homewidget;
 
-import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -48,8 +47,9 @@ public class Inovker extends CaseListView {
 		ArrayList<Integer> list = readLauncherProviderWidget(getContext());
 		if (list != null) {
 			Context launcherContext =  getLauncherContext();
+			Context context = getContext();
 			
-			int id = (Integer) ReflectUtils.invoke(getContext(), "getUserId");
+			int id = (Integer) ReflectUtils.invoke(context, "getUserId");
 			int launcherId = (Integer) ReflectUtils.invoke(launcherContext, "getUserId");		
 			
 			AppWidgetManager manager = AppWidgetManager

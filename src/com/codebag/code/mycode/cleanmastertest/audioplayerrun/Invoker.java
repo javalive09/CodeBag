@@ -2,12 +2,13 @@ package com.codebag.code.mycode.cleanmastertest.audioplayerrun;
 
 import java.util.List;
 
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.media.AudioManager;
-import android.media.MediaPlayer;
 import android.net.Uri;
 import android.provider.MediaStore;
 
@@ -37,19 +38,53 @@ public class Invoker extends CaseListView {
 		}
 	}
 	
+	/**
+	 * 非系统播放器，不起作用
+	 */
+	@Deprecated
 	@Entry
 	public void getCurrentPlayerInfo() {
-		MediaPlayer player = new MediaPlayer();
-//		player.getTrackInfo();
-//		android.media.MediaPlayer.getTrackInfo();
-//		MediaPlayer.TrackInfo.
+        IntentFilter intentFilter = new IntentFilter();
+
+        intentFilter.addAction("com.android.music.metachanged");
+
+        intentFilter.addAction("com.android.music.queuechanged");
+
+        intentFilter.addAction("com.android.music.playbackcomplete");
+
+        intentFilter.addAction("com.android.music.playstatechanged");
+		 
+		getContext().registerReceiver(new BroadcastReceiver() {
+			 
+			@Override
+			public void onReceive(Context context, Intent intent) {
+			 
+			String action = intent.getAction();
+			 
+			String cmd = intent.getStringExtra("command");
+			 
+			String artist = intent.getStringExtra("artist");
+			 
+			String album = intent.getStringExtra("album");
+			 
+			String track = intent.getStringExtra("track");
+			
+			Log.addLog("peter 123456 ", intent.toString());
+			 
+			}}, intentFilter);
+
 	}
 	
+	
+	/**
+	 * 设置多个type 用; 隔开 如“audio/*;video/*;image/*”
+	 */
 	@Entry
 	public void showPlayerList() {
 		Intent intent = new Intent(Intent.ACTION_VIEW);
 		Uri uri = Uri.withAppendedPath(MediaStore.Audio.Media.INTERNAL_CONTENT_URI, "1"); 
 		intent.setDataAndType(uri, "audio/*");
+		
         getContext().startActivity(intent);
 	}
 	
