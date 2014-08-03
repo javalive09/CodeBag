@@ -5,6 +5,8 @@ import android.graphics.Color;
 
 import com.codebag.bag.CaseListView;
 import com.codebag.bag.Entry;
+import com.codebag.code.mycode.cleanmasterdemo.RingView.AniminationListener;
+import com.codebag.code.mycode.utils.Log;
 
 public class Invoker extends CaseListView {
 
@@ -17,7 +19,19 @@ public class Invoker extends CaseListView {
 		RingView view = new RingView(getContext(), 0 , 300 , 30 , 500);
 		view.setColor(Color.BLUE);
 		view.setBackgroundColor(Color.BLACK);
-		view.startAnimination(10);
+		view.setAniminationListener(new AniminationListener() {
+			
+			@Override
+			public void start() {
+				Log.addLog(this, "start ----");
+			}
+			
+			@Override
+			public void end() {
+				Log.addLog(this, "end ----");
+			}
+		});
+		view.startAnimination(0);
 		showView(view);
 	}
 

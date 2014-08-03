@@ -5,6 +5,9 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Paint.Style;
 import android.graphics.RectF;
+import android.os.Handler;
+import android.os.Looper;
+import android.os.Message;
 import android.view.View;
 
 public class RingView extends View {
@@ -12,6 +15,8 @@ public class RingView extends View {
 	private Paint mPaint; 
 	private RectF mRect;
 	private float mAngle;
+	private int mEndProgress;
+	private AniminationListener mListener;
 	
 	/**
 	 * @param context
@@ -46,23 +51,42 @@ public class RingView extends View {
 	
 	
 	public void startAnimination(int endProgress) {
-		decreaseAnimination(100, endProgress);
+		mEndProgress = endProgress;
+		mHandler.sendEmptyMessage(100);
+		if(mListener != null) {
+			mListener.start();
+		}
 	}
 	
-	public void decreaseAnimination(final int currentProgress, final int endProgress) {
-		postDelayed(new Runnable() {
+	/**
+	 * 在#startAnimination之前调用
+	 * 
+	 * @param listener
+	 */
+	public void setAniminationListener(AniminationListener listener) {
+		mListener = listener;
+	}
+	
+	private Handler mHandler = new Handler(Looper.getMainLooper()) {
 
-			@Override
-			public void run() {
-				if(currentProgress > endProgress) {
-					int progress = currentProgress-1;
-					setProgress(progress);
-					decreaseAnimination(progress, endProgress);
+		@Override
+		public void handleMessage(Message msg) {
+			if(msg.what > mEndProgress) {
+				msg.what--;
+				setProgress(msg.what);
+				sendEmptyMessageDelayed(msg.what, 30);
+			}else if(msg.what == mEndProgress) {
+				if(mListener != null) {
+					mListener.end();
 				}
 			}
-			
-		}, 20);
+		}
 		
+	};
+	
+	public interface AniminationListener {
+		public void start();
+		public void end();
 	}
 
 }
