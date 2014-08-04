@@ -18,7 +18,15 @@ public class Invoker extends CaseListView {
 	
 	public void scaleAnimation(View view) {
 		AnimationSet animinationSet = new AnimationSet(true);
-		
+		//参数意义： 
+		//1. x轴开始位置
+		//2. x轴结束位置
+		//3. y轴开始位置
+		//4. y轴结束位置
+		//5. x中心轴移动类型（相对于谁）
+		//6. x中心轴位置
+		//7. y中心轴移动类型（相对于谁）
+		//8. y中心轴位置
 		ScaleAnimation animation = new ScaleAnimation(1, 0.1f, 1, 0.1f, 
 				Animation.RELATIVE_TO_SELF , 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
 		

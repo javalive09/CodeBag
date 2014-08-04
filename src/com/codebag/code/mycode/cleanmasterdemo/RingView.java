@@ -11,36 +11,80 @@ import android.os.Message;
 import android.view.View;
 
 public class RingView extends View {
-
 	private Paint mPaint; 
 	private RectF mRect;
 	private float mAngle;
 	private int mEndProgress;
+	private int mProgressColor;
+	private int mBackGroundColor;
+	private int mDiameter;
+	private int mPly;
 	private AniminationListener mListener;
+	
+	private int startX;
+	private int startY;
+	
+	public RingView(Context context) {
+		this(context, 0, 0);
+	}
 	
 	/**
 	 * @param context
-	 * @param startX    圆环左上角X坐标
-	 * @param startY    圆环左上角Y坐标
 	 * @param ply		圆环厚度
 	 * @param diameter	圆环直径
 	 */
-	public RingView(Context context, int startX, int startY, int ply, int diameter) {
+	public RingView(Context context, int ply, int diameter) {
 		super(context);
-		mPaint = new Paint();
-		mPaint.setStyle(Style.STROKE);
-		mPaint.setStrokeWidth(ply);
-		mPaint.setAntiAlias(true);
-		mRect = new RectF(startX + ply/2, startY + ply/2, startX + diameter , startY + diameter);
+		init(ply, diameter);
 	}
 	
-	public void setColor(int color) {
-		mPaint.setColor(color);
+	private void init(int ply, int diameter) {
+		mPly = ply;
+		mDiameter = diameter;
+		mRect = new RectF();
+		mPaint = new Paint();
+		mPaint.setStrokeWidth(ply);
+		mPaint.setStyle(Style.STROKE);
+		mPaint.setAntiAlias(true);
+	}
+	
+	public void setPly(int ply) {
+		mPly = ply;
+		mPaint.setStrokeWidth(ply);
+	}
+	
+	public void setDiameter(int diameter) {
+		mDiameter = diameter;
+	}
+	
+	@Override
+	protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+		super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+		int width = getMeasuredWidth();
+		int height = getMeasuredHeight();
+		startX = (width - mDiameter - mPly) / 2;
+		startY = (height - mDiameter - mPly) / 2;
+		mRect.set(startX + mPly/2, startY + mPly/2, startX + mDiameter + mPly/2 , startY + mDiameter + mPly/2);
+	}
+
+	public void setColor(int progressColor, int backGroundColor) {
+		mProgressColor = progressColor;
+		mBackGroundColor = backGroundColor;
 	}
 
 	@Override
 	protected void onDraw(Canvas canvas) {
 		super.onDraw(canvas);
+//		//参考线
+//		mPaint.setColor(Color.RED);
+//		canvas.drawLine(startX, mDiameter/2 + startY, mDiameter + startX, mDiameter/2 + startY, mPaint);
+		
+		//draw background
+		mPaint.setColor(mBackGroundColor);
+		canvas.drawArc(mRect, 0, 360, false, mPaint);
+		
+		//draw progress
+		mPaint.setColor(mProgressColor);
 		canvas.drawArc(mRect, 270, mAngle, false, mPaint);
 	}
 	
@@ -88,5 +132,4 @@ public class RingView extends View {
 		public void start();
 		public void end();
 	}
-
 }
