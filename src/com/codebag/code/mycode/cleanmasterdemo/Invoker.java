@@ -2,8 +2,6 @@ package com.codebag.code.mycode.cleanmasterdemo;
 
 import android.content.Context;
 import android.graphics.Color;
-import android.view.ViewGroup;
-
 import com.codebag.R;
 import com.codebag.bag.CaseListView;
 import com.codebag.bag.Entry;
@@ -18,22 +16,22 @@ public class Invoker extends CaseListView {
 	
 	@Entry
 	public void showCircle() {
-		RingView view = new RingView(getContext(), 80, 540 - 80);
+		RingView view = new RingView(getContext(), 80, 540);
 		view.setColor(0xE624a0ff, 0x19000000);
 		view.setBackgroundColor(Color.WHITE);
-//		view.setAniminationListener(new AniminationListener() {
-//			
-//			@Override
-//			public void start() {
-//				Log.addLog(this, "start ----");
-//			}
-//			
-//			@Override
-//			public void end() {
-//				Log.addLog(this, "end ----");
-//			}
-//		});
-//		view.startAnimination(0);
+		view.setAniminationListener(new AniminationListener() {
+			
+			@Override
+			public void start() {
+				Log.addLog(this, "start ----");
+			}
+			
+			@Override
+			public void end() {
+				Log.addLog(this, "end ----");
+			}
+		});
+		view.startAnimination(0);
 		showView(view);
 	}
 	

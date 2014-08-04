@@ -2,6 +2,7 @@ package com.codebag.code.mycode.cleanmasterdemo;
 
 import android.content.Context;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Paint.Style;
 import android.graphics.RectF;
@@ -40,7 +41,7 @@ public class RingView extends View {
 	
 	private void init(int ply, int diameter) {
 		mPly = ply;
-		mDiameter = diameter;
+		mDiameter = diameter - mPly;
 		mRect = new RectF();
 		mPaint = new Paint();
 		mPaint.setStrokeWidth(ply);
@@ -54,7 +55,7 @@ public class RingView extends View {
 	}
 	
 	public void setDiameter(int diameter) {
-		mDiameter = diameter;
+		mDiameter = diameter - mPly;
 	}
 	
 	@Override
@@ -62,9 +63,9 @@ public class RingView extends View {
 		super.onMeasure(widthMeasureSpec, heightMeasureSpec);
 		int width = getMeasuredWidth();
 		int height = getMeasuredHeight();
-		startX = (width - mDiameter - mPly) / 2;
-		startY = (height - mDiameter - mPly) / 2;
-		mRect.set(startX + mPly/2, startY + mPly/2, startX + mDiameter + mPly/2 , startY + mDiameter + mPly/2);
+		startX = (width - mDiameter) / 2;
+		startY = (height - mDiameter) / 2;
+		mRect.set(startX + mPly/2, startY + mPly/2, startX + mDiameter + mPly/2 - mPly, startY + mDiameter + mPly/2 - mPly);
 	}
 
 	public void setColor(int progressColor, int backGroundColor) {
@@ -75,9 +76,9 @@ public class RingView extends View {
 	@Override
 	protected void onDraw(Canvas canvas) {
 		super.onDraw(canvas);
-//		//参考线
-//		mPaint.setColor(Color.RED);
-//		canvas.drawLine(startX, mDiameter/2 + startY, mDiameter + startX, mDiameter/2 + startY, mPaint);
+		//参考线
+		mPaint.setColor(Color.RED);
+		canvas.drawLine(startX, mDiameter/2 + startY, mDiameter + startX, mDiameter/2 + startY, mPaint);
 		
 		//draw background
 		mPaint.setColor(mBackGroundColor);
