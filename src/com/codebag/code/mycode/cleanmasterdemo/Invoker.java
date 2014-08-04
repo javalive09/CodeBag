@@ -18,22 +18,22 @@ public class Invoker extends CaseListView {
 	
 	@Entry
 	public void showCircle() {
-		RingView view = new RingView(getContext(), 80, 300);
+		RingView view = new RingView(getContext(), 80, 540 - 80);
 		view.setColor(0xE624a0ff, 0x19000000);
 		view.setBackgroundColor(Color.WHITE);
-		view.setAniminationListener(new AniminationListener() {
-			
-			@Override
-			public void start() {
-				Log.addLog(this, "start ----");
-			}
-			
-			@Override
-			public void end() {
-				Log.addLog(this, "end ----");
-			}
-		});
-		view.startAnimination(0);
+//		view.setAniminationListener(new AniminationListener() {
+//			
+//			@Override
+//			public void start() {
+//				Log.addLog(this, "start ----");
+//			}
+//			
+//			@Override
+//			public void end() {
+//				Log.addLog(this, "end ----");
+//			}
+//		});
+//		view.startAnimination(0);
 		showView(view);
 	}
 	
@@ -42,10 +42,9 @@ public class Invoker extends CaseListView {
 		CleanDial clean = new CleanDial(getContext());
 		clean.setDialMarkResource(R.drawable.memery);
 		clean.setRoatingBg(R.drawable.fan);
+		clean.setSmallMarkResource(R.drawable.roket);
 		clean.start();
 		
-		ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(-2, -2);
-		clean.setLayoutParams(params);
 		showView(clean);
 	}
 

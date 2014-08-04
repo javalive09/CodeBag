@@ -13,7 +13,7 @@ import android.view.View;
 public class RingView extends View {
 	private Paint mPaint; 
 	private RectF mRect;
-	private float mAngle;
+	private float mAngle = 360;
 	private int mEndProgress;
 	private int mProgressColor;
 	private int mBackGroundColor;

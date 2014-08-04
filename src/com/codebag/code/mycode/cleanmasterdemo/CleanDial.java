@@ -1,6 +1,7 @@
 package com.codebag.code.mycode.cleanmasterdemo;
 
 import com.codebag.R;
+import com.codebag.code.mycode.utils.DisplayUtil;
 
 import android.content.Context;
 import android.graphics.Color;
@@ -32,6 +33,10 @@ public class CleanDial extends FrameLayout {
 	private RingView mProgressBar;
 
 	private int mProgress;
+	
+	private ImageView mBackGround;
+	
+	private int mPly;
 
 	public CleanDial(Context context) {
 		super(context);
@@ -62,19 +67,27 @@ public class CleanDial extends FrameLayout {
 		mDialMarkImage = new ImageView(context);
 		
 		mRoatingBackGround = new ImageView(context);
-		mRoatingBackGround.setVisibility(View.INVISIBLE);
 		
 		mSmallMarkImage = new ImageView(context);
+		mSmallMarkImage.setBackgroundResource(R.drawable.circlewhite);
 		mSmallMarkImage.setVisibility(View.INVISIBLE);
 		
 		mNum = new TextView(context);
 		mNum.setVisibility(View.INVISIBLE);
 		
 		mProgressBar = new RingView(context);
+		mProgressBar.setColor(0xE624a0ff, 0x19000000);
+		mPly = DisplayUtil.dip2px(context, 12);
+		mProgressBar.setPly(mPly);
+		mProgressBar.setVisibility(View.INVISIBLE);
+		
+		mBackGround = new ImageView(context);
+		mBackGround.setImageResource(R.drawable.bluebg);
 		
 		mWhiteBackGround = new ImageView(context);
 		mWhiteBackGround.setImageResource(R.drawable.circlewhite);
 		mWhiteBackGround.setVisibility(View.INVISIBLE);
+		
 		LayoutParams paramsWrap = new LayoutParams(LayoutParams.WRAP_CONTENT,
 				LayoutParams.WRAP_CONTENT);
 		LayoutParams paramsFill = new LayoutParams(LayoutParams.FILL_PARENT,
@@ -82,17 +95,25 @@ public class CleanDial extends FrameLayout {
 		paramsWrap.gravity = Gravity.CENTER;
 		paramsFill.gravity = Gravity.CENTER;
 
+		addView(mBackGround, paramsWrap);
 		addView(mRoatingBackGround, paramsWrap);
-		addView(mProgressBar, paramsFill);
-		addView(mSmallMarkImage, paramsWrap);
-		addView(mNum, paramsWrap);
+		
 		addView(mWhiteBackGround, paramsWrap);
+		addView(mSmallMarkImage, paramsWrap);
+		
+		addView(mProgressBar, paramsFill);
+		addView(mNum, paramsWrap);
 		addView(mDialMarkImage, paramsWrap);
-		setBackgroundResource(R.drawable.bluebg);
 	}
 
 	public void start() {
 		startDialMarkAnim();
+	}
+
+	@Override
+	protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+		super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+		mProgressBar.setDiameter(mBackGround.getMeasuredHeight() - mPly);
 	}
 
 	private void startDialMarkAnim() {
@@ -102,7 +123,7 @@ public class CleanDial extends FrameLayout {
 				Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF,
 				0.5f);
 
-		AlphaAnimation animationAlpha = new AlphaAnimation(1.0f, 0.5f); // 透明度，从不透明到透明
+		AlphaAnimation animationAlpha = new AlphaAnimation(1.0f, 0.3f); // 透明度，从不透明到透明
 
 		animinationSet.addAnimation(animationScale);
 		animinationSet.addAnimation(animationAlpha);
@@ -133,10 +154,9 @@ public class CleanDial extends FrameLayout {
 		mDialMarkImage.setVisibility(View.GONE);
 		mSmallMarkImage.setVisibility(View.VISIBLE);
 		mWhiteBackGround.setVisibility(View.VISIBLE);
-		mRoatingBackGround.setVisibility(View.VISIBLE);
 		RotateAnimation animation = new RotateAnimation(0, 360, 
 				Animation.RELATIVE_TO_SELF , 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
-		animation.setDuration(1000);
+		animation.setDuration(2000);
 		animation.setFillAfter(false);
 //		animation.setInterpolator(new DecelerateInterpolator(1.0f));
 		mRoatingBackGround.startAnimation(animation);
@@ -154,9 +174,49 @@ public class CleanDial extends FrameLayout {
 
 			@Override
 			public void onAnimationEnd(Animation animation) {
+				startScaleWhiteBgAnim();
+			}
+		});
+	}
+	
+	private void startScaleWhiteBgAnim() {
+		mProgressBar.setVisibility(View.VISIBLE);
+		ScaleAnimation animationScale = new ScaleAnimation(1, 2.0f, 1, 2.0f, 
+				Animation.RELATIVE_TO_SELF , 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
+		AlphaAnimation animationAlphaHide = new AlphaAnimation(1.0f, 0.0f); // 透明度，从不透明到透明
+		AlphaAnimation animationAlphaShow = new AlphaAnimation(0.0f, 1.0f); // 透明度，从透明到不透明
+		mWhiteBackGround.startAnimation(animationScale);
+		animationScale.setDuration(2000);
+		mSmallMarkImage.startAnimation(animationAlphaHide);
+		animationAlphaHide.setDuration(1800);
+		mProgressBar.startAnimation(animationAlphaShow);
+		animationAlphaShow.setDuration(2000);
+		
+		animationScale.setFillAfter(true);
+		animationAlphaHide.setFillAfter(true);
+		animationAlphaShow.setFillAfter(true);
+		animationScale.setAnimationListener(new AnimationListener() {
+
+			@Override
+			public void onAnimationStart(Animation animation) {
+
+			}
+
+			@Override
+			public void onAnimationRepeat(Animation animation) {
+
+			}
+
+			@Override
+			public void onAnimationEnd(Animation animation) {
 				
 			}
 		});
+		
+	}
+	
+	private void startCircleBarAnim() {
+		
 	}
 
 }
