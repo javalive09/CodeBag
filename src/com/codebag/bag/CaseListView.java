@@ -13,6 +13,7 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.PopupWindow;
 
@@ -23,7 +24,14 @@ public class CaseListView extends ListView {
 	}
 
 	public void showView(View view) {
-		FrameLayout container = new FrameLayout(getContext());
+		LinearLayout container = new LinearLayout(getContext()){
+
+			@Override
+			protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+				super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+			}
+			
+		};
 		container.setBackgroundColor(Color.BLACK);
 		container.addView(view);
 		

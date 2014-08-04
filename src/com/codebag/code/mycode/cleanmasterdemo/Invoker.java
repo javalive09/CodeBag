@@ -2,6 +2,8 @@ package com.codebag.code.mycode.cleanmasterdemo;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.widget.FrameLayout;
+
 import com.codebag.R;
 import com.codebag.bag.CaseListView;
 import com.codebag.bag.Entry;
@@ -37,13 +39,27 @@ public class Invoker extends CaseListView {
 	
 	@Entry
 	public void showCleanDial() {
+		
+		FrameLayout f = new FrameLayout(getContext()){
+
+			@Override
+			protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+				super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+			}
+			
+		};
+		FrameLayout.LayoutParams p = new FrameLayout.LayoutParams(-2, -2);
+		f.setBackgroundColor(Color.BLUE);
+		
 		CleanDial clean = new CleanDial(getContext());
 		clean.setDialMarkResource(R.drawable.memery);
 		clean.setRoatingBg(R.drawable.fan);
 		clean.setSmallMarkResource(R.drawable.roket);
+		clean.setProgress(30);
 		clean.start();
 		
-		showView(clean);
+		f.addView(clean, p);
+		showView(f);
 	}
 
 }

@@ -2,7 +2,6 @@ package com.codebag.code.mycode.cleanmasterdemo;
 
 import android.content.Context;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Paint.Style;
 import android.graphics.RectF;
@@ -49,12 +48,9 @@ public class RingView extends View {
 		mPaint.setAntiAlias(true);
 	}
 	
-	public void setPly(int ply) {
+	public void setData(int ply, int diameter) {
 		mPly = ply;
 		mPaint.setStrokeWidth(ply);
-	}
-	
-	public void setDiameter(int diameter) {
 		mDiameter = diameter - mPly;
 	}
 	
@@ -76,9 +72,9 @@ public class RingView extends View {
 	@Override
 	protected void onDraw(Canvas canvas) {
 		super.onDraw(canvas);
-		//参考线
-		mPaint.setColor(Color.RED);
-		canvas.drawLine(startX, mDiameter/2 + startY, mDiameter + startX, mDiameter/2 + startY, mPaint);
+//		//参考线
+//		mPaint.setColor(Color.RED);
+//		canvas.drawLine(startX, mDiameter/2 + startY, mDiameter + startX, mDiameter/2 + startY, mPaint);
 		
 		//draw background
 		mPaint.setColor(mBackGroundColor);

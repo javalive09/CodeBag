@@ -4,12 +4,10 @@ import com.codebag.R;
 import com.codebag.code.mycode.utils.DisplayUtil;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.view.Gravity;
 import android.view.View;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
-import android.view.animation.DecelerateInterpolator;
 import android.view.animation.RotateAnimation;
 import android.view.animation.Animation.AnimationListener;
 import android.view.animation.AnimationSet;
@@ -60,6 +58,7 @@ public class CleanDial extends FrameLayout {
 
 	public CleanDial setProgress(int progress) {
 		mProgress = progress;
+		mNum.setText(progress + "%");
 		return this;
 	}
 
@@ -74,11 +73,12 @@ public class CleanDial extends FrameLayout {
 		
 		mNum = new TextView(context);
 		mNum.setVisibility(View.INVISIBLE);
+		mNum.setTextSize(30);
+		mNum.setTextColor(0xE624a0ff);
 		
 		mProgressBar = new RingView(context);
 		mProgressBar.setColor(0xE624a0ff, 0x19000000);
 		mPly = DisplayUtil.dip2px(context, 12);
-		mProgressBar.setPly(mPly);
 		mProgressBar.setVisibility(View.INVISIBLE);
 		
 		mBackGround = new ImageView(context);
@@ -113,7 +113,7 @@ public class CleanDial extends FrameLayout {
 	@Override
 	protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
 		super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-		mProgressBar.setDiameter(mBackGround.getMeasuredHeight() - mPly);
+		mProgressBar.setData(mPly, mBackGround.getMeasuredHeight());
 	}
 
 	private void startDialMarkAnim() {
@@ -184,13 +184,13 @@ public class CleanDial extends FrameLayout {
 		ScaleAnimation animationScale = new ScaleAnimation(1, 2.0f, 1, 2.0f, 
 				Animation.RELATIVE_TO_SELF , 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
 		AlphaAnimation animationAlphaHide = new AlphaAnimation(1.0f, 0.0f); // 透明度，从不透明到透明
-		AlphaAnimation animationAlphaShow = new AlphaAnimation(0.0f, 1.0f); // 透明度，从透明到不透明
+		AlphaAnimation animationAlphaShow = new AlphaAnimation(0.5f, 1.0f); // 透明度，从透明到不透明
 		mWhiteBackGround.startAnimation(animationScale);
 		animationScale.setDuration(2000);
 		mSmallMarkImage.startAnimation(animationAlphaHide);
 		animationAlphaHide.setDuration(1800);
 		mProgressBar.startAnimation(animationAlphaShow);
-		animationAlphaShow.setDuration(2000);
+		animationAlphaShow.setDuration(1800);
 		
 		animationScale.setFillAfter(true);
 		animationAlphaHide.setFillAfter(true);
@@ -209,14 +209,28 @@ public class CleanDial extends FrameLayout {
 
 			@Override
 			public void onAnimationEnd(Animation animation) {
-				
+				startCircleBarAnim();
 			}
 		});
 		
 	}
 	
 	private void startCircleBarAnim() {
-		
+		mNum.setVisibility(View.VISIBLE);
+		AnimationSet animinationSet = new AnimationSet(true);
+
+		ScaleAnimation animationScale = new ScaleAnimation(0.5f, 1.0f, 0.5f, 1.0f,
+				Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF,
+				0.5f);
+
+		AlphaAnimation animationAlpha = new AlphaAnimation(0.3f, 1.0f);
+
+		animinationSet.addAnimation(animationScale);
+		animinationSet.addAnimation(animationAlpha);
+		animinationSet.setFillAfter(true);
+		animinationSet.setDuration(2000);
+		mNum.startAnimation(animinationSet);
+		mProgressBar.startAnimination(mProgress);
 	}
 
 }
