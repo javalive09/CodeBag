@@ -70,7 +70,6 @@ public class CleanDial extends FrameLayout {
 		mRoatingBackGround = new ImageView(context);
 		
 		mSmallMarkImage = new ImageView(context);
-		mSmallMarkImage.setBackgroundResource(R.drawable.circlewhite);
 		mSmallMarkImage.setVisibility(View.INVISIBLE);
 		
 		mNum = new TextView(context);
@@ -116,7 +115,6 @@ public class CleanDial extends FrameLayout {
 	protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
 		super.onMeasure(widthMeasureSpec, heightMeasureSpec);
 		mProgressBar.setData(mPly, mBackGround.getMeasuredHeight()- 10);
-		
 	}
 
 	private void startDialMarkAnim() {
