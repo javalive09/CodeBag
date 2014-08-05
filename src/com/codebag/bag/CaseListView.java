@@ -12,6 +12,7 @@ import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.PopupWindow;
@@ -23,15 +24,10 @@ public class CaseListView extends ListView {
 	}
 
 	public void showView(View view) {
-		LinearLayout container = new LinearLayout(getContext()){
-
-			@Override
-			protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-				super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-			}
-			
-		};
+		FrameLayout container = new FrameLayout(getContext());
 		container.setBackgroundColor(Color.BLACK);
+		FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(-1 , -1);
+		params.gravity = Gravity.CENTER;
 		container.addView(view);
 		
 		Point outSize = new Point();

@@ -8,6 +8,7 @@ import com.codebag.R;
 import com.codebag.bag.CaseListView;
 import com.codebag.bag.Entry;
 import com.codebag.code.mycode.cleanmasterdemo.RingView.AniminationListener;
+import com.codebag.code.mycode.utils.DisplayUtil;
 import com.codebag.code.mycode.utils.Log;
 
 public class Invoker extends CaseListView {
@@ -18,7 +19,8 @@ public class Invoker extends CaseListView {
 	
 	@Entry
 	public void showCircle() {
-		RingView view = new RingView(getContext(), 80, 540);
+		RingView view = new RingView(getContext());
+		view.setData(80, 540);
 		view.setColor(0xE624a0ff, 0x19000000);
 		view.setBackgroundColor(Color.WHITE);
 		view.setAniminationListener(new AniminationListener() {
@@ -34,7 +36,19 @@ public class Invoker extends CaseListView {
 			}
 		});
 		view.startAnimination(0);
+		
 		showView(view);
+	}
+	
+	@Entry
+	public void showCardRingView() {
+		CardRingView cv = new CardRingView(getContext());
+		cv.setBackgroundColor(Color.WHITE);
+		cv.setProgress(78);
+		cv.setColor(0xE624a0ff, 0x19000000);
+		int ply = DisplayUtil.dip2px(getContext(), 12);
+		cv.setData(ply, 0);
+		showView(cv);
 	}
 	
 	@Entry
@@ -55,8 +69,7 @@ public class Invoker extends CaseListView {
 		clean.setDialMarkResource(R.drawable.memery);//
 		clean.setRoatingBg(R.drawable.fan);
 		clean.setSmallMarkResource(R.drawable.roket);
-		clean.setProgress(30);
-		clean.start();
+		clean.start(30);
 		
 		f.addView(clean, p);
 		showView(f);

@@ -10,19 +10,23 @@ import android.os.Looper;
 import android.os.Message;
 import android.view.View;
 
+/**
+ * 
+ * 居中显示的圆形进度
+ * 
+ * @author zhangrui-ms
+ *
+ */
 public class RingView extends View {
 	private Paint mPaint; 
 	private RectF mRect;
-	private float mAngle = 360;
+	private float mAngle = 0;
 	private int mEndProgress;
 	private int mProgressColor;
 	private int mBackGroundColor;
 	private int mDiameter;
 	private int mPly;
 	private AniminationListener mListener;
-	
-	private int startX;
-	private int startY;
 	
 	public RingView(Context context) {
 		this(context, 0, 0);
@@ -59,11 +63,11 @@ public class RingView extends View {
 		super.onMeasure(widthMeasureSpec, heightMeasureSpec);
 		int width = getMeasuredWidth();
 		int height = getMeasuredHeight();
-		startX = (width - mDiameter) / 2;
-		startY = (height - mDiameter) / 2;
+		int startX = (width - mDiameter) / 2;
+		int startY = (height - mDiameter) / 2;
 		mRect.set(startX + mPly/2, startY + mPly/2, startX + mDiameter + mPly/2 - mPly, startY + mDiameter + mPly/2 - mPly);
 	}
-
+	
 	public void setColor(int progressColor, int backGroundColor) {
 		mProgressColor = progressColor;
 		mBackGroundColor = backGroundColor;
