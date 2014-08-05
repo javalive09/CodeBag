@@ -53,6 +53,8 @@ public class CleanDial extends FrameLayout {
 		mRoatingBackGround.setBackgroundResource(resid);
 		return this;
 	}
+	
+	
 
 	private void init(Context context) {
 		mDialMarkImage = new ImageView(context);
@@ -71,7 +73,7 @@ public class CleanDial extends FrameLayout {
 		
 		
 		mProgressBar = new CardRingView(context);
-		mProgressBar.setColor(0xE624a0ff, 0x19000000);
+		mProgressBar.setColor(0xE624a0ff, 0xff666699);
 		mPly = DisplayUtil.dip2px(context, 12);
 		mProgressBar.setVisibility(View.INVISIBLE);
 		mProgressBar.getDialView().setVisibility(View.INVISIBLE);
@@ -111,6 +113,7 @@ public class CleanDial extends FrameLayout {
 	}
 
 	private void startDialMarkAnim(final int endProgress) {
+		mProgressBar.setProgress(endProgress);
 		AnimationSet animinationSet = new AnimationSet(true);
 
 		ScaleAnimation animationScale = new ScaleAnimation(1, 0.5f, 1, 0.5f,
@@ -208,7 +211,7 @@ public class CleanDial extends FrameLayout {
 	private void startCircleBarAnim(int endProgress) {
 		mProgressBar.setVisibility(View.VISIBLE);
 		mRoatingBackGround.setVisibility(View.INVISIBLE);
-		mBackGround.setVisibility(View.INVISIBLE);
+//		mBackGround.setVisibility(View.INVISIBLE);
 		View mText = mProgressBar.getDialView();
 		mText.setVisibility(View.VISIBLE);
 		AnimationSet animinationSet = new AnimationSet(true);

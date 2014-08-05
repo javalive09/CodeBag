@@ -73,7 +73,7 @@ public class CardRingView extends FrameLayout {
 	}
 	
 	public void setProgress(int progress) {
-		mProgressBar.setProgress(progress);
+//		mProgressBar.setProgress(progress);
 		mNum.setText(progress+"");
 	}
 	
@@ -82,7 +82,6 @@ public class CardRingView extends FrameLayout {
 	}
 	
 	public void startAnimination(int endProgress) {
-		setProgress(endProgress);
 		mProgressBar.startAnimination(endProgress);
 	}
 
