@@ -1,6 +1,7 @@
 package com.codebag.code.mycode.cleanmasterdemo;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -64,13 +65,15 @@ public class CardRingView extends FrameLayout {
 		mNum.setTextColor(progressColor);
 	}
 	
-	@Override
-	protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-		super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-		if(mPly != 0) {
-			mProgressBar.setData(mPly, getMeasuredWidth()- 10);
-		}
-	}
+//	@Override
+//	protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+//		if(mPly != 0) {
+//			int width = getMeasuredWidth();
+//			Log.i("peter", "width = " + width);
+//			mProgressBar.setData(mPly, 1280);
+//		}
+//		super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+//	}
 	
 	public void setProgress(int progress) {
 //		mProgressBar.setProgress(progress);

@@ -8,6 +8,7 @@ import android.graphics.RectF;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
+import android.util.Log;
 import android.view.View;
 
 /**
@@ -56,6 +57,7 @@ public class RingView extends View {
 		mPly = ply;
 		mPaint.setStrokeWidth(ply);
 		mDiameter = diameter - mPly;
+		Log.i("peter", "d=" + mDiameter);
 	}
 	
 	@Override
