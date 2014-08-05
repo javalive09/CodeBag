@@ -14,6 +14,7 @@ import android.view.animation.AnimationSet;
 import android.view.animation.ScaleAnimation;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 public class CleanDial extends FrameLayout {
@@ -27,6 +28,8 @@ public class CleanDial extends FrameLayout {
 	private ImageView mWhiteBackGround;
 
 	private TextView mNum;
+	
+	private LinearLayout mText;
 
 	private RingView mProgressBar;
 
@@ -60,7 +63,7 @@ public class CleanDial extends FrameLayout {
 
 	public CleanDial setProgress(int progress) {
 		mProgress = progress;
-		mNum.setText(progress + "%");
+		mNum.setText(progress + "");
 		return this;
 	}
 
@@ -72,10 +75,28 @@ public class CleanDial extends FrameLayout {
 		mSmallMarkImage = new ImageView(context);
 		mSmallMarkImage.setVisibility(View.INVISIBLE);
 		
+		mText = new LinearLayout(getContext());
+		
 		mNum = new TextView(context);
-		mNum.setVisibility(View.INVISIBLE);
 		mNum.setTextSize(40);
 		mNum.setTextColor(0xE624a0ff);
+		mNum.setId(1);
+		
+		TextView percentSign = new TextView(getContext());
+		percentSign.setText("%");
+		percentSign.setTextSize(20);
+		percentSign.setTextColor(0xE624a0ff);
+		
+		LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(-2, -2);
+		params.gravity = Gravity.CENTER;
+		
+		mText.addView(mNum, params);
+		
+		LinearLayout.LayoutParams paramsP = new LinearLayout.LayoutParams(-2, -2);
+		paramsP.gravity = Gravity.LEFT | Gravity.TOP;
+		
+		mText.addView(percentSign, paramsP);
+		mText.setVisibility(View.INVISIBLE);
 		
 		mProgressBar = new RingView(context);
 		mProgressBar.setColor(0xE624a0ff, 0x19000000);
@@ -103,7 +124,7 @@ public class CleanDial extends FrameLayout {
 		addView(mSmallMarkImage, paramsWrap);
 		
 		addView(mProgressBar, paramsFill);
-		addView(mNum, paramsWrap);
+		addView(mText, paramsWrap);
 		addView(mDialMarkImage, paramsWrap);
 	}
 
@@ -216,7 +237,7 @@ public class CleanDial extends FrameLayout {
 		mProgressBar.setVisibility(View.VISIBLE);
 		mRoatingBackGround.setVisibility(View.INVISIBLE);
 		mBackGround.setVisibility(View.INVISIBLE);
-		mNum.setVisibility(View.VISIBLE);
+		mText.setVisibility(View.VISIBLE);
 		AnimationSet animinationSet = new AnimationSet(true);
 
 		ScaleAnimation animationScale = new ScaleAnimation(0.5f, 1.0f, 0.5f, 1.0f,
@@ -229,7 +250,7 @@ public class CleanDial extends FrameLayout {
 		animinationSet.addAnimation(animationAlpha);
 		animinationSet.setFillAfter(true);
 		animinationSet.setDuration(mAnimDuration);
-		mNum.startAnimation(animinationSet);
+		mText.startAnimation(animinationSet);
 		mProgressBar.startAnimination(mProgress);
 	}
 

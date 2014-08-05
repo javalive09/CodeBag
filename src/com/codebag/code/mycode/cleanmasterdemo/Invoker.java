@@ -52,7 +52,7 @@ public class Invoker extends CaseListView {
 		f.setBackgroundColor(Color.WHITE);
 		
 		CleanDial clean = new CleanDial(getContext());
-		clean.setDialMarkResource(R.drawable.memery);
+		clean.setDialMarkResource(R.drawable.memery);//
 		clean.setRoatingBg(R.drawable.fan);
 		clean.setSmallMarkResource(R.drawable.roket);
 		clean.setProgress(30);
