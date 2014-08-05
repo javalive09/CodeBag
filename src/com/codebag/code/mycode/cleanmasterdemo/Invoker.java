@@ -49,7 +49,7 @@ public class Invoker extends CaseListView {
 			
 		};
 		FrameLayout.LayoutParams p = new FrameLayout.LayoutParams(-2, -2);
-		f.setBackgroundColor(Color.BLUE);
+		f.setBackgroundColor(Color.WHITE);
 		
 		CleanDial clean = new CleanDial(getContext());
 		clean.setDialMarkResource(R.drawable.memery);
