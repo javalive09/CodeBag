@@ -52,21 +52,37 @@ public class Invoker extends CaseListView {
 	}
 	
 	@Entry
+	public void showCleanDialProgress() {
+		CleanDial clean = new CleanDial(getContext());
+		clean.setDialMarkResource(R.drawable.memery);//
+		clean.setRoatingBg(R.drawable.fan);
+		clean.setSmallMarkResource(R.drawable.roket);
+		clean.setProgress(85);
+		showView(clean);
+	}
+	
+	@Entry
+	public void showDleanDialDialMark() {
+		CleanDial clean = new CleanDial(getContext());
+		clean.setDialMarkResource(R.drawable.memery);//
+		showView(clean);
+	}
+	
+	@Entry
+	public void showDleanDialRoket() {
+		CleanDial clean = new CleanDial(getContext());
+		clean.showRoket(50);
+		showView(clean);
+	}
+	
+	@Entry
 	public void showCleanDial() {
 		
-		FrameLayout f = new FrameLayout(getContext()){
-
-			@Override
-			protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-				super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-			}
-			
-		};
+		FrameLayout f = new FrameLayout(getContext());
 		FrameLayout.LayoutParams p = new FrameLayout.LayoutParams(-2, -2);
 		f.setBackgroundColor(Color.WHITE);
 		
 		CleanDial clean = new CleanDial(getContext());
-//		clean.setBackgroundColor(Color.CYAN);
 		clean.setDialMarkResource(R.drawable.memery);//
 		clean.setRoatingBg(R.drawable.fan);
 		clean.setSmallMarkResource(R.drawable.roket);
