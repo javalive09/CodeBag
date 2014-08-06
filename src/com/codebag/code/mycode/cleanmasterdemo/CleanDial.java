@@ -32,7 +32,9 @@ public class CleanDial extends FrameLayout {
 	
 	private int mPly;
 	
-	private static final int mAnimDuration = 500;
+	private RotateAnimation mRoatingAnim;
+	
+	private static final int mAnimDuration = 1000;
 
 	public CleanDial(Context context) {
 		super(context);
@@ -45,34 +47,35 @@ public class CleanDial extends FrameLayout {
 	}
 	
 	public void setProgress(int progress) {
-		mDialMarkImage.setVisibility(View.INVISIBLE);
-		mSmallMarkImage.setVisibility(View.INVISIBLE);
-		mWhiteBackGround.setVisibility(View.INVISIBLE);
-		mRoatingBackGround.setVisibility(View.INVISIBLE);
-		mBackGround.setVisibility(View.INVISIBLE);
-		
-		mProgressBar.setVisibility(View.VISIBLE);
-		mProgressBar.getDialView().setVisibility(View.VISIBLE);
-		
-		mProgressBar.setProgress(progress);
+		mRoatingAnim.cancel();
+		startScaleWhiteBgAnim(progress);
 	}
 	
-	public void showRoket(int endProgress) {
+	public void showRoket() {
+		setRoatingBg(R.drawable.fan).setSmallMarkResource(R.drawable.roket);
 		if(mDialMarkImage.getVisibility() == View.VISIBLE){//可见
-			setRoatingBg(R.drawable.fan);
-			setSmallMarkResource(R.drawable.roket);
-			startDialMarkAnim(endProgress);
+			startDialMarkAnim();
 		}else {
-			setRoatingBg(R.drawable.fan);
-			setSmallMarkResource(R.drawable.roket);
-			startRoatingBgAnim(endProgress);
+			startRoatingBgAnim();
 		}
 	}
 	
-	public void start(int endProgress) {
-		mSmallMarkImage.setVisibility(View.INVISIBLE);
-		mWhiteBackGround.setVisibility(View.INVISIBLE);
-		startDialMarkAnim(endProgress);
+	public void showMagnifier() {
+		setRoatingBg(R.drawable.scanner).setSmallMarkResource(R.drawable.magnifier);
+		if(mDialMarkImage.getVisibility() == View.VISIBLE){//可见
+			startDialMarkAnim();
+		}else {
+			startRoatingBgAnim();
+		}
+	}
+	
+	public void showBrush() {
+		setRoatingBg(R.drawable.fan).setSmallMarkResource(R.drawable.brush);
+		if(mDialMarkImage.getVisibility() == View.VISIBLE){//可见
+			startDialMarkAnim();
+		}else {
+			startRoatingBgAnim();
+		}
 	}
 
 	public CleanDial setSmallMarkResource(int resid) {
@@ -100,7 +103,7 @@ public class CleanDial extends FrameLayout {
 		
 		
 		mProgressBar = new CardRingView(context);
-		mProgressBar.setColor(0xE624a0ff, 0xff666699);
+		mProgressBar.setColor(0xE624a0ff, 0x19000000);
 		mPly = DisplayUtil.dip2px(context, 12);
 		
 		mBackGround = new ImageView(context);
@@ -133,10 +136,8 @@ public class CleanDial extends FrameLayout {
 		mRoatingBackGround.setVisibility(View.VISIBLE);
 		mBackGround.setVisibility(View.VISIBLE);
 		
-//		mSmallMarkImage.setVisibility(View.INVISIBLE);
 		mProgressBar.setVisibility(View.INVISIBLE);
 		mProgressBar.getDialView().setVisibility(View.INVISIBLE);
-//		mWhiteBackGround.setVisibility(View.INVISIBLE);
 	}
 
 	@Override
@@ -146,9 +147,8 @@ public class CleanDial extends FrameLayout {
 		super.onMeasure(widthMeasureSpec, heightMeasureSpec);
 	}
 
-	private void startDialMarkAnim(final int endProgress) {
+	private void startDialMarkAnim() {
 		
-		mProgressBar.setProgressText(endProgress);
 		AnimationSet animinationSet = new AnimationSet(true);
 
 		ScaleAnimation animationScale = new ScaleAnimation(1, 0.5f, 1, 0.5f,
@@ -177,41 +177,32 @@ public class CleanDial extends FrameLayout {
 
 			@Override
 			public void onAnimationEnd(Animation animation) {
-				startRoatingBgAnim(endProgress);
+				startRoatingBgAnim();
 			}
 		});
 	}
 	
-	private void startRoatingBgAnim(final int endProgress) {
-		mProgressBar.setProgressText(endProgress);
+	private void startRoatingBgAnim() {
 		mDialMarkImage.setVisibility(View.INVISIBLE);
 		mSmallMarkImage.setVisibility(View.VISIBLE);
 		mWhiteBackGround.setVisibility(View.VISIBLE);
-		RotateAnimation animation = new RotateAnimation(0, 360, 
+		
+		mRoatingAnim = new RotateAnimation(0, 360, 
 				Animation.RELATIVE_TO_SELF , 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
-		animation.setDuration(mAnimDuration);
-		animation.setFillAfter(false);
-		mRoatingBackGround.startAnimation(animation);
-		animation.setAnimationListener(new AnimationListener() {
-
-			@Override
-			public void onAnimationStart(Animation animation) {
-
-			}
-
-			@Override
-			public void onAnimationRepeat(Animation animation) {
-
-			}
-
-			@Override
-			public void onAnimationEnd(Animation animation) {
-				startScaleWhiteBgAnim(endProgress);
-			}
-		});
+		mRoatingAnim.setDuration(mAnimDuration);
+		mRoatingAnim.setRepeatCount(-1);
+		mRoatingAnim.setRepeatMode(Animation.RESTART);
+		mRoatingAnim.setFillAfter(false);
+		mRoatingBackGround.startAnimation(mRoatingAnim);
 	}
 	
 	private void startScaleWhiteBgAnim(final int endProgress) {
+		
+		mDialMarkImage.setVisibility(View.INVISIBLE);
+		mProgressBar.setVisibility(View.INVISIBLE);
+		mProgressBar.getDialView().setVisibility(View.INVISIBLE);
+		mProgressBar.setProgressText(endProgress);
+		
 		ScaleAnimation animationScale = new ScaleAnimation(1, 1.60f, 1, 1.60f, 
 				Animation.RELATIVE_TO_SELF , 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
 		AlphaAnimation animationAlphaHide = new AlphaAnimation(1.0f, 0.0f); // 透明度，从不透明到透明
@@ -247,9 +238,8 @@ public class CleanDial extends FrameLayout {
 	private void startCircleBarAnim(int endProgress) {
 		mProgressBar.setVisibility(View.VISIBLE);
 		mRoatingBackGround.setVisibility(View.INVISIBLE);
-//		mBackGround.setVisibility(View.INVISIBLE);
+		mBackGround.setVisibility(View.INVISIBLE);
 		View mText = mProgressBar.getDialView();
-//		mText.setVisibility(View.VISIBLE);
 		AnimationSet animinationSet = new AnimationSet(true);
 
 		ScaleAnimation animationScale = new ScaleAnimation(0.5f, 1.0f, 0.5f, 1.0f,

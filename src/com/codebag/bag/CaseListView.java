@@ -13,7 +13,6 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.FrameLayout;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.PopupWindow;
 
@@ -24,7 +23,7 @@ public class CaseListView extends ListView {
 	}
 
 	public void showView(View view) {
-		FrameLayout container = new FrameLayout(getContext());
+		final FrameLayout container = new FrameLayout(getContext());
 		container.setBackgroundColor(Color.BLACK);
 		FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(-1 , -1);
 		params.gravity = Gravity.CENTER;
@@ -49,6 +48,7 @@ public class CaseListView extends ListView {
 				if(event.getAction() == KeyEvent.ACTION_UP) {
 					if(keyCode == KeyEvent.KEYCODE_BACK) {
 						Log.addLog(this, "window height =" + pw.getHeight());
+						container.removeAllViews();
 						pw.dismiss();
 						return true;
 					}
