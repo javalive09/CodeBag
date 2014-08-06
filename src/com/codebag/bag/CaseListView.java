@@ -21,12 +21,26 @@ public class CaseListView extends ListView {
 	public CaseListView(Context context) {
 		super(context);
 	}
-
-	public void showView(View view) {
-		final FrameLayout container = new FrameLayout(getContext());
-		container.setBackgroundColor(Color.BLACK);
+	
+	public FrameLayout.LayoutParams getCenterParams() {
 		FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(-1 , -1);
 		params.gravity = Gravity.CENTER;
+		return params;
+	}
+	
+	public FrameLayout.LayoutParams getBottomParams() {
+		FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(-1 , -1);
+		params.gravity = Gravity.BOTTOM;
+		return params;
+	}
+
+	public void showView(View view) {
+		showView(view, getCenterParams());
+	}
+	
+	public void showView(View view, FrameLayout.LayoutParams params) {
+		final FrameLayout container = new FrameLayout(getContext());
+		container.setBackgroundColor(Color.BLACK);
 		container.addView(view);
 		
 		Point outSize = new Point();
@@ -57,7 +71,7 @@ public class CaseListView extends ListView {
 			}
 		});
 	}
-
+	
 	/**
 	 * 用于获取状态栏的高度。
 	 * 
