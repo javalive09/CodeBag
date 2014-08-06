@@ -108,8 +108,8 @@ public class CleanDial extends FrameLayout {
 
 	@Override
 	protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-		int pad  = DisplayUtil.dip2px(getContext(), 8);
-		mProgressBar.setData(mPly, mBackGround.getMeasuredHeight() - 8);
+		int pad  = DisplayUtil.dip2px(getContext(), 16);
+		mProgressBar.setData(mPly, mBackGround.getMeasuredHeight() - pad);
 		super.onMeasure(widthMeasureSpec, heightMeasureSpec);
 	}
 
@@ -212,7 +212,7 @@ public class CleanDial extends FrameLayout {
 	private void startCircleBarAnim(int endProgress) {
 		mProgressBar.setVisibility(View.VISIBLE);
 		mRoatingBackGround.setVisibility(View.INVISIBLE);
-		mBackGround.setVisibility(View.INVISIBLE);
+//		mBackGround.setVisibility(View.INVISIBLE);
 		View mText = mProgressBar.getDialView();
 //		mText.setVisibility(View.VISIBLE);
 		AnimationSet animinationSet = new AnimationSet(true);

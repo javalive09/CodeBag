@@ -56,16 +56,16 @@ public class RingView extends View {
 	public void setData(int ply, int diameter) {
 		mPly = ply;
 		mPaint.setStrokeWidth(ply);
-		mDiameter = diameter - mPly;
+		mDiameter = diameter;
 		Log.i("peter", "d=" + mDiameter);
 	}
 	
 	@Override
 	protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
 		super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-		setMeasuredDimension(mDiameter+mPly, mDiameter + mPly);
-		int width = mDiameter+mPly;
-		int height = mDiameter + mPly;
+		setMeasuredDimension(mDiameter, mDiameter);
+		int width = mDiameter;
+		int height = mDiameter;
 		int startX = (width - mDiameter) / 2;
 		int startY = (height - mDiameter) / 2;
 		mRect.set(startX + mPly/2, startY + mPly/2, startX + mDiameter + mPly/2 - mPly, startY + mDiameter + mPly/2 - mPly);
