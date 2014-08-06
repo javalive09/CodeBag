@@ -114,7 +114,7 @@ public class CleanDial extends FrameLayout {
 	}
 
 	private void startDialMarkAnim(final int endProgress) {
-		mProgressBar.setProgress(endProgress);
+		mProgressBar.setProgressText(endProgress);
 		AnimationSet animinationSet = new AnimationSet(true);
 
 		ScaleAnimation animationScale = new ScaleAnimation(1, 0.5f, 1, 0.5f,

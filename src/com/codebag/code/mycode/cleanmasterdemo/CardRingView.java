@@ -65,18 +65,12 @@ public class CardRingView extends FrameLayout {
 		mNum.setTextColor(progressColor);
 	}
 	
-//	@Override
-//	protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-//		if(mPly != 0) {
-//			int width = getMeasuredWidth();
-//			Log.i("peter", "width = " + width);
-//			mProgressBar.setData(mPly, 1280);
-//		}
-//		super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-//	}
+	public void setProgressText(int progress) {
+		mNum.setText(progress+"");
+	}
 	
 	public void setProgress(int progress) {
-//		mProgressBar.setProgress(progress);
+		mProgressBar.setProgress(progress);
 		mNum.setText(progress+"");
 	}
 	

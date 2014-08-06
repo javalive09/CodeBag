@@ -47,7 +47,7 @@ public class Invoker extends CaseListView {
 		cv.setProgress(78);
 		cv.setColor(0xE624a0ff, 0x19000000);
 		int ply = DisplayUtil.dip2px(getContext(), 12);
-		cv.setData(ply, 0);
+		cv.setData(ply, 540);
 		showView(cv);
 	}
 	

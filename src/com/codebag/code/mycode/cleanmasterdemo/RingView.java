@@ -63,8 +63,9 @@ public class RingView extends View {
 	@Override
 	protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
 		super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-		int width = getMeasuredWidth();
-		int height = getMeasuredHeight();
+		setMeasuredDimension(mDiameter+mPly, mDiameter + mPly);
+		int width = mDiameter+mPly;
+		int height = mDiameter + mPly;
 		int startX = (width - mDiameter) / 2;
 		int startY = (height - mDiameter) / 2;
 		mRect.set(startX + mPly/2, startY + mPly/2, startX + mDiameter + mPly/2 - mPly, startY + mDiameter + mPly/2 - mPly);
