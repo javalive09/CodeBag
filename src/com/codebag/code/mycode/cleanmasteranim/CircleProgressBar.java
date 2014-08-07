@@ -60,7 +60,6 @@ public class CircleProgressBar extends View {
 	
 	@Override
 	protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-		super.onMeasure(widthMeasureSpec, heightMeasureSpec);
 		setMeasuredDimension(mDiameter, mDiameter);
 		int width = mDiameter;
 		int height = mDiameter;
@@ -117,7 +116,7 @@ public class CircleProgressBar extends View {
 			if(msg.what > mEndProgress) {
 				msg.what--;
 				setProgress(msg.what);
-				sendEmptyMessageDelayed(msg.what, 1);
+				sendEmptyMessage(msg.what);
 			}else if(msg.what == mEndProgress) {
 				if(mListener != null) {
 					mListener.end();
