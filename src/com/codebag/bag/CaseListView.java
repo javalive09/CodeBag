@@ -22,20 +22,20 @@ public class CaseListView extends ListView {
 		super(context);
 	}
 	
-	public FrameLayout.LayoutParams getCenterParams() {
+	public FrameLayout.LayoutParams fillParentParams(int gravity) {
 		FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(-1 , -1);
-		params.gravity = Gravity.CENTER;
+		params.gravity = gravity;
 		return params;
 	}
 	
-	public FrameLayout.LayoutParams getBottomParams() {
-		FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(-1 , -1);
-		params.gravity = Gravity.BOTTOM;
+	public FrameLayout.LayoutParams wrapContentParams(int gravity) {
+		FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(-2 , -2);
+		params.gravity = gravity;
 		return params;
 	}
 
 	public void showView(View view) {
-		showView(view, getCenterParams());
+		showView(view, fillParentParams(Gravity.CENTER));
 	}
 	
 	public void showView(View view, FrameLayout.LayoutParams params) {

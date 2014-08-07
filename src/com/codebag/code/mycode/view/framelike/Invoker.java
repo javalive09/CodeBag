@@ -109,12 +109,20 @@ public class Invoker extends CaseListView {
 	
 	@Entry
 	public void showTextView() {
+		FrameLayout fl = new FrameLayout(getContext());
+		FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(-2, -2);
+		params.gravity = Gravity.CENTER;
+		fl.setBackgroundColor(Color.CYAN);
+		
 		TextView v = new TextView(getContext());
 		v.setText("123456789");
 		v.setTextSize(50);
 		v.setTextColor(Color.WHITE);
 		v.setBackgroundColor(Color.BLUE);
-		showView(v);
+		
+		fl.addView(v, params);
+		
+		showView(fl);
 	}
 	
 	

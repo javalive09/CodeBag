@@ -2,6 +2,7 @@ package com.codebag.code.mycode.cleanmasteranim;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.FrameLayout;
 
@@ -62,8 +63,8 @@ public class Invoker extends CaseListView {
 		}.getButtons();
 		
 		FrameLayout fl = new FrameLayout(getContext());
-		fl.addView(c, getCenterParams());
-		fl.addView(buttons, getBottomParams());
+		fl.addView(c, fillParentParams(Gravity.CENTER));
+		fl.addView(buttons, fillParentParams(Gravity.BOTTOM));
 		fl.setBackgroundColor(Color.WHITE);
 		showView(fl);
 	}
