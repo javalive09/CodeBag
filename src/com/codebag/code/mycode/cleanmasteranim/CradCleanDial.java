@@ -105,10 +105,8 @@ public class CradCleanDial extends FrameLayout {
 
 	public void showRoket() {
 		cancelRoatingAnim();
-		mRoatingBackGround
-				.setBackgroundResource(R.drawable.sysclear_card_anim_fan);
-		mSmallMarkImage
-				.setBackgroundResource(R.drawable.sysclear_card_anim_roket);
+		mRoatingBackGround.setBackgroundResource(R.drawable.sysclear_card_anim_fan);
+		mSmallMarkImage.setBackgroundResource(R.drawable.sysclear_card_anim_roket);
 		if (mDialMarkImage.getVisibility() == VISIBLE) {// 可见
 			startDialMarkAnim();
 		} else {
@@ -118,10 +116,8 @@ public class CradCleanDial extends FrameLayout {
 
 	public void showMagnifier() {
 		cancelRoatingAnim();
-		mRoatingBackGround
-				.setBackgroundResource(R.drawable.sysclear_card_anim_scanner);
-		mSmallMarkImage
-				.setBackgroundResource(R.drawable.sysclear_card_anim_magnifier);
+		mRoatingBackGround.setBackgroundResource(R.drawable.sysclear_card_anim_scanner);
+		mSmallMarkImage.setBackgroundResource(R.drawable.sysclear_card_anim_magnifier);
 		if (mDialMarkImage.getVisibility() == VISIBLE) {// 可见
 			startDialMarkAnim();
 		} else {
@@ -131,10 +127,8 @@ public class CradCleanDial extends FrameLayout {
 
 	public void showBrush() {
 		cancelRoatingAnim();
-		mRoatingBackGround
-				.setBackgroundResource(R.drawable.sysclear_card_anim_fan);
-		mSmallMarkImage
-				.setBackgroundResource(R.drawable.sysclear_card_anim_brush);
+		mRoatingBackGround.setBackgroundResource(R.drawable.sysclear_card_anim_fan);
+		mSmallMarkImage.setBackgroundResource(R.drawable.sysclear_card_anim_brush);
 		if (mDialMarkImage.getVisibility() == VISIBLE) {// 可见
 			startDialMarkAnim();
 		} else {
@@ -152,15 +146,9 @@ public class CradCleanDial extends FrameLayout {
 		mBackGround = new ImageView(context);
 		mBackGround.setImageResource(R.drawable.sysclear_card_anim_bluebg);
 		mWhiteBackGround = new ImageView(context);
-		mWhiteBackGround
-				.setImageResource(R.drawable.sysclear_card_anim_circlewhite);
-		LayoutParams paramsWrap = new LayoutParams(LayoutParams.WRAP_CONTENT,
-				LayoutParams.WRAP_CONTENT);
-		LayoutParams paramsFill = new LayoutParams(LayoutParams.FILL_PARENT,
-				LayoutParams.FILL_PARENT);
+		mWhiteBackGround.setImageResource(R.drawable.sysclear_card_anim_circlewhite);
+		LayoutParams paramsWrap = new LayoutParams(-2, -2);
 		paramsWrap.gravity = Gravity.CENTER;
-		paramsFill.gravity = Gravity.CENTER;
-
 		resetDialMarkImageState();
 
 		addView(mBackGround, paramsWrap);
@@ -169,7 +157,7 @@ public class CradCleanDial extends FrameLayout {
 		addView(mWhiteBackGround, paramsWrap);
 		addView(mSmallMarkImage, paramsWrap);
 
-		addView(mProgressBar, paramsFill);
+		addView(mProgressBar, paramsWrap);
 		addView(mDialMarkImage, paramsWrap);
 	}
 
@@ -185,8 +173,7 @@ public class CradCleanDial extends FrameLayout {
 	private void startDialMarkAnim() {
 		AnimationSet animinationSet = new AnimationSet(true);
 		ScaleAnimation animationScale = new ScaleAnimation(1, 0.6f, 1, 0.6f,
-				Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF,
-				0.5f);
+				Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
 		AlphaAnimation animationAlpha = new AlphaAnimation(1.0f, 0.3f); // 透明度，从不透明到透明
 		animinationSet.addAnimation(animationScale);
 		animinationSet.addAnimation(animationAlpha);
@@ -217,8 +204,7 @@ public class CradCleanDial extends FrameLayout {
 	private void startScaleWhiteBgAnim(final int endProgress) {
 		mProgressBar.setProgressText(endProgress);
 		ScaleAnimation animationScale = new ScaleAnimation(1, 1.40f, 1, 1.40f,
-				Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF,
-				0.5f);
+				Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
 		AlphaAnimation animationAlphaHide = new AlphaAnimation(1.0f, 0.0f); // 透明度，从不透明到透明
 		mWhiteBackGround.clearAnimation();
 		mWhiteBackGround.startAnimation(animationScale);
@@ -227,7 +213,6 @@ public class CradCleanDial extends FrameLayout {
 		mSmallMarkImage.startAnimation(animationAlphaHide);
 		mRoatingBackGround.clearAnimation();
 		mRoatingBackGround.startAnimation(animationAlphaHide);
-
 		animationAlphaHide.setDuration(mAnimDuration);
 		animationScale.setAnimationListener(new MyAnimListener() {
 			@Override

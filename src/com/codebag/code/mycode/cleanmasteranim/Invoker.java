@@ -10,6 +10,7 @@ import com.codebag.R;
 import com.codebag.bag.ButtonsUtil;
 import com.codebag.bag.CaseListView;
 import com.codebag.bag.Entry;
+import com.codebag.code.mycode.utils.DisplayUtil;
 
 public class Invoker extends CaseListView {
 
@@ -63,7 +64,11 @@ public class Invoker extends CaseListView {
 		}.getButtons();
 		
 		FrameLayout fl = new FrameLayout(getContext());
-		fl.addView(c, fillParentParams(Gravity.CENTER));
+		int d = DisplayUtil.dip2px(getContext(), 110);
+		FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(d, d);
+		c.setBackgroundColor(Color.BLACK);
+		params.gravity = Gravity.CENTER;
+		fl.addView(c, params);
 		fl.addView(buttons, fillParentParams(Gravity.BOTTOM));
 		fl.setBackgroundColor(Color.WHITE);
 		showView(fl);
