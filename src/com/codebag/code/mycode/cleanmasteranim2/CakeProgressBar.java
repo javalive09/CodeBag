@@ -1,5 +1,5 @@
 
-package com.codebag.code.mycode.cleanmasteranim;
+package com.codebag.code.mycode.cleanmasteranim2;
 
 import android.content.Context;
 import android.graphics.Canvas;
@@ -16,9 +16,10 @@ import android.view.View;
  * @author zhangrui-ms
  *
  */
-public class CircleProgressBar extends View {
+public class CakeProgressBar extends View {
 	private Paint mPaint; 
-	private RectF mRect;
+	private RectF mRectIn;
+	private RectF mRectOut;
 	private float mAngle = 0;
 	private int mEndProgress;
 	private int mProgressColor;
@@ -27,7 +28,7 @@ public class CircleProgressBar extends View {
 	private int mPly;
 	private AniminationListener mListener;
 	
-	public CircleProgressBar(Context context) {
+	public CakeProgressBar(Context context) {
 		this(context, 0, 0);
 	}
 	
@@ -36,7 +37,7 @@ public class CircleProgressBar extends View {
 	 * @param ply		圆环厚度
 	 * @param diameter	圆环直径
 	 */
-	public CircleProgressBar(Context context, int ply, int diameter) {
+	public CakeProgressBar(Context context, int ply, int diameter) {
 		super(context);
 		init(ply, diameter);
 	}
@@ -44,10 +45,11 @@ public class CircleProgressBar extends View {
 	private void init(int ply, int diameter) {
 		mPly = ply;
 		mDiameter = diameter - mPly;
-		mRect = new RectF();
+		mRectIn = new RectF();
+		mRectOut = new RectF();
 		mPaint = new Paint();
 		mPaint.setStrokeWidth(ply);
-		mPaint.setStyle(Style.STROKE);
+		mPaint.setStyle(Style.FILL);
 		mPaint.setAntiAlias(true);
 	}
 	
@@ -65,7 +67,8 @@ public class CircleProgressBar extends View {
 		int height = mDiameter;
 		int startX = (width - mDiameter) / 2;
 		int startY = (height - mDiameter) / 2;
-		mRect.set(startX + mPly/2, startY + mPly/2, startX + mDiameter + mPly/2 - mPly, startY + mDiameter + mPly/2 - mPly);
+		mRectIn.set(startX + mPly/2, startY + mPly/2, startX + mDiameter + mPly/2 - mPly, startY + mDiameter + mPly/2 - mPly);
+		mRectOut.set(startX , startY, startX + mDiameter, startY + mDiameter);
 	}
 	
 	public void setColor(int progressColor, int backGroundColor) {
@@ -79,11 +82,11 @@ public class CircleProgressBar extends View {
 		
 		//draw background
 		mPaint.setColor(mBackGroundColor);
-		canvas.drawArc(mRect, 0, 360, false, mPaint);
+		canvas.drawArc(mRectIn, 0, 360, false, mPaint);
 		
 		//draw progress
 		mPaint.setColor(mProgressColor);
-		canvas.drawArc(mRect, 270, mAngle, false, mPaint);
+		canvas.drawArc(mRectOut, 270, mAngle, true, mPaint);
 	}
 	
 	public void setProgress(int progress) {

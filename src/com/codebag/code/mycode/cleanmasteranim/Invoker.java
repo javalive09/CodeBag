@@ -66,7 +66,7 @@ public class Invoker extends CaseListView {
 		FrameLayout fl = new FrameLayout(getContext());
 		int d = DisplayUtil.dip2px(getContext(), 110);
 		FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(d, d);
-		c.setBackgroundColor(Color.BLACK);
+//		c.setBackgroundColor(Color.BLACK);
 		params.gravity = Gravity.CENTER;
 		fl.addView(c, params);
 		fl.addView(buttons, fillParentParams(Gravity.BOTTOM));
