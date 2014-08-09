@@ -52,20 +52,15 @@ public class Invoker extends CaseListView {
 	
 	@Entry
 	public void showView3() {
-		FrameLayout fl = new FrameLayout(getContext());
 		int d = DisplayUtil.dip2px(getContext(), 110);
-		FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(d, d);
-		params.gravity = Gravity.CENTER;
 		
 		int mPly = DisplayUtil.dip2px(getContext(), 6);
 		CakeProgressBar c = new CakeProgressBar(getContext());
 		c.setData(mPly, d);
-//		c.setProgress(50);
 		c.setBackgroundColor(Color.WHITE);
 		c.setColor(0xE624a0ff, 0x19000000);
 		c.startAnimination(30);
-		fl.addView(c, params);
-		showView(fl, params);
+		showView(c);
 	}
 	
 
