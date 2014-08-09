@@ -9,6 +9,7 @@ import android.widget.FrameLayout;
 import com.codebag.bag.CaseListView;
 import com.codebag.bag.Entry;
 import com.codebag.code.mycode.utils.DisplayUtil;
+import com.codebag.code.mycode.utils.Log;
 
 public class Invoker extends CaseListView {
 
@@ -56,12 +57,21 @@ public class Invoker extends CaseListView {
 		
 		int mPly = DisplayUtil.dip2px(getContext(), 6);
 		CakeProgressBar c = new CakeProgressBar(getContext());
-		c.setData(mPly, d);
+		c.setData(mPly, d, 2);
 		c.setBackgroundColor(Color.WHITE);
 		c.setColor(0xE624a0ff, 0x19000000);
-		c.startAnimination(30);
+		c.startAnimination(40);
 		showView(c);
 	}
+	
+	@Entry
+	public void showWaveView() {
+		WaveView v = new WaveView(getContext());
+		v.startAnim(50);
+		showView(v);
+		
+	}
+	
 	
 
 }

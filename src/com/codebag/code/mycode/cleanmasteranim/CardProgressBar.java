@@ -61,7 +61,7 @@ public class CardProgressBar extends FrameLayout {
 	}
 	
 	public void setData(int ply, int diameter) {
-		mProgressBar.setData(ply, diameter);
+		mProgressBar.setData(ply, diameter, 2);
 	}
 	
 	public void setColor(int progressColor, int backGroundColor) {

@@ -9,7 +9,6 @@ import android.graphics.Paint.Style;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
-import android.util.Log;
 import android.view.View;
 
 /**
@@ -27,9 +26,12 @@ public class CakeProgressBar extends View {
 	private int mDiameter;
 	private int mPly;
 	private AniminationListener mListener;
+	public static final int DEFAUTL_SPEED = 1;
+	private int mSpeed = DEFAUTL_SPEED;
+	private boolean mCanAnim;
 	
 	public CakeProgressBar(Context context) {
-		this(context, 0, 0);
+		this(context, 0, 0, DEFAUTL_SPEED);
 	}
 	
 	/**
@@ -37,27 +39,29 @@ public class CakeProgressBar extends View {
 	 * @param ply		圆环厚度
 	 * @param diameter	圆环直径
 	 */
-	public CakeProgressBar(Context context, int ply, int diameter) {
+	public CakeProgressBar(Context context, int ply, int diameter ,int speed) {
 		super(context);
-		init(ply, diameter);
+		init(ply, diameter, speed);
 	}
 	
-	private void init(int ply, int diameter) {
-		mPly = ply;
-		mDiameter = diameter - mPly;
+	private void init(int ply, int diameter, int speed) {
+//		mDiameter = diameter - mPly;
 		mRectIn = new RectF();
 		mRectOut = new RectF();
 		mPaint = new Paint();
-		mPaint.setStrokeWidth(ply);
+//		mPaint.setStrokeWidth(ply);
 		mPaint.setStyle(Style.FILL);
 		mPaint.setAntiAlias(true);
+		setData(ply, diameter, speed);
 	}
 	
-	public void setData(int ply, int diameter) {
+	public void setData(int ply, int diameter, int speed) {
 		mPly = ply;
 		mPaint.setStrokeWidth(ply);
 		mDiameter = diameter;
-		Log.i("peter", "d=" + mDiameter);
+		if (speed > 1 || speed < 11) {
+			mSpeed = speed;
+		}
 	}
 	
 	@Override
@@ -102,6 +106,18 @@ public class CakeProgressBar extends View {
 		}
 	}
 	
+	@Override
+	protected void onAttachedToWindow() {
+		super.onAttachedToWindow();
+		mCanAnim = true;
+	}
+
+	@Override
+	protected void onDetachedFromWindow() {
+		super.onDetachedFromWindow();
+		mCanAnim = false;
+	}
+	
 	/**
 	 * 在#startAnimination之前调用
 	 * 
@@ -115,13 +131,16 @@ public class CakeProgressBar extends View {
 
 		@Override
 		public void handleMessage(Message msg) {
-			if(msg.what > mEndProgress) {
-				msg.what--;
-				setProgress(msg.what);
-				sendEmptyMessage(msg.what);
-			}else if(msg.what == mEndProgress) {
-				if(mListener != null) {
-					mListener.end();
+			if (mCanAnim) {
+				if (msg.what <= mEndProgress) {
+					setProgress(mEndProgress);
+					if (mListener != null) {
+						mListener.end();
+					}
+				}else if (msg.what > mEndProgress) {
+					msg.what -= mSpeed;
+					setProgress(msg.what);
+					sendEmptyMessage(msg.what);
 				}
 			}
 		}
