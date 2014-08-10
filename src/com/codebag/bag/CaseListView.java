@@ -35,13 +35,8 @@ public class CaseListView extends ListView {
 		return params;
 	}
 
-	public void popWindowView(View view) {
+	public void showView(View view) {
 		showView(view, fillParentParams(Gravity.CENTER));
-	}
-	
-	public void setContentView(View view) {
-		Activity act = (Activity) getContext();
-		act.setContentView(view);
 	}
 	
 	public void showView(View view, FrameLayout.LayoutParams params) {

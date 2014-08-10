@@ -49,7 +49,7 @@ public class Invoker extends CaseListView {
 		f1.addView(v, params_v);
 		f1.addView(f2, params_2);
 		
-		popWindowView(f1);
+		showView(f1);
 				
 	}
 	
@@ -71,7 +71,7 @@ public class Invoker extends CaseListView {
 		f1.addView(v, params_v);
 		f1.addView(f2, params_2);
 		
-		popWindowView(f1);
+		showView(f1);
 	}
 	
 	@Entry
@@ -103,7 +103,7 @@ public class Invoker extends CaseListView {
 		f1.addView(v, params_v);
 		f1.addView(f2, params_2);
 		
-		popWindowView(f1);
+		showView(f1);
 		
 	}
 	
@@ -122,7 +122,7 @@ public class Invoker extends CaseListView {
 		
 		fl.addView(v, params);
 		
-		popWindowView(fl);
+		showView(fl);
 	}
 	
 	

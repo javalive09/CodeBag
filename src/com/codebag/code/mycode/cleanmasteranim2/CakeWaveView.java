@@ -45,7 +45,11 @@ public class CakeWaveView extends View {
 		
 		canvas.save();
 		
-
+		
+		mPath.reset();
+		canvas.clipPath(mPath);
+		mPath.addArc(mBgRect, 0, 360);
+		canvas.clipPath(mPath, Region.Op.REPLACE); 
 		
 		
 		canvas.drawArc(mBgRect, 0, 360, false, mPaint);
@@ -55,11 +59,6 @@ public class CakeWaveView extends View {
 		calculatePath();
 		canvas.drawPath(aboveWavePath, aboveWavePaint);
 
-		
-		mPath.reset();
-		canvas.clipPath(mPath);
-		mPath.addArc(mBgRect, 0, 360);
-		canvas.clipPath(mPath, Region.Op.REPLACE); 
 		
 		canvas.restore(); 
 

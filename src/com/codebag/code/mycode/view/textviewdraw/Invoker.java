@@ -17,7 +17,7 @@ public class Invoker extends CaseListView {
 		MyTextView mv = new MyTextView(getContext());
 		mv.setText("123");
 		mv.setTextColor(Color.BLUE);
-		popWindowView(mv);
+		showView(mv);
 	}
 
 }

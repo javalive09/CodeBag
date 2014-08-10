@@ -40,7 +40,7 @@ public class Invoker extends CaseListView {
 		paramsP.addRule(RelativeLayout.ALIGN_PARENT_TOP);  
 		paramsP.addRule(RelativeLayout.CENTER_HORIZONTAL, RelativeLayout.TRUE);  
 		mNum2.addView(percentSign, paramsP);
-		popWindowView(mNum2);
+		showView(mNum2);
 	}
 	
 	@Entry
@@ -91,7 +91,7 @@ public class Invoker extends CaseListView {
 	    // btn4 位于 btn2 的下方，在父 Veiw 中水平居中  
 	    rl.addView(btn4,lp4);  
 	    
-	    popWindowView(rl);
+	    showView(rl);
 	}
 
 }

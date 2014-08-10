@@ -100,16 +100,11 @@ public class CakeProgressBar extends View {
 	
 	public void startAnimination(int endProgress) {
 		mEndProgress = endProgress;
+		mCanAnim = true;
 		mHandler.sendEmptyMessage(100);
 		if(mListener != null) {
 			mListener.start();
 		}
-	}
-	
-	@Override
-	protected void onAttachedToWindow() {
-		super.onAttachedToWindow();
-		mCanAnim = true;
 	}
 
 	@Override

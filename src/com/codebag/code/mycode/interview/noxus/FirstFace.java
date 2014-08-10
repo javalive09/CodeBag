@@ -38,7 +38,7 @@ public class FirstFace extends CaseListView {
 		SonViewOne sv = new SonViewOne(getContext());
 		sv.setBackgroundColor(Color.GREEN);
 		fv.addView(sv);
-		popWindowView(fv);
+		showView(fv);
 	}
 	
 	@Entry
@@ -48,7 +48,7 @@ public class FirstFace extends CaseListView {
 		SonViewTwo sv = new SonViewTwo(getContext());
 		sv.setBackgroundColor(Color.GREEN);
 		fv.addView(sv);
-		popWindowView(fv);
+		showView(fv);
 	}
 	
 	@Entry
@@ -61,7 +61,7 @@ public class FirstFace extends CaseListView {
 		sv.setBackgroundColor(Color.GREEN);
 		fv.addView(sv);
 		gv.addView(fv);
-		popWindowView(gv);
+		showView(gv);
 	}
 	
 	
