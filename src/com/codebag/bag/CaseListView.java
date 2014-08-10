@@ -5,6 +5,7 @@ import java.lang.reflect.Field;
 import com.codebag.R;
 import com.codebag.code.mycode.utils.Log;
 
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.Point;
@@ -34,8 +35,13 @@ public class CaseListView extends ListView {
 		return params;
 	}
 
-	public void showView(View view) {
+	public void popWindowView(View view) {
 		showView(view, fillParentParams(Gravity.CENTER));
+	}
+	
+	public void setContentView(View view) {
+		Activity act = (Activity) getContext();
+		act.setContentView(view);
 	}
 	
 	public void showView(View view, FrameLayout.LayoutParams params) {

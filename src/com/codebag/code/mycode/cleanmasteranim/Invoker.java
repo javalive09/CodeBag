@@ -71,7 +71,7 @@ public class Invoker extends CaseListView {
 		fl.addView(c, params);
 		fl.addView(buttons, fillParentParams(Gravity.BOTTOM));
 		fl.setBackgroundColor(Color.WHITE);
-		showView(fl);
+		popWindowView(fl);
 	}
 
 	public void showM() {

@@ -32,7 +32,7 @@ public class Example extends CaseListView {
 		v.setText("functionC");
 		v.setTextColor(Color.BLUE);
 		v.setTextSize(30);
-		showView(v);
+		popWindowView(v);
 	}
 }
 

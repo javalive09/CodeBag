@@ -5,9 +5,12 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
+import android.graphics.Rect;
+import android.graphics.RectF;
+import android.graphics.Region;
 import android.view.View;
 
-public class WaveView extends View {
+public class CakeWaveView extends View {
 
 	private Path aboveWavePath = new Path();
 	private Paint aboveWavePaint = new Paint();
@@ -20,26 +23,48 @@ public class WaveView extends View {
 	private int mHeight = 0;
 	private int mWaterH = 0;
 	private int mEndWateH = 0;
+	private RectF oval = new RectF();
 	
 	private int mPrecent;
-	private Path mPath = new Path();
 	
+	private Paint mPaint = new Paint(); 
+	private RectF mBgRect = new RectF();
 	
-	public WaveView(Context context) {
+	Path mPath = new Path(); 
+
+	public CakeWaveView(Context context) {
 		super(context);
 		initializePainters();
 		setBackgroundColor(Color.WHITE);
+		mPaint.setColor(Color.CYAN);
 	}
 
 	@Override
 	protected void onDraw(Canvas canvas) {
 		super.onDraw(canvas);
-//		mPath.addCircle(x, y, radius, dir);
+		
+		canvas.save();
+		
+
+		
+		
+		canvas.drawArc(mBgRect, 0, 360, false, mPaint);
+		
 		
 		
 		calculatePath();
 		canvas.drawPath(aboveWavePath, aboveWavePaint);
 
+		
+		mPath.reset();
+		canvas.clipPath(mPath);
+		mPath.addArc(mBgRect, 0, 360);
+		canvas.clipPath(mPath, Region.Op.REPLACE); 
+		
+		canvas.restore(); 
+
+
+		
 	}
 
 	private void initializePainters() {
@@ -49,20 +74,51 @@ public class WaveView extends View {
 		aboveWavePaint.setAlpha(100);
 	}
 
+	float startX = 0;
+	float waterW = 0;
+	
 	private void calculatePath() {
 
 		aboveWavePath.reset();
 		int right = getRight();
-		//
-		aboveWavePath.moveTo(0, mHeight);
-		aboveWavePath.lineTo(0, mHeight - mWaterH);
-		//
-		for (float i = 0 + mOffset; i <= right + mOffset; i++) {
-			aboveWavePath.lineTo((i - mOffset), (float) (Math.sin(i * Math.PI * 2 / right)) * waveH + (mHeight - mWaterH));
-		}
-		aboveWavePath.lineTo(getRight(), getHeight());
-		aboveWavePath.close();
+//		mWaterH = 600;
+//		startX = getStartX();
+//		startX = 100;
 
+		float waterW = right - 2 * startX;
+		//
+		
+//		float sdddd = (float) (Math.sin(startX * Math.PI * 2 / waterW)) * waveH + (mHeight - mWaterH);
+		aboveWavePath.moveTo(0, mWaterH);
+//		aboveWavePath.lineTo(0, mHeight - mWaterH);
+		//
+		for (float i = 0 + startX + mOffset; i <= right - startX + mOffset; i++) {
+			aboveWavePath.lineTo((i - mOffset), (float) (Math.sin(i * Math.PI * 2 / waterW)) * waveH + (mHeight - mWaterH));
+		}
+//		aboveWavePath.lineTo(getRight(), getHeight());
+//		
+//		aboveWavePath.arcTo(oval, 0, 360 );
+		
+		aboveWavePath.lineTo(getRight(), getHeight());
+		aboveWavePath.lineTo(0, getHeight());
+		
+		aboveWavePath.close();
+		
+
+	}
+	
+	public float getstartAngle() {
+		float r = oval.right/2;
+		float a = r - mWaterH; 
+		double radian =  Math.asin(a/r);
+		return (float) Math.toDegrees(radian);
+	}
+	
+	public float getStartX() {
+		float r = oval.right/2;
+		float temp = mWaterH*(2*r - mWaterH);
+		float x = (float) (r - Math.sqrt(temp));
+		return x;
 	}
 	
 	@Override
@@ -77,6 +133,9 @@ public class WaveView extends View {
 		mHeight = getMeasuredHeight();
 		mEndWateH = mHeight/ 100 * mPrecent;
 		mWaterH = mHeight;
+		int width = getMeasuredWidth();
+		oval.set(0, mHeight - width, getRight(), mHeight);
+		mBgRect.set(0, mHeight - width, getRight(), mHeight);
 		reduceWaveHeight();
 	}
 

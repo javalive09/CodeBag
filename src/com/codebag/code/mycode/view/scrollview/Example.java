@@ -27,7 +27,7 @@ public class Example extends CaseListView {
 		h.addView(iv);
 		v.addView(h);
 		
-		showView(v);
+		popWindowView(v);
 	}
 	@Entry()
 	public void show2() {
@@ -35,6 +35,6 @@ public class Example extends CaseListView {
 		WebView wv = new WebView(getContext());
 		String url = "file:///android_asset/pip.jpg";
 		wv.loadUrl(url);
-		showView(wv);
+		popWindowView(wv);
 	}
 }

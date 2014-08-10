@@ -17,14 +17,14 @@ public class Invoker extends CaseListView {
 	public void showGradient() {
 		Gradient g = new Gradient(getContext());
 		g.setGradient(0xffffffff, 0);
-		showView(g);
+		popWindowView(g);
 	}
 	
 	@Entry()
 	public void showGradientTwo() {
 		FrameLayout fl = new FrameLayout(getContext());
 		fl.setBackgroundResource(R.drawable.gradient);
-		showView(fl);
+		popWindowView(fl);
 	}
 
 }

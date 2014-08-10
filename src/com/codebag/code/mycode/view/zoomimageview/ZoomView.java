@@ -23,7 +23,7 @@ public class ZoomView extends CaseListView {
 		view.setImageResource(R.drawable.head);
 		view.setBackgroundColor(Color.BLACK);
 		
-		showView(view);
+		popWindowView(view);
 	}
 	
 	@Entry()
@@ -34,6 +34,6 @@ public class ZoomView extends CaseListView {
 		view.setImageBitmap(bitMap);
 		view.setBackgroundColor(Color.BLACK);
 		
-		showView(view);
+		popWindowView(view);
 	}
 }

@@ -34,7 +34,7 @@ public class Invoker extends CaseListView {
         v.setWaterFrequent(0.063f);
         v.startAnimation();
 		
-		showView(v);
+		popWindowView(v);
 	}
 	
 	@Entry
@@ -61,17 +61,46 @@ public class Invoker extends CaseListView {
 		c.setBackgroundColor(Color.WHITE);
 		c.setColor(0xE624a0ff, 0x19000000);
 		c.startAnimination(40);
-		showView(c);
+		popWindowView(c);
 	}
 	
 	@Entry
 	public void showWaveView() {
 		WaveView v = new WaveView(getContext());
 		v.startAnim(50);
-		showView(v);
+		popWindowView(v);
 		
 	}
 	
+	@Entry
+	public void showCakeWaveView() {
+		CakeWaveView v = new CakeWaveView(getContext());
+		v.setProgress(50);
+		popWindowView(v);
+	}
 	
+	@Entry
+	public void showPathView() {
+		TestPathView v = new TestPathView(getContext());
+		popWindowView(v);
+	}
+	
+	@Entry
+	public void showTestClip() {
+		TestClip c = new TestClip(getContext());
+		popWindowView(c);
+	}
+	
+	@Entry
+	public void showSampleClip() {
+		SampleView v = new SampleView(getContext());
+		popWindowView(v);
+	}
+	
+	@Entry
+	public void showSampleClip2() {
+		SampleView v = new SampleView(getContext());
+		setContentView(v);
+	}
 
 }
