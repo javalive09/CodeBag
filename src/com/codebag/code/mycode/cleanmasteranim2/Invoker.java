@@ -70,7 +70,7 @@ public class Invoker extends CaseListView {
 		int cirCleColor = Color.parseColor("#24a0ff");
 		v.setColor(waveColor, cirCleColor);
 		v.setData(500, 11);
-		v.startAnim(30);
+		v.startAnimination(30);
 		showView(v);
 	}
 	
@@ -84,7 +84,7 @@ public class Invoker extends CaseListView {
 		int cirCleColor = Color.parseColor("#24a0ff");
 		v.setData(500, 11);
 		v.setColor(waveColor, cirCleColor);
-		v.startAnim(30);
+		v.startAnimination(30);
 		showView(cake);
 	}
 	

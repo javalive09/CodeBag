@@ -1,0 +1,105 @@
+package com.codebag.code.mycode.cleanmasteranim2;
+
+import android.content.Context;
+import android.graphics.Color;
+import android.view.Gravity;
+import android.view.View;
+import android.widget.FrameLayout;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+
+/**
+ * 卡片圆形进度
+ * 
+ * @author zhangrui-ms
+ *
+ */
+public class CardWaveBar extends FrameLayout {
+
+	private LinearLayout mText;
+
+	private CakeWaveView mProgressBar;
+
+	private TextView mNum;
+
+	private TextView mPercentSign;
+
+	public CardWaveBar(Context context) {
+		super(context);
+		init(context);
+	}
+
+	private void init(Context context) {
+		mText = new LinearLayout(getContext());
+		LinearLayout l = new LinearLayout(getContext());
+		l.setOrientation(LinearLayout.VERTICAL);
+
+		mNum = new TextView(context);
+		mNum.setTextSize(36);
+		mNum.setTextColor(Color.WHITE);
+		mNum.setLineSpacing(0.0f, 0.8f);
+
+		TextView used = new TextView(context);
+		used.setTextSize(14);
+		used.setTextColor(Color.WHITE);
+		used.setGravity(Gravity.CENTER | Gravity.TOP);
+		used.setText("已用");
+
+		mPercentSign = new TextView(getContext());
+		mPercentSign.setText("%");
+		mPercentSign.setTextSize(12);
+		mPercentSign.setPadding(0, 13, 0, 0);
+		mPercentSign.setTextColor(Color.WHITE);
+
+		LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(-2, -2);
+		params.gravity = Gravity.CENTER;
+
+		l.addView(mNum);
+		l.addView(used);
+
+		mText.addView(l, params);
+
+		LinearLayout.LayoutParams paramsP = new LinearLayout.LayoutParams(-2,-2);
+		paramsP.gravity = Gravity.LEFT | Gravity.TOP;
+
+		mText.addView(mPercentSign, paramsP);
+
+		mProgressBar = new CakeWaveView(context);
+		LayoutParams paramsWrap = new LayoutParams(LayoutParams.WRAP_CONTENT,
+				LayoutParams.WRAP_CONTENT);
+		LayoutParams paramsFill = new LayoutParams(LayoutParams.FILL_PARENT,
+				LayoutParams.FILL_PARENT);
+		paramsWrap.gravity = Gravity.CENTER;
+		paramsFill.gravity = Gravity.CENTER;
+
+		addView(mProgressBar, paramsFill);
+		addView(mText, paramsWrap);
+	}
+
+	public void setData(int diameter, int upDownspeed) {
+		mProgressBar.setData(diameter, upDownspeed);
+	}
+
+	public void setColor(int waveColor, int cirCleColor) {
+		mProgressBar.setColor(waveColor, cirCleColor);
+	}
+
+	public void setProgressText(int progress) {
+		mNum.setText(progress + "");
+	}
+
+	public void setProgress(int progress) {
+		setProgressText(progress);
+		mProgressBar.setProgress(progress);
+	}
+
+	public View getDialView() {
+		return mText;
+	}
+
+	public void startAnimination(int endProgress) {
+		setProgressText(endProgress);
+		mProgressBar.startAnimination(endProgress);
+	}
+
+}

@@ -63,7 +63,7 @@ public class CakeProgressBar extends ImageView {
 		setData(diameter, ply, speed);
 	}
 
-	public void setData(int diameter, int ply, int speed) {
+	public void setData(int ply, int diameter, int speed) {
 		mDiameter = diameter;
 		mPly = ply;
 		mPaint.setStrokeWidth(ply);

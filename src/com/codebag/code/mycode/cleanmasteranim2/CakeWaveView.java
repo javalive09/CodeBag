@@ -7,6 +7,7 @@ import android.graphics.Path;
 import android.graphics.RectF;
 import android.graphics.Region;
 import android.util.AttributeSet;
+import android.view.View;
 import android.widget.ImageView;
 
 public class CakeWaveView extends ImageView {
@@ -28,7 +29,7 @@ public class CakeWaveView extends ImageView {
 	private int mEndWaterH;
 	private RectF mCircleRect;
 	private Paint mCirclePaint;
-	private int upAndDownSpeed;
+	private int mUpDownSpeed;
 	private AniminationListener mListener;
 
 	public CakeWaveView(Context context) {
@@ -46,6 +47,7 @@ public class CakeWaveView extends ImageView {
 	}
 
 	private void init(int diameter, int speed) {
+		setLayerType(View.LAYER_TYPE_SOFTWARE, null);
 		mWavePath = new Path();
 		mUpWavePaint = new Paint();
 		mDownWavePaint = new Paint();
@@ -59,12 +61,12 @@ public class CakeWaveView extends ImageView {
 		setData(diameter, speed);
 	}
 	
-	public void setData(int diameter, int speed) {
+	public void setData(int diameter, int upDownspeed) {
 		mDiameter = diameter;
 		mWaveH = (int) (mDiameter * mWaveHRate);
 		mCircleRect.set(0, 0, mDiameter, mDiameter);
-		if (speed >= 1 && speed <= 11) {
-			upAndDownSpeed = speed;
+		if (upDownspeed >= 1 && upDownspeed <= 11) {
+			mUpDownSpeed = upDownspeed;
 		}
 	}
 	
@@ -130,7 +132,7 @@ public class CakeWaveView extends ImageView {
 		super.onDetachedFromWindow();
 	}
 
-	public void startAnim(int percent) {
+	public void startAnimination(int percent) {
 		mUpDownAnim = true;
 		mFloatAnim = true;
 		mEndWaterH = mDiameter / 100 * percent;
@@ -175,7 +177,7 @@ public class CakeWaveView extends ImageView {
 	private Runnable reduceHeightRunnable = new Runnable() {
 		@Override
 		public void run() {
-			mWaterH -= upAndDownSpeed;
+			mWaterH -= mUpDownSpeed;
 			reduceHeight();
 			invalidate();
 		}
@@ -185,7 +187,7 @@ public class CakeWaveView extends ImageView {
 		@Override
 		public void run() {
 			if (mWaterH < mEndWaterH) {
-				mWaterH += upAndDownSpeed;
+				mWaterH += mUpDownSpeed;
 				increaseHeight();
 				invalidate();
 			} else if (mWaterH > mEndWaterH) {
