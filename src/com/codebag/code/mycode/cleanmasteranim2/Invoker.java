@@ -16,12 +16,19 @@ public class Invoker extends CaseListView {
 	
 	@Entry
 	public void showViewCakeProgressBar() {
-		int d = DisplayUtil.dip2px(getContext(), 110);
-		
-		int mPly = DisplayUtil.dip2px(getContext(), 6);
+		int mPly = DisplayUtil.dip2px(getContext(), 4);
 		CakeProgressBar c = new CakeProgressBar(getContext());
-		c.setData(mPly, d, 2);
-		c.setBackgroundColor(Color.WHITE);
+		c.setData(500, mPly, 2);
+		c.setColor(0xE624a0ff, 0x19000000);
+		c.setProgress(40);
+		showView(c);
+	}
+	
+	@Entry
+	public void animCakeProgressBar() {
+		int mPly = DisplayUtil.dip2px(getContext(), 4);
+		CakeProgressBar c = new CakeProgressBar(getContext());
+		c.setData(500, mPly, 2);
 		c.setColor(0xE624a0ff, 0x19000000);
 		c.startAnimination(40);
 		showView(c);
@@ -35,10 +42,26 @@ public class Invoker extends CaseListView {
 	}
 	
 	@Entry
+	public void animCakeWaveView() {
+		CakeWaveView v = new CakeWaveView(getContext());
+		v.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
+		int waveColor = Color.parseColor("#33ffffff");
+		int cirCleColor = Color.parseColor("#24a0ff");
+		v.setColor(waveColor, cirCleColor);
+		v.setData(500, 11);
+		v.startAnim(30);
+		showView(v);
+	}
+	
+	@Entry
 	public void showCakeWaveView() {
 		CakeWaveView v = new CakeWaveView(getContext());
 		v.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
-		v.startAnim(30);
+		int waveColor = Color.parseColor("#33ffffff");
+		int cirCleColor = Color.parseColor("#24a0ff");
+		v.setData(500, 11);
+		v.setColor(waveColor, cirCleColor);
+		v.setProgress(30);
 		showView(v);
 	}
 	

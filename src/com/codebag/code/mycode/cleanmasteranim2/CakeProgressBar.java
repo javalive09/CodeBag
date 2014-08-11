@@ -9,6 +9,7 @@ import android.graphics.Paint.Style;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
+import android.util.Log;
 import android.view.View;
 
 /**
@@ -16,19 +17,21 @@ import android.view.View;
  *
  */
 public class CakeProgressBar extends View {
+	
+	public static final int DEFAUTL_SPEED = 1;
+	public static final int DELAY = 2;
+	private int mSpeed = DEFAUTL_SPEED;
 	private Paint mPaint; 
 	private RectF mRectIn;
 	private RectF mRectOut;
-	private float mAngle = 0;
+	private float mAngle;
 	private int mEndProgress;
 	private int mProgressColor;
 	private int mBackGroundColor;
-	private int mDiameter;
 	private int mPly;
 	private AniminationListener mListener;
-	public static final int DEFAUTL_SPEED = 1;
-	private int mSpeed = DEFAUTL_SPEED;
-	private boolean mCanAnim;
+	private boolean mRoatingAnim;
+	private int mDiameter;
 	
 	public CakeProgressBar(Context context) {
 		this(context, 0, 0, DEFAUTL_SPEED);
@@ -39,27 +42,25 @@ public class CakeProgressBar extends View {
 	 * @param ply		圆环厚度
 	 * @param diameter	圆环直径
 	 */
-	public CakeProgressBar(Context context, int ply, int diameter ,int speed) {
+	public CakeProgressBar(Context context, int diameter, int ply,int speed) {
 		super(context);
-		init(ply, diameter, speed);
+		init(diameter, ply, speed);
 	}
 	
-	private void init(int ply, int diameter, int speed) {
-//		mDiameter = diameter - mPly;
+	private void init(int diameter, int ply, int speed) {
 		mRectIn = new RectF();
 		mRectOut = new RectF();
 		mPaint = new Paint();
-//		mPaint.setStrokeWidth(ply);
 		mPaint.setStyle(Style.FILL);
 		mPaint.setAntiAlias(true);
-		setData(ply, diameter, speed);
+		setData(diameter, ply, speed);
 	}
 	
-	public void setData(int ply, int diameter, int speed) {
+	public void setData(int diameter, int ply, int speed) {
+		mDiameter = diameter;
 		mPly = ply;
 		mPaint.setStrokeWidth(ply);
-		mDiameter = diameter;
-		if (speed > 1 || speed < 11) {
+		if (speed >= 1 && speed <= 11) {
 			mSpeed = speed;
 		}
 	}
@@ -67,12 +68,8 @@ public class CakeProgressBar extends View {
 	@Override
 	protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
 		setMeasuredDimension(mDiameter, mDiameter);
-		int width = mDiameter;
-		int height = mDiameter;
-		int startX = (width - mDiameter) / 2;
-		int startY = (height - mDiameter) / 2;
-		mRectIn.set(startX + mPly/2, startY + mPly/2, startX + mDiameter + mPly/2 - mPly, startY + mDiameter + mPly/2 - mPly);
-		mRectOut.set(startX , startY, startX + mDiameter, startY + mDiameter);
+		mRectIn.set(mPly/2, mPly/2, mDiameter + mPly/2 - mPly, mDiameter + mPly/2 - mPly);
+		mRectOut.set(0 , 0, mDiameter, mDiameter);
 	}
 	
 	public void setColor(int progressColor, int backGroundColor) {
@@ -83,11 +80,9 @@ public class CakeProgressBar extends View {
 	@Override
 	protected void onDraw(Canvas canvas) {
 		super.onDraw(canvas);
-		
 		//draw background
 		mPaint.setColor(mBackGroundColor);
 		canvas.drawArc(mRectIn, 0, 360, false, mPaint);
-		
 		//draw progress
 		mPaint.setColor(mProgressColor);
 		canvas.drawArc(mRectOut, 270, mAngle, true, mPaint);
@@ -99,9 +94,9 @@ public class CakeProgressBar extends View {
 	}
 	
 	public void startAnimination(int endProgress) {
+		mRoatingAnim = true;
 		mEndProgress = endProgress;
-		mCanAnim = true;
-		mHandler.sendEmptyMessage(100);
+		mHandler.sendEmptyMessageDelayed(100, DELAY);
 		if(mListener != null) {
 			mListener.start();
 		}
@@ -109,8 +104,8 @@ public class CakeProgressBar extends View {
 
 	@Override
 	protected void onDetachedFromWindow() {
+		mRoatingAnim = false;
 		super.onDetachedFromWindow();
-		mCanAnim = false;
 	}
 	
 	/**
@@ -126,7 +121,8 @@ public class CakeProgressBar extends View {
 
 		@Override
 		public void handleMessage(Message msg) {
-			if (mCanAnim) {
+			Log.i("peter", "anim =" +mRoatingAnim + "  progress = " + msg.what);
+			if (mRoatingAnim) {
 				if (msg.what <= mEndProgress) {
 					setProgress(mEndProgress);
 					if (mListener != null) {
@@ -135,7 +131,7 @@ public class CakeProgressBar extends View {
 				}else if (msg.what > mEndProgress) {
 					msg.what -= mSpeed;
 					setProgress(msg.what);
-					sendEmptyMessage(msg.what);
+					mHandler.sendEmptyMessageDelayed(msg.what, DELAY);
 				}
 			}
 		}

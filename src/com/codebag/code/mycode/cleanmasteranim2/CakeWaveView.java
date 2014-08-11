@@ -2,7 +2,6 @@ package com.codebag.code.mycode.cleanmasteranim2;
 
 import android.content.Context;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.RectF;
@@ -12,52 +11,69 @@ import android.view.View;
 public class CakeWaveView extends View {
 
 	private static final float FLOAT_SPEED = 1.28f;
-	private static final int UPDOWN_SPEED = 11;
+	private static final int DEFAULT_SPEED = 11;
 	private static final int DELAY = 50;
-	private float mWaveHRate = 0.04f;//浪高和View高度的比率
-	private Paint mAboveWavePaint;
+	private float mWaveHRate = 0.02f;//浪高和View高度的比率
+	private Paint mUpWavePaint;
+	private Paint mDownWavePaint;
 	private Path mWavePath;
 	private Path mClipPath;
 	private int mWaveH;
 	private float mOffset;
-	private boolean mCanAnim;
-	private int mHeight;
+	private boolean mUpDownAnim;
+	private boolean mFloatAnim;
+	private int mDiameter;
 	private int mWaterH;
 	private int mEndWaterH;
 	private RectF mCircleRect;
 	private Paint mCirclePaint;
-	private int mPrecent;
+	private int upAndDownSpeed;
 
 	public CakeWaveView(Context context) {
+		this(context, 0, DEFAULT_SPEED);
+	}
+	
+	public CakeWaveView(Context context, int diameter, int speed) {
 		super(context);
-		initData();
+		init(diameter, speed);
 	}
 
+	private void init(int diameter, int speed) {
+		mWavePath = new Path();
+		mUpWavePaint = new Paint();
+		mDownWavePaint = new Paint();
+		mCirclePaint = new Paint();
+		mCircleRect = new RectF();
+		mClipPath = new Path();
+		mUpWavePaint.setStyle(Paint.Style.FILL);
+		mUpWavePaint.setAntiAlias(true);
+		mDownWavePaint.setStyle(Paint.Style.FILL);
+		mDownWavePaint.setAntiAlias(true);
+		setData(diameter, speed);
+	}
+	
+	public void setData(int diameter, int speed) {
+		mDiameter = diameter;
+		mWaveH = (int) (mDiameter * mWaveHRate);
+		mCircleRect.set(0, 0, mDiameter, mDiameter);
+		if (speed >= 1 && speed <= 11) {
+			upAndDownSpeed = speed;
+		}
+	}
+	
+	public void setColor(int waveColor, int cirCleColor) {
+		mUpWavePaint.setColor(waveColor);
+		mDownWavePaint.setColor(waveColor);
+		mCirclePaint.setColor(cirCleColor);
+	}
+	
 	@Override
 	protected void onDraw(Canvas canvas) {
-		super.onDraw(canvas);
-
 		canvas.save();
 		clipCircle(canvas);
 		canvas.drawArc(mCircleRect, 0, 360, false, mCirclePaint);
 		drawWave(canvas);
 		canvas.restore();
-	}
-
-	private void initData() {
-		mWavePath = new Path();
-		mAboveWavePaint = new Paint();
-		mCirclePaint = new Paint();
-		mCircleRect = new RectF();
-		mClipPath = new Path();
-		
-		mAboveWavePaint.setColor(Color.BLUE);
-		mAboveWavePaint.setStyle(Paint.Style.FILL);
-		mAboveWavePaint.setAntiAlias(true);
-		mAboveWavePaint.setAlpha(100);
-		
-		setBackgroundColor(Color.WHITE);
-		mCirclePaint.setColor(Color.CYAN);
 	}
 
 	private void clipCircle(Canvas canvas) {
@@ -68,93 +84,128 @@ public class CakeWaveView extends View {
 	}
 
 	private void drawWave(Canvas canvas) {
+		//下层波浪
 		mWavePath.reset();
-		int right = getRight();
 		mWavePath.moveTo(0, mWaterH);
-		for (float i = 0 + mOffset; i <= right + mOffset; i++) {
+		for (float i = 0 + mOffset; i <= mDiameter + mOffset; i++) {
 			mWavePath.lineTo((i - mOffset),
-					(float) (Math.sin(i * Math.PI * 2 / right)) * mWaveH
-							+ (mHeight - mWaterH));
+					(float) (Math.sin(i * Math.PI * 2 / mDiameter)) * mWaveH
+							+ (mDiameter - mWaterH));
 		}
 		mWavePath.lineTo(getRight(), getHeight());
 		mWavePath.lineTo(0, getHeight());
 		mWavePath.close();
-		canvas.drawPath(mWavePath, mAboveWavePaint);
+		canvas.drawPath(mWavePath, mDownWavePaint);
+		
+		//上层波浪
+		mWavePath.reset();
+		mWavePath.moveTo(0, mWaterH);
+		for (float i = 0 + mOffset; i <= mDiameter + mOffset; i++) {
+			mWavePath.lineTo((i - mOffset),
+					(float) (Math.sin(i * Math.PI * 2 / mDiameter)) * (mWaveH * 2)
+							+ (mDiameter - (mWaterH)));
+		}
+		mWavePath.lineTo(getRight(), getHeight());
+		mWavePath.lineTo(0, getHeight());
+		mWavePath.close();
+		canvas.drawPath(mWavePath, mUpWavePaint);
 	}
 
 	@Override
 	protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-		mHeight = MeasureSpec.getSize(widthMeasureSpec);
-		setMeasuredDimension(mHeight, mHeight);
-		mEndWaterH = mHeight / 100 * mPrecent;
-		mWaterH = mHeight;
-		mWaveH = (int) (mHeight * mWaveHRate);
-		mCircleRect.set(0, 0, mHeight, mHeight);
-		reduceHeight();
+		setMeasuredDimension(mDiameter, mDiameter);
 	}
 
 	@Override
 	protected void onDetachedFromWindow() {
+		mUpDownAnim = false;
+		mFloatAnim = false;
 		super.onDetachedFromWindow();
-		mCanAnim = false;
 	}
 
 	public void startAnim(int percent) {
-		mCanAnim = true;
-		mPrecent = percent;
+		mUpDownAnim = true;
+		mFloatAnim = true;
+		mEndWaterH = mDiameter / 100 * percent;
+		mWaterH = mDiameter;
+		reduceHeight();
 	}
 
 	public void setProgress(int percent) {
-		mPrecent = percent;
+		mUpDownAnim = false;
+		mFloatAnim = true;
+		mEndWaterH = mDiameter / 100 * percent;
+		mWaterH = mEndWaterH;
+		floatWave();
 	}
 
 	private void floatWave() {
-		if (mOffset < Integer.MAX_VALUE - getWidth()) {
-			mOffset += FLOAT_SPEED;
-		} else {
-			mOffset = 0;
+		if (mFloatAnim) {
+			postDelayed(floatWaveRunnable, DELAY);
 		}
 	}
 
 	private void reduceHeight() {
-		if (mCanAnim) {
+		if (mUpDownAnim) {
 			if (mWaterH <= 0) {
 				mWaterH = 0;
-				plusHeightOrFloat();
+				increaseHeight();
 			} else if (mWaterH > 0) {
 				postDelayed(reduceHeightRunnable, DELAY);
 			}
+		}
+	}
+	
+	private void increaseHeight() {
+		if (mUpDownAnim) {
+			postDelayed(increaseHeightRunnable, DELAY);
 		}
 	}
 
 	private Runnable reduceHeightRunnable = new Runnable() {
 		@Override
 		public void run() {
-			mWaterH -= UPDOWN_SPEED;
+			mWaterH -= upAndDownSpeed;
 			reduceHeight();
 			invalidate();
 		}
 	};
 
-	private Runnable plusOrFloatRunnable = new Runnable() {
+	private Runnable increaseHeightRunnable = new Runnable() {
 		@Override
 		public void run() {
 			if (mWaterH < mEndWaterH) {
-				mWaterH += UPDOWN_SPEED;
+				mWaterH += upAndDownSpeed;
+				increaseHeight();
+				invalidate();
 			} else if (mWaterH > mEndWaterH) {
 				mWaterH = mEndWaterH;
-			} else if (mWaterH == mEndWaterH) {
+				increaseHeight();
+				invalidate();
+			}
+			
+			if (mWaterH == mEndWaterH) {
 				floatWave();
 			}
-			plusHeightOrFloat();
-			invalidate();
 		}
 	};
 
-	private void plusHeightOrFloat() {
-		if (mCanAnim) {
-			postDelayed(plusOrFloatRunnable, DELAY);
+	private Runnable floatWaveRunnable = new Runnable() {
+		@Override
+		public void run() {
+			if (mOffset < Integer.MAX_VALUE - mDiameter) {
+				mOffset += FLOAT_SPEED;
+			} else {
+				mOffset = 0;
+			}
+			floatWave();
+			invalidate();
 		}
+	};
+	
+	public interface AniminationListener {
+		public void start();
+		public void end();
 	}
 
 }
