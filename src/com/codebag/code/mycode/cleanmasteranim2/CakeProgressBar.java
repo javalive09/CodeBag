@@ -1,4 +1,3 @@
-
 package com.codebag.code.mycode.cleanmasteranim2;
 
 import android.content.Context;
@@ -9,19 +8,20 @@ import android.graphics.Paint.Style;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
+import android.util.AttributeSet;
 import android.util.Log;
-import android.view.View;
+import android.widget.ImageView;
 
 /**
  * @author zhangrui-ms
  *
  */
-public class CakeProgressBar extends View {
-	
+public class CakeProgressBar extends ImageView {
+
 	public static final int DEFAUTL_SPEED = 1;
 	public static final int DELAY = 2;
 	private int mSpeed = DEFAUTL_SPEED;
-	private Paint mPaint; 
+	private Paint mPaint;
 	private RectF mRectIn;
 	private RectF mRectOut;
 	private float mAngle;
@@ -32,21 +32,28 @@ public class CakeProgressBar extends View {
 	private AniminationListener mListener;
 	private boolean mRoatingAnim;
 	private int mDiameter;
-	
+
 	public CakeProgressBar(Context context) {
 		this(context, 0, 0, DEFAUTL_SPEED);
 	}
-	
+
+	public CakeProgressBar(Context context, AttributeSet attrs) {
+		super(context, attrs);
+		init(0, 0, DEFAUTL_SPEED);
+	}
+
 	/**
 	 * @param context
-	 * @param ply		圆环厚度
-	 * @param diameter	圆环直径
+	 * @param ply
+	 *            圆环厚度
+	 * @param diameter
+	 *            圆环直径
 	 */
-	public CakeProgressBar(Context context, int diameter, int ply,int speed) {
+	public CakeProgressBar(Context context, int diameter, int ply, int speed) {
 		super(context);
 		init(diameter, ply, speed);
 	}
-	
+
 	private void init(int diameter, int ply, int speed) {
 		mRectIn = new RectF();
 		mRectOut = new RectF();
@@ -55,7 +62,7 @@ public class CakeProgressBar extends View {
 		mPaint.setAntiAlias(true);
 		setData(diameter, ply, speed);
 	}
-	
+
 	public void setData(int diameter, int ply, int speed) {
 		mDiameter = diameter;
 		mPly = ply;
@@ -64,14 +71,15 @@ public class CakeProgressBar extends View {
 			mSpeed = speed;
 		}
 	}
-	
+
 	@Override
 	protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
 		setMeasuredDimension(mDiameter, mDiameter);
-		mRectIn.set(mPly/2, mPly/2, mDiameter + mPly/2 - mPly, mDiameter + mPly/2 - mPly);
-		mRectOut.set(0 , 0, mDiameter, mDiameter);
+		mRectIn.set(mPly / 2, mPly / 2, mDiameter + mPly / 2 - mPly, mDiameter
+				+ mPly / 2 - mPly);
+		mRectOut.set(0, 0, mDiameter, mDiameter);
 	}
-	
+
 	public void setColor(int progressColor, int backGroundColor) {
 		mProgressColor = progressColor;
 		mBackGroundColor = backGroundColor;
@@ -80,24 +88,24 @@ public class CakeProgressBar extends View {
 	@Override
 	protected void onDraw(Canvas canvas) {
 		super.onDraw(canvas);
-		//draw background
+		// draw background
 		mPaint.setColor(mBackGroundColor);
 		canvas.drawArc(mRectIn, 0, 360, false, mPaint);
-		//draw progress
+		// draw progress
 		mPaint.setColor(mProgressColor);
 		canvas.drawArc(mRectOut, 270, mAngle, true, mPaint);
 	}
-	
+
 	public void setProgress(int progress) {
 		mAngle = 360 / 100f * progress;
 		invalidate();
 	}
-	
+
 	public void startAnimination(int endProgress) {
 		mRoatingAnim = true;
 		mEndProgress = endProgress;
 		mHandler.sendEmptyMessageDelayed(100, DELAY);
-		if(mListener != null) {
+		if (mListener != null) {
 			mListener.start();
 		}
 	}
@@ -107,7 +115,7 @@ public class CakeProgressBar extends View {
 		mRoatingAnim = false;
 		super.onDetachedFromWindow();
 	}
-	
+
 	/**
 	 * 在#startAnimination之前调用
 	 * 
@@ -116,30 +124,31 @@ public class CakeProgressBar extends View {
 	public void setAniminationListener(AniminationListener listener) {
 		mListener = listener;
 	}
-	
+
 	private Handler mHandler = new Handler(Looper.getMainLooper()) {
 
 		@Override
 		public void handleMessage(Message msg) {
-			Log.i("peter", "anim =" +mRoatingAnim + "  progress = " + msg.what);
+			Log.i("peter", "anim =" + mRoatingAnim + "  progress = " + msg.what);
 			if (mRoatingAnim) {
 				if (msg.what <= mEndProgress) {
 					setProgress(mEndProgress);
 					if (mListener != null) {
 						mListener.end();
 					}
-				}else if (msg.what > mEndProgress) {
+				} else if (msg.what > mEndProgress) {
 					msg.what -= mSpeed;
 					setProgress(msg.what);
 					mHandler.sendEmptyMessageDelayed(msg.what, DELAY);
 				}
 			}
 		}
-		
+
 	};
-	
+
 	public interface AniminationListener {
 		public void start();
+
 		public void end();
 	}
 

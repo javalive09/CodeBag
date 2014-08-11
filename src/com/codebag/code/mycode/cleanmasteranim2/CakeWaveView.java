@@ -6,9 +6,10 @@ import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.RectF;
 import android.graphics.Region;
-import android.view.View;
+import android.util.AttributeSet;
+import android.widget.ImageView;
 
-public class CakeWaveView extends View {
+public class CakeWaveView extends ImageView {
 
 	private static final float FLOAT_SPEED = 1.28f;
 	private static final int DEFAULT_SPEED = 11;
@@ -28,10 +29,16 @@ public class CakeWaveView extends View {
 	private RectF mCircleRect;
 	private Paint mCirclePaint;
 	private int upAndDownSpeed;
+	private AniminationListener mListener;
 
 	public CakeWaveView(Context context) {
 		this(context, 0, DEFAULT_SPEED);
 	}
+	
+    public CakeWaveView(Context context, AttributeSet attrs) {
+    	super(context, attrs);
+    	init(0, DEFAULT_SPEED);
+    }
 	
 	public CakeWaveView(Context context, int diameter, int speed) {
 		super(context);
@@ -102,7 +109,7 @@ public class CakeWaveView extends View {
 		mWavePath.moveTo(0, mWaterH);
 		for (float i = 0 + mOffset; i <= mDiameter + mOffset; i++) {
 			mWavePath.lineTo((i - mOffset),
-					(float) (Math.sin(i * Math.PI * 2 / mDiameter)) * (mWaveH * 2)
+					(float) (Math.sin(i * Math.PI * 2 / mDiameter)) * (mWaveH * 3)
 							+ (mDiameter - (mWaterH)));
 		}
 		mWavePath.lineTo(getRight(), getHeight());
@@ -129,6 +136,9 @@ public class CakeWaveView extends View {
 		mEndWaterH = mDiameter / 100 * percent;
 		mWaterH = mDiameter;
 		reduceHeight();
+		if(mListener != null) {
+			mListener.start();
+		} 
 	}
 
 	public void setProgress(int percent) {
@@ -186,6 +196,9 @@ public class CakeWaveView extends View {
 			
 			if (mWaterH == mEndWaterH) {
 				floatWave();
+				if(mListener != null) {
+					mListener.end();
+				}
 			}
 		}
 	};
