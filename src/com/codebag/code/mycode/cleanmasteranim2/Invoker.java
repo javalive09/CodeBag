@@ -38,7 +38,7 @@ public class Invoker extends CaseListView {
 	public void showCakeWaveView() {
 		CakeWaveView v = new CakeWaveView(getContext());
 		v.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
-		v.setProgress(50);
+		v.startAnim(30);
 		showView(v);
 	}
 	
