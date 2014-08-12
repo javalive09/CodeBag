@@ -1,4 +1,6 @@
-package com.codebag.code.mycode.cleanmasteranim2;
+package com.codebag.code.mycode.cleanmasteranim_circle;
+
+import com.codebag.code.mycode.utils.Log;
 
 import android.content.Context;
 import android.graphics.Canvas;
@@ -8,76 +10,79 @@ import android.graphics.Paint.Style;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
-import android.util.AttributeSet;
-import android.util.Log;
-import android.widget.ImageView;
+import android.view.View;
 
 /**
  * @author zhangrui-ms
- *
+ * 
  */
-public class CakeProgressBar extends ImageView {
-
-	public static final int DEFAUTL_SPEED = 1;
-	public static final int DELAY = 2;
-	private int mSpeed = DEFAUTL_SPEED;
+public class CircleProgressBar extends View {
 	private Paint mPaint;
-	private RectF mRectIn;
-	private RectF mRectOut;
-	private float mAngle;
+	private RectF mRect;
+	private float mAngle = 0;
 	private int mEndProgress;
 	private int mProgressColor;
 	private int mBackGroundColor;
+	private int mDiameter;
 	private int mPly;
 	private AniminationListener mListener;
-	private boolean mRoatingAnim;
-	private int mDiameter;
+	public static final int DEFAUTL_SPEED = 1;
+	private int mSpeed = DEFAUTL_SPEED;
+	private boolean mCanAnim;
 
-	public CakeProgressBar(Context context) {
+	public CircleProgressBar(Context context) {
 		this(context, 0, 0, DEFAUTL_SPEED);
-	}
-
-	public CakeProgressBar(Context context, AttributeSet attrs) {
-		super(context, attrs);
-		init(0, 0, DEFAUTL_SPEED);
 	}
 
 	/**
 	 * @param context
-	 * @param ply
-	 *            圆环厚度
-	 * @param diameter
-	 *            圆环直径
+	 * @param ply  圆环厚度
+	 * @param diameter   圆环直径
 	 */
-	public CakeProgressBar(Context context, int diameter, int ply, int speed) {
+	public CircleProgressBar(Context context, int ply, int diameter, int speed) {
 		super(context);
-		init(diameter, ply, speed);
+		init(ply, diameter, speed);
 	}
 
-	private void init(int diameter, int ply, int speed) {
-		mRectIn = new RectF();
-		mRectOut = new RectF();
+	private void init(int ply, int diameter, int speed) {
+		mRect = new RectF();
 		mPaint = new Paint();
-		mPaint.setStyle(Style.FILL);
+		mPaint.setStyle(Style.STROKE);
 		mPaint.setAntiAlias(true);
-		setData(diameter, ply, speed);
+		setData(ply, diameter, speed);
 	}
 
 	public void setData(int ply, int diameter, int speed) {
-		mDiameter = diameter;
 		mPly = ply;
 		mPaint.setStrokeWidth(ply);
-		if (speed >= 1 && speed <= 11) {
+		mDiameter = diameter;
+		if (speed > 1 || speed < 11) {
 			mSpeed = speed;
 		}
+		Log.addLog(this, "d=" + mDiameter);
 	}
 
 	@Override
 	protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
 		setMeasuredDimension(mDiameter, mDiameter);
-		mRectIn.set(mPly / 2, mPly / 2, mDiameter + mPly / 2 - mPly, mDiameter
-				+ mPly / 2 - mPly);
-		mRectOut.set(0, 0, mDiameter, mDiameter);
+		int width = mDiameter;
+		int height = mDiameter;
+		int startX = (width - mDiameter) / 2;
+		int startY = (height - mDiameter) / 2;
+		mRect.set(startX + mPly / 2, startY + mPly / 2, startX + mDiameter
+				+ mPly / 2 - mPly, startY + mDiameter + mPly / 2 - mPly);
+	}
+
+	@Override
+	protected void onAttachedToWindow() {
+		super.onAttachedToWindow();
+		mCanAnim = true;
+	}
+
+	@Override
+	protected void onDetachedFromWindow() {
+		super.onDetachedFromWindow();
+		mCanAnim = false;
 	}
 
 	public void setColor(int progressColor, int backGroundColor) {
@@ -88,12 +93,14 @@ public class CakeProgressBar extends ImageView {
 	@Override
 	protected void onDraw(Canvas canvas) {
 		super.onDraw(canvas);
+
 		// draw background
 		mPaint.setColor(mBackGroundColor);
-		canvas.drawArc(mRectIn, 0, 360, false, mPaint);
+		canvas.drawArc(mRect, 0, 360, false, mPaint);
+
 		// draw progress
 		mPaint.setColor(mProgressColor);
-		canvas.drawArc(mRectOut, 270, mAngle, true, mPaint);
+		canvas.drawArc(mRect, 270, mAngle, false, mPaint);
 	}
 
 	public void setProgress(int progress) {
@@ -102,18 +109,11 @@ public class CakeProgressBar extends ImageView {
 	}
 
 	public void startAnimination(int endProgress) {
-		mRoatingAnim = true;
 		mEndProgress = endProgress;
-		mHandler.sendEmptyMessageDelayed(100, DELAY);
+		mHandler.sendEmptyMessage(100);
 		if (mListener != null) {
 			mListener.start();
 		}
-	}
-
-	@Override
-	protected void onDetachedFromWindow() {
-		mRoatingAnim = false;
-		super.onDetachedFromWindow();
 	}
 
 	/**
@@ -129,17 +129,16 @@ public class CakeProgressBar extends ImageView {
 
 		@Override
 		public void handleMessage(Message msg) {
-			Log.i("peter", "anim =" + mRoatingAnim + "  progress = " + msg.what);
-			if (mRoatingAnim) {
+			if (mCanAnim) {
 				if (msg.what <= mEndProgress) {
 					setProgress(mEndProgress);
 					if (mListener != null) {
 						mListener.end();
 					}
-				} else if (msg.what > mEndProgress) {
+				}else if (msg.what > mEndProgress) {
 					msg.what -= mSpeed;
 					setProgress(msg.what);
-					mHandler.sendEmptyMessageDelayed(msg.what, DELAY);
+					sendEmptyMessage(msg.what);
 				}
 			}
 		}
@@ -148,7 +147,6 @@ public class CakeProgressBar extends ImageView {
 
 	public interface AniminationListener {
 		public void start();
-
 		public void end();
 	}
 

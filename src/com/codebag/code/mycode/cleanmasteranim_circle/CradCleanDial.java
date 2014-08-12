@@ -1,4 +1,4 @@
-package com.codebag.code.mycode.cleanmasteranim;
+package com.codebag.code.mycode.cleanmasteranim_circle;
 
 import com.codebag.R;
 import com.codebag.code.mycode.utils.DisplayUtil;

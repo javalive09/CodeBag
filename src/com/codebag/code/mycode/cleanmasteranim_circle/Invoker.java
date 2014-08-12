@@ -1,4 +1,4 @@
-package com.codebag.code.mycode.cleanmasteranim;
+package com.codebag.code.mycode.cleanmasteranim_circle;
 
 import android.content.Context;
 import android.graphics.Color;

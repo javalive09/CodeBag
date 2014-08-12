@@ -1,14 +1,12 @@
-package com.codebag.code.mycode.cleanmasteranim2;
+package com.codebag.code.mycode.cleanmasteranim_circle;
 
 
 import android.content.Context;
-import android.graphics.Color;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.FrameLayout.LayoutParams;
 
 /**
  * 卡片圆形进度
@@ -16,62 +14,45 @@ import android.widget.FrameLayout.LayoutParams;
  * @author zhangrui-ms
  *
  */
-public class CardCakeBar extends FrameLayout {
+public class CardProgressBar extends FrameLayout {
 	
 	private LinearLayout mText;
 
-	private CakeProgressBar mProgressBar;
+	private CircleProgressBar mProgressBar;
 
 	private TextView mNum;
 	
 	private TextView mPercentSign;
 
-	public CardCakeBar(Context context) {
+	public CardProgressBar(Context context) {
 		super(context);
 		init(context);
 	}
 
 	private void init(Context context) {
 		mText = new LinearLayout(getContext());
-		LinearLayout l = new LinearLayout(getContext());
-		l.setOrientation(LinearLayout.VERTICAL);
-
 		mNum = new TextView(context);
 		mNum.setTextSize(36);
-		mNum.setTextColor(Color.WHITE);
-		mNum.setLineSpacing(0.0f, 0.8f);
-
-		TextView used = new TextView(context);
-		used.setTextSize(14);
-		used.setTextColor(Color.WHITE);
-		used.setGravity(Gravity.CENTER | Gravity.TOP);
-		used.setText("已用");
+		mNum.setTextColor(0xff24a0ff);
 
 		mPercentSign = new TextView(getContext());
 		mPercentSign.setText("%");
 		mPercentSign.setTextSize(12);
 		mPercentSign.setPadding(0, 13, 0, 0);
-		mPercentSign.setTextColor(Color.WHITE);
 
 		LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(-2, -2);
 		params.gravity = Gravity.CENTER;
 
-		l.addView(mNum);
-		l.addView(used);
+		mText.addView(mNum, params);
 
-		mText.addView(l, params);
-
-		LinearLayout.LayoutParams paramsP = new LinearLayout.LayoutParams(-2,
-				-2);
+		LinearLayout.LayoutParams paramsP = new LinearLayout.LayoutParams(-2, -2);
 		paramsP.gravity = Gravity.LEFT | Gravity.TOP;
 
 		mText.addView(mPercentSign, paramsP);
-
-		mProgressBar = new CakeProgressBar(context);
-		LayoutParams paramsWrap = new LayoutParams(LayoutParams.WRAP_CONTENT,
-				LayoutParams.WRAP_CONTENT);
-		LayoutParams paramsFill = new LayoutParams(LayoutParams.FILL_PARENT,
-				LayoutParams.FILL_PARENT);
+		
+		mProgressBar = new CircleProgressBar(context);
+		LayoutParams paramsWrap = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+		LayoutParams paramsFill = new LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.FILL_PARENT);
 		paramsWrap.gravity = Gravity.CENTER;
 		paramsFill.gravity = Gravity.CENTER;
 
@@ -79,12 +60,13 @@ public class CardCakeBar extends FrameLayout {
 		addView(mText, paramsWrap);
 	}
 	
-	public void setData(int ply, int diameter, int speed) {
-		mProgressBar.setData(ply, diameter, speed);
+	public void setData(int ply, int diameter) {
+		mProgressBar.setData(ply, diameter, 2);
 	}
 	
 	public void setColor(int progressColor, int backGroundColor) {
 		mProgressBar.setColor(progressColor, backGroundColor);
+		mPercentSign.setTextColor(progressColor);
 	}
 	
 	public void setProgressText(int progress) {
@@ -92,8 +74,8 @@ public class CardCakeBar extends FrameLayout {
 	}
 	
 	public void setProgress(int progress) {
-		setProgressText(progress);
 		mProgressBar.setProgress(progress);
+		mNum.setText(progress+"");
 	}
 	
 	public View getDialView() {
@@ -101,7 +83,6 @@ public class CardCakeBar extends FrameLayout {
 	}
 	
 	public void startAnimination(int endProgress) {
-		setProgressText(endProgress);
 		mProgressBar.startAnimination(endProgress);
 	}
 

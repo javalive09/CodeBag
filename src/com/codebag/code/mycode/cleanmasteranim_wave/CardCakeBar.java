@@ -1,4 +1,5 @@
-package com.codebag.code.mycode.cleanmasteranim2;
+package com.codebag.code.mycode.cleanmasteranim_wave;
+
 
 import android.content.Context;
 import android.graphics.Color;
@@ -7,6 +8,7 @@ import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.FrameLayout.LayoutParams;
 
 /**
  * 卡片圆形进度
@@ -14,17 +16,17 @@ import android.widget.TextView;
  * @author zhangrui-ms
  *
  */
-public class CardWaveBar extends FrameLayout {
-
+public class CardCakeBar extends FrameLayout {
+	
 	private LinearLayout mText;
 
-	private CakeWaveView mProgressBar;
+	private CakeProgressBar mProgressBar;
 
 	private TextView mNum;
-
+	
 	private TextView mPercentSign;
 
-	public CardWaveBar(Context context) {
+	public CardCakeBar(Context context) {
 		super(context);
 		init(context);
 	}
@@ -59,12 +61,13 @@ public class CardWaveBar extends FrameLayout {
 
 		mText.addView(l, params);
 
-		LinearLayout.LayoutParams paramsP = new LinearLayout.LayoutParams(-2,-2);
+		LinearLayout.LayoutParams paramsP = new LinearLayout.LayoutParams(-2,
+				-2);
 		paramsP.gravity = Gravity.LEFT | Gravity.TOP;
 
 		mText.addView(mPercentSign, paramsP);
 
-		mProgressBar = new CakeWaveView(context);
+		mProgressBar = new CakeProgressBar(context);
 		LayoutParams paramsWrap = new LayoutParams(LayoutParams.WRAP_CONTENT,
 				LayoutParams.WRAP_CONTENT);
 		LayoutParams paramsFill = new LayoutParams(LayoutParams.FILL_PARENT,
@@ -75,31 +78,32 @@ public class CardWaveBar extends FrameLayout {
 		addView(mProgressBar, paramsFill);
 		addView(mText, paramsWrap);
 	}
-
-	public void setData(int diameter, int upDownspeed) {
-		mProgressBar.setData(diameter, upDownspeed);
+	
+	public void setData(int ply, int diameter, int speed) {
+		mProgressBar.setData(ply, diameter, speed);
 	}
-
-	public void setColor(int waveColor, int cirCleColor) {
-		mProgressBar.setColor(waveColor, cirCleColor);
+	
+	public void setColor(int progressColor, int backGroundColor) {
+		mProgressBar.setColor(progressColor, backGroundColor);
 	}
-
+	
 	public void setProgressText(int progress) {
-		mNum.setText(progress + "");
+		mNum.setText(progress+"");
 	}
-
+	
 	public void setProgress(int progress) {
 		setProgressText(progress);
 		mProgressBar.setProgress(progress);
 	}
-
+	
 	public View getDialView() {
 		return mText;
 	}
-
+	
 	public void startAnimination(int endProgress) {
 		setProgressText(endProgress);
 		mProgressBar.startAnimination(endProgress);
 	}
+
 
 }

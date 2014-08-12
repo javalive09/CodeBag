@@ -1,4 +1,4 @@
-package com.codebag.code.mycode.cleanmasteranim2;
+package com.codebag.code.mycode.cleanmasteranim_wave;
 
 import android.app.Activity;
 import android.content.Context;
