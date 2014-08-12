@@ -5,10 +5,8 @@ import android.content.Context;
 import android.graphics.Color;
 import android.view.Gravity;
 import android.view.View;
-import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.FrameLayout.LayoutParams;
 
 /**
  * 卡片圆形进度
@@ -16,7 +14,7 @@ import android.widget.FrameLayout.LayoutParams;
  * @author zhangrui-ms
  *
  */
-public class CardCakeBar extends FrameLayout {
+public class CardCakeBar extends CardBar {
 	
 	private LinearLayout mText;
 
@@ -28,10 +26,9 @@ public class CardCakeBar extends FrameLayout {
 
 	public CardCakeBar(Context context) {
 		super(context);
-		init(context);
 	}
 
-	private void init(Context context) {
+	protected void init(Context context) {
 		mText = new LinearLayout(getContext());
 		LinearLayout l = new LinearLayout(getContext());
 		l.setOrientation(LinearLayout.VERTICAL);
@@ -103,6 +100,10 @@ public class CardCakeBar extends FrameLayout {
 	public void startAnimination(int endProgress) {
 		setProgressText(endProgress);
 		mProgressBar.startAnimination(endProgress);
+	}
+	
+	public void cancelAnim() {
+		mProgressBar.cancelAnim();
 	}
 
 

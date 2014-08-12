@@ -135,7 +135,7 @@ public class CakeWaveView extends ImageView {
 	public void startAnimination(int percent) {
 		mUpDownAnim = true;
 		mFloatAnim = true;
-		mEndWaterH = mDiameter / 100 * percent;
+		mEndWaterH = mDiameter * percent / 100;
 		mWaterH = mDiameter;
 		reduceHeight();
 		if(mListener != null) {
@@ -146,7 +146,7 @@ public class CakeWaveView extends ImageView {
 	public void setProgress(int percent) {
 		mUpDownAnim = false;
 		mFloatAnim = true;
-		mEndWaterH = mDiameter / 100 * percent;
+		mEndWaterH = mDiameter * percent / 100;
 		mWaterH = mEndWaterH;
 		floatWave();
 	}
@@ -155,6 +155,11 @@ public class CakeWaveView extends ImageView {
 		if (mFloatAnim) {
 			postDelayed(floatWaveRunnable, DELAY);
 		}
+	}
+	
+	public void cancleAnim() {
+		mFloatAnim = false;
+		mUpDownAnim = false;
 	}
 
 	private void reduceHeight() {

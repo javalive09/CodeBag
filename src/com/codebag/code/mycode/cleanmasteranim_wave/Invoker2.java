@@ -15,7 +15,7 @@ public class Invoker2 extends CaseListView {
 	@Entry
 	public void showCardWaveBar() {
 		CardWaveBar bar = new CardWaveBar(getContext());
-		bar.setData(500, 0);
+		bar.setData(0, 500, 0);
 		int waveColor = Color.parseColor("#33ffffff");
 		int cirCleColor = Color.parseColor("#24a0ff");
 		bar.setColor(waveColor, cirCleColor);
@@ -26,7 +26,7 @@ public class Invoker2 extends CaseListView {
 	@Entry
 	public void animCardWaveBar() {
 		CardWaveBar bar = new CardWaveBar(getContext());
-		bar.setData(500, 0);
+		bar.setData(0, 500, 0);
 		int waveColor = Color.parseColor("#33ffffff");
 		int cirCleColor = Color.parseColor("#24a0ff");
 		bar.setColor(waveColor, cirCleColor);

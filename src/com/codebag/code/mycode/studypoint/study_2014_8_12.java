@@ -10,18 +10,32 @@ public class study_2014_8_12 extends CaseListView {
 		super(context);
 	}
 
-	
 	/**
-	 * cpu 时钟周期
+	 * CPU 时钟周期
 	 */
 	public void cup_time() {
-		
+
 	}
-	
+
 	/**
 	 * 添加删除view动画
 	 */
 	public void add_remove_View_anim() {
-		
+
 	}
+
+	/**
+	 * 下次布局的时候执行布局动画
+	 */
+	public void view_scheduleLayoutAnimation() {
+
+	}
+
+	/**
+	 * setAnimation 的调用时机
+	 */
+	public void view_setAnimation() {
+
+	}
+
 }

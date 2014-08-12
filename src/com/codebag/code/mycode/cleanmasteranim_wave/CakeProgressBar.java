@@ -97,7 +97,7 @@ public class CakeProgressBar extends ImageView {
 	}
 
 	public void setProgress(int progress) {
-		mAngle = 360 / 100f * progress;
+		mAngle = 360 * progress / 100f ;
 		invalidate();
 	}
 
@@ -108,6 +108,10 @@ public class CakeProgressBar extends ImageView {
 		if (mListener != null) {
 			mListener.start();
 		}
+	}
+	
+	public void cancelAnim() {
+		mRoatingAnim = false;
 	}
 
 	@Override

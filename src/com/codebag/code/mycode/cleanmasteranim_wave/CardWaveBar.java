@@ -4,7 +4,6 @@ import android.content.Context;
 import android.graphics.Color;
 import android.view.Gravity;
 import android.view.View;
-import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -14,7 +13,7 @@ import android.widget.TextView;
  * @author zhangrui-ms
  *
  */
-public class CardWaveBar extends FrameLayout {
+public class CardWaveBar extends CardBar {
 
 	private LinearLayout mText;
 
@@ -26,10 +25,9 @@ public class CardWaveBar extends FrameLayout {
 
 	public CardWaveBar(Context context) {
 		super(context);
-		init(context);
 	}
 
-	private void init(Context context) {
+	protected void init(Context context) {
 		mText = new LinearLayout(getContext());
 		LinearLayout l = new LinearLayout(getContext());
 		l.setOrientation(LinearLayout.VERTICAL);
@@ -76,7 +74,7 @@ public class CardWaveBar extends FrameLayout {
 		addView(mText, paramsWrap);
 	}
 
-	public void setData(int diameter, int upDownspeed) {
+	public void setData(int ply, int diameter, int upDownspeed) {
 		mProgressBar.setData(diameter, upDownspeed);
 	}
 
@@ -100,6 +98,10 @@ public class CardWaveBar extends FrameLayout {
 	public void startAnimination(int endProgress) {
 		setProgressText(endProgress);
 		mProgressBar.startAnimination(endProgress);
+	}
+	
+	public void cancelAnim() {
+		mProgressBar.cancleAnim();
 	}
 
 }
