@@ -89,7 +89,7 @@ public class CakeWaveView extends ImageView {
 		mClipPath.reset();
 		canvas.clipPath(mClipPath);
 		mClipPath.addArc(mCircleRect, 0, 360);
-		canvas.clipPath(mClipPath, Region.Op.REPLACE);
+		canvas.clipPath(mClipPath, Region.Op.XOR);
 	}
 
 	private void drawWave(Canvas canvas) {
@@ -111,7 +111,7 @@ public class CakeWaveView extends ImageView {
 		mWavePath.moveTo(0, mWaterH);
 		for (float i = 0 + mOffset; i <= mDiameter + mOffset; i++) {
 			mWavePath.lineTo((i - mOffset),
-					(float) (Math.sin(i * Math.PI * 2 / mDiameter)) * (mWaveH * 3)
+					(float) (Math.sin(i * Math.PI * 2 / mDiameter)) * (mWaveH * 4)
 							+ (mDiameter - (mWaterH)));
 		}
 		mWavePath.lineTo(getRight(), getHeight());

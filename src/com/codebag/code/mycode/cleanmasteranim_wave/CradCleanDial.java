@@ -4,11 +4,13 @@ import com.codebag.R;
 import com.codebag.code.mycode.utils.DisplayUtil;
 
 import android.content.Context;
+import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.PaintFlagsDrawFilter;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
-import android.view.View.MeasureSpec;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.view.animation.Animation.AnimationListener;
@@ -189,11 +191,20 @@ public class CradCleanDial extends FrameLayout {
 		addView(mDialMarkImage, paramsWrap);
 		
 		int height = getMeasuredHeight();
-		int ply = DisplayUtil.dip2px(getContext(), 4);
+		int ply = DisplayUtil.dip2px(getContext(), 6);
 		int diameter = DisplayUtil.dip2px(getContext(), 94);
 		Log.i("peter", "height=" + height);
 		mWaveBar.setData(0, diameter, 9);
 		mCakeBar.setData(ply, diameter, 2);
+	}
+	
+	
+
+	@Override
+	protected void onDraw(Canvas canvas) {
+		canvas.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG
+				 | Paint.FILTER_BITMAP_FLAG));
+		super.onDraw(canvas);
 	}
 
 	private void startDialMarkAnim() {
@@ -229,7 +240,7 @@ public class CradCleanDial extends FrameLayout {
 
 	private void startScaleWhiteBgAnim(final int endProgress, final CardBar positiveBar, final CardBar negativeBar) {
 		positiveBar.setProgressText(endProgress);
-		ScaleAnimation animationScale = new ScaleAnimation(1, 1.40f, 1, 1.40f,
+		ScaleAnimation animationScale = new ScaleAnimation(1, 1.8f, 1, 1.8f,
 				Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
 		AlphaAnimation animationAlphaHide = new AlphaAnimation(1.0f, 0.0f); // 透明度，从不透明到透明
 		mWhiteBackGround.clearAnimation();

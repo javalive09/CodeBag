@@ -64,7 +64,7 @@ public CradCleanDial c;
 		}.getButtons();
 		
 		FrameLayout fl = new FrameLayout(getContext());
-		int d = DisplayUtil.dip2px(getContext(), 94);
+		int d = DisplayUtil.dip2px(getContext(), 110);
 		FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(d, d);
 		params.gravity = Gravity.CENTER;
 		fl.addView(c, params);
