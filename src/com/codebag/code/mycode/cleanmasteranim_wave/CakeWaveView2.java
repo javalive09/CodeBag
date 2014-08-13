@@ -1,22 +1,17 @@
 package com.codebag.code.mycode.cleanmasteranim_wave;
 
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-
-import com.codebag.code.mycode.utils.ReflectUtils;
-
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Path;
+import android.graphics.PorterDuff;
+import android.graphics.PorterDuffXfermode;
 import android.graphics.RectF;
-import android.graphics.Region;
-import android.os.Build;
 import android.util.AttributeSet;
-import android.view.View;
 import android.widget.ImageView;
 
-public class CakeWaveView extends ImageView {
+public class CakeWaveView2 extends ImageView {
 
 	private static final float FLOAT_SPEED = 1.28f;
 	private static final int DEFAULT_SPEED = 11;
@@ -38,48 +33,36 @@ public class CakeWaveView extends ImageView {
 	private int mUpDownSpeed;
 	private AniminationListener mListener;
 
-	public CakeWaveView(Context context) {
+	public CakeWaveView2(Context context) {
 		this(context, 0, DEFAULT_SPEED);
 	}
 	
-    public CakeWaveView(Context context, AttributeSet attrs) {
+    public CakeWaveView2(Context context, AttributeSet attrs) {
     	super(context, attrs);
     	init(0, DEFAULT_SPEED);
     }
     
-	public CakeWaveView(Context context, int diameter, int speed) {
+	public CakeWaveView2(Context context, int diameter, int speed) {
 		super(context);
 		init(diameter, speed);
 	}
 
 	private void init(int diameter, int speed) {
-		if(Build.VERSION.SDK_INT >= 11) {//3.0之后关闭硬件加速
-			try {
-				
-				Method method = View.class.getDeclaredMethod("setLayerType", new Class[]{int.class, Paint.class});
-				try {
-					method.invoke(this, new Object[]{1,null});
-				} catch (IllegalArgumentException e) {
-					e.printStackTrace();
-				} catch (IllegalAccessException e) {
-					e.printStackTrace();
-				} catch (InvocationTargetException e) {
-					e.printStackTrace();
-				}
-			} catch (NoSuchMethodException e) {
-				e.printStackTrace();
-			}
-		}
+
 		mWavePath = new Path();
 		mUpWavePaint = new Paint();
 		mDownWavePaint = new Paint();
 		mCirclePaint = new Paint();
 		mCircleRect = new RectF();
 		mClipPath = new Path();
+		
+		mCirclePaint.setAntiAlias(true);
 		mUpWavePaint.setStyle(Paint.Style.FILL);
 		mUpWavePaint.setAntiAlias(true);
 		mDownWavePaint.setStyle(Paint.Style.FILL);
 		mDownWavePaint.setAntiAlias(true);
+		paint.setFilterBitmap(false);
+		
 		setData(diameter, speed);
 	}
 	
@@ -87,7 +70,7 @@ public class CakeWaveView extends ImageView {
 		mDiameter = diameter;
 		mWaveH = (int) (mDiameter * mWaveHRate);
 		mCircleRect.set(0, 0, mDiameter, mDiameter);
-		if (upDownspeed >= 1 && upDownspeed <= 11) {
+		if (upDownspeed >= 1 && upDownspeed <= 20) {
 			mUpDownSpeed = upDownspeed;
 		}
 	}
@@ -101,18 +84,48 @@ public class CakeWaveView extends ImageView {
 	@Override
 	protected void onDraw(Canvas canvas) {
 		canvas.save();
-		clipCircle(canvas);
-		canvas.drawArc(mCircleRect, 0, 360, false, mCirclePaint);
-		drawWave(canvas);
+
+		Bitmap mCircleBg = makeDst(mDiameter, mDiameter);
+		Bitmap mWave = makeSrc(mDiameter, mDiameter);
+		
+        canvas.saveLayer(0, 0, mDiameter, mDiameter, null,
+                                  Canvas.MATRIX_SAVE_FLAG |
+                                  Canvas.CLIP_SAVE_FLAG |
+                                  Canvas.HAS_ALPHA_LAYER_SAVE_FLAG |
+                                  Canvas.FULL_COLOR_LAYER_SAVE_FLAG |
+                                  Canvas.CLIP_TO_LAYER_SAVE_FLAG);
+		canvas.drawBitmap(mCircleBg, 0, 0, paint);
+		paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_ATOP));		
+		canvas.drawBitmap(mWave, 0, 0, paint);		
+		paint.setXfermode(null);
+		
+		if(mWaterH == mEndWaterH) {
+			mCircleBg.recycle();
+			mWave.recycle();
+		}
+		
 		canvas.restore();
 	}
-
-	private void clipCircle(Canvas canvas) {
-		mClipPath.reset();
-		canvas.clipPath(mClipPath);
-		mClipPath.addArc(mCircleRect, 0, 360);
-		canvas.clipPath(mClipPath, Region.Op.XOR);
+	
+	Paint paint = new Paint();
+	private Canvas c = new Canvas();
+	
+	// create a bitmap with a circle, used for the "dst" image
+	Bitmap makeDst(int w, int h) {
+		Bitmap bm = Bitmap.createBitmap(w, h, Bitmap.Config.ARGB_8888);
+		c.setBitmap(bm);
+		c.drawArc(mCircleRect, 0, 360, false, mCirclePaint);
+		return bm;
 	}
+	
+	// create a bitmap with a wave, used for the "src" image
+	Bitmap makeSrc(int w, int h) {
+		Bitmap bm = Bitmap.createBitmap(w, h, Bitmap.Config.ARGB_8888);
+		c.setBitmap(bm);
+		drawWave(c);
+		return bm;
+	}
+	
 
 	private void drawWave(Canvas canvas) {
 		//下层波浪

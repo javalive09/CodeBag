@@ -75,7 +75,10 @@ public class CodeBag extends Application {
 		}
 		
 		//加入appDemo节点
-		mRootNode.mSubNodeList.add(getAppDemoNode());
+		Node appNode = getAppDemoNode();
+		if(appNode != null) {
+			mRootNode.mSubNodeList.add(appNode);
+		}
 		
 		printNode(mRootNode);
 		
@@ -127,6 +130,9 @@ public class CodeBag extends Application {
 			} catch (NameNotFoundException e) {
 				e.printStackTrace();
 			}
+		}
+		if(appNode.mSubNodeList.size() == 0) {
+			return null;
 		}
 		return appNode;
 	}
