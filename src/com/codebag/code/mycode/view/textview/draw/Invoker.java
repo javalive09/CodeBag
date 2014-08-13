@@ -1,4 +1,4 @@
-package com.codebag.code.mycode.view.textviewdraw;
+package com.codebag.code.mycode.view.textview.draw;
 
 import android.content.Context;
 import android.graphics.Color;

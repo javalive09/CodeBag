@@ -16,5 +16,12 @@
     <string name="action_clearlog">clear log</string>
     <string name="action_exit">exit</string>
     <string name="app_name_timewidget">timeWidget</string>
+    
+    
+    <!-- format TEST -->
+    <string name="format_test_name">my name is %s</string>
+    <string name="format_test_old"> i am %1$d years old</string>
+    <string name="format_test_name_place">my name is %1$11s, i am from %2$s</string>
+    <string name="format_test_name_place_old">my name is %1$11Vs, i am from %2$s, i am %3$d years old</string>
 
 </resources>
