@@ -1,11 +1,17 @@
 package com.codebag.code.mycode.cleanmasteranim_wave;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+
+import com.codebag.code.mycode.utils.ReflectUtils;
+
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.RectF;
 import android.graphics.Region;
+import android.os.Build;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.ImageView;
@@ -41,13 +47,57 @@ public class CakeWaveView extends ImageView {
     	init(0, DEFAULT_SPEED);
     }
 	
+    /**
+     * 
+     * @param MethodName 
+     * @param o           调用此方法的对象
+     * @param paras       调用的这个方法的参数参数列表
+     */
+    public static void  getMethod(String MethodName,Object o,Object []paras){
+         Class c[]=null;
+         if(paras!=null){//存在
+             int len=paras.length;
+             c=new Class[len];
+             for(int i=0;i<len;++i){
+                 c[i]=paras[i].getClass();
+             }
+         }
+        try {
+            Method method=o.getClass().getDeclaredMethod(MethodName,c);
+            try {
+                method.invoke(o,paras);//调用o对象的方法
+            } catch (IllegalAccessException ex) {
+            } catch (IllegalArgumentException ex) {
+            } catch (InvocationTargetException ex) {
+            }
+        } catch (NoSuchMethodException ex) {
+        } catch (SecurityException ex) {
+        }
+    }
+    
 	public CakeWaveView(Context context, int diameter, int speed) {
 		super(context);
 		init(diameter, speed);
 	}
 
 	private void init(int diameter, int speed) {
-		setLayerType(View.LAYER_TYPE_SOFTWARE, null);
+		if(Build.VERSION.SDK_INT >= 11) {//3.0之后关闭硬件加速
+			try {
+				
+				Method method = View.class.getDeclaredMethod("setLayerType", new Class[]{int.class, Paint.class});
+				try {
+					method.invoke(this, new Object[]{1,null});
+				} catch (IllegalArgumentException e) {
+					e.printStackTrace();
+				} catch (IllegalAccessException e) {
+					e.printStackTrace();
+				} catch (InvocationTargetException e) {
+					e.printStackTrace();
+				}
+			} catch (NoSuchMethodException e) {
+				e.printStackTrace();
+			}
+		}
 		mWavePath = new Path();
 		mUpWavePaint = new Paint();
 		mDownWavePaint = new Paint();
