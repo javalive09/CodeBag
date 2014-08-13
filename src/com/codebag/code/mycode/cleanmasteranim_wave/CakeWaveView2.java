@@ -20,7 +20,6 @@ public class CakeWaveView2 extends ImageView {
 	private Paint mUpWavePaint;
 	private Paint mDownWavePaint;
 	private Path mWavePath;
-	private Path mClipPath;
 	private int mWaveH;
 	private float mOffset;
 	private boolean mUpDownAnim;
@@ -54,7 +53,6 @@ public class CakeWaveView2 extends ImageView {
 		mDownWavePaint = new Paint();
 		mCirclePaint = new Paint();
 		mCircleRect = new RectF();
-		mClipPath = new Path();
 		
 		mCirclePaint.setAntiAlias(true);
 		mUpWavePaint.setStyle(Paint.Style.FILL);
