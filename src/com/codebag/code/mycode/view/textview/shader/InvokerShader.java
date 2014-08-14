@@ -33,7 +33,7 @@ public class InvokerShader extends CaseListView {
 		tv.setTextSize(50);
 		tv.setTextColor(Color.GRAY);
 		tv.setBackgroundColor(Color.WHITE);
-		tv.setShadowLayer(0.5f, 10, 10, Color.BLUE);
+		tv.setShadowLayer(0.5f, 0, 10, Color.BLUE);
 		tv.setGravity(Gravity.CENTER);
 		showView(tv);
 	}
@@ -45,7 +45,7 @@ public class InvokerShader extends CaseListView {
 		tv.setTextSize(50);
 		tv.setTextColor(Color.GRAY);
 		tv.setBackgroundColor(Color.WHITE);
-		tv.setShadowLayer(0.1f, 10, 10, Color.BLUE);
+		tv.setShadowLayer(0.1f, 10, 0, Color.BLUE);
 		tv.setGravity(Gravity.CENTER);
 		showView(tv);
 	}

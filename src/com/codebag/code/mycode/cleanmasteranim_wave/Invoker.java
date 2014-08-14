@@ -122,9 +122,17 @@ public class Invoker extends CaseListView {
 	}
 	
 	@Entry
-	public void showWaveView() {
+	public void animWaveView() {
 		WaveView v = new WaveView(getContext());
 		v.startAnim(50);
+		showView(v);
+	}
+	
+	
+	@Entry
+	public void showWaveView() {
+		WaveView v = new WaveView(getContext());
+		v.setProgress(50);
 		showView(v);
 	}
 	

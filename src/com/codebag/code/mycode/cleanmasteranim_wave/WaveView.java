@@ -12,6 +12,7 @@ public class WaveView extends View {
 	private Path aboveWavePath = new Path();
 	private Paint aboveWavePaint = new Paint();
 	private float mFloatSpeed = 1.28f;
+	private int distance = 50;
 	private int mUpDownSpeed = 11;
 	private float mOffset = 0;
 	private boolean mStartAnim = false;
@@ -58,7 +59,7 @@ public class WaveView extends View {
 		aboveWavePath.lineTo(0, mHeight - mWaterH);
 		//
 		for (float i = 0 + mOffset; i <= right + mOffset; i++) {
-			aboveWavePath.lineTo((i - mOffset), (float) (Math.sin(i * Math.PI * 2 / right)) * waveH + (mHeight - mWaterH));
+			aboveWavePath.lineTo((i - mOffset), (float) (Math.sin((i + distance) * Math.PI * 2 / right)) * waveH + (mHeight - mWaterH));
 		}
 		aboveWavePath.lineTo(getRight(), getHeight());
 		aboveWavePath.close();
