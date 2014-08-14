@@ -3,6 +3,7 @@ package com.codebag.code.mycode.cleanmasteranim_text;
 import android.content.Context;
 import android.graphics.Color;
 import android.view.Gravity;
+import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -100,7 +101,8 @@ public class MyTextview extends CaseListView {
 		mNum.setShadowLayer(1, 0, 4, color);
 		mNum.setGravity(Gravity.TOP);
 		mNum.setText("88");
-		
+		mNum.setLines(1);
+		mNum.setLineSpacing(0.0f, 0.81f);
 		
 		//已使用文字
 		TextView used = new TextView(getContext());
@@ -118,17 +120,32 @@ public class MyTextview extends CaseListView {
 		mPercentSign.setTextColor(Color.WHITE);
 		mPercentSign.setShadowLayer(1, 0, 2, color);
 		
+		
 		//组合view
+		//num
 		RelativeLayout.LayoutParams params_num = new RelativeLayout.LayoutParams(-2, -2);
 		params_num.addRule(RelativeLayout.CENTER_IN_PARENT);
 		mText.addView(mNum, params_num);
-		
-		
+		mNum.setId(1);
+		//percent
+	    RelativeLayout.LayoutParams params_percent = new RelativeLayout.LayoutParams
+	    		(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);  
+	    params_percent.addRule(RelativeLayout.RIGHT_OF, 1); 
+	    params_percent.addRule(RelativeLayout.ALIGN_TOP, 1); 
+	    mText.addView(mPercentSign, params_percent);
+	    //used
+	    RelativeLayout.LayoutParams params_used = new RelativeLayout.LayoutParams
+	    		(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);  
+	    params_used.addRule(RelativeLayout.BELOW, 1); 
+	    params_used.addRule(RelativeLayout.CENTER_HORIZONTAL, 1); 
+	    
+	    mText.addView(used, params_used);
+	    
 		mNum.setBackgroundColor(Color.RED);
 		used.setBackgroundColor(Color.GREEN);
 		mText.setBackgroundColor(Color.GRAY);
 		
-		showView(mText, wrapContentParams(Gravity.CENTER));
+		showView(mText);
 		
 	}
 
