@@ -5,7 +5,6 @@ import java.lang.reflect.Field;
 import com.codebag.R;
 import com.codebag.code.mycode.utils.Log;
 
-import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.Point;
@@ -41,7 +40,7 @@ public class CaseListView extends ListView {
 	
 	public void showView(View view, FrameLayout.LayoutParams params) {
 		final FrameLayout container = new FrameLayout(getContext());
-		container.setBackgroundColor(Color.BLACK);
+//		container.setBackgroundColor(Color.BLACK);
 		container.addView(view);
 		
 		Point outSize = new Point();

@@ -23,7 +23,7 @@ public class study_2014_8_14 extends CaseListView {
 	 * resource getDimension的3个方法
 	 */
 	public void getDimension_3method() {
-		
+		//http://blog.csdn.net/javalive09/article/details/38580769
 	} 
 	
 

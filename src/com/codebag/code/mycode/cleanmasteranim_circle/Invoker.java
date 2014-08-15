@@ -4,12 +4,14 @@ import android.content.Context;
 import android.graphics.Color;
 import android.view.Gravity;
 import android.view.View;
+import android.widget.Button;
 import android.widget.FrameLayout;
 
 import com.codebag.R;
-import com.codebag.bag.ButtonsUtil;
 import com.codebag.bag.CaseListView;
 import com.codebag.bag.Entry;
+import com.codebag.bag.MultiViews;
+import com.codebag.bag.MultiViews.MyAdapter;
 import com.codebag.code.mycode.utils.DisplayUtil;
 
 public class Invoker extends CaseListView {
@@ -23,45 +25,23 @@ public class Invoker extends CaseListView {
 	
 	@Entry
 	public void showButtons() {
-		View buttons = new ButtonsUtil(getContext()){
+		MultiViews views = new MultiViews(getContext(), 3);
+		views.setAdapter(new MyAdapter(){
 
 			@Override
-			protected void bt1Click() {
-				super.bt1Click();
-				showProgress();
+			public int getCount() {
+				return 7;
 			}
 
 			@Override
-			protected void bt2Click() {
-				super.bt2Click();
-				showMemery();
-			}
-
-			@Override
-			protected void bt3Click() {
-				super.bt3Click();
-				showStorage();
-			}
-
-			@Override
-			protected void bt4Click() {
-				super.bt4Click();
-				showBrush();
+			public View getView(int position) {
+				Button b = new Button(getContext());
+				b.setOnClickListener(listener);
+				b.setText(position + "");
+				return b;
 			}
 			
-			@Override
-			protected void bt5Click() {
-				super.bt4Click();
-				showRocket();
-			}
-
-			@Override
-			protected void bt6Click() {
-				super.bt6Click();
-				showM();
-			}
-			
-		}.getButtons();
+		});
 		
 		FrameLayout fl = new FrameLayout(getContext());
 		int d = DisplayUtil.dip2px(getContext(), 110);
@@ -69,37 +49,40 @@ public class Invoker extends CaseListView {
 //		c.setBackgroundColor(Color.BLACK);
 		params.gravity = Gravity.CENTER;
 		fl.addView(c, params);
-		fl.addView(buttons, fillParentParams(Gravity.BOTTOM));
+		fl.addView(views, fillParentParams(Gravity.BOTTOM));
 		fl.setBackgroundColor(Color.WHITE);
 		showView(fl);
 	}
+	
+	private OnClickListener listener = new OnClickListener() {
 
-	public void showM() {
-		c.showMagnifier();
-	}
-	
-	public void showProgress() {
-		c.setProgress(80);
-	}
-	
-	public void showBrush() {
-		c.showBrush();
-	}
-	
-	public void showRocket() {
-		c.showRoket();
-	}
-	
-	public void showMemery() {
-		c.setDialMarkResource(R.drawable.card_danager_memory);
-	}
-	
-	public void showStorage() {
-		c.setDialMarkResource(R.drawable.card_danager_storage);
-	}
-	
-	public void showSystem() {
-		c.setDialMarkResource(R.drawable.card_danager_system);
-	}
+		@Override
+		public void onClick(View v) {
+			switch(v.getId()) {
+			case 0:
+				c.showMagnifier();
+				break;
+			case 1:
+				c.setProgress(80);
+				break;
+			case 2:
+				c.showBrush();
+				break;
+			case 3:
+				c.showRoket();
+				break;
+			case 4:
+				c.setDialMarkResource(R.drawable.card_danager_memory);
+				break;
+			case 5:
+				c.setDialMarkResource(R.drawable.card_danager_storage);
+				break;
+			case 6:
+				c.setDialMarkResource(R.drawable.card_danager_system);
+				break;
+			}
+		}
+		
+	};
 	
 }

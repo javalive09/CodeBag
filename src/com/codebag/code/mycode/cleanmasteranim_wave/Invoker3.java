@@ -4,12 +4,15 @@ import android.content.Context;
 import android.graphics.Color;
 import android.view.Gravity;
 import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
 import android.widget.FrameLayout;
 
 import com.codebag.R;
-import com.codebag.bag.ButtonsUtil;
 import com.codebag.bag.CaseListView;
 import com.codebag.bag.Entry;
+import com.codebag.bag.MultiViews;
+import com.codebag.bag.MultiViews.MyAdapter;
 import com.codebag.code.mycode.cleanmasteranim_wave.CradCleanDial;
 import com.codebag.code.mycode.utils.DisplayUtil;
 
@@ -23,45 +26,23 @@ public CradCleanDial c;
 	
 	@Entry
 	public void showButtons() {
-		View buttons = new ButtonsUtil(getContext()){
+		MultiViews buttons = new MultiViews(getContext(), 3);
+		buttons.setAdapter(new MyAdapter(){
 
 			@Override
-			protected void bt1Click() {
-				super.bt1Click();
-				showCakeProgress();
+			public int getCount() {
+				return 7;
 			}
 
 			@Override
-			protected void bt2Click() {
-				super.bt2Click();
-				showWaveProgress();
-			}
-
-			@Override
-			protected void bt3Click() {
-				super.bt3Click();
-				showStorage();
-			}
-
-			@Override
-			protected void bt4Click() {
-				super.bt4Click();
-				showMemery();
+			public View getView(int position) {
+				Button b = new Button(getContext());
+				b.setOnClickListener(listener);
+				b.setText(position + "");
+				return b;
 			}
 			
-			@Override
-			protected void bt5Click() {
-				super.bt4Click();
-				showRocket();
-			}
-
-			@Override
-			protected void bt6Click() {
-				super.bt6Click();
-				showM();
-			}
-			
-		}.getButtons();
+		});
 		
 		FrameLayout fl = new FrameLayout(getContext());
 		int d = DisplayUtil.dip2px(getContext(), 110);
@@ -72,32 +53,36 @@ public CradCleanDial c;
 		fl.setBackgroundColor(Color.DKGRAY);
 		showView(fl);
 	}
+	
+	private OnClickListener listener = new OnClickListener() {
 
-	public void showM() {
-		c.showMagnifier();
-	}
-	
-	public void showCakeProgress() {
-		c.setCakeProgress(60);
-	}
-	
-	public void showWaveProgress() {
-		c.setWaveProgress(60);
-	}
-	
-	public void showRocket() {
-		c.showRoket();
-	}
-	
-	public void showMemery() {
-		c.setDialMarkResource(R.drawable.card_danager_memory);
-	}
-	
-	public void showStorage() {
-		c.setDialMarkResource(R.drawable.card_danager_storage);
-	}
-	
-	public void showSystem() {
-		c.setDialMarkResource(R.drawable.card_danager_system);
-	}
+		@Override
+		public void onClick(View v) {
+			switch(v.getId()) {
+			case 0:
+				c.showMagnifier();
+				break;
+			case 1:
+				c.setCakeProgress(60);
+				break;
+			case 2:
+				c.setWaveProgress(60);
+				break;
+			case 3:
+				c.showRoket();
+				break;
+			case 4:
+				c.setDialMarkResource(R.drawable.card_danager_memory);
+				break;
+			case 5:
+				c.setDialMarkResource(R.drawable.card_danager_storage);
+				break;
+			case 6:
+				c.setDialMarkResource(R.drawable.card_danager_system);
+				break;
+			}
+		}
+		
+	};
+
 }
