@@ -1,4 +1,4 @@
-package com.codebag.code.mycode.studypoint;
+package com.codebag.code.mycode.studypoint.year_2014;
 
 import android.content.Context;
 
@@ -30,17 +30,18 @@ public class study_2014_8_12 extends CaseListView {
 	}
 
 	/**
-	 * 下次布局的时候执行布局动画
+	 * 当View下次布局的时候，这个动画会被执行
 	 */
 	public void view_scheduleLayoutAnimation() {
-
+		//http://www.eoeandroid.com/thread-87082-1-1.html?_dsign=7ed1cde0
 	}
 
 	/**
 	 * setAnimation 的调用时机
 	 */
 	public void view_setAnimation() {
-
+		//startAnimination() 会调用 setAnimation(), 并调用重绘触发动画。
+		//setAnimation() 触发动画需要 1.setStartTime() 2.所在view需要调用重绘方法。
 	}
 
 }
