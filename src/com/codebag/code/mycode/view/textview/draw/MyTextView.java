@@ -14,6 +14,12 @@ public class MyTextView extends TextView {
 	protected void onDraw(Canvas canvas) {
 		super.onDraw(canvas);
 	}
+
+	@Override
+	protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+		super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+	}
+	
 	
 	
 
