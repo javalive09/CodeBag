@@ -6,8 +6,8 @@ import com.codebag.R;
 import com.codebag.code.mycode.utils.Log;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.graphics.Point;
+import android.view.Display;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
@@ -33,43 +33,47 @@ public class CaseListView extends ListView {
 		params.gravity = gravity;
 		return params;
 	}
+	
+	public FrameLayout.LayoutParams wrapH_fillW_Params(int gravity) {
+		FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(-1 , -2);
+		params.gravity = gravity;
+		return params;
+	}
 
 	public void showView(View view) {
 		showView(view, fillParentParams(Gravity.CENTER));
 	}
 	
 	public void showView(View view, FrameLayout.LayoutParams params) {
-		final FrameLayout container = new FrameLayout(getContext());
-//		container.setBackgroundColor(Color.BLACK);
-		container.addView(view);
-		
-		Point outSize = new Point();
 		WindowManager mWindowManager = (WindowManager) getContext().getSystemService(Context.WINDOW_SERVICE);
-		mWindowManager.getDefaultDisplay().getSize(outSize);
+		Display display = mWindowManager.getDefaultDisplay();
+		int width = display.getWidth();
+		int height = display.getHeight();
 		int statusBarHeight = getStatusBarHeight();
-		final PopupWindow pw = new PopupWindow(container, outSize.x, outSize.y - statusBarHeight, true);
-		pw.setAnimationStyle(R.style.popUpWindowAnimation);
-		pw.showAtLocation(this, Gravity.NO_GRAVITY, 0, statusBarHeight);
-
-		//以下两句是按键能响应的关键代码
-		container.setFocusableInTouchMode(true);
-		container.requestFocus();
+		final PopupWindow pw = new PopupWindow(width, height - statusBarHeight);
 		
-		container.setOnKeyListener(new OnKeyListener() {
-			
+		final FrameLayout container = new FrameLayout(getContext()){
+
 			@Override
-			public boolean onKey(View v, int keyCode, KeyEvent event) {
+			public boolean dispatchKeyEvent(KeyEvent event) {
 				if(event.getAction() == KeyEvent.ACTION_UP) {
-					if(keyCode == KeyEvent.KEYCODE_BACK) {
+					if(event.getKeyCode() == KeyEvent.KEYCODE_BACK) {
 						Log.addLog(this, "window height =" + pw.getHeight());
-						container.removeAllViews();
+						removeAllViews();
 						pw.dismiss();
 						return true;
 					}
 				}
-				return false;
+				return super.dispatchKeyEvent(event);
 			}
-		});
+			
+		};
+		container.addView(view, params);
+		pw.setContentView(container);
+		pw.setFocusable(true);
+		pw.setAnimationStyle(R.style.popUpWindowAnimation);
+		pw.showAtLocation(this, Gravity.NO_GRAVITY, 0, statusBarHeight);		
+		
 	}
 	
 	/**

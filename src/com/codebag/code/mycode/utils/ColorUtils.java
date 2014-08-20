@@ -45,6 +45,7 @@ public class ColorUtils extends CaseListView {
 					et_argb = new EditText(getContext());
 					et_argb.setEms(2);
 					et_argb.setHint("16进制 a r g b值");
+					et_argb.setBackgroundColor(Color.WHITE);
 					return et_argb;
 				case 2:
 					Button bt = new Button(getContext());
@@ -73,8 +74,7 @@ public class ColorUtils extends CaseListView {
 			}
 			
 		});
-//		views.setBackgroundColor(Color.WHITE);
-		showView(views);
+		showView(views, wrapH_fillW_Params(Gravity.CENTER));
 	}
 	
 	

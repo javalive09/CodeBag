@@ -10,9 +10,9 @@ import com.codebag.R;
 import com.codebag.bag.CaseListView;
 import com.codebag.bag.Entry;
 
-public class BitMapInvoker extends CaseListView {
+public class BitMapRecycleInvoker extends CaseListView {
 
-	public BitMapInvoker(Context context) {
+	public BitMapRecycleInvoker(Context context) {
 		super(context);
 	}
 	
@@ -29,8 +29,7 @@ public class BitMapInvoker extends CaseListView {
 	
 	@Entry
 	public void test() {
-			
-			
+		
 			for(int i = 0; i<5000; i++) {
 				dodd();
 			}
