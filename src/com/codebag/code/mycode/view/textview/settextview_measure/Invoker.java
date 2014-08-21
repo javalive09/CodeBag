@@ -1,0 +1,60 @@
+package com.codebag.code.mycode.view.textview.settextview_measure;
+
+import android.content.Context;
+import android.graphics.Color;
+import android.os.Handler;
+import android.os.Looper;
+import android.os.Message;
+import android.view.Gravity;
+import android.widget.TextView;
+
+import com.codebag.bag.CaseListView;
+import com.codebag.bag.Entry;
+import com.codebag.code.mycode.utils.Log;
+
+public class Invoker extends CaseListView {
+
+	TextView view;
+	
+	int measureCount;
+	
+	int requestCount;
+	
+	public Invoker(Context context) {
+		super(context);
+		view = new TextView(context) {
+
+			@Override
+			protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+				super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+				Log.addLog(this, "measureCount = " + measureCount++);
+			}
+			
+			public void requestLayout() {
+				Log.addLog(this, "requestCount = " + requestCount++);
+			}
+			
+		};
+		view.setText("invoker = ");
+		view.setTextSize(30);
+		view.setBackgroundColor(Color.WHITE);
+	}
+	
+	@Entry
+	public void setText() {
+		showView(view, wrapH_fillW_Params(Gravity.CENTER));
+		mHandler.sendEmptyMessageDelayed(0, 100);
+	}
+	
+	private Handler mHandler = new Handler(Looper.getMainLooper()) {
+
+		@Override
+		public void handleMessage(Message msg) {
+			super.handleMessage(msg);
+			view.setText("invoke =" + msg.what++);
+			mHandler.sendEmptyMessageDelayed(msg.what, 100);
+		}
+		
+	};
+
+}
