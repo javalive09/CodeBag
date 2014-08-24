@@ -31,8 +31,8 @@ public class CakeWaveView extends ImageView {
 	private boolean mUpDownAnim;
 	private boolean mFloatAnim;
 	private int mDiameter;
-	private int mWaterH;
-	private int mEndWaterH;
+	private long mWaterH;
+	private long mEndWaterH;
 	private RectF mCircleRect;
 	private Paint mCirclePaint;
 	private int mUpDownSpeed;
@@ -165,7 +165,7 @@ public class CakeWaveView extends ImageView {
 		} 
 	}
 
-	public void setProgress(int percent) {
+	public void setProgress(long percent) {
 		mUpDownAnim = false;
 		mFloatAnim = true;
 		mEndWaterH = mDiameter * percent / 100;

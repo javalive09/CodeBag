@@ -60,41 +60,49 @@ public class CardAniminationController {
 		mFrame = frame;
 	}
 	
-	public void action(int scene, int markres, long data) {
+	public void action(int scene, int markRes, long data) {
 		
 		switch(scene){
 		case ROKET_ROATING:
+			//装载
+			initRoating(R.drawable.sysclear_card_anim_roket, R.drawable.sysclear_card_anim_circlewhite,
+					R.drawable.sysclear_card_anim_fan, R.drawable.sysclear_card_anim_bluebg);
+			mFrame.installPrepareLayer(mScanner);
+			
 			if(mCurrentScene == DIAL_MARK) {
-				mark2Roating(R.drawable.sysclear_card_anim_roket, R.drawable.sysclear_card_anim_circlewhite,
-						R.drawable.sysclear_card_anim_fan, R.drawable.sysclear_card_anim_bluebg);
+				shrinkMarkAnim();
 			}else {
-				mMark = null;
-				mark2Roating(R.drawable.sysclear_card_anim_roket, R.drawable.sysclear_card_anim_circlewhite,
-						R.drawable.sysclear_card_anim_fan, R.drawable.sysclear_card_anim_bluebg);
+				startScannerRoatingAnim();
 			}
 			break;
 		case MAGNIFIER_ROATING:
+			//装载
+			initRoating(R.drawable.sysclear_card_anim_magnifier, R.drawable.sysclear_card_anim_circlewhite,
+					R.drawable.sysclear_card_anim_fan, R.drawable.sysclear_card_anim_bluebg);
+			mFrame.installPrepareLayer(mScanner);
 			if(mCurrentScene == DIAL_MARK) {
-				mark2Roating(R.drawable.sysclear_card_anim_magnifier, R.drawable.sysclear_card_anim_circlewhite,
-						R.drawable.sysclear_card_anim_fan, R.drawable.sysclear_card_anim_bluebg);
+				shrinkMarkAnim();
 			}else {
-				mMark = null;
-				mark2Roating(R.drawable.sysclear_card_anim_magnifier, R.drawable.sysclear_card_anim_circlewhite,
-						R.drawable.sysclear_card_anim_fan, R.drawable.sysclear_card_anim_bluebg);
+				startScannerRoatingAnim();
 			}
 			break;
 		case BRUSH_ROATING:
+			//装载
+			initRoating(R.drawable.sysclear_card_anim_brush, R.drawable.sysclear_card_anim_circlewhite,
+					R.drawable.sysclear_card_anim_fan, R.drawable.sysclear_card_anim_bluebg);
+			mFrame.installPrepareLayer(mScanner);
 			if(mCurrentScene == DIAL_MARK) {
-				mark2Roating(R.drawable.sysclear_card_anim_brush, R.drawable.sysclear_card_anim_circlewhite,
-						R.drawable.sysclear_card_anim_fan, R.drawable.sysclear_card_anim_bluebg);
+				shrinkMarkAnim();
 			}else {
-				mMark = null;
-				mark2Roating(R.drawable.sysclear_card_anim_brush, R.drawable.sysclear_card_anim_circlewhite,
-						R.drawable.sysclear_card_anim_fan, R.drawable.sysclear_card_anim_bluebg);
+				startScannerRoatingAnim();
 			}
 			break;
 		case ASHCAN_ROATING:
-			ashcanRoating();
+			//装载
+			initRoating(TRANSPARENT, R.drawable.card_danager_scan_zero,
+					R.drawable.sysclear_card_anim_roating_point, TRANSPARENT);
+			mFrame.installPrepareLayer(mScanner);
+			startScannerRoatingAnim();
 			break;
 		case ASHCAN_ROATING_UPDATE:
 			ashcanRoatingUpdate(data);
@@ -104,13 +112,23 @@ public class CardAniminationController {
 			ashcanRoatingEnd(data);
 			break;
 		case DIAL_MARK:
-			showDialMark(markres);
+			initDialMark(markRes);
+			mFrame.installShowLayer(mMark);
 			break;
 		case PROGRESS_CAKE:
-			
+			if(mWaveBar == null) {
+				mWaveBar = new CardWaveBar(mContext);
+				mFrame.installShowLayer(mWaveBar);
+			}
+			mWaveBar.setProgress(data);
 			break;
 		case PROGRESS_WAVE:
-			
+			if(mCakeBar == null) {
+				mCakeBar = new CardCakeBar(mContext);
+				mFrame.installShowLayer(mWaveBar);
+			}
+			mFrame.installShowLayer(mCakeBar);
+			mCakeBar.setProgress(data);
 			break;
 		default:
 			break;
@@ -118,20 +136,11 @@ public class CardAniminationController {
 		mCurrentScene = scene;
 	}
 	
-	public void showDialMark(long resid) {
+	public void initDialMark(int markRes) {
 		if(mMark == null) {
 			mMark = new View(mContext);
 		}
-		mFrame.installShowLayer(mMark);
-		mMark.setBackgroundResource((int) resid);
-	}
-	
-	public void ashcanRoating() {
-		initRoating();
-		//装载
-		mFrame.installShowLayer(mScanner);
-		mark2Roating(TRANSPARENT, R.drawable.card_danager_scan_zero,
-				R.drawable.sysclear_card_anim_roating_point, TRANSPARENT);
+		mMark.setBackgroundResource(markRes);
 	}
 	
 	private static final int STATUS_DEFAULT = -1;
@@ -165,20 +174,39 @@ public class CardAniminationController {
 	private AnimationListener mashcanRoatingEndListener = new AnimationListener() {
 
         @Override
-        public void onAnimationStart(Animation animation) {
-
-        }
+        public void onAnimationStart(Animation animation) {}
 
         @Override
         public void onAnimationEnd(Animation animation) {
-//            setDialMarkResourceFromRoating();
+            setDialMarkResourceFromRoating();
         }
 
         @Override
-        public void onAnimationRepeat(Animation animation) {
-        }
+        public void onAnimationRepeat(Animation animation) {}
 
     };
+    
+	public void setDialMarkResourceFromRoating() {
+		int res = 0;
+		switch(currentRoatingStatus) {
+		case STATUS_ZERO:
+			res = R.drawable.card_danager_scan_zero;
+			break;
+		case STATUS_SMALL:
+			res = R.drawable.card_danager_scan_small;
+			break;
+		case STATUS_MIDDLE:
+//			res = R.drawable.sysclear_card_danger_scan_middle;
+			res = R.drawable.card_danager_scan_small;
+			break;
+		case STATUS_BIG:
+//			res = R.drawable.sysclear_card_danger_scan_big;
+			res = R.drawable.card_danager_scan_small;
+			break;
+		}
+		action(DIAL_MARK, res, -1);
+		currentRoatingStatus = STATUS_DEFAULT;
+	}
 	
 	public void ashcanRoatingEnd(long progress) {
 		int status = checkStatus(progress);
@@ -188,7 +216,7 @@ public class CardAniminationController {
 			switch(status) {
 			case STATUS_ZERO:
 			case STATUS_SMALL:
-//				endListener.onAnimationEnd(null);
+				setDialMarkResourceFromRoating();
 				break;
 			case STATUS_MIDDLE:
 				View mSplitBall = mScanMark.getChildAt(0);
@@ -197,13 +225,13 @@ public class CardAniminationController {
 					mSplitBall.clearAnimation();
 					showSplitBalAnim(mSplitBall, mashcanRoatingEndListener);
 				}else {//做过动画
-//					endListener.onAnimationEnd(null);
+					setDialMarkResourceFromRoating();
 				}
 				break;
 			case STATUS_BIG:
 				int count = mScanMark.getChildCount();
 				if(count == 2) {//都做过动画
-//					endListener.onAnimationEnd(null);
+					setDialMarkResourceFromRoating();
 				}else if(count == 1) {//小纸团做过动画
 					mSplitBall = installSplitBall(R.drawable.card_danager_scan_big_splitball);
 					mSplitBall.clearAnimation();
@@ -216,7 +244,7 @@ public class CardAniminationController {
 				break;
 			}
 		}else {
-//			endListener.onAnimationEnd(null);
+			setDialMarkResourceFromRoating();
 		}
 	}
 	
@@ -257,7 +285,7 @@ public class CardAniminationController {
 		animinationSet.setAnimationListener(listener);
 	}
 	
-	public void initRoating() {
+	public void initRoating(int scanMarkRes, int scanMarkBgRes, int scannerRoatingRes, int bgRes) {
 		if(mScannerRoating == null) {
 			mScannerRoating = new View(mContext);
 		}
@@ -280,10 +308,6 @@ public class CardAniminationController {
 			mScanner.addView(mScannerRoating, prams);
 			mScanner.addView(mScanMark, prams);
 		}
-	}
-	
-	public void mark2Roating(int scanMarkRes, int scanMarkBgRes, int scannerRoatingRes, int bgRes){
-		initRoating();
 		
 		//设置scanMark
 		if(scanMarkRes == TRANSPARENT){
@@ -304,16 +328,6 @@ public class CardAniminationController {
 		}else {
 			mScanner.setBackgroundResource(bgRes);
 		}
-		
-		//装载
-		mFrame.installPrepareLayer(mScanner);
-		
-		if(mMark != null) {
-			shrinkMarkAnim();
-		}else {
-			startScannerRoatingAnim();
-		}
-		
 	}
 	
 	private void shrinkMarkAnim() {
@@ -327,21 +341,23 @@ public class CardAniminationController {
 		animinationSet.setDuration(mAnimDuration/2);
 		mMark.clearAnimation();
 		mMark.startAnimation(animinationSet);
-		animinationSet.setAnimationListener(new AnimationListener() {
-
-			@Override
-			public void onAnimationStart(Animation animation) {}
-
-			@Override
-			public void onAnimationEnd(Animation animation) {
-				startScannerRoatingAnim();
-			}
-
-			@Override
-			public void onAnimationRepeat(Animation animation) {}
-			
-		});
+		animinationSet.setAnimationListener(mShrinkMarkEndListener);
 	}
+	
+	private AnimationListener mShrinkMarkEndListener = new AnimationListener() {
+
+		@Override
+		public void onAnimationStart(Animation animation) {}
+
+		@Override
+		public void onAnimationEnd(Animation animation) {
+			startScannerRoatingAnim();
+		}
+
+		@Override
+		public void onAnimationRepeat(Animation animation) {}
+		
+	};
 	
 	private void startScannerRoatingAnim() {
 		RotateAnimation roatingAnim = new RotateAnimation(0, 360, Animation.RELATIVE_TO_SELF,

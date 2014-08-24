@@ -82,11 +82,11 @@ public class CardWaveBar extends CardBar {
 		mProgressBar.setColor(waveColor, cirCleColor);
 	}
 
-	public void setProgressText(int progress) {
+	public void setProgressText(long progress) {
 		mNum.setText(progress + "");
 	}
 
-	public void setProgress(int progress) {
+	public void setProgress(long progress) {
 		setProgressText(progress);
 		mProgressBar.setProgress(progress);
 	}

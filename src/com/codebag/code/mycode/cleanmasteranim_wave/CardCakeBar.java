@@ -84,11 +84,11 @@ public class CardCakeBar extends CardBar {
 		mProgressBar.setColor(progressColor, backGroundColor);
 	}
 	
-	public void setProgressText(int progress) {
+	public void setProgressText(long progress) {
 		mNum.setText(progress+"");
 	}
 	
-	public void setProgress(int progress) {
+	public void setProgress(long progress) {
 		setProgressText(progress);
 		mProgressBar.setProgress(progress);
 	}

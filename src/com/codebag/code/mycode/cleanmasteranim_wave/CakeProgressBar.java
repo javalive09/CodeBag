@@ -96,7 +96,7 @@ public class CakeProgressBar extends ImageView {
 		canvas.drawArc(mRectOut, 270, mAngle, true, mPaint);
 	}
 
-	public void setProgress(int progress) {
+	public void setProgress(long progress) {
 		mAngle = 360 * progress / 100f ;
 		invalidate();
 	}

@@ -1,8 +1,11 @@
 package com.codebag.code.mycode.cleanmasteranim_frame;
 
+
 import android.content.Context;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.FrameLayout;
+import android.widget.FrameLayout.LayoutParams;
 
 public class CardCleanDialFrame extends FrameLayout {
 
@@ -12,34 +15,25 @@ public class CardCleanDialFrame extends FrameLayout {
 	
 	private CardAniminationController mController;
 	
+	private LayoutParams mParams;
+	
 	public CardCleanDialFrame(Context context) {
 		super(context);
 		mController = new CardAniminationController(context, this);
-	}
-	
-	private void reSetShowLayer(){
-		if(mShowLayer == null) {
-			mShowLayer = new FrameLayout(getContext());
-		}else {
-			mShowLayer.removeAllViews();
-		}
-	}
-	
-	private void reSetPrepareLayer() {
-		if(mPrepareLayer == null) {
-			mPrepareLayer = new FrameLayout(getContext());
-		}else {
-			mPrepareLayer.removeAllViews();
-		}
+		mPrepareLayer = new FrameLayout(getContext());
+		mShowLayer = new FrameLayout(getContext());
+		mParams.gravity = Gravity.CENTER;
+		addView(mPrepareLayer, mParams);
+		addView(mShowLayer, mParams);
 	}
 	
 	public void installShowLayer(View view) {
-		reSetShowLayer();
+		mShowLayer.removeAllViews();
 		mShowLayer.addView(view);
 	}
 	
 	public void installPrepareLayer(View view) {
-		reSetPrepareLayer();
+		mPrepareLayer.removeAllViews();
 		mPrepareLayer.addView(view);
 	}
 	
@@ -48,5 +42,6 @@ public class CardCleanDialFrame extends FrameLayout {
 			mController.action(scene, markRes, data);
 		}
 	}
-
+	
+	
 }
