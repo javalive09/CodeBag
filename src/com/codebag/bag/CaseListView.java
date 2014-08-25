@@ -6,7 +6,6 @@ import com.codebag.R;
 import com.codebag.code.mycode.utils.Log;
 
 import android.content.Context;
-import android.graphics.Point;
 import android.view.Display;
 import android.view.Gravity;
 import android.view.KeyEvent;

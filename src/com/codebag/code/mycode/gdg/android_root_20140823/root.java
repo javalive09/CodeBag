@@ -3,7 +3,6 @@ package com.codebag.code.mycode.gdg.android_root_20140823;
 import android.content.Context;
 
 import com.codebag.bag.CaseListView;
-import com.codebag.bag.Entry;
 
 public class root extends CaseListView {
 
