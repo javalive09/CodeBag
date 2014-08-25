@@ -8,7 +8,7 @@ import android.widget.LinearLayout;
 
 public class MultiViews extends LinearLayout{
 
-	private int mColumnCount;
+	private int mColumnCount = 1;
 	
 	public MultiViews(Context context) {
 		super(context);
