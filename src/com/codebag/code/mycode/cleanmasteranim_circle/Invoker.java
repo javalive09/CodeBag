@@ -10,9 +10,9 @@ import android.widget.FrameLayout;
 import com.codebag.R;
 import com.codebag.bag.CaseListView;
 import com.codebag.bag.Entry;
-import com.codebag.bag.MultiViews;
-import com.codebag.bag.MultiViews.MyAdapter;
 import com.codebag.code.mycode.utils.DisplayUtil;
+import com.codebag.code.mycode.view.MultiViews;
+import com.codebag.code.mycode.view.MultiViews.MyAdapter;
 
 public class Invoker extends CaseListView {
 

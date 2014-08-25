@@ -145,40 +145,36 @@ public class MainActivity extends Activity {
 		listView.setAdapter(new ListAdapter<Node>(MainActivity.this, node.mSubNodeList) {
 			@Override
 			public View getView(int position, View convertView, ViewGroup parent) {
-				if(convertView == null) {
-					Node node = getItem(position);
-					
-					LinearLayout l = new LinearLayout(mContext);
-					l.setOrientation(LinearLayout.HORIZONTAL);
-					l.setGravity(Gravity.CENTER_VERTICAL);
-					int height = dip2px(MainActivity.this, ITEM_HEIGHT);
-					l.setMinimumHeight(height); 
-					
-					TextView tv = new TextView(mContext);
-					tv.setGravity(Gravity.CENTER_VERTICAL);
-					
-					ImageView appIcon = new ImageView(mContext);
-					try {
-						PackageManager pm = getPackageManager();
-						ApplicationInfo info = pm.getApplicationInfo(node.mFullName, 0);
-						Drawable drawable = pm.getApplicationIcon(info);
-						BitmapDrawable bitmapDrawable = (BitmapDrawable) drawable;
-						Drawable icon = getRightSizeIcon(bitmapDrawable);
-						appIcon.setImageDrawable(icon);
-						appIcon.setPadding(ICON_PADDING, ICON_PADDING, ICON_PADDING, ICON_PADDING);
-						tv.setText(pm.getApplicationLabel(info));
-						l.addView(appIcon);
-						l.addView(tv);
-					} catch (NameNotFoundException e) {
-						e.printStackTrace();
-					}    
-					
-					if(getItemViewType(position) == NO_ENTRY) {
-						l.setBackgroundResource(android.R.color.darker_gray);
-					}
-					convertView = l;
+				Node node = getItem(position);
+				LinearLayout l = new LinearLayout(mContext);
+				l.setOrientation(LinearLayout.HORIZONTAL);
+				l.setGravity(Gravity.CENTER_VERTICAL);
+				int height = dip2px(MainActivity.this, ITEM_HEIGHT);
+				l.setMinimumHeight(height); 
+				
+				TextView tv = new TextView(mContext);
+				tv.setGravity(Gravity.CENTER_VERTICAL);
+				
+				ImageView appIcon = new ImageView(mContext);
+				try {
+					PackageManager pm = getPackageManager();
+					ApplicationInfo info = pm.getApplicationInfo(node.mFullName, 0);
+					Drawable drawable = pm.getApplicationIcon(info);
+					BitmapDrawable bitmapDrawable = (BitmapDrawable) drawable;
+					Drawable icon = getRightSizeIcon(bitmapDrawable);
+					appIcon.setImageDrawable(icon);
+					appIcon.setPadding(ICON_PADDING, ICON_PADDING, ICON_PADDING, ICON_PADDING);
+					tv.setText(pm.getApplicationLabel(info));
+					l.addView(appIcon);
+					l.addView(tv);
+				} catch (NameNotFoundException e) {
+					e.printStackTrace();
+				}    
+				
+				if(getItemViewType(position) == NO_ENTRY) {
+					l.setBackgroundResource(android.R.color.darker_gray);
 				}
-				return convertView;
+				return l;
 			}
 
 			
@@ -245,21 +241,18 @@ public class MainActivity extends Activity {
 				
 				@Override
 				public View getView(int position, View convertView, ViewGroup parent) {
-					if(convertView == null) {
-						LinearLayout l = new LinearLayout(mContext);
-						l.setOrientation(LinearLayout.HORIZONTAL);
-							int height = dip2px(MainActivity.this, ITEM_HEIGHT);
-						l.setMinimumHeight(height); 
-						l.setGravity(Gravity.CENTER_VERTICAL);
-						
-						TextView tv = new TextView(mContext);
-						tv.setGravity(Gravity.CENTER_VERTICAL);
-						tv.setText(" " + getItem(position).getName() + " ( )");
-						
-						l.addView(tv);
-						convertView = l;
-					}
-					return convertView;
+					LinearLayout l = new LinearLayout(mContext);
+					l.setOrientation(LinearLayout.HORIZONTAL);
+						int height = dip2px(MainActivity.this, ITEM_HEIGHT);
+					l.setMinimumHeight(height); 
+					l.setGravity(Gravity.CENTER_VERTICAL);
+					
+					TextView tv = new TextView(mContext);
+					tv.setGravity(Gravity.CENTER_VERTICAL);
+					tv.setText(" " + getItem(position).getName() + " ( )");
+					
+					l.addView(tv);
+					return l;
 				}
 			});
 			caseListview.setOnItemClickListener(new OnItemClickListener() {
@@ -283,6 +276,22 @@ public class MainActivity extends Activity {
 				}
 			});
 	}
+	
+	public int getSubFileCount(Node node) {
+		int count = 0;
+		ArrayList<Node> nodes = node.mSubNodeList;
+		if(nodes != null) {
+			for(int i = 0, len = nodes.size(); i < len; i++) {
+				Node n = nodes.get(i);
+				if(n.mType == Node.CLASS || n.mType == Node.APP) {
+					count++;
+				}else if(n.mType == Node.DIR){
+					count += getSubFileCount(n);
+				}
+			}
+		}
+		return count;
+	}
 
 	private void showDirView(Node node) {
 		setContentView(R.layout.activity_main);
@@ -291,41 +300,38 @@ public class MainActivity extends Activity {
 		listView.setAdapter(new ListAdapter<Node>(MainActivity.this, node.mSubNodeList) {
 			@Override
 			public View getView(int position, View convertView, ViewGroup parent) {
-				if(convertView == null) {
-					Node node = getItem(position);
-					
-					LinearLayout l = new LinearLayout(mContext);
-					l.setOrientation(LinearLayout.HORIZONTAL);
-					int height = dip2px(MainActivity.this, ITEM_HEIGHT);
-					l.setMinimumHeight(height); 
-					l.setGravity(Gravity.CENTER_VERTICAL);
-					
-					TextView tv = new TextView(mContext);
-					tv.setGravity(Gravity.CENTER_VERTICAL);
-					
-					ImageView icon = new ImageView(mContext);
-					if(node.mType == Node.CLASS) {
-						icon.setImageResource(R.drawable.file);
-						tv.setText(node.mName + ".java");
-					}else if(node.mType == Node.DIR) {
-						icon.setImageResource(R.drawable.folder);
-						tv.setText(node.mName);
-					}else if(node.mType == Node.APP) {
-						icon.setImageResource(R.drawable.folder);
-						tv.setText(node.mName);
-					}
-					icon.setPadding(ICON_PADDING, ICON_PADDING, ICON_PADDING, ICON_PADDING);
-					
-					l.addView(icon);
-					l.addView(tv);
-					
-					
-					if(getItemViewType(position) == NO_ENTRY) {
-						l.setBackgroundResource(android.R.color.darker_gray);
-					}
-					convertView = l;
+				Node node = getItem(position);
+				
+				LinearLayout l = new LinearLayout(mContext);
+				l.setOrientation(LinearLayout.HORIZONTAL);
+				int height = dip2px(MainActivity.this, ITEM_HEIGHT);
+				l.setMinimumHeight(height); 
+				l.setGravity(Gravity.CENTER_VERTICAL);
+				
+				TextView tv = new TextView(mContext);
+				tv.setGravity(Gravity.CENTER_VERTICAL);
+				
+				ImageView icon = new ImageView(mContext);
+				if(node.mType == Node.CLASS) {
+					icon.setImageResource(R.drawable.file);
+					tv.setText(node.mName + ".java");
+				}else if(node.mType == Node.DIR) {
+					icon.setImageResource(R.drawable.folder);
+					tv.setText(node.mName + "   (" + getSubFileCount(node) + ")");
+				}else if(node.mType == Node.APP) {
+					icon.setImageResource(R.drawable.folder);
+					tv.setText(node.mName + "   (" + getSubFileCount(node) + ")");
 				}
-				return convertView;
+				icon.setPadding(ICON_PADDING, ICON_PADDING, ICON_PADDING, ICON_PADDING);
+				
+				l.addView(icon);
+				l.addView(tv);
+				
+				
+				if(getItemViewType(position) == NO_ENTRY) {
+					l.setBackgroundResource(android.R.color.darker_gray);
+				}
+				return l;
 			}
 			
 			
