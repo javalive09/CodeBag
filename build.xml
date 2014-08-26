@@ -44,7 +44,8 @@
 	</target>
         
     <target name="coderesource" >
-         <echo message="start ----- code resource" />
+        <echo message="start ----- code resource" />
+        <delete dir="${res}"/>
         <copy todir="${res}" >
             <fileset dir="${src}" />
         </copy>

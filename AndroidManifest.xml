@@ -58,7 +58,7 @@
         <activity android:name="com.codebag.code.mycode.test.activitylife.MyActivityB" />
 
         <!-- AppWidgetProvider的注册 mythou -->
-        <receiver android:name="com.codebag.code.mycode.cleanmastertest.homewidget.TimeWidgetProvider" >
+        <receiver android:name="com.codebag.code.mycode.cleanmaster.cleanmastertest.homewidget.TimeWidgetProvider" >
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
             </intent-filter>
@@ -68,9 +68,9 @@
                 android:resource="@xml/timewidget_info" />
         </receiver>
 
-        <service android:name=".code.mycode.cleanmastertest.homewidget.TimerService" >
+        <service android:name="com.codebag.code.mycode.cleanmaster.cleanmastertest.homewidget.TimerService" >
         </service>
-        <service android:name="com.codebag.code.mycode.cleanmastertest.audioplayerrun.MainService" >
+        <service android:name="com.codebag.code.mycode.cleanmaster.cleanmastertest.audioplayerrun.MainService" >
         </service>
     </application>
 
