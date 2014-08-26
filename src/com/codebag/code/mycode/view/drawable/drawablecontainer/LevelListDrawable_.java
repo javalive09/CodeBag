@@ -19,6 +19,10 @@ import com.codebag.bag.Entry;
 
 /**
  * android中动态的修改背景drawable，用于自定义不同状态下的view的不同的背景。也可以用level-list配置xml来实现
+ * 
+ * 如浏览器中的刷新按钮背景。wifi信号强度图标。
+ * 
+ * 注意可以有范围控制minLevel, maxLevel如：wifi强度1-20用第一张drawable 20-40用第二张drawable
  */
 public class LevelListDrawable_ extends CaseListView implements OnClickListener{
 	

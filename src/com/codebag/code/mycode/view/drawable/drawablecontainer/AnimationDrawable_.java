@@ -19,6 +19,7 @@ import com.codebag.bag.Entry;
 
 /**
  * android 帧动画，也可以用animation-list 配置xml来做
+ * 旋转圆形loading 图标
  */
 public class AnimationDrawable_ extends CaseListView implements OnClickListener{
 	
