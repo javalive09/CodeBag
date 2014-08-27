@@ -28,6 +28,11 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Looper;
 import android.os.MessageQueue.IdleHandler;
+import android.text.SpannableString;
+import android.text.Spanned;
+import android.text.style.AbsoluteSizeSpan;
+import android.text.style.ForegroundColorSpan;
+import android.text.style.SubscriptSpan;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -317,15 +322,17 @@ public class MainActivity extends Activity {
 					tv.setText(node.mName + ".java");
 				}else if(node.mType == Node.DIR) {
 					icon.setImageResource(R.drawable.folder);
-					tv.setText(node.mName + "   (" + getSubFileCount(node) + ")");
+					String str = node.mName + "(" + getSubFileCount(node) + ")";
+					tv.setText(getSpanStr(str));
 				}else if(node.mType == Node.APP) {
 					icon.setImageResource(R.drawable.folder);
-					tv.setText(node.mName + "   (" + getSubFileCount(node) + ")");
+					String str = node.mName + "(" + getSubFileCount(node) + ")";
+					tv.setText(getSpanStr(str));
 				}
 				icon.setPadding(ICON_PADDING, ICON_PADDING, ICON_PADDING, ICON_PADDING);
-				
+				ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(-2, -1);
 				l.addView(icon);
-				l.addView(tv);
+				l.addView(tv, params);
 				
 				
 				if(getItemViewType(position) == NO_ENTRY) {
@@ -334,7 +341,18 @@ public class MainActivity extends Activity {
 				return l;
 			}
 			
-			
+			private SpannableString getSpanStr(String str) {
+				SpannableString ss = new SpannableString(str);
+				SubscriptSpan st = new SubscriptSpan();
+				ForegroundColorSpan fs = new ForegroundColorSpan(Color.BLUE);
+				AbsoluteSizeSpan as = new AbsoluteSizeSpan(18);
+				int start = str.indexOf("(");
+				int end = str.length();
+				ss.setSpan(st, start, end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);     //下标
+				ss.setSpan(fs, start, end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);     //下标
+				ss.setSpan(as, start, end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);     //下标
+				return ss;
+			}
 
 			@Override
 			public int getItemViewType(int position) {
