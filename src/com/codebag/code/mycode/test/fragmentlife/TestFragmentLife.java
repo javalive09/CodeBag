@@ -21,7 +21,12 @@ public class TestFragmentLife extends CaseListView {
 
 	@Entry()
 	public void runFragmentActivity() {
-		getContext().startActivity(new Intent(getContext(),FragmentActivity.class));
+		getContext().startActivity(new Intent(getContext(),MyFragmentActivity.class));
+	}
+	
+	@Entry()
+	public void runViewPagerFragmentAct() {
+		getContext().startActivity(new Intent(getContext(),ViewPagerFragmentActivity.class));
 	}
 	
 }

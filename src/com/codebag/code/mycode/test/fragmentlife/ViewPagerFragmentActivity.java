@@ -4,71 +4,115 @@ import com.codebag.R;
 import com.codebag.code.mycode.utils.Log;
 
 import android.app.Activity;
-import android.app.Fragment;
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-public class FragmentActivity extends Activity {
+public class ViewPagerFragmentActivity extends FragmentActivity {
 
 	int rootId = 123456;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		Log.addLog(this, "FragmentActivity====" + "onCreate");
+		Log.addLog(this, "ViewPagerFragmentActivity====" + "onCreate");
 		
-		setContentView(R.layout.activity_fragment);
+		setContentView(R.layout.viewpager_fragment);
 		
-		FragmentManager fragmentManager = getFragmentManager();
-		FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-		fragmentTransaction.add(R.id.myfragment, new MyFragment() {
-			public View onCreateView(LayoutInflater inflater, ViewGroup container,
-					Bundle savedInstanceState) {
-				super.onCreateView(inflater, container, savedInstanceState);
-				TextView tv = new TextView(FragmentActivity.this);
-				tv.setText("FragmentActivity-MyFragment");
-				return tv;
+		ViewPager vp = (ViewPager) findViewById(R.id.page_container);
+		
+		Fragment[] fragments = new Fragment[]{
+				new MyFragment() {
+					@Override
+					public View onCreateView(LayoutInflater inflater, ViewGroup container,
+							Bundle savedInstanceState) {
+						Log.addLog(this, "MyFragment====" + "onCreateView");
+						TextView v = new TextView(ViewPagerFragmentActivity.this);
+						v.setText("fragment1");
+						v.setTextSize(50);
+						return v;
+						
+					}
+				},
 				
-			}
-		}, "new");
-		fragmentTransaction.commit();
+				new MyFragment() {
+					@Override
+					public View onCreateView(LayoutInflater inflater, ViewGroup container,
+							Bundle savedInstanceState) {
+						Log.addLog(this, "MyFragment====" + "onCreateView");
+						TextView v = new TextView(ViewPagerFragmentActivity.this);
+						v.setText("fragment2");
+						v.setTextSize(50);
+						return v;
+						
+					}
+				}
+		};
+		
+		PageAdapter adapter = new PageAdapter(getSupportFragmentManager(), fragments);
+		
+		vp.setAdapter(adapter);
 		
 	}
 
+	
+    public class PageAdapter extends FragmentPagerAdapter {
+
+    	Fragment[] mFragments;
+
+		public PageAdapter(FragmentManager fm, Fragment[] fragments) {
+			super(fm);
+			mFragments = fragments;
+		}
+
+		@Override
+		public Fragment getItem(int arg0) {
+			return mFragments[arg0];
+		}
+
+		@Override
+		public int getCount() {
+			return mFragments.length;
+		}
+
+    }
+	
 	@Override
 	protected void onStart() {
 		super.onStart();
-		Log.addLog(this, "FragmentActivity====" + "onStart");
+		Log.addLog(this, "ViewPagerFragmentActivity====" + "onStart");
 	}
 
 	@Override
 	protected void onResume() {
 		super.onResume();
-		Log.addLog(this, "FragmentActivity====" + "onResume");
+		Log.addLog(this, "ViewPagerFragmentActivity====" + "onResume");
 	}
 
 	@Override
 	protected void onPause() {
 		super.onPause();
-		Log.addLog(this, "FragmentActivity====" + "onPause");
+		Log.addLog(this, "ViewPagerFragmentActivity====" + "onPause");
 	}
 
 	@Override
 	protected void onStop() {
 		super.onStop();
-		Log.addLog(this, "FragmentActivity====" + "onStop");
+		Log.addLog(this, "ViewPagerFragmentActivity====" + "onStop");
 	}
 
 	@Override
 	protected void onDestroy() {
 		super.onDestroy();
-		Log.addLog(this, "FragmentActivity====" + "onDestroy");
+		Log.addLog(this, "ViewPagerFragmentActivity====" + "onDestroy");
 	}
 	
 	public static class MyFragment extends Fragment{

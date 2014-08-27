@@ -45,7 +45,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.codebag.code.mycode.test.fragmentlife.FragmentActivity" />
+        <activity android:name="com.codebag.code.mycode.test.fragmentlife.MyFragmentActivity" />
+        <activity android:name="com.codebag.code.mycode.test.fragmentlife.ViewPagerFragmentActivity" />
 
         <service android:name="com.codebag.code.mycode.test.servicelife.myService" />
 
