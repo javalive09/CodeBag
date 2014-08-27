@@ -122,6 +122,7 @@ public class CodeBag extends Application {
 					if("codebag_appdemo".equals(type)) {
 						Node node = new Node();
 						node.mFullName = appInfo.packageName;
+						node.mType = Node.APP;
 						appNode.mSubNodeList.add(node);
 						Log.i("packageName", info.packageName );
 					}

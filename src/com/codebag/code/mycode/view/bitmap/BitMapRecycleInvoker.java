@@ -30,7 +30,7 @@ public class BitMapRecycleInvoker extends CaseListView {
 	@Entry
 	public void test() {
 		
-			for(int i = 0; i<5000; i++) {
+			for(int i = 0; i<500; i++) {
 				dodd();
 			}
 		
