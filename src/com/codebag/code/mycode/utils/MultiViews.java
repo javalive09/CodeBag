@@ -1,4 +1,4 @@
-package com.codebag.code.mycode.view;
+package com.codebag.code.mycode.utils;
 
 import java.util.HashMap;
 

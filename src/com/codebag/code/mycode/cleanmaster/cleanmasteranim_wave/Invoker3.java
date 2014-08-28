@@ -13,8 +13,8 @@ import com.codebag.bag.CaseListView;
 import com.codebag.bag.Entry;
 import com.codebag.code.mycode.cleanmaster.cleanmasteranim_wave.CradCleanDial;
 import com.codebag.code.mycode.utils.DisplayUtil;
-import com.codebag.code.mycode.view.MultiViews;
-import com.codebag.code.mycode.view.MultiViews.MyAdapter;
+import com.codebag.code.mycode.utils.MultiViews;
+import com.codebag.code.mycode.utils.MultiViews.MyAdapter;
 
 public class Invoker3 extends CaseListView {
 public CradCleanDial c;

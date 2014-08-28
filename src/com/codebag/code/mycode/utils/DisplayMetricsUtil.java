@@ -9,8 +9,7 @@ import android.widget.TextView;
 
 import com.codebag.bag.CaseListView;
 import com.codebag.bag.Entry;
-import com.codebag.code.mycode.view.MultiViews;
-import com.codebag.code.mycode.view.MultiViews.MyAdapter;
+import com.codebag.code.mycode.utils.MultiViews.MyAdapter;
 
 public class DisplayMetricsUtil extends CaseListView{
 

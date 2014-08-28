@@ -12,8 +12,8 @@ import android.widget.Button;
 import com.codebag.bag.CaseListView;
 import com.codebag.bag.Entry;
 import com.codebag.code.mycode.utils.Log;
-import com.codebag.code.mycode.view.MultiViews;
-import com.codebag.code.mycode.view.MultiViews.MyAdapter;
+import com.codebag.code.mycode.utils.MultiViews;
+import com.codebag.code.mycode.utils.MultiViews.MyAdapter;
 
 /**
  * 实际上的状态分类：

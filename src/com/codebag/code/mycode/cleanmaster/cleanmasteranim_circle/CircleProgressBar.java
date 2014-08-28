@@ -78,8 +78,17 @@ public class CircleProgressBar extends View {
 		}
 	}
 	
+	/**
+	 * 保证画笔居中
+	 * 
+	 * @param rect
+	 * @param startX
+	 * @param startY
+	 * @param ply
+	 * @param diameter
+	 */
 	public void setRect(RectF rect, int startX, int startY, int ply, int diameter) {
-		rect.set(startX + ply/2, startY + ply/2, startX + diameter + ply/2 - ply, startY + diameter + ply/2 - ply);
+		rect.set(startX + ply/2, startY + ply/2, startX + diameter - ply/2, startY + diameter - ply/2);
 	}
 
 	@Override
