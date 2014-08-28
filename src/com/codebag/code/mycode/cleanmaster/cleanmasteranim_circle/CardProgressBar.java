@@ -60,13 +60,14 @@ public class CardProgressBar extends FrameLayout {
 		addView(mText, paramsWrap);
 	}
 	
-	public void setData(int ply, int diameter) {
-		mProgressBar.setData(ply, diameter, 2);
+	public void setData(int innerCirclePly, int outerCirclePly, int innerCircleDiameter, int outerCircleDiameter) {
+		mProgressBar.setData(innerCirclePly, outerCirclePly, innerCircleDiameter, outerCircleDiameter, 2);
 	}
 	
-	public void setColor(int progressColor, int backGroundColor) {
-		mProgressBar.setColor(progressColor, backGroundColor);
-		mPercentSign.setTextColor(progressColor);
+	public void setColor(int innerCircleColor, int outerCircleColor) {
+		mProgressBar.setColor(innerCircleColor, outerCircleColor);
+		mPercentSign.setTextColor(outerCircleColor);
+		mNum.setTextColor(outerCircleColor);
 	}
 	
 	public void setProgressText(int progress) {

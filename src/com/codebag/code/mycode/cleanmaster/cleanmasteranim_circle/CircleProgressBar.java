@@ -1,7 +1,5 @@
 package com.codebag.code.mycode.cleanmaster.cleanmasteranim_circle;
 
-import com.codebag.code.mycode.utils.Log;
-
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
@@ -17,60 +15,76 @@ import android.view.View;
  * 
  */
 public class CircleProgressBar extends View {
-	private Paint mPaint;
-	private RectF mRect;
+	private Paint mInnerCirclePaint;
+	private Paint mOuterCirclePaint;
+	private RectF mInnerCircleRect;
+	private RectF mOuterCircleRect;
 	private float mAngle = 0;
 	private int mEndProgress;
-	private int mProgressColor;
-	private int mBackGroundColor;
+	private int mInnerCircleColor;
+	private int mOuterCircleColor;
 	private int mDiameter;
-	private int mPly;
 	private AniminationListener mListener;
 	public static final int DEFAUTL_SPEED = 1;
 	private int mSpeed = DEFAUTL_SPEED;
 	private boolean mCanAnim;
 
 	public CircleProgressBar(Context context) {
-		this(context, 0, 0, DEFAUTL_SPEED);
+		this(context, 0, 0, 0, 0, DEFAUTL_SPEED);
 	}
 
 	/**
 	 * @param context
-	 * @param ply  圆环厚度
-	 * @param diameter   圆环直径
+	 * @param innerCirclePly 内圆厚度	
+	 * @param outerCirclePly 外圆厚度
+	 * @param innerDiameter  内圆直径
+	 * @param outerCirclePly 外圆直径
+	 * @param speed	速度
 	 */
-	public CircleProgressBar(Context context, int ply, int diameter, int speed) {
+	public CircleProgressBar(Context context, int innerCirclePly, int outerCirclePly, 
+			int innerCircleDiameter, int outerCircleDiameter, int speed) {
 		super(context);
-		init(ply, diameter, speed);
+		init(innerCirclePly, outerCirclePly, innerCircleDiameter, outerCircleDiameter, speed);
 	}
 
-	private void init(int ply, int diameter, int speed) {
-		mRect = new RectF();
-		mPaint = new Paint();
-		mPaint.setStyle(Style.STROKE);
-		mPaint.setAntiAlias(true);
-		setData(ply, diameter, speed);
+	private void init(int innerCirclePly, int outerCirclePly, int innerCircleDiameter, int outerCircleDiameter, int speed) {
+		mInnerCircleRect = new RectF();
+		mOuterCircleRect = new RectF();
+		
+		mInnerCirclePaint = new Paint();
+		mInnerCirclePaint.setStyle(Style.STROKE);
+		mInnerCirclePaint.setAntiAlias(true);
+		
+		mOuterCirclePaint = new Paint();
+		mOuterCirclePaint.setStyle(Style.STROKE);
+		mOuterCirclePaint.setAntiAlias(true);
+		
+		setData(innerCirclePly, outerCirclePly, innerCircleDiameter, outerCircleDiameter, speed);
 	}
 
-	public void setData(int ply, int diameter, int speed) {
-		mPly = ply;
-		mPaint.setStrokeWidth(ply);
-		mDiameter = diameter;
+	public void setData(int innerCirclePly, int outerCirclePly, int innerCircleDiameter, int outerCircleDiameter, int speed) {
+		
+		mInnerCirclePaint.setStrokeWidth(innerCirclePly);
+		mOuterCirclePaint.setStrokeWidth(outerCirclePly);
+		int x = (outerCircleDiameter - innerCircleDiameter) / 2;
+		int y = x;
+		setRect(mInnerCircleRect, x, y, innerCirclePly, innerCircleDiameter);
+		setRect(mOuterCircleRect, 0, 0, outerCirclePly, outerCircleDiameter);
+		
+		mDiameter = outerCircleDiameter;
+		
 		if (speed > 1 || speed < 11) {
 			mSpeed = speed;
 		}
-		Log.addLog(this, "d=" + mDiameter);
+	}
+	
+	public void setRect(RectF rect, int startX, int startY, int ply, int diameter) {
+		rect.set(startX + ply/2, startY + ply/2, startX + diameter + ply/2 - ply, startY + diameter + ply/2 - ply);
 	}
 
 	@Override
 	protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
 		setMeasuredDimension(mDiameter, mDiameter);
-		int width = mDiameter;
-		int height = mDiameter;
-		int startX = (width - mDiameter) / 2;
-		int startY = (height - mDiameter) / 2;
-		mRect.set(startX + mPly / 2, startY + mPly / 2, startX + mDiameter
-				+ mPly / 2 - mPly, startY + mDiameter + mPly / 2 - mPly);
 	}
 
 	@Override
@@ -85,22 +99,22 @@ public class CircleProgressBar extends View {
 		mCanAnim = false;
 	}
 
-	public void setColor(int progressColor, int backGroundColor) {
-		mProgressColor = progressColor;
-		mBackGroundColor = backGroundColor;
+	public void setColor(int innerCircleColor, int outerCircleColor) {
+		mInnerCircleColor = innerCircleColor;
+		mOuterCircleColor = outerCircleColor;
 	}
 
 	@Override
 	protected void onDraw(Canvas canvas) {
 		super.onDraw(canvas);
 
-		// draw background
-		mPaint.setColor(mBackGroundColor);
-		canvas.drawArc(mRect, 0, 360, false, mPaint);
+		// draw innerCircle
+		mInnerCirclePaint.setColor(mInnerCircleColor);
+		canvas.drawArc(mInnerCircleRect, 0, 360, false, mInnerCirclePaint);
 
-		// draw progress
-		mPaint.setColor(mProgressColor);
-		canvas.drawArc(mRect, 270, mAngle, false, mPaint);
+		// draw outerCircle
+		mOuterCirclePaint.setColor(mOuterCircleColor);
+		canvas.drawArc(mOuterCircleRect, 270, mAngle, false, mOuterCirclePaint);
 	}
 
 	public void setProgress(int progress) {

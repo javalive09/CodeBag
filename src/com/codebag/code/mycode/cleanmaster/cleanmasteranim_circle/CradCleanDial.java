@@ -42,8 +42,6 @@ public class CradCleanDial extends FrameLayout {
 
 	private RotateAnimation mRoatingAnim;
 
-	private int mPly;
-
 	public CradCleanDial(Context context) {
 		super(context);
 		init(context);
@@ -141,8 +139,13 @@ public class CradCleanDial extends FrameLayout {
 		mRoatingBackGround = new ImageView(context);
 		mSmallMarkImage = new ImageView(context);
 		mProgressBar = new CardProgressBar(context);
-		mProgressBar.setColor(0xE624a0ff, 0x19000000);
-		mPly = DisplayUtil.dip2px(context, 6);
+		mProgressBar.setColor(0x51ffffff, 0xffb7e0ff);
+		int innerCirclePly = DisplayUtil.dip2px(getContext(), 6);
+		int outerCirclePly = DisplayUtil.dip2px(getContext(), 10);
+		int innerCircleDiameter = DisplayUtil.dip2px(getContext(), 100);
+		int outerCircleDiameter = DisplayUtil.dip2px(getContext(), 108);
+		mProgressBar.setData(innerCirclePly, outerCirclePly, innerCircleDiameter, outerCircleDiameter);
+		
 		mBackGround = new ImageView(context);
 		mBackGround.setImageResource(R.drawable.sysclear_card_anim_bluebg);
 		mWhiteBackGround = new ImageView(context);
@@ -159,15 +162,7 @@ public class CradCleanDial extends FrameLayout {
 
 		addView(mProgressBar, paramsWrap);
 		addView(mDialMarkImage, paramsWrap);
-	}
-
-	@Override
-	protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-		int pad = DisplayUtil.dip2px(getContext(), 16);
-		int height = mBackGround.getMeasuredHeight();
-		Log.i("peter", "height=" + height);
-		mProgressBar.setData(mPly, height - pad);
-		super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+		
 	}
 
 	private void startDialMarkAnim() {

@@ -21,6 +21,7 @@ public class Invoker extends CaseListView {
 	public Invoker(Context context) {
 		super(context);
 		c = new CradCleanDial(context);
+		c.setBackgroundColor(Color.DKGRAY);
 	}
 	
 	@Entry
