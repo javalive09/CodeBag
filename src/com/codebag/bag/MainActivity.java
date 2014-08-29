@@ -30,14 +30,16 @@ import android.os.Looper;
 import android.os.MessageQueue.IdleHandler;
 import android.text.SpannableString;
 import android.text.Spanned;
-import android.text.style.AbsoluteSizeSpan;
+import android.text.TextPaint;
+import android.text.style.ClickableSpan;
 import android.text.style.ForegroundColorSpan;
-import android.text.style.SubscriptSpan;
+import android.text.style.RelativeSizeSpan;
 import android.text.style.SuperscriptSpan;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewConfiguration;
 import android.view.ViewGroup;
 import android.widget.Adapter;
@@ -45,9 +47,8 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.FrameLayout;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -55,8 +56,6 @@ import android.widget.Toast;
 
 public class MainActivity extends Activity {
 
-	public static final int ITEM_HEIGHT = 45;
-	public static final int ICON_PADDING = 10;
 	public static final String NODE = "node";
 	private AlertDialog mDialog = null;
 	 
@@ -139,11 +138,6 @@ public class MainActivity extends Activity {
 		return new BitmapDrawable(getResources(), bm);
 	}
 	
-	public int dip2px(Context context, float dipValue){
-		final float scale = context.getResources().getDisplayMetrics().density;
-		return (int)(dipValue * scale + 0.5f);
-	}
-	
 	private void showAppDemoView(Node node) {
 		setContentView(R.layout.activity_main);
 		ListView listView = (ListView) findViewById(R.id.list);
@@ -152,35 +146,26 @@ public class MainActivity extends Activity {
 			@Override
 			public View getView(int position, View convertView, ViewGroup parent) {
 				Node node = getItem(position);
-				LinearLayout l = new LinearLayout(mContext);
-				l.setOrientation(LinearLayout.HORIZONTAL);
-				l.setGravity(Gravity.CENTER_VERTICAL);
-				int height = dip2px(MainActivity.this, ITEM_HEIGHT);
-				l.setMinimumHeight(height); 
+				View v = View.inflate(MainActivity.this, R.layout.main_item, null);
+				TextView tv = (TextView) v.findViewById(R.id.listitem_tv);
 				
-				TextView tv = new TextView(mContext);
-				tv.setGravity(Gravity.CENTER_VERTICAL);
-				
-				ImageView appIcon = new ImageView(mContext);
 				try {
 					PackageManager pm = getPackageManager();
 					ApplicationInfo info = pm.getApplicationInfo(node.mFullName, 0);
 					Drawable drawable = pm.getApplicationIcon(info);
 					BitmapDrawable bitmapDrawable = (BitmapDrawable) drawable;
 					Drawable icon = getRightSizeIcon(bitmapDrawable);
-					appIcon.setImageDrawable(icon);
-					appIcon.setPadding(ICON_PADDING, ICON_PADDING, ICON_PADDING, ICON_PADDING);
 					tv.setText(pm.getApplicationLabel(info));
-					l.addView(appIcon);
-					l.addView(tv);
+					icon.setBounds(0, 0, icon.getIntrinsicWidth(), icon.getIntrinsicHeight());
+					tv.setCompoundDrawables(icon, null, null, null);
 				} catch (NameNotFoundException e) {
 					e.printStackTrace();
 				}    
 				
 				if(getItemViewType(position) == NO_ENTRY) {
-					l.setBackgroundResource(android.R.color.darker_gray);
+					tv.setBackgroundResource(android.R.color.darker_gray);
 				}
-				return l;
+				return v;
 			}
 
 			
@@ -247,18 +232,10 @@ public class MainActivity extends Activity {
 				
 				@Override
 				public View getView(int position, View convertView, ViewGroup parent) {
-					LinearLayout l = new LinearLayout(mContext);
-					l.setOrientation(LinearLayout.HORIZONTAL);
-						int height = dip2px(MainActivity.this, ITEM_HEIGHT);
-					l.setMinimumHeight(height); 
-					l.setGravity(Gravity.CENTER_VERTICAL);
-					
-					TextView tv = new TextView(mContext);
-					tv.setGravity(Gravity.CENTER_VERTICAL);
-					tv.setText(" " + getItem(position).getName() + " ( )");
-					
-					l.addView(tv);
-					return l;
+					View v = View.inflate(MainActivity.this, R.layout.main_item, null);
+					TextView tv = (TextView) v.findViewById(R.id.listitem_tv);
+					tv.setText(getItem(position).getName() + " ( )");
+					return v;
 				}
 			});
 			caseListview.setOnItemClickListener(new OnItemClickListener() {
@@ -307,51 +284,62 @@ public class MainActivity extends Activity {
 			@Override
 			public View getView(int position, View convertView, ViewGroup parent) {
 				Node node = getItem(position);
-				
-				LinearLayout l = new LinearLayout(mContext);
-				l.setOrientation(LinearLayout.HORIZONTAL);
-				int height = dip2px(MainActivity.this, ITEM_HEIGHT);
-				l.setMinimumHeight(height); 
-				l.setGravity(Gravity.CENTER_VERTICAL);
-				
-				TextView tv = new TextView(mContext);
-				tv.setGravity(Gravity.CENTER_VERTICAL);
-				
-				ImageView icon = new ImageView(mContext);
+				View v = View.inflate(MainActivity.this, R.layout.main_item, null);
+				TextView tv = (TextView) v.findViewById(R.id.listitem_tv);
+				Drawable icon = null;
+				CharSequence name = null;
 				if(node.mType == Node.CLASS) {
-					icon.setImageResource(R.drawable.file);
-					tv.setText(node.mName + ".java");
+					icon = getResources().getDrawable(R.drawable.file);
+					name = node.mName + ".java";
 				}else if(node.mType == Node.DIR) {
-					icon.setImageResource(R.drawable.folder);
-					String str = node.mName + "  " + getSubFileCount(node) + "";
-					tv.setText(getSpanStr(str));
+					icon = getResources().getDrawable(R.drawable.folder);
+					name = node.mName + "  " + getSubFileCount(node) + "";
+					name = getSpanStr(name.toString());
 				}else if(node.mType == Node.APP) {
-					icon.setImageResource(R.drawable.folder);
-					String str = node.mName + "  " + getSubFileCount(node) + "";
-					tv.setText(getSpanStr(str));
+					icon = getResources().getDrawable(R.drawable.folder);
+					name = node.mName + "  " + getSubFileCount(node) + "";
+					name = getSpanStr(name.toString());
 				}
-				icon.setPadding(ICON_PADDING, ICON_PADDING, ICON_PADDING, ICON_PADDING);
-				ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(-2, -1);
-				l.addView(icon);
-				l.addView(tv, params);
-				
-				
+				icon.setBounds(0, 0, icon.getIntrinsicWidth(), icon.getIntrinsicHeight());
+				tv.setCompoundDrawables(icon, null, null, null);
+				tv.setText(name);
 				if(getItemViewType(position) == NO_ENTRY) {
-					l.setBackgroundResource(android.R.color.darker_gray);
+					v.setBackgroundResource(android.R.color.darker_gray);
 				}
-				return l;
+				tv.setMovementMethod(TextViewFixTouchConsume.LocalLinkMovementMethod.getInstance());
+				return v;
 			}
 			
 			private SpannableString getSpanStr(String str) {
 				SpannableString ss = new SpannableString(str);
 				SuperscriptSpan st = new SuperscriptSpan();
 				ForegroundColorSpan fs = new ForegroundColorSpan(Color.BLUE);
-				AbsoluteSizeSpan as = new AbsoluteSizeSpan(15);
-				int start = str.indexOf("  ");
+				RelativeSizeSpan as = new RelativeSizeSpan(0.6f);
+				ClickableSpan cs = new ClickableSpan(){
+
+					public void updateDrawState(TextPaint ds) {
+					    ds.setColor(ds.linkColor);
+					    ds.setUnderlineText(false); //去掉下划线
+					}
+					
+					@Override
+					public void onClick(View widget) {
+						TextView tv = (TextView) widget;
+						String tvStr = tv.getText().toString();
+						int start = tvStr.indexOf("  ") + 2;
+						String count = tvStr.substring(start);
+						String str = getResources().getString(R.string.item_subfile_count);
+						str = String.format(str, count);
+						showAlertDialog(str);
+					}
+					
+				};
+				int start = str.indexOf("  ") + 2;
 				int end = str.length();
 				ss.setSpan(st, start, end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);    
 				ss.setSpan(fs, start, end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);     
 				ss.setSpan(as, start, end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);     
+				ss.setSpan(cs, start, end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);     
 				return ss;
 			}
 

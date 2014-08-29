@@ -1,0 +1,17 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:descendantFocusability= "blocksDescendants" >
+
+    <com.codebag.bag.TextViewFixTouchConsume
+        android:id="@+id/listitem_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:drawablePadding="@dimen/list_item_drawable_padding"
+        android:gravity="center_vertical"
+        android:minHeight="@dimen/list_item_min_h"
+        android:padding="@dimen/list_item_drawable_padding"
+        android:text="@string/item_string"
+        android:textSize="@dimen/list_item_text_size" />
+
+</LinearLayout>
