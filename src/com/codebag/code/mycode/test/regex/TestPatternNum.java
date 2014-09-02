@@ -30,4 +30,10 @@ public class TestPatternNum extends CaseListView {
 		Pattern pattern = Pattern.compile("[0-9]*");
 		return pattern.matcher(str).matches();
 	}
+	
+	@Entry
+	public void testChar() {
+		char a = 'A';
+		Log.addLog(this, " a = " + a);
+	}
 }

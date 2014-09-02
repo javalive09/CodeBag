@@ -5,6 +5,8 @@ import com.codebag.code.mycode.utils.Log;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -21,7 +23,19 @@ public class MyActivityB extends Activity {
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				startActivity(new Intent(MyActivityB.this, MyActivityA.class));
+				//startActivity(new Intent(MyActivityB.this, MyActivityA.class));
+//				new Thread(new Runnable() {
+//
+//					@Override
+//					public void run() {
+//						
+//					}
+//					
+//				}).start();
+				Message msg = Message.obtain();
+				msg.what = 0;
+				msg.obj = MyActivityB.this;
+				new MyHandler().sendMessageDelayed(msg, 1000);
 			}
 			
 		});
@@ -29,7 +43,28 @@ public class MyActivityB extends Activity {
 		setContentView(bt);
 		Log.addLog(this, "onCreate");
 	}
+	
+	public static class MyHandler extends Handler{
+		@Override
+		public void handleMessage(Message msg) {
+			Log.addLog(this, "msg =" + msg.what + "; obj = "+msg.obj);
+			msg = Message.obtain(msg);
+			msg.what++;
+			sendMessageDelayed(msg, 1000);
+		}
+	}
 
+//	private MyHandler mHandler = new MyHandler() {
+//
+//		@Override
+//		public void handleMessage(Message msg) {
+//			Log.addLog(this, "msg =" + msg.what + "; obj = "+MyActivityB.this);
+//			sendEmptyMessageDelayed(msg.what++, 1000);
+//		}
+//		
+//	};
+	
+	
 	@Override
 	protected void onStart() {
 		// TODO Auto-generated method stub
