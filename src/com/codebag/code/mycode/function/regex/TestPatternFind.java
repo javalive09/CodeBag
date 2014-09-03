@@ -1,4 +1,4 @@
-package com.codebag.code.mycode.test.regex;
+package com.codebag.code.mycode.function.regex;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;

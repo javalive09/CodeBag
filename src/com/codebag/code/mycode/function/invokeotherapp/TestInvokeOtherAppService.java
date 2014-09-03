@@ -1,5 +1,5 @@
 
-package com.codebag.code.mycode.test.invokeotherapp;
+package com.codebag.code.mycode.function.invokeotherapp;
 
 import android.content.ComponentName;
 import android.content.Context;
