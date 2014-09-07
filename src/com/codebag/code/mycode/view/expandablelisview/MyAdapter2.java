@@ -136,12 +136,6 @@ public class MyAdapter2 extends BaseExpandableListAdapter {
 		return row;
 		
 	}
-	
-//	protected LayoutParams getDefaultLayoutParams() {
-//		LayoutParams params = new LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT);
-//		params.weight = 1;
-//		return params;
-//	}
 
 	class ViewHolder {
 		TextView textView;
