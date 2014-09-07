@@ -13,11 +13,35 @@
     </style>
 
     <!-- Application theme. -->
-    <style name="AppTheme" parent="AppBaseTheme">
+    <style name="AppTheme" parent="@android:style/Theme.Dialog">
+
         <!-- All customizations that are NOT specific to a particular API-level can go here. -->
-        <item name="android:windowAnimationStyle">@style/activityAnimation</item>
+        <!-- <item name="android:windowAnimationStyle">@style/activityAnimation</item> -->
+                <item name="android:windowBackground">@android:color/transparent</item>
+<!--         <item name="android:windowIsFloating">true</item> -->
+<!--         <item name="android:windowContentOverlay">@null</item> -->
+        <item name="android:windowAnimationStyle">@style/Animation</item>
+<!--         <item name="android:windowSoftInputMode">stateUnspecified|adjustPan</item> -->
+<!--         <item name="android:windowCloseOnTouchOutside">@bool/config_closeDialogWhenTouchOutside</item> -->
+<!--         <item name="android:windowActionModeOverlay">true</item> -->
+
     </style>
-    
+
+    <style name="Animation">
+        <item name="android:activityOpenEnterAnimation">@null</item>
+        <item name="android:activityOpenExitAnimation">@null</item>
+        <item name="android:activityCloseEnterAnimation">@null</item>
+        <item name="android:activityCloseExitAnimation">@null</item>
+        <item name="android:taskOpenEnterAnimation">@null</item>
+        <item name="android:taskOpenExitAnimation">@null</item>
+        <item name="android:taskCloseEnterAnimation">@null</item>
+        <item name="android:taskCloseExitAnimation">@null</item>
+        <item name="android:taskToFrontEnterAnimation">@null</item>
+        <item name="android:taskToFrontExitAnimation">@null</item>
+        <item name="android:taskToBackEnterAnimation">@null</item>
+        <item name="android:taskToBackExitAnimation">@null</item>
+    </style>
+
     <!-- activity animation 样式 -->
     <style name="activityAnimation" parent="@android:style/Animation">
         <item name="android:activityOpenEnterAnimation">@anim/slide_right_in</item>
@@ -25,13 +49,11 @@
         <item name="android:activityCloseEnterAnimation">@anim/slide_left_in</item>
         <item name="android:activityCloseExitAnimation">@anim/slide_right_out</item>
     </style>
-    
+
     <!-- popupwindow animation 样式 -->
     <style name="popUpWindowAnimation" parent="@android:style/Animation">
         <item name="android:windowEnterAnimation">@anim/slide_right_in</item>
         <item name="android:windowExitAnimation">@anim/slide_right_out</item>
     </style>
-    
-    
 
 </resources>

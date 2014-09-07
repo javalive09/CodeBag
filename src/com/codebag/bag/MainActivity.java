@@ -36,6 +36,7 @@ import android.text.style.ForegroundColorSpan;
 import android.text.style.RelativeSizeSpan;
 import android.text.style.SuperscriptSpan;
 import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -62,7 +63,7 @@ public class MainActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getOverflowMenu();
+//        getOverflowMenu();
         Intent intent = getIntent();
         Node currentNode = null;
         if(intent != null) {
@@ -99,24 +100,24 @@ public class MainActivity extends Activity {
 	private void showMainView(Node node) {
 		
 		if(!node.mName.equals(CodeBag.ROOT_DIR)) {
-			getActionBar().setHomeButtonEnabled(true);
-			getActionBar().setDisplayHomeAsUpEnabled(true);
+//			getActionBar().setHomeButtonEnabled(true);
+//			getActionBar().setDisplayHomeAsUpEnabled(true);
 		}
 		
 		switch(node.mType) {
 			case Node.DIR:
-				getActionBar().setTitle(node.mName);
-				getActionBar().setIcon(R.drawable.folder);
+//				getActionBar().setTitle(node.mName);
+//				getActionBar().setIcon(R.drawable.folder);
 				showDirView(node);
 				break;
 			case Node.CLASS:
-				getActionBar().setTitle(node.mName + ".java");
-				getActionBar().setIcon(R.drawable.file);
+//				getActionBar().setTitle(node.mName + ".java");
+//				getActionBar().setIcon(R.drawable.file);
 				showClassView(node);
 				break;
 			case Node.APP:
-				getActionBar().setTitle(node.mName);
-				getActionBar().setIcon(R.drawable.folder);
+//				getActionBar().setTitle(node.mName);
+//				getActionBar().setIcon(R.drawable.folder);
 				showAppDemoView(node);
 				break;
 		}
@@ -139,7 +140,8 @@ public class MainActivity extends Activity {
 	}
 	
 	private void showAppDemoView(Node node) {
-		setContentView(R.layout.activity_main);
+//		setContentView(R.layout.activity_main);
+		setView(R.layout.activity_main);
 		ListView listView = (ListView) findViewById(R.id.list);
 
 		listView.setAdapter(new ListAdapter<Node>(MainActivity.this, node.mSubNodeList) {
@@ -205,7 +207,8 @@ public class MainActivity extends Activity {
 					return;
 				}
 				caseListview = (CaseListView) con.newInstance(MainActivity.this);
-				setContentView(caseListview);
+//				setContentView(caseListview);
+				setView(caseListview);
 
 			} catch (ClassNotFoundException e) {
 				e.printStackTrace();
@@ -276,8 +279,22 @@ public class MainActivity extends Activity {
 		return count;
 	}
 
+	private void setView(int resId) {
+		setContentView(R.layout.activity_root_view);
+		FrameLayout root = (FrameLayout) findViewById(R.id.contentView);
+		LayoutInflater factory = LayoutInflater.from(MainActivity.this);
+        factory.inflate(resId, root);
+	}
+	
+	private void setView(View content) {
+		setContentView(R.layout.activity_root_view);
+		FrameLayout root = (FrameLayout) findViewById(R.id.contentView);
+		root.addView(content);
+	}
+	
 	private void showDirView(Node node) {
-		setContentView(R.layout.activity_main);
+//		setContentView(R.layout.activity_main);
+		setView(R.layout.activity_main);
 		ListView listView = (ListView) findViewById(R.id.list);
 		
 		listView.setAdapter(new ListAdapter<Node>(MainActivity.this, node.mSubNodeList) {
@@ -453,18 +470,18 @@ public class MainActivity extends Activity {
         return true;
     }
     
-    private void getOverflowMenu() {
-        try {
-           ViewConfiguration config = ViewConfiguration.get(this);
-           Field menuKeyField = ViewConfiguration.class.getDeclaredField("sHasPermanentMenuKey");
-           if(menuKeyField != null) {
-               menuKeyField.setAccessible(true);
-               menuKeyField.setBoolean(config, false);
-           }
-       } catch (Exception e) {
-           e.printStackTrace();
-       }
-   }
+//    private void getOverflowMenu() {
+//        try {
+//           ViewConfiguration config = ViewConfiguration.get(this);
+//           Field menuKeyField = ViewConfiguration.class.getDeclaredField("sHasPermanentMenuKey");
+//           if(menuKeyField != null) {
+//               menuKeyField.setAccessible(true);
+//               menuKeyField.setBoolean(config, false);
+//           }
+//       } catch (Exception e) {
+//           e.printStackTrace();
+//       }
+//   }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
