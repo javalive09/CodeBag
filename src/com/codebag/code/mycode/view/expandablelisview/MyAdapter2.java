@@ -43,6 +43,9 @@ public class MyAdapter2 extends BaseExpandableListAdapter {
 		return group.size();
 	}
 
+	/* 
+	 * rowView 的行数
+	 */
 	@Override
 	public int getChildrenCount(int groupPosition) {
 		int totalCount = child.get(groupPosition).size();
@@ -112,11 +115,11 @@ public class MyAdapter2 extends BaseExpandableListAdapter {
 
 		LinearLayout row = new LinearLayout(context);
 		LayoutInflater factory = LayoutInflater.from(context);
-		final int totalSize = child.get(groupPosition).size();
+		int totalSize = child.get(groupPosition).size();
 		for (int i = 0; i < mColumn; i++) {
 			//获取view
-			View cell = factory.inflate(R.layout.cell, row, false);
-			row.addView(cell, getDefaultLayoutParams());
+			View cell = factory.inflate(R.layout.cell, row, false);//不可以用attach = true， 因为这样会使用生成的parentView的LayoutParams。效果不对
+			row.addView(cell);
 			
 			//view赋值
 			final int childIndex = childPosition * mColumn + i;
@@ -130,16 +133,15 @@ public class MyAdapter2 extends BaseExpandableListAdapter {
 			}
 		}
 		
-		
 		return row;
 		
 	}
 	
-	protected LayoutParams getDefaultLayoutParams() {
-		LayoutParams params = new LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT);
-		params.weight = 1;
-		return params;
-	}
+//	protected LayoutParams getDefaultLayoutParams() {
+//		LayoutParams params = new LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT);
+//		params.weight = 1;
+//		return params;
+//	}
 
 	class ViewHolder {
 		TextView textView;
