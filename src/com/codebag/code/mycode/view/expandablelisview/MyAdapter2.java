@@ -13,7 +13,6 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.LinearLayout.LayoutParams;
 
 import com.codebag.R;
 import com.codebag.code.mycode.utils.Log;
@@ -105,8 +104,6 @@ public class MyAdapter2 extends BaseExpandableListAdapter {
 		return g;
 	}
 
-	int [] colors = new int[]{Color.BLACK, Color.BLUE, Color.RED, Color.GRAY};
-	
 	/**
 	 * 显示：child
 	 */
@@ -114,6 +111,7 @@ public class MyAdapter2 extends BaseExpandableListAdapter {
 	public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
 
 		LinearLayout row = new LinearLayout(context);
+		row.setBackgroundColor(Color.BLACK);
 		LayoutInflater factory = LayoutInflater.from(context);
 		int totalSize = child.get(groupPosition).size();
 		for (int i = 0; i < mColumn; i++) {
@@ -130,6 +128,7 @@ public class MyAdapter2 extends BaseExpandableListAdapter {
 				tv.setText(name);
 				ImageView iv = (ImageView) cell.findViewById(R.id.iv);
 				iv.setImageResource(R.drawable.card_danager_memory);
+				iv.setBackgroundColor(Color.WHITE);
 			}
 		}
 		
