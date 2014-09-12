@@ -39,7 +39,6 @@ import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewConfiguration;
 import android.view.ViewGroup;
 import android.widget.Adapter;
@@ -47,7 +46,6 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.BaseAdapter;
-import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ListView;
 import android.widget.ScrollView;
@@ -146,8 +144,10 @@ public class MainActivity extends Activity {
 			@Override
 			public View getView(int position, View convertView, ViewGroup parent) {
 				Node node = getItem(position);
-				View v = View.inflate(MainActivity.this, R.layout.main_item, null);
-				TextView tv = (TextView) v.findViewById(R.id.listitem_tv);
+				if(convertView == null) {
+					convertView = View.inflate(MainActivity.this, R.layout.main_item, null);
+				}
+				TextView tv = (TextView) convertView.findViewById(R.id.listitem_tv);
 				
 				try {
 					PackageManager pm = getPackageManager();
@@ -165,7 +165,7 @@ public class MainActivity extends Activity {
 				if(getItemViewType(position) == NO_ENTRY) {
 					tv.setBackgroundResource(android.R.color.darker_gray);
 				}
-				return v;
+				return convertView;
 			}
 
 			
@@ -232,10 +232,12 @@ public class MainActivity extends Activity {
 				
 				@Override
 				public View getView(int position, View convertView, ViewGroup parent) {
-					View v = View.inflate(MainActivity.this, R.layout.main_item, null);
-					TextView tv = (TextView) v.findViewById(R.id.listitem_tv);
+					if(convertView == null) {
+						convertView = View.inflate(MainActivity.this, R.layout.main_item, null);
+					}
+					TextView tv = (TextView) convertView.findViewById(R.id.listitem_tv);
 					tv.setText(getItem(position).getName() + " ( )");
-					return v;
+					return convertView;
 				}
 			});
 			caseListview.setOnItemClickListener(new OnItemClickListener() {
@@ -284,8 +286,10 @@ public class MainActivity extends Activity {
 			@Override
 			public View getView(int position, View convertView, ViewGroup parent) {
 				Node node = getItem(position);
-				View v = View.inflate(MainActivity.this, R.layout.main_item, null);
-				TextView tv = (TextView) v.findViewById(R.id.listitem_tv);
+				if(convertView == null) {
+					convertView = View.inflate(MainActivity.this, R.layout.main_item, null);
+				}
+				TextView tv = (TextView) convertView.findViewById(R.id.listitem_tv);
 				Drawable icon = null;
 				CharSequence name = null;
 				if(node.mType == Node.CLASS) {
@@ -304,10 +308,10 @@ public class MainActivity extends Activity {
 				tv.setCompoundDrawables(icon, null, null, null);
 				tv.setText(name);
 				if(getItemViewType(position) == NO_ENTRY) {
-					v.setBackgroundResource(android.R.color.darker_gray);
+					convertView.setBackgroundResource(android.R.color.darker_gray);
 				}
 				tv.setMovementMethod(TextViewFixTouchConsume.LocalLinkMovementMethod.getInstance());
-				return v;
+				return convertView;
 			}
 			
 			private SpannableString getSpanStr(String str) {
