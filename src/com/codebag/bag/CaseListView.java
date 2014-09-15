@@ -86,18 +86,19 @@ public class CaseListView extends ListView {
 			mContainer = new FrameLayout(getContext()) {
 				@Override
 				public boolean dispatchKeyEvent(KeyEvent event) {
-					if (event.getAction() == KeyEvent.ACTION_UP) {
-						if (event.getKeyCode() == KeyEvent.KEYCODE_BACK) {
-							Log.addLog(
-									this,
-									"window height ="
-											+ mPopupWindow.getHeight());
+					
+					boolean result = super.dispatchKeyEvent(event);
+					
+					if(result) {
+						return true;
+					}else if (event.getAction() == KeyEvent.ACTION_UP
+							&& event.getKeyCode() == KeyEvent.KEYCODE_BACK) {
+							Log.addLog(this, "window height =" + mPopupWindow.getHeight());
 							removeAllViews();
 							mPopupWindow.dismiss();
 							return true;
-						}
 					}
-					return super.dispatchKeyEvent(event);
+					return result;
 				}
 
 			};

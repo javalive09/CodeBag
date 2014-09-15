@@ -3,7 +3,6 @@ package com.codebag.code.mycode.function.invokejs;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.view.KeyEvent;
-import android.view.MotionEvent;
 import android.view.View;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
@@ -55,7 +54,8 @@ public class Invoker extends CaseListView {
 			
 			@Override
 			public boolean onKey(View v, int keyCode, KeyEvent event) {
-				if(keyCode == KeyEvent.KEYCODE_BACK){
+				
+				if(event.getAction() == KeyEvent.ACTION_UP && keyCode == KeyEvent.KEYCODE_BACK){
 					if(wv.canGoBack()) {
 						wv.goBack();
 						return true;
