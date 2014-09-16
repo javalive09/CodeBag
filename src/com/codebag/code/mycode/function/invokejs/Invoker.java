@@ -1,10 +1,7 @@
 package com.codebag.code.mycode.function.invokejs;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.view.KeyEvent;
-import android.view.View;
 import android.webkit.JavascriptInterface;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
