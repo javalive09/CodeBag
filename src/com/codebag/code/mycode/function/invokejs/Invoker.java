@@ -1,12 +1,15 @@
 package com.codebag.code.mycode.function.invokejs;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.view.KeyEvent;
 import android.view.View;
+import android.webkit.JavascriptInterface;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.Toast;
 
 import com.codebag.bag.CaseListView;
 import com.codebag.bag.Entry;
@@ -25,7 +28,8 @@ public class Invoker extends CaseListView {
 		wv = new WebView(getContext());
 		WebSettings webSetting = wv.getSettings();
 		webSetting.setJavaScriptEnabled(true);
-		webSetting.setSupportZoom(true);
+		wv.loadUrl("file:///android_asset/js_java.html");
+		wv.addJavascriptInterface(new Invoke(), "android");
 		wv.setWebViewClient(new WebViewClient() {
 
 			@Override
@@ -38,74 +42,52 @@ public class Invoker extends CaseListView {
 			public void onPageStarted(WebView view, String url, Bitmap favicon) {
 				super.onPageStarted(view, url, favicon);
 				Log.addLog(this, "onPageStarted()");
+				wv.addJavascriptInterface(new Invoke(), "android");
 			}
 
 			@Override
 			public void onPageFinished(WebView view, String url) {
 				Log.addLog(this, "onPageFinished()");
-				view.addJavascriptInterface(invokeAndroid, "invokeAndroid");
 			}
 			
 		});
-		
-		wv.loadUrl("http://www.csdn.net/");
 		showView(wv);
-		wv.setOnKeyListener(new OnKeyListener() {
-			
-			@Override
-			public boolean onKey(View v, int keyCode, KeyEvent event) {
-				
-				if(event.getAction() == KeyEvent.ACTION_UP && keyCode == KeyEvent.KEYCODE_BACK){
-					if(wv.canGoBack()) {
-						wv.goBack();
-						return true;
-					}
-				}
-				return false;
-			}
-		});
 	}
 	
-	
-	
-	private InvokeAndroid invokeAndroid = new InvokeAndroid() {
-
-		@Override
+	public class Invoke{
+		
+		@JavascriptInterface
 		public int getLotteryCount() {
 			Log.addLog(this, "getLotteryCount()");
+			Toast.makeText(getContext(), "getLotteryCount()", Toast.LENGTH_SHORT).show();
 			return 0;
 		}
 
-		@Override
+		@JavascriptInterface
 		public void setLotteryCount(int count) {
-			Log.addLog(this, "setLotteryCount()");
+			Log.addLog(this, "setLotteryCount() = " + count);
+			Toast.makeText(getContext(), "setLotteryCount() = " + count, Toast.LENGTH_SHORT).show();
 		}
 
-		@Override
+		@JavascriptInterface
 		public String getLotteryRecord() {
 			Log.addLog(this, "getLotteryRecord()");
+			Toast.makeText(getContext(), "getLotteryRecord()", Toast.LENGTH_SHORT).show();
 			return null;
 		}
 
-		@Override
+		@JavascriptInterface
 		public void showShareWindow() {
 			Log.addLog(this, "showShareWindow()");
+			Toast.makeText(getContext(), "showShareWindow()", Toast.LENGTH_SHORT).show();
 		}
 
-		@Override
+		@JavascriptInterface
 		public int getDeviceId() {
 			Log.addLog(this, "getDeviceId()");
+			Toast.makeText(getContext(), "getDeviceId()", Toast.LENGTH_SHORT).show();
 			return 0;
 		}
-		
-	};
-	
-	private interface InvokeAndroid{
-		int getLotteryCount();
-		void setLotteryCount(int count);
-		String getLotteryRecord();
-		void showShareWindow();
-		int getDeviceId();
 	}
 
 }
