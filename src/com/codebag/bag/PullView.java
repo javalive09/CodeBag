@@ -8,7 +8,6 @@ import android.view.VelocityTracker;
 import android.view.ViewConfiguration;
 import android.view.ViewGroup;
 import android.view.animation.BounceInterpolator;
-import android.view.animation.Interpolator;
 import android.widget.Scroller;
 
 public class PullView extends ViewGroup {
@@ -16,13 +15,12 @@ public class PullView extends ViewGroup {
 	private Scroller mScroller;
 	private int mTouchSlop = 0;
 	private VelocityTracker mVelocityTracker = null;
-	private static final int TOUCH_STATE_REST = 0;
-	private static final int TOUCH_STATE_SCROLLING = 1;
+	private static final int RESET = 0;
+	private static final int SCROLLING = 1;
 	private static final int VELOCITY_BOUNDRY = -5000;
-	private int mTouchState = TOUCH_STATE_REST;
+	private int mTouchState = RESET;
 	private static final int mAnimTime = 600;
 	private boolean mFinish = false;
-	private int mChildHeight = 0;
 	private int mStartY = 0;
 	private int mDeltaY = 0;
 
@@ -38,8 +36,7 @@ public class PullView extends ViewGroup {
     }
 
     private void init() {
-    	Interpolator polator = new BounceInterpolator();
-		mScroller = new Scroller(getContext(), polator);
+		mScroller = new Scroller(getContext(), new BounceInterpolator());
 		mTouchSlop = ViewConfiguration.get(getContext()).getScaledTouchSlop();
     }
 
@@ -54,7 +51,7 @@ public class PullView extends ViewGroup {
 		if (mScroller.computeScrollOffset()) {
 			int mScrollerY = mScroller.getCurrY();
 			scrollTo(0, mScrollerY);
-			Log.i("~peter", "mScrollerY=" + mScrollerY);
+//			Log.i("~peter", "mScrollerY=" + mScrollerY);
 			invalidate();
 		}else if(mFinish) {
 			MainActivity act = (MainActivity) getContext();
@@ -62,36 +59,44 @@ public class PullView extends ViewGroup {
 		}
 	}
 	
+	public boolean dispatchTouchEvent(MotionEvent event) {
+		return super.dispatchTouchEvent(event);
+	}
+	
     public boolean onInterceptTouchEvent(MotionEvent ev) {
-    	Log.i("~peter", "onInterceptTouchEvent-");
-    	int action = ev.getAction();
-    	int currentY = (int) ev.getY();
+    	Log.i("peter", "onInterceptTouchEvent" + ev);
+    	final int action = ev.getAction();
+    	final int currentY = (int) ev.getY();
+    	
     	switch(action) {
     	case MotionEvent.ACTION_DOWN:
     		mStartY = currentY;
-    		mTouchState = mScroller.isFinished() ? TOUCH_STATE_REST : TOUCH_STATE_SCROLLING;
+    		mTouchState = mScroller.isFinished() ? RESET : SCROLLING;
     		break;
     	case MotionEvent.ACTION_MOVE:
-    		int deltaY = mStartY - currentY;
+    		final int deltaY = mStartY - currentY;
     		if(deltaY > mTouchSlop) {//向上滑动
-    			mTouchState = TOUCH_STATE_SCROLLING;
+    			mTouchState = SCROLLING;
     		}
     		break;
 		case MotionEvent.ACTION_CANCEL:
 		case MotionEvent.ACTION_UP:
-			mTouchState = TOUCH_STATE_REST;
+			mTouchState = RESET;
 			break;
     	}
-        return mTouchState != TOUCH_STATE_REST;
+        return mTouchState != RESET;
     }
    
     public boolean onTouchEvent(MotionEvent event) {
-    	int action = event.getAction();
-    	int currentY = (int) event.getY();
+//    	Log.i("peter", "onTouchEvent" + event);
+    	final int action = event.getAction();
+    	final int currentY = (int) event.getY();
+    	
     	if (mVelocityTracker == null) {
 			mVelocityTracker = VelocityTracker.obtain();
 		}
 		mVelocityTracker.addMovement(event);
+		
     	switch(action) {
     	case MotionEvent.ACTION_DOWN:
     		mStartY = currentY;
@@ -104,16 +109,16 @@ public class PullView extends ViewGroup {
     		scrollTo(0, mDeltaY);
     		break;
     	case MotionEvent.ACTION_UP:
-    		mTouchState = TOUCH_STATE_REST;
+    		mTouchState = RESET;
 			final VelocityTracker velocityTracker = mVelocityTracker;
 			velocityTracker.computeCurrentVelocity(1000);
 			int velocityY = (int) velocityTracker.getYVelocity();
     		
-    		if(velocityY < VELOCITY_BOUNDRY|| mDeltaY > mChildHeight/2) {
+    		if(velocityY < VELOCITY_BOUNDRY|| mDeltaY > getHeight()/2) {
     			mFinish = true;
-    			startBounceAnim(this.getScrollY(), mChildHeight - this.getScrollY(), mAnimTime);
+    			startBounceAnim(getScrollY(), getHeight() - getScrollY(), mAnimTime);
     		}else {
-    			startBounceAnim(this.getScrollY(), -this.getScrollY(), mAnimTime);
+    			startBounceAnim(getScrollY(), -getScrollY(), mAnimTime);
     		}
     		
     		if (mVelocityTracker != null) {
@@ -127,22 +132,12 @@ public class PullView extends ViewGroup {
 
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
     	super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-    	mChildHeight = getMeasuredHeight();
-    	Log.i("peter", "height=" + mChildHeight);
-        setMeasuredDimension(getDefaultSize(getSuggestedMinimumWidth(), widthMeasureSpec),
-                getDefaultSize(mChildHeight * 2, heightMeasureSpec));
-        getChildAt(0).measure(widthMeasureSpec, heightMeasureSpec);
+        measureChildren(widthMeasureSpec, heightMeasureSpec);
     }
     
 	@Override
 	protected void onLayout(boolean changed, int l, int t, int r, int b) {
 		getChildAt(0).layout(l, t, r, b);
-		getChildAt(1).layout(l, t + mChildHeight, r, b + mChildHeight);
-	}
-	
-	public boolean dispatchTouchEvent(MotionEvent event) {
-		Log.i("peter", "event = " + event);
-		return super.dispatchTouchEvent(event);
 	}
 	
 }
