@@ -15,9 +15,9 @@ public class PullView extends ViewGroup {
 	private Scroller mScroller;
 	private int mTouchSlop;
 	private VelocityTracker mVelocityTracker = null;
-	private static final int STATE_IDLE = 0;//¿ÕÏÐ×´Ì¬
-	private static final int STATE_DRAGGING = 1;//ÍÏ×§×´Ì¬
-	private static final int STATE_SETTLING = 2;//»¹Ô­×´Ì¬	
+	private static final int STATE_IDLE = 0;
+	private static final int STATE_DRAGGING = 1;
+	private static final int STATE_SETTLING = 2;
 	private static final int VELOCITY_BOUNDRY = 2000;
 	private int mTouchState = STATE_IDLE;
 	private static final int mAnimTime = 600;
@@ -78,7 +78,7 @@ public class PullView extends ViewGroup {
     		break;
     	case MotionEvent.ACTION_MOVE:
     		final int deltaX = currentX - mStartX;
-    		if(deltaX > mTouchSlop) {//ÏòÓÒ»¬¶¯
+    		if(Math.abs(deltaX) > mTouchSlop) {
     			mTouchState = STATE_DRAGGING;
     		}
     		break;
@@ -113,10 +113,7 @@ public class PullView extends ViewGroup {
 			velocityTracker.computeCurrentVelocity(1000);
 			int velocityX = (int) velocityTracker.getXVelocity();
     		
-			Log.i("peter", "velocityX=" + velocityX);
-			Log.i("peter", "getScrollX()=" + getScrollX());
-			
-    		if(velocityX > VELOCITY_BOUNDRY || -mDeltaX > getWidth()/2) {
+    		if(Math.abs(velocityX) > VELOCITY_BOUNDRY || -mDeltaX > getWidth()/2) {
     			mFinish = true;
     			startBounceAnim(getScrollX(), getScrollY(), -(getWidth() + getScrollX()), -(getHeight() + getScrollY()), mAnimTime);
     		}else {

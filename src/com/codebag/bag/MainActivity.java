@@ -4,7 +4,6 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.Constructor;
-import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
@@ -39,7 +38,6 @@ import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewConfiguration;
 import android.view.ViewGroup;
 import android.widget.Adapter;
 import android.widget.AdapterView;
@@ -60,7 +58,6 @@ public class MainActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        getOverflowMenu();
         Intent intent = getIntent();
         Node currentNode = null;
         if(intent != null) {
@@ -77,7 +74,7 @@ public class MainActivity extends Activity {
     }
 
 	private void showSplash() {
-		setContentView(new SplashView1(MainActivity.this));
+		setContentView(new SplashView(MainActivity.this));
 		
 		IdleHandler handler = new IdleHandler() {
 
@@ -96,30 +93,29 @@ public class MainActivity extends Activity {
 
 	private void showMainView(Node node) {
 		
-		if(!node.mName.equals(CodeBag.ROOT_DIR)) {
-//			getActionBar().setHomeButtonEnabled(true);
-//			getActionBar().setDisplayHomeAsUpEnabled(true);
-		}
-		
 		switch(node.mType) {
 			case Node.DIR:
-//				getActionBar().setTitle(node.mName);
-//				getActionBar().setIcon(R.drawable.folder);
 				showDirView(node);
 				break;
 			case Node.CLASS:
-//				getActionBar().setTitle(node.mName + ".java");
-//				getActionBar().setIcon(R.drawable.file);
 				showClassView(node);
 				break;
 			case Node.APP:
-//				getActionBar().setTitle(node.mName);
-//				getActionBar().setIcon(R.drawable.folder);
 				showAppDemoView(node);
 				break;
 		}
 		
 //		Debug.stopMethodTracing();
+	}
+	
+	private void setView(CharSequence titleTxt, Drawable titleIcon, View view) {
+		setContentView(R.layout.activity_root);
+		FrameLayout container = (FrameLayout) findViewById(R.id.container);
+		TextView title = (TextView) findViewById(R.id.title);
+		title.setText(titleTxt);
+		titleIcon.setBounds(0, 0, titleIcon.getMinimumWidth(), titleIcon.getMinimumHeight());
+		title.setCompoundDrawables(titleIcon, null, null, null);
+		container.addView(view);
 	}
 	
 	private Drawable getRightSizeIcon(BitmapDrawable drawable) {
@@ -137,8 +133,9 @@ public class MainActivity extends Activity {
 	}
 	
 	private void showAppDemoView(Node node) {
-		setContentView(R.layout.activity_main);
-		ListView listView = (ListView) findViewById(R.id.list);
+		
+		ListView listView = new ListView(MainActivity.this);
+		setView(node.mName, getResources().getDrawable(R.drawable.folder), listView);
 
 		listView.setAdapter(new ListAdapter<Node>(MainActivity.this, node.mSubNodeList) {
 			@Override
@@ -190,8 +187,6 @@ public class MainActivity extends Activity {
 		
 	}
 
-
-	
 	private void showClassView(Node node) {
 		//class file
 			String className = node.mFullName;
@@ -205,7 +200,7 @@ public class MainActivity extends Activity {
 					return;
 				}
 				caseListview = (CaseListView) con.newInstance(MainActivity.this);
-				setContentView(caseListview);
+				setView(node.mName + ".java", getResources().getDrawable(R.drawable.file), caseListview);
 
 			} catch (ClassNotFoundException e) {
 				e.printStackTrace();
@@ -279,8 +274,9 @@ public class MainActivity extends Activity {
 	}
 
 	private void showDirView(Node node) {
-		setContentView(R.layout.activity_main);
-		ListView listView = (ListView) findViewById(R.id.list);
+		
+		ListView listView = new ListView(MainActivity.this);
+		setView(node.mName, getResources().getDrawable(R.drawable.folder), listView);
 		
 		listView.setAdapter(new ListAdapter<Node>(MainActivity.this, node.mSubNodeList) {
 			@Override
@@ -457,19 +453,6 @@ public class MainActivity extends Activity {
         return true;
     }
     
-    private void getOverflowMenu() {
-        try {
-           ViewConfiguration config = ViewConfiguration.get(this);
-           Field menuKeyField = ViewConfiguration.class.getDeclaredField("sHasPermanentMenuKey");
-           if(menuKeyField != null) {
-               menuKeyField.setAccessible(true);
-               menuKeyField.setBoolean(config, false);
-           }
-       } catch (Exception e) {
-           e.printStackTrace();
-       }
-   }
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
     	if(mDialog == null) {
@@ -562,29 +545,9 @@ public class MainActivity extends Activity {
 		}
     }
 	 
-	 public class SplashView extends FrameLayout {
+	 public class SplashView extends TextView {
 
 			public SplashView(Context context) {
-				super(context);
-				init(context);
-			}
-
-			private void init(Context context) {
-				TextView tv = new TextView(context);
-				tv.setText("Loading...");
-				tv.setTextColor(Color.BLACK);
-				tv.setTextSize(50);
-				tv.setGravity(Gravity.CENTER);
-				LayoutParams params = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
-				params.gravity = Gravity.CENTER;
-				tv.setLayoutParams(params);
-				addView(tv, params);
-			}
-	 }
-	 
-	 public class SplashView1 extends TextView {
-
-			public SplashView1(Context context) {
 				super(context);
 				init(context);
 			}
@@ -593,6 +556,7 @@ public class MainActivity extends Activity {
 				setText("Loading...");
 				setTextColor(Color.BLACK);
 				setTextSize(50);
+				setBackgroundColor(Color.WHITE);
 				setGravity(Gravity.CENTER);
 			}
 	 }
