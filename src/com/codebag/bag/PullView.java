@@ -13,17 +13,19 @@ import android.widget.Scroller;
 public class PullView extends ViewGroup {
 
 	private Scroller mScroller;
-	private int mTouchSlop = 0;
+	private int mTouchSlop;
 	private VelocityTracker mVelocityTracker = null;
-	private static final int RESET = 0;
-	private static final int SCROLLING = 1;
-	private static final int VELOCITY_BOUNDRY = -5000;
-	private int mTouchState = RESET;
+	private static final int STATE_IDLE = 0;//空闲状态
+	private static final int STATE_DRAGGING = 1;//拖拽状态
+	private static final int STATE_SETTLING = 2;//还原状态	
+	private static final int VELOCITY_BOUNDRY = 2000;
+	private int mTouchState = STATE_IDLE;
 	private static final int mAnimTime = 600;
-	private boolean mFinish = false;
-	private int mStartY = 0;
-	private int mDeltaY = 0;
-
+	private boolean mFinish;
+	private int mStartX;
+	private int mStartY;
+	private int mDeltaX;
+	private int mDeltaY;
 	
 	public PullView(Context context) {
 		super(context);
@@ -40,18 +42,17 @@ public class PullView extends ViewGroup {
 		mTouchSlop = ViewConfiguration.get(getContext()).getScaledTouchSlop();
     }
 
-	public void startBounceAnim(int startY, int dy, int duration) {
-		mScroller.startScroll(0, startY, 0, dy, duration);
+	public void startBounceAnim(int startX, int startY, int dx, int dy, int duration) {
+		mScroller.startScroll(startX, startY, dx, dy, duration);
 		invalidate();
 	}
 	
 	@Override
 	public void computeScroll() {
-
 		if (mScroller.computeScrollOffset()) {
+			int mScrollerX = mScroller.getCurrX();
 			int mScrollerY = mScroller.getCurrY();
-			scrollTo(0, mScrollerY);
-//			Log.i("~peter", "mScrollerY=" + mScrollerY);
+			scrollTo(mScrollerX, mScrollerY);
 			invalidate();
 		}else if(mFinish) {
 			MainActivity act = (MainActivity) getContext();
@@ -64,32 +65,35 @@ public class PullView extends ViewGroup {
 	}
 	
     public boolean onInterceptTouchEvent(MotionEvent ev) {
-    	Log.i("peter", "onInterceptTouchEvent" + ev);
+    	
     	final int action = ev.getAction();
+    	final int currentX = (int) ev.getX();
     	final int currentY = (int) ev.getY();
     	
     	switch(action) {
     	case MotionEvent.ACTION_DOWN:
+    		mStartX = currentX;
     		mStartY = currentY;
-    		mTouchState = mScroller.isFinished() ? RESET : SCROLLING;
+    		mTouchState = mScroller.isFinished() ? STATE_IDLE : STATE_SETTLING;
     		break;
     	case MotionEvent.ACTION_MOVE:
-    		final int deltaY = mStartY - currentY;
-    		if(deltaY > mTouchSlop) {//向上滑动
-    			mTouchState = SCROLLING;
+    		final int deltaX = currentX - mStartX;
+    		if(deltaX > mTouchSlop) {//向右滑动
+    			mTouchState = STATE_DRAGGING;
     		}
     		break;
 		case MotionEvent.ACTION_CANCEL:
 		case MotionEvent.ACTION_UP:
-			mTouchState = RESET;
+			mTouchState = STATE_IDLE;
 			break;
     	}
-        return mTouchState != RESET;
+        return mTouchState != STATE_IDLE;
     }
    
     public boolean onTouchEvent(MotionEvent event) {
-//    	Log.i("peter", "onTouchEvent" + event);
+
     	final int action = event.getAction();
+    	final int currentX = (int) event.getX();
     	final int currentY = (int) event.getY();
     	
     	if (mVelocityTracker == null) {
@@ -98,27 +102,25 @@ public class PullView extends ViewGroup {
 		mVelocityTracker.addMovement(event);
 		
     	switch(action) {
-    	case MotionEvent.ACTION_DOWN:
-    		mStartY = currentY;
-    		if (!mScroller.isFinished()){
-				mScroller.abortAnimation();
-			}
-    		break;
     	case MotionEvent.ACTION_MOVE:
+    		mDeltaX = mStartX - currentX;
     		mDeltaY = mStartY - currentY;
-    		scrollTo(0, mDeltaY);
+    		scrollTo(mDeltaX, mDeltaY);
     		break;
     	case MotionEvent.ACTION_UP:
-    		mTouchState = RESET;
+    		mTouchState = STATE_IDLE;
 			final VelocityTracker velocityTracker = mVelocityTracker;
 			velocityTracker.computeCurrentVelocity(1000);
-			int velocityY = (int) velocityTracker.getYVelocity();
+			int velocityX = (int) velocityTracker.getXVelocity();
     		
-    		if(velocityY < VELOCITY_BOUNDRY|| mDeltaY > getHeight()/2) {
+			Log.i("peter", "velocityX=" + velocityX);
+			Log.i("peter", "getScrollX()=" + getScrollX());
+			
+    		if(velocityX > VELOCITY_BOUNDRY || -mDeltaX > getWidth()/2) {
     			mFinish = true;
-    			startBounceAnim(getScrollY(), getHeight() - getScrollY(), mAnimTime);
+    			startBounceAnim(getScrollX(), getScrollY(), -(getWidth() + getScrollX()), -(getHeight() + getScrollY()), mAnimTime);
     		}else {
-    			startBounceAnim(getScrollY(), -getScrollY(), mAnimTime);
+    			startBounceAnim(getScrollX(), getScrollY(), -getScrollX(), -getScrollY(), mAnimTime);
     		}
     		
     		if (mVelocityTracker != null) {

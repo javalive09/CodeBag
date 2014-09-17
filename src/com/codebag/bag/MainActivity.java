@@ -121,8 +121,6 @@ public class MainActivity extends Activity {
 				showAppDemoView(node);
 				break;
 		}
-		
-//		Debug.stopMethodTracing();
 	}
 	
 	private Drawable getRightSizeIcon(BitmapDrawable drawable) {
@@ -140,7 +138,6 @@ public class MainActivity extends Activity {
 	}
 	
 	private void showAppDemoView(Node node) {
-//		setContentView(R.layout.activity_main);
 		setView(R.layout.activity_main);
 		ListView listView = (ListView) findViewById(R.id.list);
 
@@ -207,7 +204,6 @@ public class MainActivity extends Activity {
 					return;
 				}
 				caseListview = (CaseListView) con.newInstance(MainActivity.this);
-//				setContentView(caseListview);
 				setView(caseListview);
 
 			} catch (ClassNotFoundException e) {
@@ -281,7 +277,7 @@ public class MainActivity extends Activity {
 
 	private void setView(int resId) {
 		setContentView(R.layout.activity_root_view);
-		FrameLayout root = (FrameLayout) findViewById(R.id.contentView);
+		PullView root = (PullView) findViewById(R.id.contentView);
 		LayoutInflater factory = LayoutInflater.from(MainActivity.this);
         factory.inflate(resId, root);
 	}
@@ -293,7 +289,6 @@ public class MainActivity extends Activity {
 	}
 	
 	private void showDirView(Node node) {
-//		setContentView(R.layout.activity_main);
 		setView(R.layout.activity_main);
 		ListView listView = (ListView) findViewById(R.id.list);
 		
