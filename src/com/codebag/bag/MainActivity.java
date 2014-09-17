@@ -60,7 +60,7 @@ public class MainActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getOverflowMenu();
+//        getOverflowMenu();
         Intent intent = getIntent();
         Node currentNode = null;
         if(intent != null) {
@@ -97,24 +97,24 @@ public class MainActivity extends Activity {
 	private void showMainView(Node node) {
 		
 		if(!node.mName.equals(CodeBag.ROOT_DIR)) {
-			getActionBar().setHomeButtonEnabled(true);
-			getActionBar().setDisplayHomeAsUpEnabled(true);
+//			getActionBar().setHomeButtonEnabled(true);
+//			getActionBar().setDisplayHomeAsUpEnabled(true);
 		}
 		
 		switch(node.mType) {
 			case Node.DIR:
-				getActionBar().setTitle(node.mName);
-				getActionBar().setIcon(R.drawable.folder);
+//				getActionBar().setTitle(node.mName);
+//				getActionBar().setIcon(R.drawable.folder);
 				showDirView(node);
 				break;
 			case Node.CLASS:
-				getActionBar().setTitle(node.mName + ".java");
-				getActionBar().setIcon(R.drawable.file);
+//				getActionBar().setTitle(node.mName + ".java");
+//				getActionBar().setIcon(R.drawable.file);
 				showClassView(node);
 				break;
 			case Node.APP:
-				getActionBar().setTitle(node.mName);
-				getActionBar().setIcon(R.drawable.folder);
+//				getActionBar().setTitle(node.mName);
+//				getActionBar().setIcon(R.drawable.folder);
 				showAppDemoView(node);
 				break;
 		}
