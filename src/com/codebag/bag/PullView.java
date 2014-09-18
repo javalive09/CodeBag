@@ -1,6 +1,11 @@
 package com.codebag.bag;
 
+import com.codebag.R;
+
+import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Context;
+import android.graphics.Rect;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.VelocityTracker;
@@ -13,18 +18,22 @@ public class PullView extends ViewGroup {
 
 	private Scroller mScroller;
 	private int mTouchSlop;
-	private VelocityTracker mVelocityTracker = null;
+	private VelocityTracker mVelocityTracker;
 	private static final int STATE_IDLE = 0;
 	private static final int STATE_DRAGGING = 1;
 	private static final int STATE_SETTLING = 2;
 	private static final int VELOCITY_BOUNDRY = 2000;
-	private int mTouchState = STATE_IDLE;
+	private static final int BOUNDARY_PLY = 25;
 	private static final int mAnimTime = 600;
+	private int mTouchState = STATE_IDLE;
 	private boolean mFinish;
 	private int mStartX;
 	private int mStartY;
 	private int mDeltaX;
 	private int mDeltaY;
+	private int mStatusBarH;
+	private boolean mCanPull;
+	private boolean canFinish;
 	
 	public PullView(Context context) {
 		super(context);
@@ -40,11 +49,6 @@ public class PullView extends ViewGroup {
 		mScroller = new Scroller(getContext(), new BounceInterpolator());
 		mTouchSlop = ViewConfiguration.get(getContext()).getScaledTouchSlop();
     }
-
-	public void startBounceAnim(int startX, int startY, int dx, int dy, int duration) {
-		mScroller.startScroll(startX, startY, dx, dy, duration);
-		invalidate();
-	}
 	
 	@Override
 	public void computeScroll() {
@@ -64,7 +68,6 @@ public class PullView extends ViewGroup {
 	}
 	
     public boolean onInterceptTouchEvent(MotionEvent ev) {
-    	
     	final int action = ev.getAction();
     	final int currentX = (int) ev.getX();
     	final int currentY = (int) ev.getY();
@@ -74,11 +77,16 @@ public class PullView extends ViewGroup {
     		mStartX = currentX;
     		mStartY = currentY;
     		mTouchState = mScroller.isFinished() ? STATE_IDLE : STATE_SETTLING;
+    		mCanPull = canPull(currentX, currentY);
     		break;
     	case MotionEvent.ACTION_MOVE:
-    		final int deltaX = currentX - mStartX;
-    		if(Math.abs(deltaX) > mTouchSlop) {
-    			mTouchState = STATE_DRAGGING;
+    		if(mCanPull) {
+	    		final int deltaX = currentX - mStartX;
+	    		final int deltaY = currentY - mStartY;
+	    		double distance = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
+	    		if(distance > mTouchSlop) {
+	    			mTouchState = STATE_DRAGGING;
+	    		}
     		}
     		break;
 		case MotionEvent.ACTION_CANCEL:
@@ -86,11 +94,34 @@ public class PullView extends ViewGroup {
 			mTouchState = STATE_IDLE;
 			break;
     	}
-        return mTouchState != STATE_IDLE;
+    	return mTouchState != STATE_IDLE;
     }
-   
+    
+    private int getStatusBarH() {
+    	Rect frame = new Rect();
+    	Activity act = (Activity) getContext();
+    	act.getWindow().getDecorView().getWindowVisibleDisplayFrame(frame);
+    	return frame.top;
+    }
+    
+    private boolean canPull(int x, int y) {
+    	if(mStatusBarH == 0) {
+    		mStatusBarH = getStatusBarH();
+    	}
+    	final int rightB = getWidth() - BOUNDARY_PLY;
+    	final int bottomB = getHeight() - BOUNDARY_PLY;
+    	
+    	if((x < BOUNDARY_PLY && y > mStatusBarH) //left boundary
+    			|| (x > rightB && y > mStatusBarH)//right boundary
+    			|| (y > bottomB)) {//bottom boundary
+    		return true;
+    	}
+    	return false;
+    }
+    
+    @SuppressLint("ClickableViewAccessibility") 
     public boolean onTouchEvent(MotionEvent event) {
-
+    	
     	final int action = event.getAction();
     	final int currentX = (int) event.getX();
     	final int currentY = (int) event.getY();
@@ -105,19 +136,46 @@ public class PullView extends ViewGroup {
     		mDeltaX = mStartX - currentX;
     		mDeltaY = mStartY - currentY;
     		scrollTo(mDeltaX, mDeltaY);
+    		double distance = Math.sqrt(mDeltaX * mDeltaX + mDeltaY * mDeltaY);
+    		if(distance > getWidth() / 3) {
+    			canFinish = true;
+    			getChildAt(0).setBackgroundResource(R.drawable.translate_bg);
+    		}else {
+    			canFinish = false;
+    			getChildAt(0).setBackgroundResource(R.drawable.bg);
+    		}
     		break;
     	case MotionEvent.ACTION_UP:
     		mTouchState = STATE_IDLE;
 			final VelocityTracker velocityTracker = mVelocityTracker;
 			velocityTracker.computeCurrentVelocity(1000);
 			int velocityX = (int) velocityTracker.getXVelocity();
+			int velocityY = (int) velocityTracker.getYVelocity();
     		
-    		if(Math.abs(velocityX) > VELOCITY_BOUNDRY || -mDeltaX > getWidth()/2) {
+			int deltaY, deltaX;
+    		if(canFinish || Math.abs(velocityX) > VELOCITY_BOUNDRY || (Math.abs(velocityY) > VELOCITY_BOUNDRY)) {
     			mFinish = true;
-    			startBounceAnim(getScrollX(), getScrollY(), -(getWidth() + getScrollX()), -(getHeight() + getScrollY()), mAnimTime);
+    			if(mDeltaY > 0) {//手指向上，内容向上，窗口向下
+    				deltaY = getHeight() - getScrollY();
+    				if(mDeltaX > 0) {//手指向左，内容向左，窗口向右
+    					deltaX = getWidth() - getScrollX();
+    				}else {//向右
+    					deltaX = -(getWidth() + getScrollX());
+    				}
+    			}else {//向下
+    				deltaY = -(getHeight() + getScrollY());
+    				if(mDeltaX > 0) {//向左
+    					deltaX = getWidth() - getScrollX();
+    				}else {//向左
+    					deltaX = -(getWidth() + getScrollX());
+    				}
+    			}
     		}else {
-    			startBounceAnim(getScrollX(), getScrollY(), -getScrollX(), -getScrollY(), mAnimTime);
+    			deltaY = -getScrollY();
+    			deltaX = -getScrollX();
     		}
+    		mScroller.startScroll(getScrollX(), getScrollY(), deltaX, deltaY, mAnimTime);
+    		invalidate();
     		
     		if (mVelocityTracker != null) {
 				mVelocityTracker.recycle();

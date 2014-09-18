@@ -1,6 +1,5 @@
 package com.codebag.code.mycode.view.zoomimageview;
 
-import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
@@ -24,7 +23,7 @@ public class ZoomView extends MyCode {
 		view.setImageResource(R.drawable.head);
 		view.setBackgroundColor(Color.BLACK);
 		
-		showView(view);
+		getActivity().setContentView(view);
 	}
 	
 	@Entry()
@@ -35,6 +34,6 @@ public class ZoomView extends MyCode {
 		view.setImageBitmap(bitMap);
 		view.setBackgroundColor(Color.BLACK);
 		
-		showView(view);
+		getActivity().setContentView(view);
 	}
 }

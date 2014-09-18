@@ -7,18 +7,17 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@drawable/bg"
-        android:orientation="vertical" >
+        android:orientation="vertical"
+        android:padding="1dp" >
 
         <TextView
             android:id="@+id/title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
             android:background="@color/title_bar_color"
             android:drawableLeft="@drawable/folder"
-            android:drawablePadding="5px"
+            android:drawablePadding="5dp"
             android:gravity="center_vertical"
-            android:text="com.codebag.mycode"
             android:textColor="@android:color/white" />
 
         <FrameLayout
