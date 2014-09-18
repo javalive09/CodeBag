@@ -17,7 +17,7 @@ public class MyCode{
 	}
 	
 	public void showView(View view) {
-		String name = Thread.currentThread().getStackTrace()[1].getClassName();
+		String name = Thread.currentThread().getStackTrace()[2].getMethodName();
 		mActivity.setView(name, R.drawable.file, view);
 	}
 	

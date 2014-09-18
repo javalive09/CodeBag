@@ -48,12 +48,11 @@ public class Invoker extends MyCode {
 		FrameLayout fl = new FrameLayout(getActivity());
 		int d = DisplayUtil.dip2px(getActivity(), 110);
 		FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(d, d);
-//		c.setBackgroundColor(Color.BLACK);
+		c.setBackgroundColor(Color.BLACK);
 		params.gravity = Gravity.CENTER;
 		fl.addView(c, params);
-//		fl.addView(views, fillParentParams(Gravity.BOTTOM));
-		fl.setBackgroundColor(Color.WHITE);
-		getActivity().setView("showButtons()", R.drawable.file, fl);
+		fl.addView(views);
+		showView(fl);
 	}
 	
 	private OnClickListener listener = new OnClickListener() {

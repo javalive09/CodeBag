@@ -7,6 +7,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.graphics.Rect;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.VelocityTracker;
 import android.view.ViewConfiguration;
@@ -64,10 +65,13 @@ public class PullView extends ViewGroup {
 	}
 	
 	public boolean dispatchTouchEvent(MotionEvent event) {
+		Log.i("peter", "dispatchTouchEvent=" + event);
 		return super.dispatchTouchEvent(event);
+//		return true;
 	}
 	
     public boolean onInterceptTouchEvent(MotionEvent ev) {
+    	Log.i("peter", "onInterceptTouchEvent=" + ev);
     	final int action = ev.getAction();
     	final int currentX = (int) ev.getX();
     	final int currentY = (int) ev.getY();
@@ -121,7 +125,7 @@ public class PullView extends ViewGroup {
     
     @SuppressLint("ClickableViewAccessibility") 
     public boolean onTouchEvent(MotionEvent event) {
-    	
+    	Log.i("peter", "onTouchEvent=" + event);
     	final int action = event.getAction();
     	final int currentX = (int) event.getX();
     	final int currentY = (int) event.getY();
@@ -132,6 +136,12 @@ public class PullView extends ViewGroup {
 		mVelocityTracker.addMovement(event);
 		
     	switch(action) {
+    	case MotionEvent.ACTION_DOWN:
+    		if(mCanPull) {
+    			return true;
+    		}else {
+    			return false;
+    		}
     	case MotionEvent.ACTION_MOVE:
     		mDeltaX = mStartX - currentX;
     		mDeltaY = mStartY - currentY;
@@ -183,7 +193,7 @@ public class PullView extends ViewGroup {
 			}
     		break;
     	}
-		return false;
+		return true;
     }
 
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
