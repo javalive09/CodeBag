@@ -12,7 +12,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.codebag.R;
-import com.codebag.bag.CaseListView;
+import com.codebag.bag.MainActivity;
+import com.codebag.bag.MyCode;
 import com.codebag.bag.Entry;
 
 /**
@@ -26,18 +27,18 @@ import com.codebag.bag.Entry;
       4             4               6
       5             8               10
  */
-public class Invoker extends CaseListView {
+public class Invoker extends MyCode {
 
-	public Invoker(Context context) {
+	public Invoker(MainActivity context) {
 		super(context);
 	}
 	
 	@Entry
 	public void framelayoutView() {
-		FrameLayoutView f1 = new FrameLayoutView(getContext());
+		FrameLayoutView f1 = new FrameLayoutView(getActivity());
 		FrameLayout f2 = getMultiView();
 		
-		View v = new View(getContext());
+		View v = new View(getActivity());
 		v.setBackgroundResource(R.drawable.pic);
 		
 		FrameLayout.LayoutParams params_2 = new FrameLayout.LayoutParams(300, 300);
@@ -55,11 +56,11 @@ public class Invoker extends CaseListView {
 	
 	@Entry
 	public void relativeLayoutView() {
-		RelativeLayoutView f1 = new RelativeLayoutView(getContext());
+		RelativeLayoutView f1 = new RelativeLayoutView(getActivity());
 		
 		FrameLayout f2 = getMultiView();
 		
-		View v = new View(getContext());
+		View v = new View(getActivity());
 		v.setBackgroundResource(R.drawable.pic);
 		
 		RelativeLayout.LayoutParams params_2 = new RelativeLayout.LayoutParams(300, 300);
@@ -76,11 +77,11 @@ public class Invoker extends CaseListView {
 	
 	@Entry
 	public void linearLayoutView() {
-		LinearLayoutView f1 = new LinearLayoutView(getContext());
+		LinearLayoutView f1 = new LinearLayoutView(getActivity());
 		
 		FrameLayout f2 = getMultiView();
 		
-		View v = new View(getContext());
+		View v = new View(getActivity());
 		v.setBackgroundResource(R.drawable.pic);
 		
 		LinearLayout.LayoutParams params_2 = new LinearLayout.LayoutParams(300,300);
@@ -90,7 +91,7 @@ public class Invoker extends CaseListView {
 		params_v.gravity = Gravity.CENTER;
 		
 		Point outSize = new Point();
-		WindowManager wm = (WindowManager) getContext().getSystemService(Context.WINDOW_SERVICE);
+		WindowManager wm = (WindowManager) getActivity().getSystemService(Context.WINDOW_SERVICE);
 		wm.getDefaultDisplay().getSize(outSize);
 		int screenW = outSize.x;
 		int marginLeft_v = (screenW - 500)/2;
@@ -109,12 +110,12 @@ public class Invoker extends CaseListView {
 	
 	@Entry
 	public void showTextView() {
-		FrameLayout fl = new FrameLayout(getContext());
+		FrameLayout fl = new FrameLayout(getActivity());
 		FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(-2, -2);
 		params.gravity = Gravity.CENTER;
 		fl.setBackgroundColor(Color.CYAN);
 		
-		TextView v = new TextView(getContext());
+		TextView v = new TextView(getActivity());
 		v.setText("123456789");
 		v.setTextSize(50);
 		v.setTextColor(Color.WHITE);
@@ -127,7 +128,7 @@ public class Invoker extends CaseListView {
 	
 	
 	private FrameLayout getMultiView() {
-		FrameLayout f1 = new FrameLayout(getContext());
+		FrameLayout f1 = new FrameLayout(getActivity());
 		f1.setBackgroundResource(R.drawable.pic);
 		return f1;
 		

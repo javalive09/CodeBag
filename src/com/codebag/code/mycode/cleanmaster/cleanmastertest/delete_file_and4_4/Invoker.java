@@ -7,24 +7,25 @@ import java.util.List;
 
 import android.content.Context;
 
-import com.codebag.bag.CaseListView;
+import com.codebag.bag.MainActivity;
+import com.codebag.bag.MyCode;
 import com.codebag.bag.Entry;
 import com.codebag.code.mycode.utils.Log;
 
-public class Invoker extends CaseListView {
+public class Invoker extends MyCode {
 
 //	String path = "/storage/extSdCard/system.txt";//S4 old
 	String path = "/storage/extSdCard/system.txt";//S4
 //	String path = "/storage/ext_sd/system.txt";//htc/
 //	String path = "/storage/sdcard1/system.txt";//honor
 	
-	public Invoker(Context context) {
+	public Invoker(MainActivity context) {
 		super(context);
 	}
 	
 	@Entry
 	public void deleteFile_mediaFile() {
-		boolean result = MediaFileUtil.deleteFile(getContext().getContentResolver(), path);
+		boolean result = MediaFileUtil.deleteFile(getActivity().getContentResolver(), path);
 		Log.addLog(this, "result=" + result);
 	}
 	

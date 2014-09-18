@@ -7,24 +7,25 @@ import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.codebag.bag.CaseListView;
+import com.codebag.bag.MainActivity;
+import com.codebag.bag.MyCode;
 import com.codebag.bag.Entry;
 
-public class Invoker extends CaseListView {
+public class Invoker extends MyCode {
 
-	public Invoker(Context context) {
+	public Invoker(MainActivity context) {
 		super(context);
 	}
 	
 	@Entry
 	public void show() {
-		RelativeLayout mNum2 = new RelativeLayout(getContext());
+		RelativeLayout mNum2 = new RelativeLayout(getActivity());
 		mNum2.setBackgroundColor(Color.WHITE);
 		
 		RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(-2, -2);
 		params.addRule(RelativeLayout.CENTER_IN_PARENT);
 		
-		TextView mNum = new TextView(getContext());
+		TextView mNum = new TextView(getActivity());
 		mNum.setTextSize(40);
 		mNum.setTextColor(0xE624a0ff);
 		mNum.setText("80");
@@ -32,7 +33,7 @@ public class Invoker extends CaseListView {
 		mNum2.addView(mNum, params);
 		
 		RelativeLayout.LayoutParams paramsP = new RelativeLayout.LayoutParams(-2, -2);
-		TextView percentSign = new TextView(getContext());
+		TextView percentSign = new TextView(getActivity());
 		percentSign.setText("%");
 		percentSign.setTextSize(40);
 		percentSign.setTextColor(0xE624a0ff);
@@ -45,8 +46,8 @@ public class Invoker extends CaseListView {
 	
 	@Entry
 	public void show2() {
-		RelativeLayout rl = new RelativeLayout(getContext());  
-	    Button btn1 = new Button(getContext());  
+		RelativeLayout rl = new RelativeLayout(getActivity());  
+	    Button btn1 = new Button(getActivity());  
 	    btn1.setText("btn1 ----------------------");  
 	    btn1.setId(1);  
 	      
@@ -57,7 +58,7 @@ public class Invoker extends CaseListView {
 	    // btn1 位于父 View 的顶部，在父 View 中水平居中  
 	    rl.addView(btn1, lp1 );  
 	     
-	    Button btn2 = new Button(getContext());  
+	    Button btn2 = new Button(getActivity());  
 	    btn2.setText("btn2 |\n|\n|\n|\n|\n|");  
 	    btn2.setId(2);  
 	     
@@ -68,7 +69,7 @@ public class Invoker extends CaseListView {
 	    // btn2 位于 btn1 的下方、其左边和 btn1 的左边对齐  
 	    rl.addView(btn2, lp2);  
 	     
-	    Button btn3 = new Button(getContext());  
+	    Button btn3 = new Button(getActivity());  
 	    btn3.setText("btn3 |\n|\n|\n|\n|\n|");  
 	    btn3.setId(3);  
 	     
@@ -80,7 +81,7 @@ public class Invoker extends CaseListView {
 	    // btn3 位于 btn1 的下方、btn2 的右方且其右边和 btn1 的右边对齐（要扩充）  
 	    rl.addView(btn3,lp3);  
 	     
-	    Button btn4 = new Button(getContext());  
+	    Button btn4 = new Button(getActivity());  
 	    btn4.setText("btn4 --------------------------------------------");  
 	    btn4.setId(4);  
 	     

@@ -6,7 +6,8 @@ import java.util.regex.Pattern;
 import android.content.Context;
 import android.widget.Toast;
 
-import com.codebag.bag.CaseListView;
+import com.codebag.bag.MainActivity;
+import com.codebag.bag.MyCode;
 import com.codebag.bag.Entry;
 
 /**
@@ -15,9 +16,9 @@ import com.codebag.bag.Entry;
  * @author peter
  *
  */
-public class TestPatternFind extends CaseListView {
+public class TestPatternFind extends MyCode {
 
-	public TestPatternFind(Context context) {
+	public TestPatternFind(MainActivity context) {
 		super(context);
 	}
 	
@@ -33,9 +34,9 @@ public class TestPatternFind extends CaseListView {
     		int end = mat.indexOf(" ");
     		String time = mat.substring(start, end);
     		Double d = Double.valueOf(time);
-    		Toast.makeText(getContext(), d +" ", Toast.LENGTH_SHORT).show();
+    		Toast.makeText(getActivity(), d +" ", Toast.LENGTH_SHORT).show();
     	}else {
-    		Toast.makeText(getContext(), "not find", Toast.LENGTH_SHORT).show();
+    		Toast.makeText(getActivity(), "not find", Toast.LENGTH_SHORT).show();
     	}
     	
 	}

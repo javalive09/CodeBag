@@ -6,7 +6,8 @@ import java.util.concurrent.Executors;
 
 import android.content.Context;
 
-import com.codebag.bag.CaseListView;
+import com.codebag.bag.MainActivity;
+import com.codebag.bag.MyCode;
 import com.codebag.bag.Entry;
 
 /**
@@ -15,9 +16,9 @@ import com.codebag.bag.Entry;
  * @author peter
  *
  */
-public class ScheduleThreadPool extends CaseListView {
+public class ScheduleThreadPool extends MyCode {
 
-	public ScheduleThreadPool(Context context) {
+	public ScheduleThreadPool(MainActivity context) {
 		super(context);
 	}
 

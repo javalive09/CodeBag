@@ -7,7 +7,8 @@ import android.content.Intent;
 import android.content.ServiceConnection;
 import android.os.IBinder;
 
-import com.codebag.bag.CaseListView;
+import com.codebag.bag.MainActivity;
+import com.codebag.bag.MyCode;
 import com.codebag.bag.Entry;
 
 /**
@@ -16,29 +17,29 @@ import com.codebag.bag.Entry;
  * @author peter
  *
  */
-public class TestServiceLife extends CaseListView {
+public class TestServiceLife extends MyCode {
 
 	
-	public TestServiceLife(Context context) {
+	public TestServiceLife(MainActivity context) {
 		super(context);
 	}
 
 	@Entry()
 	public void startservice() {
-		Intent intent = new Intent(getContext(),myService.class);
-		getContext().startService(intent);
+		Intent intent = new Intent(getActivity(),myService.class);
+		getActivity().startService(intent);
 	}
 	
 	@Entry()
 	public void stopservice() {
-		Intent intent = new Intent(getContext(),myService.class);
-		getContext().stopService(intent);
+		Intent intent = new Intent(getActivity(),myService.class);
+		getActivity().stopService(intent);
 	}
 	
 	@Entry()
 	public void bindservice() {
-		Intent intent = new Intent(getContext(),myService.class);
-		getContext().bindService(intent, mServicecon, Service.BIND_AUTO_CREATE);
+		Intent intent = new Intent(getActivity(),myService.class);
+		getActivity().bindService(intent, mServicecon, Service.BIND_AUTO_CREATE);
 	}
 	
 	private ServiceConnection mServicecon = new ServiceConnection() {
@@ -56,7 +57,7 @@ public class TestServiceLife extends CaseListView {
 	
 	@Entry()
 	public void unbindservice() {
-		getContext().unbindService(mServicecon);
+		getActivity().unbindService(mServicecon);
 	}
 	
 }

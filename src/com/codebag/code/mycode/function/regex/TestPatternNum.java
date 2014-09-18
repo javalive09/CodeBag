@@ -4,7 +4,8 @@ import java.util.regex.Pattern;
 
 import android.content.Context;
 
-import com.codebag.bag.CaseListView;
+import com.codebag.bag.MainActivity;
+import com.codebag.bag.MyCode;
 import com.codebag.bag.Entry;
 import com.codebag.code.mycode.utils.Log;
 
@@ -14,9 +15,9 @@ import com.codebag.code.mycode.utils.Log;
  * @author peter
  *
  */
-public class TestPatternNum extends CaseListView {
+public class TestPatternNum extends MyCode {
 
-	public TestPatternNum(Context context) {
+	public TestPatternNum(MainActivity context) {
 		super(context);
 	}
 

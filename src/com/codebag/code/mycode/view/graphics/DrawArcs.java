@@ -8,18 +8,19 @@ import android.graphics.RectF;
 import android.view.Gravity;
 import android.view.View;
 
-import com.codebag.bag.CaseListView;
+import com.codebag.bag.MainActivity;
+import com.codebag.bag.MyCode;
 import com.codebag.bag.Entry;
 
-public class DrawArcs extends CaseListView {
+public class DrawArcs extends MyCode {
 
-	public DrawArcs(Context context) {
+	public DrawArcs(MainActivity context) {
 		super(context);
 	}
 	
 	@Entry
 	public void drawArc() {
-		View v = new View(getContext()) {
+		View v = new View(getActivity()) {
 
 			Paint paint = new Paint();
 			RectF rf = new RectF(0, 0, 300, 300 );
@@ -48,7 +49,7 @@ public class DrawArcs extends CaseListView {
 	
 	@Entry
 	public void showArcsSample() {
-		showView(new SampleView(getContext()));
+		showView(new SampleView(getActivity()));
 	}
 
 }

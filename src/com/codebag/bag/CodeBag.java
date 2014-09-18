@@ -23,7 +23,6 @@ public class CodeBag extends Application {
 	private Node mRootNode = new Node(ROOT_DIR, Node.DIR);
 	private LinkedList<MainActivity> mActContainer = new LinkedList<MainActivity>();
 	
-	
 	@Override
 	public void onCreate() {
 //		Debug.startMethodTracing("mytrace"); 
@@ -105,9 +104,7 @@ public class CodeBag extends Application {
 	}
 	
 	public Node getAppDemoNode() {
-		Node appNode = new Node();
-		appNode.mType = Node.APP;
-		appNode.mName = "other app demo";
+		Node appNode = new Node("app demo", Node.APP);
 		appNode.mSubNodeList = new ArrayList<CodeBag.Node>();		
 		
     	PackageManager pm = getPackageManager();
@@ -120,9 +117,7 @@ public class CodeBag extends Application {
 					String type = appInfo.metaData.getString("appType");
 					
 					if("codebag_appdemo".equals(type)) {
-						Node node = new Node();
-						node.mFullName = appInfo.packageName;
-						node.mType = Node.APP;
+						Node node = new Node(appInfo.packageName, Node.APP);
 						appNode.mSubNodeList.add(node);
 						Log.i("packageName", info.packageName );
 					}
@@ -139,8 +134,8 @@ public class CodeBag extends Application {
 	}
 	
 	private void printNode(Node node) {
-		Log.i("!peter", "name=" + node.mName);
-		Log.i("!peter", "fullname=" + node.mFullName);
+		Log.i("!peter", "name=" + node.name);
+		Log.i("!peter", "fullname=" + node.className);
 		
 		if(node.mSubNodeList != null) {
 	
@@ -175,28 +170,25 @@ public class CodeBag extends Application {
 	/**
 	 * @param nodeName    子节点名字（游标所在数组的元素名字）--- 是区分各个子节点的关键字
 	 * @param type        子节点类型（目录/类）
-	 * @param fullName    子节点全名（目录一般为null，类才有）
+	 * @param className    子节点全名（目录一般为null，类才有）
 	 * @param currentNode 父节点
 	 * @return
 	 */
-	private Node getSubNode(String nodeName, int type, String fullName, Node currentNode) {
+	private Node getSubNode(String nodeName, int type, String className, Node currentNode) {
 		if(currentNode.mSubNodeList == null) {//创建子节点列表
 			currentNode.mSubNodeList = new ArrayList<Node>();
 		}else {
 			for(Node n : currentNode.mSubNodeList) {//父节点有子节点列表，则遍历一下
-				if(n.mName.equals(nodeName)) {
+				if(n.name.equals(nodeName)) {
 					return n;
 				}
 			}
 		}
-		return createSubNode(nodeName, type, fullName, currentNode);
+		return createSubNode(nodeName, type, className, currentNode);
 	}
 	
-	private Node createSubNode(String nodeName, int type, String fullName, Node currentNode) {
-		Node node = new Node();
-		node.mName = nodeName;
-		node.mFullName = fullName;
-		node.mType = type;
+	private Node createSubNode(String nodeName, int type, String className, Node currentNode) {
+		Node node = new Node(nodeName, type, className);
 		currentNode.mSubNodeList.add(node);
 		return node;
 	}
@@ -206,20 +198,26 @@ public class CodeBag extends Application {
 		public static final int DIR = 0;
 		public static final int CLASS = 1;
 		public static final int APP = 3;
+		public static final int METHOD = 4;
 		
-		public int mType = -1;
-		public String mName;
-		public String mFullName;//类节点才有
+		public int type = -1;
+		public String name;
+		public String className;//类节点才有
 		public ArrayList<Node> mSubNodeList;
 		
 		public Node() {
 		}
 		
 		public Node(String name, int type) {
-			mName = name;
-			mType = type;
+			this.name = name;
+			this.type = type;
+		}
+		
+		public Node(String name, int type, String className) {
+			this(name, type);
+			this.className = className;
 		}
 		
 	}
-
+	
 }

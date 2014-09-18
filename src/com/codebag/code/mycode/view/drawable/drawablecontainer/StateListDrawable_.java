@@ -9,7 +9,8 @@ import android.view.View;
 import android.view.View.*;
 import android.widget.Button;
 
-import com.codebag.bag.CaseListView;
+import com.codebag.bag.MainActivity;
+import com.codebag.bag.MyCode;
 import com.codebag.bag.Entry;
 import com.codebag.code.mycode.utils.Log;
 import com.codebag.code.mycode.utils.MultiViews;
@@ -37,12 +38,12 @@ import com.codebag.code.mycode.utils.MultiViews.MyAdapter;
  *  
  *  注意点：StateListDrawable的状态设置范围要从小到大
  */			
-public class StateListDrawable_ extends CaseListView implements OnClickListener{
+public class StateListDrawable_ extends MyCode implements OnClickListener{
 
 	StateListDrawable sd = new StateListDrawable();
 	Button show = null;
 	
-	public StateListDrawable_(Context context) {
+	public StateListDrawable_(MainActivity context) {
 		super(context);
 		sd.addState(new int[]{android.R.attr.state_enabled, android.R.attr.state_pressed}, new ColorDrawable(Color.RED));
 		sd.addState(new int[]{android.R.attr.state_enabled, android.R.attr.state_selected}, new ColorDrawable(Color.YELLOW));
@@ -54,14 +55,14 @@ public class StateListDrawable_ extends CaseListView implements OnClickListener{
 	
 	@Entry
 	public void show() {
-		MultiViews views = new MultiViews(getContext());
+		MultiViews views = new MultiViews(getActivity());
 		views.setAdapter(new MyAdapter() {
 			Button b = null;
 			@Override
 			public View getView(int position) {
 				switch(position) {
 				case 0:
-					show = new Button(getContext()) {
+					show = new Button(getActivity()) {
 
 						@Override
 						public boolean onTouchEvent(MotionEvent event) {
@@ -80,32 +81,32 @@ public class StateListDrawable_ extends CaseListView implements OnClickListener{
 					b = show;
 					break;
 				case 1:
-					b = new Button(getContext());
+					b = new Button(getActivity());
 					b.setText("enable");
 					b.setOnClickListener(StateListDrawable_.this);
 					break;
 				case 2:
-					b = new Button(getContext());
+					b = new Button(getActivity());
 					b.setText("disable");
 					b.setOnClickListener(StateListDrawable_.this);
 					break;
 				case 3:
-					b = new Button(getContext());
+					b = new Button(getActivity());
 					b.setText("focused");
 					b.setOnClickListener(StateListDrawable_.this);
 					break;
 				case 4:
-					b = new Button(getContext());
+					b = new Button(getActivity());
 					b.setText("lose focused");
 					b.setOnClickListener(StateListDrawable_.this);
 					break;
 				case 5:
-					b = new Button(getContext());
+					b = new Button(getActivity());
 					b.setText("selected");
 					b.setOnClickListener(StateListDrawable_.this);
 					break;
 				case 6:
-					b = new Button(getContext());
+					b = new Button(getActivity());
 					b.setText("disSelected");
 					b.setOnClickListener(StateListDrawable_.this);
 					break;

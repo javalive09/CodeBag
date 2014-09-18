@@ -5,7 +5,8 @@ import android.graphics.Color;
 import android.widget.TextView;
 
 import com.codebag.R;
-import com.codebag.bag.CaseListView;
+import com.codebag.bag.MainActivity;
+import com.codebag.bag.MyCode;
 import com.codebag.bag.Entry;
 
 /**
@@ -20,17 +21,17 @@ import com.codebag.bag.Entry;
  * %s   （表示字符串） 
  * 参考：http://blueram.iteye.com/blog/441683
  */
-public class StringFormat extends CaseListView{
+public class StringFormat extends MyCode{
 
-	public StringFormat(Context context) {
+	public StringFormat(MainActivity context) {
 		super(context);
 	}
 	
 	@Entry
 	public void format_name() {
-		String nameFormat = getResources().getString(R.string.format_test_name);
+		String nameFormat = getActivity().getResources().getString(R.string.format_test_name);
 		String name = String.format(nameFormat, "张瑞");
-		TextView tv = new TextView(getContext());
+		TextView tv = new TextView(getActivity());
 		tv.setBackgroundColor(Color.WHITE);
 		tv.setText(name);
 		showView(tv);
@@ -38,9 +39,9 @@ public class StringFormat extends CaseListView{
 	
 	@Entry
 	public void format_old() {
-		String nameFormat = getResources().getString(R.string.format_test_old);
+		String nameFormat = getActivity().getResources().getString(R.string.format_test_old);
 		String name = String.format(nameFormat, 20);
-		TextView tv = new TextView(getContext());
+		TextView tv = new TextView(getActivity());
 		tv.setBackgroundColor(Color.WHITE);
 		tv.setText(name);
 		showView(tv);
@@ -48,9 +49,9 @@ public class StringFormat extends CaseListView{
 	
 	@Entry
 	public void format_name_place() {
-		String nameFormat = getResources().getString(R.string.format_test_name_place);
+		String nameFormat = getActivity().getResources().getString(R.string.format_test_name_place);
 		String name = String.format(nameFormat, "张瑞", "辽宁");
-		TextView tv = new TextView(getContext());
+		TextView tv = new TextView(getActivity());
 		tv.setBackgroundColor(Color.WHITE);
 		tv.setText(name);
 		showView(tv);
@@ -58,9 +59,9 @@ public class StringFormat extends CaseListView{
 	
 	@Entry
 	public void format_name_place_old() {
-		String nameFormat = getResources().getString(R.string.format_test_name_place_old);
+		String nameFormat = getActivity().getResources().getString(R.string.format_test_name_place_old);
 		String name = String.format(nameFormat, "张瑞", "辽宁", 20);
-		TextView tv = new TextView(getContext());
+		TextView tv = new TextView(getActivity());
 		tv.setBackgroundColor(Color.WHITE);
 		tv.setText(name);
 		showView(tv);

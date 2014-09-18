@@ -6,7 +6,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.widget.Toast;
 
-import com.codebag.bag.CaseListView;
+import com.codebag.bag.MainActivity;
+import com.codebag.bag.MyCode;
 import com.codebag.bag.Entry;
 
 /**
@@ -15,19 +16,19 @@ import com.codebag.bag.Entry;
  * @author peter
  *
  */
-public class TestInvokeOtherAppService extends CaseListView {
+public class TestInvokeOtherAppService extends MyCode {
 
-	public TestInvokeOtherAppService(Context context) {
+	public TestInvokeOtherAppService(MainActivity context) {
 		super(context);
 	}
 	
 	@Entry()
 	public void runOtherService() {
-		Toast.makeText(getContext(), "run_otherService", Toast.LENGTH_SHORT).show();
+		Toast.makeText(getActivity(), "run_otherService", Toast.LENGTH_SHORT).show();
 		Intent intent = new Intent();
 		ComponentName componentName = new ComponentName("com.lockscreen", "com.lockscreen.LockService");
 		intent.setComponent(componentName);
-		getContext().startService(intent);
+		getActivity().startService(intent);
 	}
 	
 }

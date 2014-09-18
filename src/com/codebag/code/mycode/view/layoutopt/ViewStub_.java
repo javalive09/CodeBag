@@ -1,22 +1,24 @@
 package com.codebag.code.mycode.view.layoutopt;
 
 import android.content.Context;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewStub;
 import android.widget.Button;
 import android.view.View.*;
 
 import com.codebag.R;
-import com.codebag.bag.CaseListView;
+import com.codebag.bag.MainActivity;
+import com.codebag.bag.MyCode;
 import com.codebag.bag.Entry;
 import com.codebag.code.mycode.utils.MultiViews;
 import com.codebag.code.mycode.utils.MultiViews.MyAdapter;
 
-public class ViewStub_ extends CaseListView implements OnClickListener{
+public class ViewStub_ extends MyCode implements OnClickListener{
 
 	View mView;
 	
-	public ViewStub_(Context context) {
+	public ViewStub_(MainActivity context) {
 		super(context);
 	}
 
@@ -26,24 +28,25 @@ public class ViewStub_ extends CaseListView implements OnClickListener{
 	 */
 	@Entry
 	public void showViewStub() {
-		MultiViews views = new MultiViews(getContext(), 1);
+		MultiViews views = new MultiViews(getActivity(), 1);
 		views.setAdapter(new MyAdapter() {
 			
 			@Override
 			public View getView(int position) {
 				switch(position) {
 				case 0:
-					Button bt = new Button(getContext());
+					Button bt = new Button(getActivity());
 					bt.setText("stub1");
 					bt.setOnClickListener(ViewStub_.this);
 					return bt;
 				case 1:
-					bt = new Button(getContext());
+					bt = new Button(getActivity());
 					bt.setText("stub2");
 					bt.setOnClickListener(ViewStub_.this);
 					return bt;
 				case 2:
-					return mView = inflate(getContext(), R.layout.viewstub, null);
+					 LayoutInflater factory = LayoutInflater.from(getActivity());
+					return mView = factory.inflate(R.layout.viewstub, null, false);
 				}
 				return null;
 			}

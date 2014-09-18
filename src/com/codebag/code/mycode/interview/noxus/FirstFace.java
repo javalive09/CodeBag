@@ -5,7 +5,8 @@ import java.util.HashMap;
 import android.content.Context;
 import android.graphics.Color;
 
-import com.codebag.bag.CaseListView;
+import com.codebag.bag.MainActivity;
+import com.codebag.bag.MyCode;
 import com.codebag.bag.Entry;
 import com.codebag.code.mycode.utils.Log;
 
@@ -16,9 +17,9 @@ import com.codebag.code.mycode.utils.Log;
  * @author peter
  *
  */
-public class FirstFace extends CaseListView {
+public class FirstFace extends MyCode {
 
-	public FirstFace(Context context) {
+	public FirstFace(MainActivity context) {
 		super(context);
 	}
 
@@ -33,9 +34,9 @@ public class FirstFace extends CaseListView {
 	
 	@Entry
 	public void viewOnTouchReturnFalse() {
-		FatherView fv = new FatherView(getContext());
+		FatherView fv = new FatherView(getActivity());
 		fv.setBackgroundColor(Color.BLUE);
-		SonViewOne sv = new SonViewOne(getContext());
+		SonViewOne sv = new SonViewOne(getActivity());
 		sv.setBackgroundColor(Color.GREEN);
 		fv.addView(sv);
 		showView(fv);
@@ -43,9 +44,9 @@ public class FirstFace extends CaseListView {
 	
 	@Entry
 	public void viewOnTouchReturnTrue() {
-		FatherView fv = new FatherView(getContext());
+		FatherView fv = new FatherView(getActivity());
 		fv.setBackgroundColor(Color.BLUE);
-		SonViewTwo sv = new SonViewTwo(getContext());
+		SonViewTwo sv = new SonViewTwo(getActivity());
 		sv.setBackgroundColor(Color.GREEN);
 		fv.addView(sv);
 		showView(fv);
@@ -53,11 +54,11 @@ public class FirstFace extends CaseListView {
 	
 	@Entry
 	public void fatherViewOnTouchReturnFalse() {
-		GrandFatherView gv = new GrandFatherView(getContext());
+		GrandFatherView gv = new GrandFatherView(getActivity());
 		gv.setBackgroundColor(Color.GRAY);
-		FatherView fv = new FatherView(getContext());
+		FatherView fv = new FatherView(getActivity());
 		fv.setBackgroundColor(Color.BLUE);
-		SonViewOne sv = new SonViewOne(getContext());
+		SonViewOne sv = new SonViewOne(getActivity());
 		sv.setBackgroundColor(Color.GREEN);
 		fv.addView(sv);
 		gv.addView(fv);

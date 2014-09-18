@@ -5,7 +5,8 @@ import android.graphics.Color;
 import android.widget.TextView;
 
 import com.codebag.R;
-import com.codebag.bag.CaseListView;
+import com.codebag.bag.MainActivity;
+import com.codebag.bag.MyCode;
 import com.codebag.bag.Entry;
 
 /**
@@ -24,9 +25,9 @@ import com.codebag.bag.Entry;
  * %s   （表示字符串） 
  * 
  */
-public class XLIFF extends CaseListView{
+public class XLIFF extends MyCode{
 
-	public XLIFF(Context context) {
+	public XLIFF(MainActivity context) {
 		super(context);
 	}
 	

@@ -3,18 +3,19 @@ package com.codebag.code.mycode.cleanmaster.cleanmasteranim_wave;
 import android.content.Context;
 import android.graphics.Color;
 
-import com.codebag.bag.CaseListView;
+import com.codebag.bag.MainActivity;
+import com.codebag.bag.MyCode;
 import com.codebag.bag.Entry;
 
-public class Invoker4 extends CaseListView {
+public class Invoker4 extends MyCode {
 
-	public Invoker4(Context context) {
+	public Invoker4(MainActivity context) {
 		super(context);
 	}
 
 	@Entry
 	public void showCakeWaveView() {
-		CakeWaveView2 v = new CakeWaveView2(getContext());
+		CakeWaveView2 v = new CakeWaveView2(getActivity());
 		int waveColor = Color.parseColor("#33ffffff");
 		int cirCleColor = Color.parseColor("#24a0ff");
 		v.setData(500, 11);
@@ -25,7 +26,7 @@ public class Invoker4 extends CaseListView {
 	
 	@Entry
 	public void animCakeWaveView() {
-		CakeWaveView2 v = new CakeWaveView2(getContext());
+		CakeWaveView2 v = new CakeWaveView2(getActivity());
 		int waveColor = Color.parseColor("#33ffffff");
 		int cirCleColor = Color.parseColor("#24a0ff");
 		v.setData(500, 20);

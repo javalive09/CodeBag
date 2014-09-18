@@ -4,7 +4,8 @@ import java.util.regex.Pattern;
 
 import android.content.Context;
 
-import com.codebag.bag.CaseListView;
+import com.codebag.bag.MainActivity;
+import com.codebag.bag.MyCode;
 import com.codebag.bag.Entry;
 import com.codebag.code.mycode.utils.Log;
 
@@ -14,9 +15,9 @@ import com.codebag.code.mycode.utils.Log;
  * @author peter
  *
  */
-public class TestPatternIP extends CaseListView {
+public class TestPatternIP extends MyCode {
 
-	public TestPatternIP(Context context) {
+	public TestPatternIP(MainActivity context) {
 		super(context);
 	}
 

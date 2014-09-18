@@ -3,13 +3,14 @@ package com.codebag.code.mycode.test;
 
 import android.content.Context;
 
-import com.codebag.bag.CaseListView;
+import com.codebag.bag.MainActivity;
+import com.codebag.bag.MyCode;
 import com.codebag.bag.Entry;
 import com.codebag.code.mycode.utils.Log;
 
-public class DeadLock extends CaseListView {
+public class DeadLock extends MyCode {
 
-	public DeadLock(Context context) {
+	public DeadLock(MainActivity context) {
 		super(context);
 	}
 

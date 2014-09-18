@@ -198,7 +198,7 @@ public class CradCleanDial2 extends FrameLayout {
 	
 	public View setSplitBall(int res) {
 		mSmallMarkImage.setBackgroundResource(R.drawable.card_danager_scan_small);
-		View splitBall = new View(getContext());
+		View splitBall = new View(getActivity());
 		splitBall.setBackgroundResource(res);
 		mSmallMarkImage.addView(splitBall);
 		return splitBall;

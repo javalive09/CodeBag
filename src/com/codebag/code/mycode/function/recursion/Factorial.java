@@ -2,7 +2,8 @@ package com.codebag.code.mycode.function.recursion;
 
 import android.content.Context;
 
-import com.codebag.bag.CaseListView;
+import com.codebag.bag.MainActivity;
+import com.codebag.bag.MyCode;
 import com.codebag.bag.Entry;
 import com.codebag.code.mycode.utils.Log;
 
@@ -12,9 +13,9 @@ import com.codebag.code.mycode.utils.Log;
  * @author peter
  *
  */
-public class Factorial extends CaseListView {
+public class Factorial extends MyCode {
 
-	public Factorial(Context context) {
+	public Factorial(MainActivity context) {
 		super(context);
 	}
 	

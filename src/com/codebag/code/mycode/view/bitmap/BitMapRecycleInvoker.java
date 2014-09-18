@@ -7,12 +7,13 @@ import android.graphics.drawable.Drawable;
 import android.widget.ImageView;
 
 import com.codebag.R;
-import com.codebag.bag.CaseListView;
+import com.codebag.bag.MainActivity;
+import com.codebag.bag.MyCode;
 import com.codebag.bag.Entry;
 
-public class BitMapRecycleInvoker extends CaseListView {
+public class BitMapRecycleInvoker extends MyCode {
 
-	public BitMapRecycleInvoker(Context context) {
+	public BitMapRecycleInvoker(MainActivity context) {
 		super(context);
 	}
 	
@@ -20,7 +21,7 @@ public class BitMapRecycleInvoker extends CaseListView {
 
 	@Entry
 	public void show() {
-		iv = new ImageView(getContext());
+		iv = new ImageView(getActivity());
 		iv.setBackgroundResource(R.drawable.card_danager_memory);
 		showView(iv);
 	}

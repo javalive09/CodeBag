@@ -3,12 +3,13 @@ package com.codebag.code.mycode.view.layoutopt;
 import android.content.Context;
 
 import com.codebag.R;
-import com.codebag.bag.CaseListView;
+import com.codebag.bag.MainActivity;
+import com.codebag.bag.MyCode;
 import com.codebag.bag.Entry;
 
-public class Merge extends CaseListView {
+public class Merge extends MyCode {
 
-	public Merge(Context context) {
+	public Merge(MainActivity context) {
 		super(context);
 	}
 	
@@ -18,7 +19,7 @@ public class Merge extends CaseListView {
 	 */
 	@Entry
 	public void showMerge() {
-		showView(R.layout.merge);
+//		showView(R.layout.merge);
 	}
 
 }

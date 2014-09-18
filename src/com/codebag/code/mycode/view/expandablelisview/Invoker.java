@@ -4,32 +4,35 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.content.Context;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ExpandableListView;
 import android.widget.ExpandableListView.OnGroupClickListener;
 
 import com.codebag.R;
-import com.codebag.bag.CaseListView;
+import com.codebag.bag.MainActivity;
+import com.codebag.bag.MyCode;
 import com.codebag.bag.Entry;
 
-public class Invoker extends CaseListView {
+public class Invoker extends MyCode {
 
 	private ExpandableListView listView;
 	private List<String> group;
 	private List<List<String>> child;
 	private MyAdapter adapter;
 
-	public Invoker(Context context) {
+	public Invoker(MainActivity context) {
 		super(context);
 	}
 
 	@Entry
 	public void showExpandList() {
-		View root = inflate(getContext(), R.layout.expand_list_view, null);
+		LayoutInflater factory = LayoutInflater.from(getActivity());
+		View root = factory.inflate(R.layout.expand_list_view, null, false);
 		listView = (ExpandableListView) root
 				.findViewById(R.id.expandableListView);
 		initData();
-		adapter = new MyAdapter(getContext(), group, child);
+		adapter = new MyAdapter(getActivity(), group, child);
 		listView.setAdapter(adapter);
 		for (int i = 0; i < adapter.getGroupCount(); i++) {
 			listView.expandGroup(i);

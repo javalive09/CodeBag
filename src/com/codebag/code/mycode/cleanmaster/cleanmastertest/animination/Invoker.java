@@ -8,11 +8,12 @@ import android.view.animation.AnimationSet;
 import android.view.animation.RotateAnimation;
 import android.view.animation.ScaleAnimation;
 
-import com.codebag.bag.CaseListView;
+import com.codebag.bag.MainActivity;
+import com.codebag.bag.MyCode;
 
-public class Invoker extends CaseListView {
+public class Invoker extends MyCode {
 
-	public Invoker(Context context) {
+	public Invoker(MainActivity context) {
 		super(context);
 	}
 	

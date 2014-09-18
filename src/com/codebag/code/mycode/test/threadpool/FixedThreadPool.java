@@ -6,7 +6,8 @@ import java.util.concurrent.Executors;
 
 import android.content.Context;
 
-import com.codebag.bag.CaseListView;
+import com.codebag.bag.MainActivity;
+import com.codebag.bag.MyCode;
 import com.codebag.bag.Entry;
 /**
  * FixedThreadPool 保持固定数量线程的线程池
@@ -14,9 +15,9 @@ import com.codebag.bag.Entry;
  * @author peter
  *
  */
-public class FixedThreadPool extends CaseListView {
+public class FixedThreadPool extends MyCode {
 
-	public FixedThreadPool(Context context) {
+	public FixedThreadPool(MainActivity context) {
 		super(context);
 	}
 

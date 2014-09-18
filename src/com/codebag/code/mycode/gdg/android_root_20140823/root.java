@@ -2,11 +2,12 @@ package com.codebag.code.mycode.gdg.android_root_20140823;
 
 import android.content.Context;
 
-import com.codebag.bag.CaseListView;
+import com.codebag.bag.MainActivity;
+import com.codebag.bag.MyCode;
 
-public class root extends CaseListView {
+public class root extends MyCode {
 
-	public root(Context context) {
+	public root(MainActivity context) {
 		super(context);
 	}
 

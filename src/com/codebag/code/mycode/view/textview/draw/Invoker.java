@@ -3,18 +3,19 @@ package com.codebag.code.mycode.view.textview.draw;
 import android.content.Context;
 import android.graphics.Color;
 
-import com.codebag.bag.CaseListView;
+import com.codebag.bag.MainActivity;
+import com.codebag.bag.MyCode;
 import com.codebag.bag.Entry;
 
-public class Invoker extends CaseListView {
+public class Invoker extends MyCode {
 
-	public Invoker(Context context) {
+	public Invoker(MainActivity context) {
 		super(context);
 	}
 	
 	@Entry
 	public void show() {
-		MyTextView mv = new MyTextView(getContext());
+		MyTextView mv = new MyTextView(getActivity());
 		mv.setText("123");
 		mv.setTextColor(Color.BLUE);
 		showView(mv);

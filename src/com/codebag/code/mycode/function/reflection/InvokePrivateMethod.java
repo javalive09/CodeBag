@@ -4,7 +4,8 @@ import java.lang.reflect.Method;
 
 import android.content.Context;
 
-import com.codebag.bag.CaseListView;
+import com.codebag.bag.MainActivity;
+import com.codebag.bag.MyCode;
 import com.codebag.bag.Entry;
 import com.codebag.code.mycode.function.reflection.Reflection.Test;
 import com.codebag.code.mycode.utils.Log;
@@ -18,11 +19,11 @@ import com.codebag.code.mycode.utils.Log;
  * @author zhangrui-ms
  *
  */
-public class InvokePrivateMethod extends CaseListView {
+public class InvokePrivateMethod extends MyCode {
 
 	Reflection reflection;
 
-	public InvokePrivateMethod(Context context) {
+	public InvokePrivateMethod(MainActivity context) {
 		super(context);
 		reflection = new Reflection();
 	}

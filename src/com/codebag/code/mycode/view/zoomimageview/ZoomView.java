@@ -6,12 +6,13 @@ import android.graphics.BitmapFactory;
 import android.graphics.Color;
 
 import com.codebag.R;
-import com.codebag.bag.CaseListView;
+import com.codebag.bag.MainActivity;
+import com.codebag.bag.MyCode;
 import com.codebag.bag.Entry;
 
-public class ZoomView extends CaseListView {
+public class ZoomView extends MyCode {
 
-	public ZoomView(Context context) {
+	public ZoomView(MainActivity context) {
 		super(context);
 	}
 	
@@ -19,7 +20,7 @@ public class ZoomView extends CaseListView {
 	public void show1() {
 
 		
-		ZoomImageView view = new ZoomImageView(getContext());
+		ZoomImageView view = new ZoomImageView(getActivity());
 		view.setImageResource(R.drawable.head);
 		view.setBackgroundColor(Color.BLACK);
 		
@@ -29,8 +30,8 @@ public class ZoomView extends CaseListView {
 	@Entry()
 	public void show2() {
 		
-		MyImageView view = new MyImageView(getContext(), 1000,1000);
-		Bitmap bitMap = BitmapFactory.decodeResource(getResources(), R.drawable.head);
+		MyImageView view = new MyImageView(getActivity(), 1000,1000);
+		Bitmap bitMap = BitmapFactory.decodeResource(getActivity().getResources(), R.drawable.head);
 		view.setImageBitmap(bitMap);
 		view.setBackgroundColor(Color.BLACK);
 		

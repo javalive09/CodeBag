@@ -14,7 +14,8 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 
 import com.codebag.R;
-import com.codebag.bag.CaseListView;
+import com.codebag.bag.MainActivity;
+import com.codebag.bag.MyCode;
 import com.codebag.bag.Entry;
 
 /**
@@ -24,19 +25,19 @@ import com.codebag.bag.Entry;
  * 
  * 注意可以有范围控制minLevel, maxLevel如：wifi强度1-20用第一张drawable 20-40用第二张drawable
  */
-public class LevelListDrawable_ extends CaseListView implements OnClickListener{
+public class LevelListDrawable_ extends MyCode implements OnClickListener{
 	
 	LevelListDrawable ad = new LevelListDrawable();
 	
-	public LevelListDrawable_(Context context) {
+	public LevelListDrawable_(MainActivity context) {
 		super(context);
 		
-		Bitmap bitmap0 = BitmapFactory.decodeResource(getResources(), R.drawable.wifi0);
-		Bitmap bitmap1 = BitmapFactory.decodeResource(getResources(), R.drawable.wifi1);
-		Bitmap bitmap2 = BitmapFactory.decodeResource(getResources(), R.drawable.wifi2);
-		Bitmap bitmap3 = BitmapFactory.decodeResource(getResources(), R.drawable.wifi3);
-		Bitmap bitmap4 = BitmapFactory.decodeResource(getResources(), R.drawable.wifi4);
-		Bitmap bitmap5 = BitmapFactory.decodeResource(getResources(), R.drawable.wifi5);
+		Bitmap bitmap0 = BitmapFactory.decodeResource(getActivity().getResources(), R.drawable.wifi0);
+		Bitmap bitmap1 = BitmapFactory.decodeResource(getActivity().getResources(), R.drawable.wifi1);
+		Bitmap bitmap2 = BitmapFactory.decodeResource(getActivity().getResources(), R.drawable.wifi2);
+		Bitmap bitmap3 = BitmapFactory.decodeResource(getActivity().getResources(), R.drawable.wifi3);
+		Bitmap bitmap4 = BitmapFactory.decodeResource(getActivity().getResources(), R.drawable.wifi4);
+		Bitmap bitmap5 = BitmapFactory.decodeResource(getActivity().getResources(), R.drawable.wifi5);
 		
 		ad.addLevel(0, 0, new BitmapDrawable(bitmap0));
 		ad.addLevel(1, 1, new BitmapDrawable(bitmap1));
@@ -49,18 +50,18 @@ public class LevelListDrawable_ extends CaseListView implements OnClickListener{
 	
 	@Entry
 	public void show() {
-		FrameLayout fl = new FrameLayout(getContext());
-		ImageView iv = new ImageView(getContext());
+		FrameLayout fl = new FrameLayout(getActivity());
+		ImageView iv = new ImageView(getActivity());
 		iv.setBackgroundDrawable(ad);
 		
-		fl.addView(iv, wrapContentParams(Gravity.CENTER | Gravity.CENTER_HORIZONTAL));
+//		fl.addView(iv, wrapContentParams(Gravity.CENTER | Gravity.CENTER_HORIZONTAL));
 		
-		Button start = new Button(getContext());
+		Button start = new Button(getActivity());
 		start.setText("next");
 		start.setId(0);
 		start.setOnClickListener(this);
 		
-		fl.addView(start, wrapContentParams(Gravity.BOTTOM|Gravity.CENTER_HORIZONTAL));
+//		fl.addView(start, wrapContentParams(Gravity.BOTTOM|Gravity.CENTER_HORIZONTAL));
 		fl.setBackgroundColor(Color.WHITE);
 		showView(fl);
 	}

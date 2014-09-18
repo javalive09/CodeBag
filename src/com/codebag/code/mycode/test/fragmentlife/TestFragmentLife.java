@@ -4,7 +4,8 @@ package com.codebag.code.mycode.test.fragmentlife;
 import android.content.Context;
 import android.content.Intent;
 
-import com.codebag.bag.CaseListView;
+import com.codebag.bag.MainActivity;
+import com.codebag.bag.MyCode;
 import com.codebag.bag.Entry;
 
 /**
@@ -13,20 +14,20 @@ import com.codebag.bag.Entry;
  * @author peter
  *
  */
-public class TestFragmentLife extends CaseListView {
+public class TestFragmentLife extends MyCode {
 
-	public TestFragmentLife(Context context) {
+	public TestFragmentLife(MainActivity context) {
 		super(context);
 	}
 
 	@Entry()
 	public void runFragmentActivity() {
-		getContext().startActivity(new Intent(getContext(),MyFragmentActivity.class));
+		getActivity().startActivity(new Intent(getActivity(),MyFragmentActivity.class));
 	}
 	
 	@Entry()
 	public void runViewPagerFragmentAct() {
-		getContext().startActivity(new Intent(getContext(),ViewPagerFragmentActivity.class));
+		getActivity().startActivity(new Intent(getActivity(),ViewPagerFragmentActivity.class));
 	}
 	
 }

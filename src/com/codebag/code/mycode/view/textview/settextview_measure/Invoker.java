@@ -8,11 +8,12 @@ import android.os.Message;
 import android.view.Gravity;
 import android.widget.TextView;
 
-import com.codebag.bag.CaseListView;
+import com.codebag.bag.MainActivity;
+import com.codebag.bag.MyCode;
 import com.codebag.bag.Entry;
 import com.codebag.code.mycode.utils.Log;
 
-public class Invoker extends CaseListView {
+public class Invoker extends MyCode {
 
 	TextView view;
 	
@@ -20,7 +21,7 @@ public class Invoker extends CaseListView {
 	
 	int requestCount;
 	
-	public Invoker(Context context) {
+	public Invoker(MainActivity context) {
 		super(context);
 		view = new TextView(context) {
 
@@ -42,7 +43,7 @@ public class Invoker extends CaseListView {
 	
 	@Entry
 	public void setText() {
-		showView(view, wrapH_fillW_Params(Gravity.CENTER));
+//		showView(view, wrapH_fillW_Params(Gravity.CENTER));
 		mHandler.sendEmptyMessageDelayed(0, 100);
 	}
 	

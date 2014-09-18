@@ -2,12 +2,13 @@ package com.codebag.code.mycode.interview.three60;
 
 import android.content.Context;
 
-import com.codebag.bag.CaseListView;
+import com.codebag.bag.MainActivity;
+import com.codebag.bag.MyCode;
 import com.codebag.bag.Entry;
 
-public class ThreeFace extends CaseListView {
+public class ThreeFace extends MyCode {
 
-	public ThreeFace(Context context) {
+	public ThreeFace(MainActivity context) {
 		super(context);
 	}
 	

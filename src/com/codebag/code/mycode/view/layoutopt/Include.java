@@ -6,12 +6,13 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.codebag.R;
-import com.codebag.bag.CaseListView;
+import com.codebag.bag.MainActivity;
+import com.codebag.bag.MyCode;
 import com.codebag.bag.Entry;
 
-public class Include extends CaseListView {
+public class Include extends MyCode {
 
-	public Include(Context context) {
+	public Include(MainActivity context) {
 		super(context);
 	}
 	
@@ -20,16 +21,16 @@ public class Include extends CaseListView {
 	 */
 	@Entry
 	public void showInclude() {
-		showView(R.layout.include);
-		
-		View c = getContainer();
-		View top = c.findViewById(R.id.top);
-		ImageView topImg = (ImageView) top.findViewById(R.id.iv);
-		topImg.setBackgroundResource(R.drawable.card_danager_privacy);
-		
-		View center = c.findViewById(R.id.center);
-		ImageView centerImg = (ImageView) center.findViewById(R.id.iv);
-		centerImg.setBackgroundResource(R.drawable.card_danager_storage);
+//		showView(R.layout.include);
+//		
+//		View c = getContainer();
+//		View top = c.findViewById(R.id.top);
+//		ImageView topImg = (ImageView) top.findViewById(R.id.iv);
+//		topImg.setBackgroundResource(R.drawable.card_danager_privacy);
+//		
+//		View center = c.findViewById(R.id.center);
+//		ImageView centerImg = (ImageView) center.findViewById(R.id.iv);
+//		centerImg.setBackgroundResource(R.drawable.card_danager_storage);
 		
 	}
 

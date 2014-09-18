@@ -9,24 +9,25 @@ import android.widget.Button;
 import android.widget.FrameLayout;
 
 import com.codebag.R;
-import com.codebag.bag.CaseListView;
+import com.codebag.bag.MainActivity;
+import com.codebag.bag.MyCode;
 import com.codebag.bag.Entry;
 import com.codebag.code.mycode.cleanmaster.cleanmasteranim_wave.CradCleanDial;
 import com.codebag.code.mycode.utils.DisplayUtil;
 import com.codebag.code.mycode.utils.MultiViews;
 import com.codebag.code.mycode.utils.MultiViews.MyAdapter;
 
-public class Invoker3 extends CaseListView {
+public class Invoker3 extends MyCode {
 public CradCleanDial c;
 	
-	public Invoker3(Context context) {
+	public Invoker3(MainActivity context) {
 		super(context);
 		c = new CradCleanDial(context);
 	}
 	
 	@Entry
 	public void showButtons() {
-		MultiViews buttons = new MultiViews(getContext(), 3);
+		MultiViews buttons = new MultiViews(getActivity(), 3);
 		buttons.setAdapter(new MyAdapter(){
 
 			@Override
@@ -36,7 +37,7 @@ public CradCleanDial c;
 
 			@Override
 			public View getView(int position) {
-				Button b = new Button(getContext());
+				Button b = new Button(getActivity());
 				b.setOnClickListener(listener);
 				b.setText(position + "");
 				return b;
@@ -44,12 +45,12 @@ public CradCleanDial c;
 			
 		});
 		
-		FrameLayout fl = new FrameLayout(getContext());
-		int d = DisplayUtil.dip2px(getContext(), 110);
+		FrameLayout fl = new FrameLayout(getActivity());
+		int d = DisplayUtil.dip2px(getActivity(), 110);
 		FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(d, d);
 		params.gravity = Gravity.CENTER;
 		fl.addView(c, params);
-		fl.addView(buttons, fillParentParams(Gravity.BOTTOM));
+//		fl.addView(buttons, fillParentParams(Gravity.BOTTOM));
 		fl.setBackgroundColor(Color.DKGRAY);
 		showView(fl);
 	}

@@ -2,11 +2,12 @@ package com.codebag.code.mycode.studypoint.year_2014;
 
 import android.content.Context;
 
-import com.codebag.bag.CaseListView;
+import com.codebag.bag.MainActivity;
+import com.codebag.bag.MyCode;
 
-public class study_2014_8_12 extends CaseListView {
+public class study_2014_8_12 extends MyCode {
 
-	public study_2014_8_12(Context context) {
+	public study_2014_8_12(MainActivity context) {
 		super(context);
 	}
 

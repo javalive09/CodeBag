@@ -5,27 +5,29 @@ import android.graphics.Color;
 import android.view.Gravity;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.LinearLayout.LayoutParams;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.codebag.bag.CaseListView;
+import com.codebag.bag.MainActivity;
+import com.codebag.bag.MyCode;
 import com.codebag.bag.Entry;
 
-public class MyTextview extends CaseListView {
+public class MyTextview extends MyCode {
 
-	public MyTextview(Context context) {
+	public MyTextview(MainActivity context) {
 		super(context);
 	}
 	
 	@Entry
 	public void invoke_linearlayout() {
-		LinearLayout mText = new LinearLayout(getContext());
+		LinearLayout mText = new LinearLayout(getActivity());
 		mText.setOrientation(LinearLayout.VERTICAL);
-		LinearLayout l = new LinearLayout(getContext());
+		LinearLayout l = new LinearLayout(getActivity());
 		l.setGravity(Gravity.CENTER);
 		
 		//百分比数字
-		TextView mNum = new TextView(getContext());
+		TextView mNum = new TextView(getActivity());
 		mNum.setTextSize(36);
 		mNum.setTextColor(Color.WHITE);
 		mNum.setLineSpacing(0.0f, 0.8f);
@@ -35,14 +37,14 @@ public class MyTextview extends CaseListView {
 		mNum.setText("88");
 		
 		//已使用文字
-		TextView used = new TextView(getContext());
+		TextView used = new TextView(getActivity());
 		used.setTextSize(14);
 		used.setTextColor(Color.WHITE);
 		used.setGravity(Gravity.CENTER | Gravity.TOP);
 		used.setText("已用");
 		used.setGravity(Gravity.CENTER);
 		//百分比符号
-		TextView mPercentSign = new TextView(getContext());
+		TextView mPercentSign = new TextView(getActivity());
 		mPercentSign.setText("%");
 		mPercentSign.setTextSize(12);
 		mPercentSign.setPadding(0, 13, 0, 0);
@@ -76,20 +78,19 @@ public class MyTextview extends CaseListView {
 		paramsWrap.gravity = Gravity.CENTER;
 		paramsFill.gravity = Gravity.CENTER;
 		
-		showView(mText, wrapContentParams(Gravity.CENTER));
+//		showView(mText, wrapContentParams(Gravity.CENTER));
 		
 	}
 	
 	@Entry
 	public void invoke_relativelayout() {
-		RelativeLayout mText = new RelativeLayout(getContext());
+		RelativeLayout mText = new RelativeLayout(getActivity());
 		
 		//百分比数字
-		TextView mNum = new TextView(getContext()){
+		TextView mNum = new TextView(getActivity()){
 
 			@Override
 			protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-				// TODO Auto-generated method stub
 				super.onMeasure(widthMeasureSpec, heightMeasureSpec);
 			}
 			
@@ -105,7 +106,7 @@ public class MyTextview extends CaseListView {
 		mNum.setLineSpacing(0.0f, 0.81f);
 		
 		//已使用文字
-		TextView used = new TextView(getContext());
+		TextView used = new TextView(getActivity());
 		used.setTextSize(14);
 		used.setTextColor(Color.WHITE);
 		used.setGravity(Gravity.CENTER | Gravity.TOP);
@@ -113,7 +114,7 @@ public class MyTextview extends CaseListView {
 		used.setGravity(Gravity.CENTER);
 		
 		//百分比符号
-		TextView mPercentSign = new TextView(getContext());
+		TextView mPercentSign = new TextView(getActivity());
 		mPercentSign.setText("%");
 		mPercentSign.setTextSize(12);
 		mPercentSign.setPadding(0, 13, 0, 0);

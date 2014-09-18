@@ -5,7 +5,8 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 
-import com.codebag.bag.CaseListView;
+import com.codebag.bag.MainActivity;
+import com.codebag.bag.MyCode;
 import com.codebag.bag.Entry;
 
 /**
@@ -16,9 +17,9 @@ import com.codebag.bag.Entry;
  * @author peter
  *
  */
-public class TestInvokeOtherAppActivity extends CaseListView {
+public class TestInvokeOtherAppActivity extends MyCode {
 
-	public TestInvokeOtherAppActivity(Context context) {
+	public TestInvokeOtherAppActivity(MainActivity context) {
 		super(context);
 	}
 
@@ -27,14 +28,14 @@ public class TestInvokeOtherAppActivity extends CaseListView {
 		Intent intent = new Intent();
 		ComponentName component = new ComponentName("com.peter.appmanager", "com.peter.appmanager.SettingActivity");
 		intent.setComponent(component);
-		getContext().startActivity(intent);
+		getActivity().startActivity(intent);
 	}
 	
 	@Entry
 	public void runOtherActivity2() {
 		Intent intent = new Intent();
 		intent.setAction("com.peter.foo");
-		getContext().startActivity(intent);
+		getActivity().startActivity(intent);
 	}
 	
 }

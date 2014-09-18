@@ -7,20 +7,21 @@ import android.view.LayoutInflater;
 import android.view.View;
 
 import com.codebag.R;
-import com.codebag.bag.CaseListView;
+import com.codebag.bag.MainActivity;
+import com.codebag.bag.MyCode;
 import com.codebag.bag.Entry;
 import com.codebag.code.mycode.utils.DisplayUtil;
 
-public class Invoker extends CaseListView {
+public class Invoker extends MyCode {
 
-	public Invoker(Context context) {
+	public Invoker(MainActivity context) {
 		super(context);
 	}
 	
 	@Entry
 	public void showViewCakeProgressBar() {
-		int mPly = DisplayUtil.dip2px(getContext(), 4);
-		CakeProgressBar c = new CakeProgressBar(getContext());
+		int mPly = DisplayUtil.dip2px(getActivity(), 4);
+		CakeProgressBar c = new CakeProgressBar(getActivity());
 		c.setData(500, mPly, 0);
 		c.setColor(0xE624a0ff, 0x19000000);
 		c.setProgress(40);
@@ -29,10 +30,10 @@ public class Invoker extends CaseListView {
 	
 	@Entry
 	public void showViewCakeProgressBar_xml() {
-		LayoutInflater inflater = LayoutInflater.from(getContext());
+		LayoutInflater inflater = LayoutInflater.from(getActivity());
 		View bar = inflater.inflate(R.layout.cakeprogressbar, null);
 		CakeProgressBar c = (CakeProgressBar) bar.findViewById(R.id.cakebar);
-		int mPly = DisplayUtil.dip2px(getContext(), 4);
+		int mPly = DisplayUtil.dip2px(getActivity(), 4);
 		c.setData(500, mPly, 0);
 		c.setColor(0xE624a0ff, 0x19000000);
 		c.setProgress(40);
@@ -41,10 +42,10 @@ public class Invoker extends CaseListView {
 	
 	@Entry
 	public void animCakeProgressBar() {
-		LayoutInflater inflater = LayoutInflater.from(getContext());
+		LayoutInflater inflater = LayoutInflater.from(getActivity());
 		View bar = inflater.inflate(R.layout.cakeprogressbar, null);
 		CakeProgressBar c = (CakeProgressBar) bar.findViewById(R.id.cakebar);
-		int mPly = DisplayUtil.dip2px(getContext(), 4);
+		int mPly = DisplayUtil.dip2px(getActivity(), 4);
 		c.setData(500, mPly, 3);
 		c.setColor(0xE624a0ff, 0x19000000);
 		c.startAnimination(40);
@@ -53,8 +54,8 @@ public class Invoker extends CaseListView {
 	
 	@Entry
 	public void animCakeProgressBar_xml() {
-		int mPly = DisplayUtil.dip2px(getContext(), 4);
-		CakeProgressBar c = new CakeProgressBar(getContext());
+		int mPly = DisplayUtil.dip2px(getActivity(), 4);
+		CakeProgressBar c = new CakeProgressBar(getActivity());
 		c.setData(500, mPly, 3);
 		c.setColor(0xE624a0ff, 0x19000000);
 		c.startAnimination(40);
@@ -64,7 +65,7 @@ public class Invoker extends CaseListView {
 	
 	@Entry
 	public void animCakeWaveView() {
-		CakeWaveView v = new CakeWaveView(getContext());
+		CakeWaveView v = new CakeWaveView(getActivity());
 		v.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
 		int waveColor = Color.parseColor("#33ffffff");
 		int cirCleColor = Color.parseColor("#24a0ff");
@@ -76,7 +77,7 @@ public class Invoker extends CaseListView {
 	
 	@Entry
 	public void animCakeWaveView_xml() {
-		LayoutInflater inflater = LayoutInflater.from(getContext());
+		LayoutInflater inflater = LayoutInflater.from(getActivity());
 		View cake = inflater.inflate(R.layout.cakeview, null);
 		CakeWaveView v = (CakeWaveView) cake.findViewById(R.id.cakeview);
 		v.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
@@ -90,7 +91,7 @@ public class Invoker extends CaseListView {
 	
 	@Entry
 	public void showCakeWaveView() {
-		CakeWaveView v = new CakeWaveView(getContext());
+		CakeWaveView v = new CakeWaveView(getActivity());
 		v.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
 		int waveColor = Color.parseColor("#33ffffff");
 		int cirCleColor = Color.parseColor("#24a0ff");
@@ -102,7 +103,7 @@ public class Invoker extends CaseListView {
 	
 	@Entry
 	public void showCakeWaveView_xml() {
-		LayoutInflater inflater = LayoutInflater.from(getContext());
+		LayoutInflater inflater = LayoutInflater.from(getActivity());
 		View cake = inflater.inflate(R.layout.cakeview, null);
 		CakeWaveView v = (CakeWaveView) cake.findViewById(R.id.cakeview);
 		v.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
@@ -116,14 +117,14 @@ public class Invoker extends CaseListView {
 	
 	@Entry
 	public void showSampleClip() {
-		SampleView v = new SampleView(getContext());
+		SampleView v = new SampleView(getActivity());
 		v.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
 		showView(v);
 	}
 	
 	@Entry
 	public void animWaveView() {
-		WaveView v = new WaveView(getContext());
+		WaveView v = new WaveView(getActivity());
 		v.startAnim(50);
 		showView(v);
 	}
@@ -131,7 +132,7 @@ public class Invoker extends CaseListView {
 	
 	@Entry
 	public void showWaveView() {
-		WaveView v = new WaveView(getContext());
+		WaveView v = new WaveView(getActivity());
 		v.setProgress(50);
 		showView(v);
 	}

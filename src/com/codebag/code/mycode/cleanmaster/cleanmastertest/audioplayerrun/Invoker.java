@@ -12,15 +12,16 @@ import android.media.AudioManager;
 import android.net.Uri;
 import android.provider.MediaStore;
 
-import com.codebag.bag.CaseListView;
+import com.codebag.bag.MainActivity;
+import com.codebag.bag.MyCode;
 import com.codebag.bag.Entry;
 import com.codebag.code.mycode.utils.Log;
 
-public class Invoker extends CaseListView {
+public class Invoker extends MyCode {
 
 	private boolean running = false;
 
-	public Invoker(Context context) {
+	public Invoker(MainActivity context) {
 		super(context);
 	}
 	
@@ -30,7 +31,7 @@ public class Invoker extends CaseListView {
 		Uri uri = Uri.withAppendedPath(MediaStore.Audio.Media.INTERNAL_CONTENT_URI,"1"); 
 		intent.setDataAndType(uri, "audio/*");
 		
-		PackageManager packageManager = getContext().getPackageManager();
+		PackageManager packageManager = getActivity().getPackageManager();
 		List<ResolveInfo> playerList = packageManager.queryIntentActivities(intent, 0);
 		for(ResolveInfo info : playerList) {
 			String name = info.activityInfo.packageName;
@@ -54,7 +55,7 @@ public class Invoker extends CaseListView {
 
         intentFilter.addAction("com.android.music.playstatechanged");
 		 
-		getContext().registerReceiver(new BroadcastReceiver() {
+        getActivity().registerReceiver(new BroadcastReceiver() {
 			 
 			@Override
 			public void onReceive(Context context, Intent intent) {
@@ -85,22 +86,22 @@ public class Invoker extends CaseListView {
 		Uri uri = Uri.withAppendedPath(MediaStore.Audio.Media.INTERNAL_CONTENT_URI, "1"); 
 		intent.setDataAndType(uri, "audio/*");
 		
-        getContext().startActivity(intent);
+		getActivity().startActivity(intent);
 	}
 	
 	@Entry
 	public void startAudio() {
-		getContext().startService(new Intent(getContext(), MainService.class));
+		getActivity().startService(new Intent(getActivity(), MainService.class));
 	}
 
 	@Entry
 	public void stopAudio() {
-		getContext().stopService(new Intent(getContext(), MainService.class));
+		getActivity().stopService(new Intent(getActivity(), MainService.class));
 	}
 
 	@Entry
 	public void isMusicActive() {
-		AudioManager mAm = (AudioManager) getContext().getSystemService(
+		AudioManager mAm = (AudioManager) getActivity().getSystemService(
 				Context.AUDIO_SERVICE);
 		boolean isActive = mAm.isMusicActive();
 		Log.addLog(this, "isActive = " + isActive);
@@ -116,7 +117,7 @@ public class Invoker extends CaseListView {
 			public void run() {
 				while (running) {
 
-					AudioManager mAm = (AudioManager) getContext()
+					AudioManager mAm = (AudioManager) getActivity()
 							.getSystemService(Context.AUDIO_SERVICE);
 					boolean isActive = mAm.isMusicActive();
 					Log.showSystemLog(this, "isActive = " + isActive);

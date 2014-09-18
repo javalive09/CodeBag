@@ -1,32 +1,33 @@
 package com.codebag.code.mycode.cleanmaster.cleanmasteranim_circle;
 
-import android.content.Context;
 import android.graphics.Color;
 import android.view.Gravity;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.FrameLayout;
 
 import com.codebag.R;
-import com.codebag.bag.CaseListView;
+import com.codebag.bag.MainActivity;
+import com.codebag.bag.MyCode;
 import com.codebag.bag.Entry;
 import com.codebag.code.mycode.utils.DisplayUtil;
 import com.codebag.code.mycode.utils.MultiViews;
 import com.codebag.code.mycode.utils.MultiViews.MyAdapter;
 
-public class Invoker extends CaseListView {
+public class Invoker extends MyCode {
 
 	public CradCleanDial c;
 	
-	public Invoker(Context context) {
-		super(context);
-		c = new CradCleanDial(context);
+	public Invoker(MainActivity act) {
+		super(act);
+		c = new CradCleanDial(act);
 		c.setBackgroundColor(Color.DKGRAY);
 	}
 	
 	@Entry
 	public void showButtons() {
-		MultiViews views = new MultiViews(getContext(), 3);
+		MultiViews views = new MultiViews(getActivity(), 3);
 		views.setAdapter(new MyAdapter(){
 
 			@Override
@@ -36,7 +37,7 @@ public class Invoker extends CaseListView {
 
 			@Override
 			public View getView(int position) {
-				Button b = new Button(getContext());
+				Button b = new Button(getActivity());
 				b.setOnClickListener(listener);
 				b.setText(position + "");
 				return b;
@@ -44,15 +45,15 @@ public class Invoker extends CaseListView {
 			
 		});
 		
-		FrameLayout fl = new FrameLayout(getContext());
-		int d = DisplayUtil.dip2px(getContext(), 110);
+		FrameLayout fl = new FrameLayout(getActivity());
+		int d = DisplayUtil.dip2px(getActivity(), 110);
 		FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(d, d);
 //		c.setBackgroundColor(Color.BLACK);
 		params.gravity = Gravity.CENTER;
 		fl.addView(c, params);
-		fl.addView(views, fillParentParams(Gravity.BOTTOM));
+//		fl.addView(views, fillParentParams(Gravity.BOTTOM));
 		fl.setBackgroundColor(Color.WHITE);
-		showView(fl);
+		getActivity().setView("showButtons()", R.drawable.file, fl);
 	}
 	
 	private OnClickListener listener = new OnClickListener() {

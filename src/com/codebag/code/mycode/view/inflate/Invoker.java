@@ -6,18 +6,19 @@ import android.view.View;
 import android.widget.FrameLayout;
 
 import com.codebag.R;
-import com.codebag.bag.CaseListView;
+import com.codebag.bag.MainActivity;
+import com.codebag.bag.MyCode;
 import com.codebag.bag.Entry;
 
-public class Invoker extends CaseListView {
+public class Invoker extends MyCode {
 
 	LayoutInflater factory;
 	FrameLayout root;
 	
-	public Invoker(Context context) {
+	public Invoker(MainActivity context) {
 		super(context);
 		factory = LayoutInflater.from(context);
-		root = new FrameLayout(getContext());
+		root = new FrameLayout(getActivity());
 	}
 	
 	@Entry

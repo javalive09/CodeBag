@@ -8,21 +8,22 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Toast;
 
-import com.codebag.bag.CaseListView;
+import com.codebag.bag.MainActivity;
+import com.codebag.bag.MyCode;
 import com.codebag.bag.Entry;
 import com.codebag.code.mycode.utils.Log;
 
-public class Invoker extends CaseListView {
+public class Invoker extends MyCode {
 
 	WebView wv = null;
 	
-	public Invoker(Context context) {
+	public Invoker(MainActivity context) {
 		super(context);
 	}
 	
 	@Entry
 	public void showWebView() {
-		wv = new WebView(getContext());
+		wv = new WebView(getActivity());
 		WebSettings webSetting = wv.getSettings();
 		webSetting.setJavaScriptEnabled(true);
 		wv.loadUrl("file:///android_asset/js_java.html");
@@ -56,33 +57,33 @@ public class Invoker extends CaseListView {
 		@JavascriptInterface
 		public int getLotteryCount() {
 			Log.addLog(this, "getLotteryCount()");
-			Toast.makeText(getContext(), "getLotteryCount()", Toast.LENGTH_SHORT).show();
+			Toast.makeText(getActivity(), "getLotteryCount()", Toast.LENGTH_SHORT).show();
 			return 0;
 		}
 
 		@JavascriptInterface
 		public void setLotteryCount(int count) {
 			Log.addLog(this, "setLotteryCount() = " + count);
-			Toast.makeText(getContext(), "setLotteryCount() = " + count, Toast.LENGTH_SHORT).show();
+			Toast.makeText(getActivity(), "setLotteryCount() = " + count, Toast.LENGTH_SHORT).show();
 		}
 
 		@JavascriptInterface
 		public String getLotteryRecord() {
 			Log.addLog(this, "getLotteryRecord()");
-			Toast.makeText(getContext(), "getLotteryRecord()", Toast.LENGTH_SHORT).show();
+			Toast.makeText(getActivity(), "getLotteryRecord()", Toast.LENGTH_SHORT).show();
 			return null;
 		}
 
 		@JavascriptInterface
 		public void showShareWindow() {
 			Log.addLog(this, "showShareWindow()");
-			Toast.makeText(getContext(), "showShareWindow()", Toast.LENGTH_SHORT).show();
+			Toast.makeText(getActivity(), "showShareWindow()", Toast.LENGTH_SHORT).show();
 		}
 
 		@JavascriptInterface
 		public int getDeviceId() {
 			Log.addLog(this, "getDeviceId()");
-			Toast.makeText(getContext(), "getDeviceId()", Toast.LENGTH_SHORT).show();
+			Toast.makeText(getActivity(), "getDeviceId()", Toast.LENGTH_SHORT).show();
 			return 0;
 		}
 	}

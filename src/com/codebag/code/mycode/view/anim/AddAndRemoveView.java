@@ -3,6 +3,7 @@ package com.codebag.code.mycode.view.anim;
 import android.content.Context;
 import android.view.Gravity;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.view.animation.Animation.AnimationListener;
@@ -13,35 +14,36 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 
 import com.codebag.R;
-import com.codebag.bag.CaseListView;
+import com.codebag.bag.MainActivity;
+import com.codebag.bag.MyCode;
 import com.codebag.bag.Entry;
 
-public class AddAndRemoveView extends CaseListView {
+public class AddAndRemoveView extends MyCode {
 
 	private FrameLayout container;
 	
-	public AddAndRemoveView(Context context) {
+	public AddAndRemoveView(MainActivity context) {
 		super(context);
 		container = new FrameLayout(context);
 	}
 	
 	@Entry
 	public void addView() {
-		final ImageView iv = new ImageView(getContext());
+		final ImageView iv = new ImageView(getActivity());
 		iv.setBackgroundResource(R.drawable.ic_launcher);
 		
-		Button addView = new Button(getContext());
+		Button addView = new Button(getActivity());
 		addView.setText("addView");
 		addView.setOnClickListener(new OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
-				container.addView(iv, wrapContentParams(Gravity.CENTER));
+//				container.addView(iv, wrapContentParams(Gravity.CENTER));
 				attachAnim(iv);
 			}
 		});
 		
-		Button removeView = new Button(getContext());
+		Button removeView = new Button(getActivity());
 		removeView.setText("removeView");
 		removeView.setOnClickListener(new OnClickListener() {
 			
@@ -53,8 +55,8 @@ public class AddAndRemoveView extends CaseListView {
 		});
 		
 		
-		container.addView(addView, wrapContentParams(Gravity.LEFT|Gravity.CENTER_VERTICAL));
-		container.addView(removeView, wrapContentParams(Gravity.RIGHT|Gravity.CENTER_VERTICAL));
+//		container.addView(addView, wrapContentParams(Gravity.LEFT|Gravity.CENTER_VERTICAL));
+//		container.addView(removeView, wrapContentParams(Gravity.RIGHT|Gravity.CENTER_VERTICAL));
 
 		showView(container);
 		
