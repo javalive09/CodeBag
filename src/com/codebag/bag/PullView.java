@@ -23,7 +23,7 @@ public class PullView extends ViewGroup {
 	private static final int STATE_DRAGGING = 1;
 	private static final int STATE_SETTLING = 2;
 	private static final int VELOCITY_BOUNDRY = 2000;
-	private static final int mAnimTime = 300;
+	private static final int mAnimTime = 500;
 	private int mTouchState = STATE_IDLE;
 	private boolean mFinish;
 	private int mStartX;
