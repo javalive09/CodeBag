@@ -1,6 +1,5 @@
 package com.codebag.code.mycode.cleanmaster.cleanmasteranim_text;
 
-import android.content.Context;
 import android.graphics.Color;
 import android.view.Gravity;
 import android.view.ViewGroup;
@@ -78,7 +77,7 @@ public class MyTextview extends MyCode {
 		paramsWrap.gravity = Gravity.CENTER;
 		paramsFill.gravity = Gravity.CENTER;
 		
-//		showView(mText, wrapContentParams(Gravity.CENTER));
+		showView(mText);
 		
 	}
 	

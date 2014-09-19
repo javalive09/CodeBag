@@ -1,7 +1,5 @@
 package com.codebag.code.mycode.studypoint.year_2014;
 
-import android.content.Context;
-
 import com.codebag.bag.MainActivity;
 import com.codebag.bag.MyCode;
 

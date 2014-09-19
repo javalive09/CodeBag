@@ -1,9 +1,7 @@
 package com.codebag.code.mycode.cleanmaster.cleanmasteranim_wave;
 
-import android.app.Activity;
 import android.content.Context;
 import android.graphics.*;
-import android.os.Bundle;
 import android.view.View;
   public class SampleView extends View {
         private Paint mPaint;

@@ -1,12 +1,8 @@
 package com.codebag.code.mycode.view.bitmap;
 
-import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.Config;
 import android.graphics.BitmapFactory;
-import android.graphics.Color;
-import android.view.Gravity;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
 
 import com.codebag.R;

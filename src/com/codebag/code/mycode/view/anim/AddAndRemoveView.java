@@ -1,6 +1,5 @@
 package com.codebag.code.mycode.view.anim;
 
-import android.content.Context;
 import android.view.Gravity;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -38,7 +37,9 @@ public class AddAndRemoveView extends MyCode {
 			
 			@Override
 			public void onClick(View v) {
-//				container.addView(iv, wrapContentParams(Gravity.CENTER));
+				FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(-2, -2);
+				params.gravity = Gravity.CENTER;
+				container.addView(iv, params);
 				attachAnim(iv);
 			}
 		});
@@ -54,9 +55,13 @@ public class AddAndRemoveView extends MyCode {
 			}
 		});
 		
+		FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(-2, -2);
+		params.gravity = Gravity.CENTER_VERTICAL| Gravity.LEFT;
+		container.addView(addView, params);
 		
-//		container.addView(addView, wrapContentParams(Gravity.LEFT|Gravity.CENTER_VERTICAL));
-//		container.addView(removeView, wrapContentParams(Gravity.RIGHT|Gravity.CENTER_VERTICAL));
+		params = new FrameLayout.LayoutParams(-2, -2);
+		params.gravity = Gravity.CENTER_VERTICAL| Gravity.RIGHT;
+		container.addView(removeView, params);
 
 		showView(container);
 		

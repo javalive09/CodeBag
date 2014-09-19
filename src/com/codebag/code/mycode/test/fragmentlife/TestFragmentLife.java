@@ -1,7 +1,6 @@
 
 package com.codebag.code.mycode.test.fragmentlife;
 
-import android.content.Context;
 import android.content.Intent;
 
 import com.codebag.bag.MainActivity;

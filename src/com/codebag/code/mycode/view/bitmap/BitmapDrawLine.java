@@ -1,14 +1,10 @@
 package com.codebag.code.mycode.view.bitmap;
 
-import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.BitmapFactory.Options;
 import android.graphics.Canvas;
 import android.graphics.Color;
-import android.graphics.Matrix;
 import android.graphics.Paint;
-import android.graphics.Rect;
 import android.view.Gravity;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -37,7 +33,7 @@ public class BitmapDrawLine extends MyCode {
 		Bitmap bm = Bitmap.createScaledBitmap(src, width, width, false);
 		iv.setImageBitmap(bm);
 		FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(width, height);
-//		showView(iv, params);
+		showView(iv, params);
 	}
 
 	@Entry
@@ -66,7 +62,7 @@ public class BitmapDrawLine extends MyCode {
 		iv.setImageBitmap(bitmapAltered);
 		FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(width, height);
 		params.gravity = Gravity.TOP;
-//		showView(iv, params);
+		showView(iv, params);
 	}
 
 }

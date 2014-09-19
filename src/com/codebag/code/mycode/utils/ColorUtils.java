@@ -1,6 +1,5 @@
 package com.codebag.code.mycode.utils;
 
-import android.content.Context;
 import android.graphics.Color;
 import android.view.Gravity;
 import android.view.View;

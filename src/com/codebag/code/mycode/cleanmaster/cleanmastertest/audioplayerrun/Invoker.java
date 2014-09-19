@@ -33,7 +33,7 @@ public class Invoker extends MyCode {
 		
 		PackageManager packageManager = getActivity().getPackageManager();
 		List<ResolveInfo> playerList = packageManager.queryIntentActivities(intent, 0);
-		for(ResolveInfo info : playerList) {
+		for (ResolveInfo info : playerList) {
 			String name = info.activityInfo.packageName;
 			Log.addLog(this, name);
 		}

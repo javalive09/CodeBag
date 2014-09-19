@@ -1,7 +1,6 @@
 package com.codebag.code.mycode.cleanmaster.cleanmasteranim_wave;
 
 
-import android.content.Context;
 import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;

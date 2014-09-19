@@ -23,7 +23,7 @@ public class WaveView extends View {
 	private int mEndWateH = 0;
 	
 	private int mPrecent;
-	private Path mPath = new Path();
+//	private Path mPath = new Path();
 	
 	
 	public WaveView(Context context) {

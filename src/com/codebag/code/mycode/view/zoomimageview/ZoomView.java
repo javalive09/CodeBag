@@ -22,8 +22,7 @@ public class ZoomView extends MyCode {
 		ZoomImageView view = new ZoomImageView(getActivity());
 		view.setImageResource(R.drawable.head);
 		view.setBackgroundColor(Color.BLACK);
-		
-		getActivity().setContentView(view);
+		showView(view);
 	}
 	
 	@Entry()
@@ -33,7 +32,6 @@ public class ZoomView extends MyCode {
 		Bitmap bitMap = BitmapFactory.decodeResource(getActivity().getResources(), R.drawable.head);
 		view.setImageBitmap(bitMap);
 		view.setBackgroundColor(Color.BLACK);
-		
-		getActivity().setContentView(view);
+		showView(view);
 	}
 }

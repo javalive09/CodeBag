@@ -1,8 +1,7 @@
 package com.codebag.bag;
 
-import com.codebag.R;
-
 import android.view.View;
+import android.widget.FrameLayout;
 
 public class MyCode{
 
@@ -17,8 +16,11 @@ public class MyCode{
 	}
 	
 	public void showView(View view) {
-		String name = Thread.currentThread().getStackTrace()[2].getMethodName();
-		mActivity.setView(name, R.drawable.file, view);
+		mActivity.showView(view);
+	}
+	
+	public void showView(View view, FrameLayout.LayoutParams params) {
+		mActivity.showView(view, params);
 	}
 	
 }

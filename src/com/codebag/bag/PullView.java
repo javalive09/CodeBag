@@ -7,7 +7,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.graphics.Rect;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.VelocityTracker;
 import android.view.ViewConfiguration;
@@ -24,8 +23,7 @@ public class PullView extends ViewGroup {
 	private static final int STATE_DRAGGING = 1;
 	private static final int STATE_SETTLING = 2;
 	private static final int VELOCITY_BOUNDRY = 2000;
-	private static final int BOUNDARY_PLY = 25;
-	private static final int mAnimTime = 600;
+	private static final int mAnimTime = 300;
 	private int mTouchState = STATE_IDLE;
 	private boolean mFinish;
 	private int mStartX;
@@ -35,6 +33,7 @@ public class PullView extends ViewGroup {
 	private int mStatusBarH;
 	private boolean mCanPull;
 	private boolean canFinish;
+	private int boundaryPly;
 	
 	public PullView(Context context) {
 		super(context);
@@ -49,6 +48,7 @@ public class PullView extends ViewGroup {
     private void init() {
 		mScroller = new Scroller(getContext(), new BounceInterpolator());
 		mTouchSlop = ViewConfiguration.get(getContext()).getScaledTouchSlop();
+		boundaryPly = mTouchSlop * 2;
     }
 	
 	@Override
@@ -64,14 +64,7 @@ public class PullView extends ViewGroup {
 		}
 	}
 	
-	public boolean dispatchTouchEvent(MotionEvent event) {
-		Log.i("peter", "dispatchTouchEvent=" + event);
-		return super.dispatchTouchEvent(event);
-//		return true;
-	}
-	
     public boolean onInterceptTouchEvent(MotionEvent ev) {
-    	Log.i("peter", "onInterceptTouchEvent=" + ev);
     	final int action = ev.getAction();
     	final int currentX = (int) ev.getX();
     	final int currentY = (int) ev.getY();
@@ -112,10 +105,10 @@ public class PullView extends ViewGroup {
     	if(mStatusBarH == 0) {
     		mStatusBarH = getStatusBarH();
     	}
-    	final int rightB = getWidth() - BOUNDARY_PLY;
-    	final int bottomB = getHeight() - BOUNDARY_PLY;
+    	final int rightB = getWidth() - boundaryPly;
+    	final int bottomB = getHeight() - boundaryPly;
     	
-    	if((x < BOUNDARY_PLY && y > mStatusBarH) //left boundary
+    	if((x < boundaryPly && y > mStatusBarH) //left boundary
     			|| (x > rightB && y > mStatusBarH)//right boundary
     			|| (y > bottomB)) {//bottom boundary
     		return true;
@@ -125,7 +118,6 @@ public class PullView extends ViewGroup {
     
     @SuppressLint("ClickableViewAccessibility") 
     public boolean onTouchEvent(MotionEvent event) {
-    	Log.i("peter", "onTouchEvent=" + event);
     	final int action = event.getAction();
     	final int currentX = (int) event.getX();
     	final int currentY = (int) event.getY();

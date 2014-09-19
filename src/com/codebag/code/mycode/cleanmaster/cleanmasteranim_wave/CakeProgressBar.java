@@ -63,21 +63,20 @@ public class CakeProgressBar extends ImageView {
 		setData(diameter, ply, speed);
 	}
 
-	public void setData(int ply, int diameter, int speed) {
+	public void setData(int diameter, int ply, int speed) {
 		mDiameter = diameter;
 		mPly = ply;
 		mPaint.setStrokeWidth(ply);
 		if (speed >= 1 && speed <= 11) {
 			mSpeed = speed;
 		}
+		mRectIn.set(mPly / 2, mPly / 2, mDiameter + mPly / 2 - mPly, mDiameter + mPly / 2 - mPly);
+		mRectOut.set(0, 0, mDiameter, mDiameter);
 	}
 
 	@Override
 	protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
 		setMeasuredDimension(mDiameter, mDiameter);
-		mRectIn.set(mPly / 2, mPly / 2, mDiameter + mPly / 2 - mPly, mDiameter
-				+ mPly / 2 - mPly);
-		mRectOut.set(0, 0, mDiameter, mDiameter);
 	}
 
 	public void setColor(int progressColor, int backGroundColor) {

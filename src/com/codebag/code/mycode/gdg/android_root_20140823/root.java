@@ -1,7 +1,5 @@
 package com.codebag.code.mycode.gdg.android_root_20140823;
 
-import android.content.Context;
-
 import com.codebag.bag.MainActivity;
 import com.codebag.bag.MyCode;
 

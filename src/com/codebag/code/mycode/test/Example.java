@@ -1,7 +1,6 @@
 
 package com.codebag.code.mycode.test;
 
-import android.content.Context;
 import android.graphics.Color;
 import android.widget.TextView;
 import android.widget.Toast;

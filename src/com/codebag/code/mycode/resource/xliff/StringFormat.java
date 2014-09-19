@@ -1,6 +1,5 @@
 package com.codebag.code.mycode.resource.xliff;
 
-import android.content.Context;
 import android.graphics.Color;
 import android.widget.TextView;
 

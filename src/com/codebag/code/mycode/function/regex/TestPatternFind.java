@@ -2,8 +2,6 @@ package com.codebag.code.mycode.function.regex;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
-import android.content.Context;
 import android.widget.Toast;
 
 import com.codebag.bag.MainActivity;

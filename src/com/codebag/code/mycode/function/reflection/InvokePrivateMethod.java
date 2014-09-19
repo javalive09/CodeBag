@@ -1,9 +1,6 @@
 package com.codebag.code.mycode.function.reflection;
 
 import java.lang.reflect.Method;
-
-import android.content.Context;
-
 import com.codebag.bag.MainActivity;
 import com.codebag.bag.MyCode;
 import com.codebag.bag.Entry;

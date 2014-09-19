@@ -5,7 +5,6 @@ import android.content.Context;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.FrameLayout;
-import android.widget.FrameLayout.LayoutParams;
 
 public class CardCleanDialFrame extends FrameLayout {
 

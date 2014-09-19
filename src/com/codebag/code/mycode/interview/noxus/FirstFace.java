@@ -1,8 +1,6 @@
 package com.codebag.code.mycode.interview.noxus;
 
 import java.util.HashMap;
-
-import android.content.Context;
 import android.graphics.Color;
 
 import com.codebag.bag.MainActivity;

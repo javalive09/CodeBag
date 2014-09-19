@@ -1,8 +1,6 @@
 
 package com.codebag.code.mycode.test;
 
-import android.content.Context;
-
 import com.codebag.bag.MainActivity;
 import com.codebag.bag.MyCode;
 import com.codebag.bag.Entry;

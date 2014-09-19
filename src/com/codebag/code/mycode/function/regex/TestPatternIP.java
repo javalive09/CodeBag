@@ -1,9 +1,6 @@
 package com.codebag.code.mycode.function.regex;
 
 import java.util.regex.Pattern;
-
-import android.content.Context;
-
 import com.codebag.bag.MainActivity;
 import com.codebag.bag.MyCode;
 import com.codebag.bag.Entry;

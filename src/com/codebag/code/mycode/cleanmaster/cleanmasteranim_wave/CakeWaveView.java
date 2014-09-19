@@ -2,9 +2,6 @@ package com.codebag.code.mycode.cleanmaster.cleanmasteranim_wave;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-
-import com.codebag.code.mycode.utils.ReflectUtils;
-
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
