@@ -7,6 +7,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.graphics.Rect;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.VelocityTracker;
 import android.view.ViewConfiguration;
@@ -23,7 +24,7 @@ public class PullView extends ViewGroup {
 	private static final int STATE_DRAGGING = 1;
 	private static final int STATE_SETTLING = 2;
 	private static final int VELOCITY_BOUNDRY = 2000;
-	private static final int mAnimTime = 500;
+	private static final int mAnimTime = 700;
 	private int mTouchState = STATE_IDLE;
 	private boolean mFinish;
 	private int mStartX;
@@ -73,8 +74,14 @@ public class PullView extends ViewGroup {
     	case MotionEvent.ACTION_DOWN:
     		mStartX = currentX;
     		mStartY = currentY;
-    		mTouchState = mScroller.isFinished() ? STATE_IDLE : STATE_SETTLING;
-    		mCanPull = canPull(currentX, currentY);
+    		if(mScroller.isFinished()) {
+    			mTouchState = STATE_IDLE;
+    			mCanPull = canPull(currentX, currentY);
+    		}else {
+    			mTouchState = STATE_SETTLING;
+    			mCanPull = false;
+    		}
+    		
     		break;
     	case MotionEvent.ACTION_MOVE:
     		if(mCanPull) {
@@ -91,7 +98,7 @@ public class PullView extends ViewGroup {
 			mTouchState = STATE_IDLE;
 			break;
     	}
-    	return mTouchState != STATE_IDLE;
+    	return mTouchState == STATE_DRAGGING;
     }
     
     private int getStatusBarH() {
@@ -148,12 +155,12 @@ public class PullView extends ViewGroup {
     		}
     		break;
     	case MotionEvent.ACTION_UP:
-    		mTouchState = STATE_IDLE;
 			final VelocityTracker velocityTracker = mVelocityTracker;
 			velocityTracker.computeCurrentVelocity(1000);
 			int velocityX = (int) velocityTracker.getXVelocity();
 			int velocityY = (int) velocityTracker.getYVelocity();
-    		
+    		Log.i("peter", "velocityX=" + velocityX);
+    		Log.i("peter", "velocityY=" + velocityY);
 			int deltaY, deltaX;
     		if(canFinish || Math.abs(velocityX) > VELOCITY_BOUNDRY || (Math.abs(velocityY) > VELOCITY_BOUNDRY)) {
     			mFinish = true;
