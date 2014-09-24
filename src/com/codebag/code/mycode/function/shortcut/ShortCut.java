@@ -13,7 +13,10 @@ public class ShortCut extends MyCode{
 	public ShortCut(MainActivity act) {
 		super(act);
 	}
-
+	
+	/**
+	 * 需要权限 <uses-permission android:name="com.android.launcher.permission.INSTALL_SHORTCUT"/>
+	 */
 	@Entry
 	public void createShortCut() {
 		Intent shortcutintent = new Intent("com.android.launcher.action.INSTALL_SHORTCUT");
