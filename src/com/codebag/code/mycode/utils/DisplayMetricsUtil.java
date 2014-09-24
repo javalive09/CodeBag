@@ -1,6 +1,8 @@
 package com.codebag.code.mycode.utils;
 
+import android.content.Context;
 import android.graphics.Color;
+import android.telephony.TelephonyManager;
 import android.util.DisplayMetrics;
 import android.view.View;
 import android.widget.TextView;
@@ -47,13 +49,18 @@ public class DisplayMetricsUtil extends MyCode{
 					view = new TextView(getActivity());
 					view.setText("屏幕密度: " + dm.densityDpi);
 					break;
+				case 5:
+					view = new TextView(getActivity());
+					TelephonyManager tm = (TelephonyManager) getActivity().getSystemService(Context.TELEPHONY_SERVICE);
+					view.setText("IMEI: " + tm.getDeviceId());
+					break;
 				}
 				return view;
 			}
 			
 			@Override
 			public int getCount() {
-				return 5;
+				return 6;
 			}
 		});
 		views.setBackgroundColor(Color.WHITE);

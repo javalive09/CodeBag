@@ -74,7 +74,7 @@ public class ColorUtils extends MyCode {
 			}
 			
 		});
-//		showView(views, wrapH_fillW_Params(Gravity.CENTER));
+		showView(views);
 	}
 	
 	
