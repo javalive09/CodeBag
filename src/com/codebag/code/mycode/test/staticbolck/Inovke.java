@@ -12,7 +12,7 @@ public class Inovke extends MyCode {
 	
 	@Entry
 	public void newObject() {
-		new Foo();
+		new FooSon();
 	}
 
 }

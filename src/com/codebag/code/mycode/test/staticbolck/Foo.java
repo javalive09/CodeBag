@@ -2,15 +2,18 @@ package com.codebag.code.mycode.test.staticbolck;
 
 public class Foo {
 	
-	static {
-		System.out.println("static block"); 
+	static {//静态代码块
+		System.out.println("foo static block"); 
 	}
 	
-	{
-		System.out.println("static block no name"); 
+	{//构造代码块
+		System.out.println("foo construction block no name"); 
 	}
 	
 	public Foo() {
-		System.out.println("构造方法");
+		{//普通代码块
+			System.out.println("normal block");
+		}
+		System.out.println("foo 构造方法");
 	}
 }
