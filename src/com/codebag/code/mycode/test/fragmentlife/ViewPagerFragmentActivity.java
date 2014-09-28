@@ -26,7 +26,7 @@ public class ViewPagerFragmentActivity extends FragmentActivity {
 		super.onCreate(savedInstanceState);
 		Log.addLog(this, "ViewPagerFragmentActivity====" + "onCreate");
 		
-		setContentView(R.layout.activity_root);
+		setContentView(R.layout.activity_root3);
 		FrameLayout fl = (FrameLayout) findViewById(R.id.container);
 		
 		View.inflate(this, R.layout.viewpager_fragment, fl);

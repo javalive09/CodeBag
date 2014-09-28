@@ -147,7 +147,7 @@ public class MainActivity extends Activity implements OnMenuItemClickListener{
 	}
 	
 	private void showMainView(Node node) {
-		setContentView(R.layout.activity_root);
+		setContentView(R.layout.activity_root3);
 		switch (node.type) {
 		case Node.DIR:
 			showDirView(node);

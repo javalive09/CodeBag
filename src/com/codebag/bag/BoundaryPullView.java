@@ -15,7 +15,7 @@ import android.view.ViewGroup;
 import android.view.animation.BounceInterpolator;
 import android.widget.Scroller;
 
-public class PullView extends ViewGroup {
+public class BoundaryPullView extends ViewGroup {
 
 	private Scroller mScroller;
 	private int mTouchSlop;
@@ -36,12 +36,12 @@ public class PullView extends ViewGroup {
 	private boolean canFinish;
 	private int boundaryPly;
 	
-	public PullView(Context context) {
+	public BoundaryPullView(Context context) {
 		super(context);
 		init();
 	}
 	
-    public PullView(Context context, AttributeSet attrs) {
+    public BoundaryPullView(Context context, AttributeSet attrs) {
         super(context, attrs, 0);
         init();
     }

@@ -1,4 +1,4 @@
-<com.codebag.bag.BoundaryPullView xmlns:android="http://schemas.android.com/apk/res/android"
+<com.codebag.bag.HorizontalBoundaryPullView xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/root"
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
@@ -65,4 +65,4 @@
         </FrameLayout>
     </LinearLayout>
 
-</com.codebag.bag.BoundaryPullView>
+</com.codebag.bag.HorizontalBoundaryPullView>
