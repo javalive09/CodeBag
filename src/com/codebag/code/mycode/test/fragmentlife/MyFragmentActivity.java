@@ -23,11 +23,11 @@ public class MyFragmentActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		Log.addLog(this, "FragmentActivity====" + "onCreate");
 		
-		setContentView(R.layout.activity_fragment);
+		setContentView(R.layout.activity_root);
 		
 		FragmentManager fragmentManager = getFragmentManager();
 		FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-		fragmentTransaction.add(R.id.myfragment, new MyFragment() {
+		fragmentTransaction.add(R.id.container, new MyFragment() {
 			public View onCreateView(LayoutInflater inflater, ViewGroup container,
 					Bundle savedInstanceState) {
 				super.onCreateView(inflater, container, savedInstanceState);

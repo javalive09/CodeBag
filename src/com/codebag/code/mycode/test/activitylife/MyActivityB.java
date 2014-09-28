@@ -1,5 +1,6 @@
 package com.codebag.code.mycode.test.activitylife;
 
+import com.codebag.R;
 import com.codebag.code.mycode.utils.Log;
 
 import android.app.Activity;
@@ -10,6 +11,7 @@ import android.os.Message;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.FrameLayout;
 
 public class MyActivityB extends Activity {
 
@@ -40,7 +42,9 @@ public class MyActivityB extends Activity {
 			
 		});
 		bt.setText("///////");
-		setContentView(bt);
+		setContentView(R.layout.activity_root);
+		FrameLayout fl = (FrameLayout) findViewById(R.id.container);
+		fl.addView(fl);
 		Log.addLog(this, "onCreate");
 	}
 	

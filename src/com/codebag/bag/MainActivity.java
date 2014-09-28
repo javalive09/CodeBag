@@ -166,6 +166,7 @@ public class MainActivity extends Activity implements OnMenuItemClickListener{
 	}
 
 	private void setTitle(CharSequence titleTxt, int titleIconResId) {
+		findViewById(R.id.titlebar).setVisibility(View.VISIBLE);
 		TextView title = (TextView) findViewById(R.id.title);
 		title.setText(titleTxt);
 		Drawable titleIcon = getResources().getDrawable(titleIconResId);
@@ -240,7 +241,7 @@ public class MainActivity extends Activity implements OnMenuItemClickListener{
 			}
 		});
 	}
-
+	
 	private void showMethodView(Node node) {
 		String methodName = node.name;
 		String className = node.className;

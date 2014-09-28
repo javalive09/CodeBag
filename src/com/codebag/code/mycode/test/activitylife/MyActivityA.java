@@ -1,5 +1,6 @@
 package com.codebag.code.mycode.test.activitylife;
 
+import com.codebag.R;
 import com.codebag.code.mycode.utils.Log;
 
 import android.app.Activity;
@@ -8,6 +9,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.FrameLayout;
 
 public class MyActivityA extends Activity {
 
@@ -18,7 +20,7 @@ public class MyActivityA extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
-		Button bt = new Button(MyActivityA.this);
+		Button bt = new Button(this);
 		bt.setOnClickListener(new OnClickListener() {
 
 			@Override
@@ -29,7 +31,9 @@ public class MyActivityA extends Activity {
 			
 		});
 		bt.setText("start activityB");
-		setContentView(bt);
+		setContentView(R.layout.activity_root);
+		FrameLayout fl = (FrameLayout) findViewById(R.id.container);
+		fl.addView(bt);
 		Log.addLog(this,"onCreate");
 	}
 

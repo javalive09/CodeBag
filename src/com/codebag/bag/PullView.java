@@ -24,7 +24,7 @@ public class PullView extends ViewGroup {
 	private static final int STATE_DRAGGING = 1;
 	private static final int STATE_SETTLING = 2;
 	private static final int VELOCITY_BOUNDRY = 2000;
-	private static final int mAnimTime = 500;
+	private static final int mAnimTime = 600;
 	private int mTouchState = STATE_IDLE;
 	private boolean mFinish;
 	private int mStartX;
@@ -47,8 +47,7 @@ public class PullView extends ViewGroup {
     }
 
     private void init() {
-//		mScroller = new Scroller(getContext(), new BounceInterpolator());
-		mScroller = new Scroller(getContext());
+		mScroller = new Scroller(getContext(), new BounceInterpolator());
 		mTouchSlop = ViewConfiguration.get(getContext()).getScaledTouchSlop();
 		boundaryPly = mTouchSlop * 2;
     }
@@ -61,7 +60,7 @@ public class PullView extends ViewGroup {
 			scrollTo(mScrollerX, mScrollerY);
 			invalidate();
 		}else if(mFinish) {
-			MainActivity act = (MainActivity) getContext();
+			Activity act = (Activity) getContext();
 			act.finish();
 		}
 	}

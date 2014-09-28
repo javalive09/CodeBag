@@ -21,12 +21,12 @@ public class TestFragmentLife extends MyCode {
 
 	@Entry()
 	public void runFragmentActivity() {
-		getActivity().startActivity(new Intent(getActivity(),MyFragmentActivity.class));
+		startActivity(new Intent(getActivity(),MyFragmentActivity.class));
 	}
 	
 	@Entry()
 	public void runViewPagerFragmentAct() {
-		getActivity().startActivity(new Intent(getActivity(),ViewPagerFragmentActivity.class));
+		startActivity(new Intent(getActivity(),ViewPagerFragmentActivity.class));
 	}
 	
 }

@@ -14,6 +14,7 @@ import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 
 public class ViewPagerFragmentActivity extends FragmentActivity {
@@ -25,7 +26,10 @@ public class ViewPagerFragmentActivity extends FragmentActivity {
 		super.onCreate(savedInstanceState);
 		Log.addLog(this, "ViewPagerFragmentActivity====" + "onCreate");
 		
-		setContentView(R.layout.viewpager_fragment);
+		setContentView(R.layout.activity_root);
+		FrameLayout fl = (FrameLayout) findViewById(R.id.container);
+		
+		View.inflate(this, R.layout.viewpager_fragment, fl);
 		
 		ViewPager vp = (ViewPager) findViewById(R.id.page_container);
 		

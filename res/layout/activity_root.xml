@@ -11,10 +11,12 @@
         android:padding="1dp" >
 
         <RelativeLayout
+            android:id="@+id/titlebar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/title_bar_color"
-            android:gravity="center_vertical" >
+            android:gravity="center_vertical"
+            android:visibility="gone" >
 
             <LinearLayout
                 android:id="@+id/back"
@@ -41,7 +43,7 @@
                     android:ellipsize="end"
                     android:gravity="center_vertical"
                     android:singleLine="true"
-                    android:text="com.codebag"
+                    android:text=""
                     android:textColor="@android:color/white" />
             </LinearLayout>
 
