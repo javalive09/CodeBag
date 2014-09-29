@@ -98,8 +98,11 @@ public class MyMenu {
 			
 		};
 		mWindow = new PopupWindow(mListView, LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, true);
-		mWindow.setOutsideTouchable(true);
+		
+		//点击外面popupWindow 消失
 		mWindow.setBackgroundDrawable(new PaintDrawable());
+		mWindow.setOutsideTouchable(true);
+		
 		mListView.setAdapter(new Adapter());
 		mInit = true;
 		mListView.setOnItemClickListener(new OnItemClickListener() {
