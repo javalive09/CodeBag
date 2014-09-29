@@ -1,4 +1,4 @@
-package com.codebag.bag;
+package com.codebag.bag.view;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;

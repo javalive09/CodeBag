@@ -10,6 +10,10 @@ import java.util.ArrayList;
 
 import com.codebag.R;
 import com.codebag.bag.CodeBag.Node;
+import com.codebag.bag.view.MyMenu;
+import com.codebag.bag.view.MyMenu.ItemViewCreater;
+import com.codebag.bag.view.MyMenu.ItemViewOnClickListener;
+import com.codebag.bag.view.TextViewFixTouchConsume;
 import com.codebag.code.mycode.utils.Log;
 
 import android.app.Activity;
@@ -29,8 +33,8 @@ import android.os.Looper;
 import android.os.MessageQueue.IdleHandler;
 import android.view.Gravity;
 import android.view.KeyEvent;
+import android.view.LayoutInflater;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -41,15 +45,28 @@ import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.BaseAdapter;
 import android.widget.FrameLayout;
 import android.widget.ListView;
-import android.widget.PopupMenu;
-import android.widget.PopupMenu.OnMenuItemClickListener;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class MainActivity extends Activity implements OnMenuItemClickListener{
+public class MainActivity extends Activity{
 
 	private static final String NODE = "node";
+	
+	private MyMenu mMenu;
+	
+	private int[] menuTitleRes = {
+			R.string.action_help, 
+			R.string.action_about, 
+			R.string.action_settings, 
+			R.string.action_feedback, 
+			R.string.action_search, 
+			R.string.action_h_pull,
+			R.string.action_b_pull,
+			R.string.action_hb_pull,
+			R.string.action_showlog, 
+			R.string.action_clearlog, 
+			R.string.action_exit};
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -65,8 +82,78 @@ public class MainActivity extends Activity implements OnMenuItemClickListener{
 		} else {
 			showMainView(currentNode);
 		}
+		
 		CodeBag codeBag = (CodeBag) getApplication();
 		codeBag.addActivity(this);
+	}
+	
+	private void initMenu() {
+		mMenu = new MyMenu(MainActivity.this);
+		View anchor = findViewById(R.id.menu);
+		mMenu.setAnchor(anchor);
+		for(int i = 0; i < menuTitleRes.length; i++) {
+			mMenu.addMenuItem(i, menuTitleRes[i], menuTitleRes[i]);
+		}
+		mMenu.setMenuItemCreater(new ItemViewCreater() {
+			
+			@Override
+			public View createView(int position, ViewGroup parent) {
+				LayoutInflater factory = LayoutInflater.from(MainActivity.this);
+				TextView tv = (TextView) factory.inflate(R.layout.menu_item, parent, false);
+				tv.setText(menuTitleRes[position]);
+				return tv;
+			}
+		});
+		mMenu.setMenuItemOnClickListener(new ItemViewOnClickListener() {
+			
+			@Override
+			public void OnItemClick(int order) {
+				switch(order) {
+				case R.string.action_help:
+					showAlertDialog(getString(R.string.action_help), getString(R.string.action_help_msg));
+					break;
+				case R.string.action_about:
+					showAlertDialog(getString(R.string.action_about), getString(R.string.action_about_msg));
+					break;
+				case R.string.action_settings:
+					break;
+				case R.string.action_feedback:
+					break;
+				case R.string.action_search:
+					break;
+				case R.string.action_h_pull:
+					((CodeBag) getApplication()).setRootViewController(CodeBag.H_PULL);
+					((CodeBag) getApplication()).exit();
+					break;
+				case R.string.action_b_pull:
+					((CodeBag) getApplication()).setRootViewController(CodeBag.B_PULL);
+					((CodeBag) getApplication()).exit();
+					break;
+				case R.string.action_hb_pull:
+					((CodeBag) getApplication()).setRootViewController(CodeBag.HB_PULL);
+					((CodeBag) getApplication()).exit();
+					break;
+				case R.string.action_showlog:
+					showAlertDialog("log", Log.getLog());
+					break;
+				case R.string.action_clearlog:
+					Log.clearLog();
+					break;
+				case R.string.action_exit:
+					((CodeBag) getApplication()).exit();
+					break;
+				}
+			}
+		});
+	}
+	
+	@Override
+	public void onBackPressed() {
+		if(mMenu.isShowing()) {
+			mMenu.dismiss();
+		}else {
+			super.onBackPressed();
+		}
 	}
 
 	private void showSplash() {
@@ -93,47 +180,12 @@ public class MainActivity extends Activity implements OnMenuItemClickListener{
 			finish();
 			break;
 		case R.id.menu:
-			showMenu();
-			break;
+			mMenu.show();
 		default:
 			break;
 		}
 	}
 	
-	private void showMenu() {
-		PopupMenu popup = new PopupMenu(this, findViewById(R.id.menu));
-		popup.setOnMenuItemClickListener(this);
-		MenuInflater inflater = popup.getMenuInflater();
-		inflater.inflate(R.menu.main, popup.getMenu());
-		popup.show();
-	}
-	
-	@Override
-	public boolean onMenuItemClick(MenuItem item) {
-		AlertDialog mDialog = new AlertDialog.Builder(MainActivity.this).create();
-		mDialog.setCanceledOnTouchOutside(true);
-		switch (item.getItemId()) {
-		case R.id.action_help:
-			showAlertDialog(getString(R.string.action_help), getString(R.string.action_help_msg));
-			break;
-		case R.id.action_about:
-			showAlertDialog(getString(R.string.action_about), getString(R.string.action_about_msg));
-			break;
-		case R.id.action_feedback:
-			break;
-		case R.id.action_showlog:
-			showAlertDialog("log", Log.getLog());
-			break;
-		case R.id.action_clearlog:
-			Log.clearLog();
-			break;
-		case R.id.action_exit:
-			((CodeBag) getApplication()).exit();
-			break;
-		}
-		return true;
-	}
-
 	private void showAlertDialog(String title, String content) {
 		AlertDialog dialog = new AlertDialog.Builder(MainActivity.this).create();
 		dialog.setCanceledOnTouchOutside(true);
@@ -147,7 +199,7 @@ public class MainActivity extends Activity implements OnMenuItemClickListener{
 	}
 	
 	private void showMainView(Node node) {
-		setContentView(R.layout.activity_root3);
+		setContentView(((CodeBag) getApplication()).getRootViewRes());
 		switch (node.type) {
 		case Node.DIR:
 			showDirView(node);
@@ -162,6 +214,7 @@ public class MainActivity extends Activity implements OnMenuItemClickListener{
 			showAppDemoView(node);
 			break;
 		}
+		initMenu();
 		// Debug.stopMethodTracing();
 	}
 
@@ -330,6 +383,14 @@ public class MainActivity extends Activity implements OnMenuItemClickListener{
 		}
 		return count;
 	}
+	
+	@Override
+	public boolean onKeyUp(int keyCode, KeyEvent event) {
+		if(keyCode == KeyEvent.KEYCODE_MENU) {
+			mMenu.show();
+		}
+		return super.onKeyUp(keyCode, event);
+	}
 
 	private void showDirView(Node node) {
 		ListView listView = new ListView(MainActivity.this);
@@ -460,15 +521,6 @@ public class MainActivity extends Activity implements OnMenuItemClickListener{
 		return outputStream.toString();
 	}
 	
-	@Override
-	public boolean onKeyUp(int keyCode, KeyEvent event) {
-		if(keyCode == KeyEvent.KEYCODE_MENU) {
-			showMenu();
-			return true;
-		}
-		return super.onKeyUp(keyCode, event);
-	}
-
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		return false;

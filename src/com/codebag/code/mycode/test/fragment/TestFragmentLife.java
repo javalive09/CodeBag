@@ -1,5 +1,5 @@
 
-package com.codebag.code.mycode.test.fragmentlife;
+package com.codebag.code.mycode.test.fragment;
 
 import android.content.Intent;
 
@@ -20,12 +20,12 @@ public class TestFragmentLife extends MyCode {
 	}
 
 	@Entry()
-	public void runFragmentActivity() {
+	public void fragmentLife() {
 		startActivity(new Intent(getActivity(),MyFragmentActivity.class));
 	}
 	
 	@Entry()
-	public void runViewPagerFragmentAct() {
+	public void fragmentForResult() {
 		startActivity(new Intent(getActivity(),ViewPagerFragmentActivity.class));
 	}
 	

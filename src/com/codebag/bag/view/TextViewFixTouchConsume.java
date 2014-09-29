@@ -1,4 +1,4 @@
-package com.codebag.bag;
+package com.codebag.bag.view;
 
 import android.content.Context;
 import android.text.Html;

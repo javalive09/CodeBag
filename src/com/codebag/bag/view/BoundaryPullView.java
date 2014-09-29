@@ -1,4 +1,4 @@
-package com.codebag.bag;
+package com.codebag.bag.view;
 
 import com.codebag.R;
 

@@ -1,6 +1,4 @@
-package com.codebag.bag;
-
-import com.codebag.R;
+package com.codebag.bag.view;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -9,7 +7,6 @@ import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.VelocityTracker;
-import android.view.View;
 import android.view.ViewConfiguration;
 import android.view.ViewGroup;
 import android.widget.Scroller;
@@ -22,7 +19,7 @@ public class HorizontalPullView extends ViewGroup {
 	private static final int STATE_IDLE = 0;
 	private static final int STATE_DRAGGING = 1;
 	private static final int STATE_SETTLING = 2;
-	private static final int VELOCITY_BOUNDRY = 2000;
+	private static final int VELOCITY_BOUNDRY = 1000;
 	private static final int mAnimTime = 600;
 	private int mTouchState = STATE_IDLE;
 	private boolean mFinish;
@@ -106,7 +103,7 @@ public class HorizontalPullView extends ViewGroup {
     	case MotionEvent.ACTION_MOVE:
     		mDeltaX = currentX - mStartX;
     		scrollTo(-mDeltaX, 0);
-    		if(Math.abs(mDeltaX) > getWidth() / 3) {
+    		if(Math.abs(mDeltaX) > getWidth() / 2) {
     			canFinish = true;
     		}else {
     			canFinish = false;

@@ -50,13 +50,6 @@ public class myService extends Service{
 			}
 
 			@Override
-			public void dumpAsync(FileDescriptor fd, String[] args)
-					throws RemoteException {
-				// TODO Auto-generated method stub
-				
-			}
-
-			@Override
 			public boolean transact(int code, Parcel data, Parcel reply,
 					int flags) throws RemoteException {
 				// TODO Auto-generated method stub
@@ -75,6 +68,7 @@ public class myService extends Service{
 				// TODO Auto-generated method stub
 				return false;
 			}
+
 			
 		};
 	}

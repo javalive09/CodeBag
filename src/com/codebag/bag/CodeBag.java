@@ -7,8 +7,11 @@ import java.util.Enumeration;
 import java.util.LinkedList;
 import java.util.List;
 
+import com.codebag.R;
+
 import dalvik.system.DexFile;
 import android.app.Application;
+import android.content.Context;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
@@ -22,6 +25,9 @@ public class CodeBag extends Application {
 	private boolean mHashInit = false;
 	private Node mRootNode = new Node(ROOT_DIR, Node.DIR);
 	private LinkedList<MainActivity> mActContainer = new LinkedList<MainActivity>();
+	public static final int H_PULL = 0;
+	public static final int B_PULL = 1;
+	public static final int HB_PULL = 2;
 	
 	@Override
 	public void onCreate() {
@@ -218,6 +224,27 @@ public class CodeBag extends Application {
 			this.className = className;
 		}
 		
+	}
+	
+	public void setRootViewController(int status) {
+		getSharedPreferences("rootview_controller", Context.MODE_PRIVATE).edit().putInt("status", status).commit();
+	}
+	
+	public int getRootViewRes() {
+		int status = getSharedPreferences("rootview_controller", Context.MODE_PRIVATE).getInt("status", H_PULL);
+		int res = R.layout.activity_root2;
+		switch(status){
+		case B_PULL:
+			res = R.layout.activity_root;
+			break;
+		case H_PULL:
+			res = R.layout.activity_root2;
+			break;
+		case HB_PULL:
+			res = R.layout.activity_root3;
+			break;
+		}
+		return res;
 	}
 	
 }

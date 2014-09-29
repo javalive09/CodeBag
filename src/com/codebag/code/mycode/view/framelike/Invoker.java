@@ -90,10 +90,8 @@ public class Invoker extends MyCode {
 		LinearLayout.LayoutParams params_v = new LinearLayout.LayoutParams(500,500);
 		params_v.gravity = Gravity.CENTER;
 		
-		Point outSize = new Point();
 		WindowManager wm = (WindowManager) getActivity().getSystemService(Context.WINDOW_SERVICE);
-		wm.getDefaultDisplay().getSize(outSize);
-		int screenW = outSize.x;
+		int screenW = wm.getDefaultDisplay().getWidth();
 		int marginLeft_v = (screenW - 500)/2;
 		
 		params_v.leftMargin = marginLeft_v;

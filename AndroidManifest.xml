@@ -5,8 +5,9 @@
     android:versionName="1.0" >
 
     <uses-sdk
-        android:minSdkVersion="14"
-        android:targetSdkVersion="19" />
+        android:minSdkVersion="8"
+        android:targetSdkVersion="14"
+        android:maxSdkVersion="19" />
 
     <!-- 为了准确获取分辨率 -->
     <supports-screens
@@ -44,7 +45,7 @@
 
         <activity
             android:name="com.codebag.bag.MainActivity"
-            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:configChanges="orientation|keyboardHidden"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -52,18 +53,23 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.codebag.code.mycode.test.fragmentlife.MyFragmentActivity" />
-        <activity android:name="com.codebag.code.mycode.test.fragmentlife.ViewPagerFragmentActivity" />
+        <activity android:name="com.codebag.code.mycode.test.fragment.MyFragmentActivity" />
+        <activity android:name="com.codebag.code.mycode.test.fragment.ViewPagerFragmentActivity" />
 
         <service android:name="com.codebag.code.mycode.test.servicelife.myService" />
 
         <activity
             android:name="com.codebag.code.mycode.test.activityconfigchange.MyActivity"
-            android:configChanges="orientation|screenSize|locale|fontScale|mcc|mnc|keyboard" />
+            android:configChanges="orientation|locale|fontScale|mcc|mnc|keyboard" />
         <activity
             android:name="com.codebag.code.mycode.test.activitylife.MyActivityA"
             android:launchMode="singleTask" />
         <activity android:name="com.codebag.code.mycode.test.activitylife.MyActivityB" />
+        
+        <activity android:name="com.codebag.code.mycode.test.fragment.ResultActivity" />
+        
+        
+        
 
         <!-- AppWidgetProvider的注册 mythou -->
         <receiver android:name="com.codebag.code.mycode.cleanmaster.cleanmastertest.homewidget.TimeWidgetProvider" >

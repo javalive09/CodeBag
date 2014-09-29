@@ -62,64 +62,64 @@ public class Invoker extends MyCode {
 	}
 	
 	
-	@Entry
-	public void animCakeWaveView() {
-		CakeWaveView v = new CakeWaveView(getActivity());
-		v.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
-		int waveColor = Color.parseColor("#33ffffff");
-		int cirCleColor = Color.parseColor("#24a0ff");
-		v.setColor(waveColor, cirCleColor);
-		v.setData(500, 11);
-		v.startAnimination(30);
-		showView(v);
-	}
-	
-	@Entry
-	public void animCakeWaveView_xml() {
-		LayoutInflater inflater = LayoutInflater.from(getActivity());
-		View cake = inflater.inflate(R.layout.cakeview, null);
-		CakeWaveView v = (CakeWaveView) cake.findViewById(R.id.cakeview);
-		v.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
-		int waveColor = Color.parseColor("#33ffffff");
-		int cirCleColor = Color.parseColor("#24a0ff");
-		v.setData(500, 11);
-		v.setColor(waveColor, cirCleColor);
-		v.startAnimination(30);
-		showView(cake);
-	}
-	
-	@Entry
-	public void showCakeWaveView() {
-		CakeWaveView v = new CakeWaveView(getActivity());
-		v.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
-		int waveColor = Color.parseColor("#33ffffff");
-		int cirCleColor = Color.parseColor("#24a0ff");
-		v.setData(500, 11);
-		v.setColor(waveColor, cirCleColor);
-		v.setProgress(30);
-		showView(v);
-	}
-	
-	@Entry
-	public void showCakeWaveView_xml() {
-		LayoutInflater inflater = LayoutInflater.from(getActivity());
-		View cake = inflater.inflate(R.layout.cakeview, null);
-		CakeWaveView v = (CakeWaveView) cake.findViewById(R.id.cakeview);
-		v.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
-		int waveColor = Color.parseColor("#33ffffff");
-		int cirCleColor = Color.parseColor("#24a0ff");
-		v.setData(500, 11);
-		v.setColor(waveColor, cirCleColor);
-		v.setProgress(30);
-		showView(cake);
-	}
-	
-	@Entry
-	public void showSampleClip() {
-		SampleView v = new SampleView(getActivity());
-		v.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
-		showView(v);
-	}
+//	@Entry
+//	public void animCakeWaveView() {
+//		CakeWaveView v = new CakeWaveView(getActivity());
+//		v.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
+//		int waveColor = Color.parseColor("#33ffffff");
+//		int cirCleColor = Color.parseColor("#24a0ff");
+//		v.setColor(waveColor, cirCleColor);
+//		v.setData(500, 11);
+//		v.startAnimination(30);
+//		showView(v);
+//	}
+//	
+//	@Entry
+//	public void animCakeWaveView_xml() {
+//		LayoutInflater inflater = LayoutInflater.from(getActivity());
+//		View cake = inflater.inflate(R.layout.cakeview, null);
+//		CakeWaveView v = (CakeWaveView) cake.findViewById(R.id.cakeview);
+//		v.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
+//		int waveColor = Color.parseColor("#33ffffff");
+//		int cirCleColor = Color.parseColor("#24a0ff");
+//		v.setData(500, 11);
+//		v.setColor(waveColor, cirCleColor);
+//		v.startAnimination(30);
+//		showView(cake);
+//	}
+//	
+//	@Entry
+//	public void showCakeWaveView() {
+//		CakeWaveView v = new CakeWaveView(getActivity());
+//		v.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
+//		int waveColor = Color.parseColor("#33ffffff");
+//		int cirCleColor = Color.parseColor("#24a0ff");
+//		v.setData(500, 11);
+//		v.setColor(waveColor, cirCleColor);
+//		v.setProgress(30);
+//		showView(v);
+//	}
+//	
+//	@Entry
+//	public void showCakeWaveView_xml() {
+//		LayoutInflater inflater = LayoutInflater.from(getActivity());
+//		View cake = inflater.inflate(R.layout.cakeview, null);
+//		CakeWaveView v = (CakeWaveView) cake.findViewById(R.id.cakeview);
+//		v.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
+//		int waveColor = Color.parseColor("#33ffffff");
+//		int cirCleColor = Color.parseColor("#24a0ff");
+//		v.setData(500, 11);
+//		v.setColor(waveColor, cirCleColor);
+//		v.setProgress(30);
+//		showView(cake);
+//	}
+//	
+//	@Entry
+//	public void showSampleClip() {
+//		SampleView v = new SampleView(getActivity());
+//		v.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
+//		showView(v);
+//	}
 	
 	@Entry
 	public void animWaveView() {

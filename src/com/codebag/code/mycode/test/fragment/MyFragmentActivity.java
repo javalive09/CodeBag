@@ -1,20 +1,22 @@
-package com.codebag.code.mycode.test.fragmentlife;
+package com.codebag.code.mycode.test.fragment;
 
 import com.codebag.R;
+import com.codebag.bag.CodeBag;
 import com.codebag.code.mycode.utils.Log;
 
 import android.app.Activity;
-import android.app.Fragment;
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-public class MyFragmentActivity extends Activity {
+public class MyFragmentActivity extends FragmentActivity {
 
 	int rootId = 123456;
 	
@@ -23,9 +25,9 @@ public class MyFragmentActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		Log.addLog(this, "FragmentActivity====" + "onCreate");
 		
-		setContentView(R.layout.activity_root3);
+		setContentView(((CodeBag) getApplication()).getRootViewRes());
 		
-		FragmentManager fragmentManager = getFragmentManager();
+		FragmentManager fragmentManager = getSupportFragmentManager();
 		FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 		fragmentTransaction.add(R.id.container, new MyFragment() {
 			public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -76,7 +78,6 @@ public class MyFragmentActivity extends Activity {
 		@Override
 		public void onActivityResult(int requestCode, int resultCode,
 				Intent data) {
-			// TODO Auto-generated method stub
 			super.onActivityResult(requestCode, resultCode, data);
 			Log.addLog(this, "MyFragment====" + "onActivityResult");
 		}

@@ -1,6 +1,7 @@
 package com.codebag.code.mycode.test.activitylife;
 
 import com.codebag.R;
+import com.codebag.bag.CodeBag;
 import com.codebag.code.mycode.utils.Log;
 
 import android.app.Activity;
@@ -31,7 +32,7 @@ public class MyActivityA extends Activity {
 			
 		});
 		bt.setText("start activityB");
-		setContentView(R.layout.activity_root3);
+		setContentView(((CodeBag) getApplication()).getRootViewRes());
 		FrameLayout fl = (FrameLayout) findViewById(R.id.container);
 		fl.addView(bt);
 		Log.addLog(this,"onCreate");

@@ -87,7 +87,8 @@ public class ZoomImageView extends ImageView {
 				savedMatrix.set(matrix);
 				Log.i("peter", "event.getPointerCount() =" + event.getPointerCount());
 				if(event.getPointerCount() > 1) {
-					int id = 1 - event.getActionIndex();
+					
+					int id = 1 - (event.getAction() & 0xff00) >> 8;
 					start.set(event.getX(id), event.getY(id));
 				}
 				// Log.e("view.getWidth", view.getWidth() + "");

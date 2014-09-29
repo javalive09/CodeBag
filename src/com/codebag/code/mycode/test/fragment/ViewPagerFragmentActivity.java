@@ -1,6 +1,7 @@
-package com.codebag.code.mycode.test.fragmentlife;
+package com.codebag.code.mycode.test.fragment;
 
 import com.codebag.R;
+import com.codebag.bag.CodeBag;
 import com.codebag.code.mycode.utils.Log;
 
 import android.app.Activity;
@@ -13,8 +14,11 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 public class ViewPagerFragmentActivity extends FragmentActivity {
@@ -26,7 +30,7 @@ public class ViewPagerFragmentActivity extends FragmentActivity {
 		super.onCreate(savedInstanceState);
 		Log.addLog(this, "ViewPagerFragmentActivity====" + "onCreate");
 		
-		setContentView(R.layout.activity_root3);
+		setContentView(((CodeBag) getApplication()).getRootViewRes());
 		FrameLayout fl = (FrameLayout) findViewById(R.id.container);
 		
 		View.inflate(this, R.layout.viewpager_fragment, fl);
@@ -39,12 +43,41 @@ public class ViewPagerFragmentActivity extends FragmentActivity {
 					public View onCreateView(LayoutInflater inflater, ViewGroup container,
 							Bundle savedInstanceState) {
 						Log.addLog(this, "MyFragment====" + "onCreateView");
+						LinearLayout ll = new LinearLayout(getActivity());
+						ll.setOrientation(LinearLayout.VERTICAL);
+						
 						TextView v = new TextView(ViewPagerFragmentActivity.this);
 						v.setText("fragment1");
 						v.setTextSize(50);
-						return v;
+						
+						Button bt = new Button(getActivity());
+						bt.setText("startActivityForResult()");
+						bt.setOnClickListener(new OnClickListener() {
+							
+							@Override
+							public void onClick(View v) {
+								Intent intent = new Intent(getActivity(), ResultActivity.class);
+								startActivityForResult(intent, 1);
+							}
+						});
+						
+						ll.addView(v);
+						ll.addView(bt);
+						return ll;
 						
 					}
+
+					@Override
+					public void onActivityResult(int requestCode,
+							int resultCode, Intent data) {
+						
+						if(requestCode == 1) {
+							Log.addLog(this, "onActivityResult");
+						}
+						super.onActivityResult(requestCode, resultCode, data);
+					}
+					
+					
 				},
 				
 				new MyFragment() {

@@ -22,8 +22,8 @@ public class Invoker extends MyCode {
 	
 	@Entry
 	public void deleteFile_mediaFile() {
-		boolean result = MediaFileUtil.deleteFile(getActivity().getContentResolver(), path);
-		Log.addLog(this, "result=" + result);
+//		boolean result = MediaFileUtil.deleteFile(getActivity().getContentResolver(), path);
+//		Log.addLog(this, "result=" + result);
 	}
 	
 	@Entry
