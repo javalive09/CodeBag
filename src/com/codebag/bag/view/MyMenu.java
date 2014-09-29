@@ -6,16 +6,13 @@ import com.codebag.R;
 import com.codebag.code.mycode.utils.DisplayUtil;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.graphics.drawable.PaintDrawable;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
-import android.widget.FrameLayout;
 import android.widget.LinearLayout.LayoutParams;
 import android.widget.ListView;
 import android.widget.PopupWindow;

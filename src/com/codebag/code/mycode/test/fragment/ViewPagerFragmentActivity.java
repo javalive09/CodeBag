@@ -67,6 +67,9 @@ public class ViewPagerFragmentActivity extends FragmentActivity {
 						
 					}
 
+					/**
+					 * 	注意坑：被启动的activity是singleTask, singleInstance时会出错。onActivityResult会提前被调用		 
+					 */
 					@Override
 					public void onActivityResult(int requestCode,
 							int resultCode, Intent data) {
