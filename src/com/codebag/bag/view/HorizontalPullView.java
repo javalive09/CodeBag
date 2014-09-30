@@ -115,7 +115,8 @@ public class HorizontalPullView extends ViewGroup {
 			int velocityX = (int) velocityTracker.getXVelocity();
     		Log.i("peter", "velocityX=" + velocityX);
 			int deltaX;
-    		if(canFinish || Math.abs(velocityX) > VELOCITY_BOUNDRY) {
+    		if(canFinish || 
+    				((velocityX* mDeltaX > 0) && Math.abs(velocityX) > VELOCITY_BOUNDRY)) {
     			mFinish = true;
     			if(mDeltaX < 0) {//向右
     				deltaX = getWidth() - getScrollX();
