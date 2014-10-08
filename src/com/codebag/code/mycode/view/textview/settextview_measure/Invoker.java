@@ -1,13 +1,10 @@
 package com.codebag.code.mycode.view.textview.settextview_measure;
 
-import android.content.Context;
 import android.graphics.Color;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
-import android.view.Gravity;
 import android.widget.TextView;
-
 import com.codebag.bag.MainActivity;
 import com.codebag.bag.MyCode;
 import com.codebag.bag.Entry;

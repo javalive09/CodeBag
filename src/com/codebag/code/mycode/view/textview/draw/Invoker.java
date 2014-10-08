@@ -1,8 +1,6 @@
 package com.codebag.code.mycode.view.textview.draw;
 
-import android.content.Context;
 import android.graphics.Color;
-
 import com.codebag.bag.MainActivity;
 import com.codebag.bag.MyCode;
 import com.codebag.bag.Entry;

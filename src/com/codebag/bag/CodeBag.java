@@ -1,5 +1,6 @@
 package com.codebag.bag;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -17,7 +18,7 @@ import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.util.Log;
 
-public class CodeBag extends Application {
+public class CodeBag extends Application implements Thread.UncaughtExceptionHandler{
 
 	public static final String ROOT_DIR = "com.codebag.code.mycode";
 	public static final int FILE = 0;
@@ -32,6 +33,7 @@ public class CodeBag extends Application {
 	@Override
 	public void onCreate() {
 //		Debug.startMethodTracing("mytrace"); 
+		Thread.setDefaultUncaughtExceptionHandler(this);
 	}
 
 	public void init() {
@@ -245,6 +247,12 @@ public class CodeBag extends Application {
 			break;
 		}
 		return res;
+	}
+
+	@Override
+	public void uncaughtException(Thread thread, Throwable ex) {
+		 System.out.println("uncaughtException");
+		 System.exit(0);
 	}
 	
 }
