@@ -1,6 +1,5 @@
 package com.codebag.bag;
 
-import java.io.File;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -251,7 +250,7 @@ public class CodeBag extends Application implements Thread.UncaughtExceptionHand
 
 	@Override
 	public void uncaughtException(Thread thread, Throwable ex) {
-		 System.out.println("uncaughtException");
+		 Log.i("peter", "uncaughtException");
 		 System.exit(0);
 	}
 	

@@ -297,6 +297,8 @@ public class MainActivity extends Activity{
 	private void showMethodView(Node node) {
 		String methodName = node.name;
 		String className = node.className;
+		int i = 0;
+		int j = 5/i;
 		try {
 			Class<?> cls = Class.forName(className);
 			Constructor<?> con = cls.getConstructor(MainActivity.class);
