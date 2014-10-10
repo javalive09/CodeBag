@@ -2,16 +2,20 @@ package com.codebag.code.mycode.test.fragment;
 
 import com.codebag.R;
 import com.codebag.bag.CodeBag;
+import com.codebag.code.mycode.utils.DisplayUtil;
 import com.codebag.code.mycode.utils.Log;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.support.v4.view.ViewPager.OnPageChangeListener;
+import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -101,6 +105,34 @@ public class ViewPagerFragmentActivity extends FragmentActivity {
 		
 		vp.setAdapter(adapter);
 		
+		final View line = new View(ViewPagerFragmentActivity.this);
+		DisplayMetrics dm = getResources().getDisplayMetrics();
+		final int width = dm.widthPixels;
+		line.setBackgroundColor(Color.BLUE);
+		FrameLayout.LayoutParams p = new FrameLayout.LayoutParams(width/2, 15);
+		fl.addView(line, p);
+		
+		vp.setOnPageChangeListener(new OnPageChangeListener() {
+			
+			@Override
+			public void onPageSelected(int arg0) {
+				
+			}
+			
+			@Override
+			public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+				FrameLayout.LayoutParams p = (FrameLayout.LayoutParams) line.getLayoutParams();
+				p.width = width/2;
+				p.leftMargin = (int)(position * p.width + positionOffset * p.width);
+				Log.addLog(this, "positionOffset=" + positionOffset);
+				line.setLayoutParams(p);
+			}
+			
+			@Override
+			public void onPageScrollStateChanged(int arg0) {
+				
+			}
+		});
 	}
 
 	

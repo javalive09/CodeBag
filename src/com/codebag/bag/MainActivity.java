@@ -148,7 +148,7 @@ public class MainActivity extends Activity{
 	
 	@Override
 	public void onBackPressed() {
-		if(mMenu.isShowing()) {
+		if(mMenu != null && mMenu.isShowing()) {
 			mMenu.dismiss();
 		}else {
 			super.onBackPressed();
@@ -185,7 +185,7 @@ public class MainActivity extends Activity{
 		}
 	}
 	
-	private void showAlertDialog(String title, String content) {
+	public void showAlertDialog(String title, String content) {
 		AlertDialog dialog = new AlertDialog.Builder(MainActivity.this).create();
 		dialog.setCanceledOnTouchOutside(true);
 		ScrollView view = new ScrollView(MainActivity.this);
@@ -297,8 +297,6 @@ public class MainActivity extends Activity{
 	private void showMethodView(Node node) {
 		String methodName = node.name;
 		String className = node.className;
-		int i = 0;
-		int j = 5/i;
 		try {
 			Class<?> cls = Class.forName(className);
 			Constructor<?> con = cls.getConstructor(MainActivity.class);

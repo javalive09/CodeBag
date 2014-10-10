@@ -62,11 +62,16 @@ public class MyMenu {
 	}
 	
 	public void dismiss() {
-		mWindow.dismiss();
+		if(mWindow != null) {
+			mWindow.dismiss();
+		}
 	}
 	
 	public boolean isShowing() {
-		return mWindow.isShowing();
+		if(mWindow != null) {
+			return mWindow.isShowing();
+		}
+		return false;
 	}
 	
 	public void initView() {
