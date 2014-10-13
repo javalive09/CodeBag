@@ -1,6 +1,5 @@
 package com.codebag.code.mycode.view.drawable.drawablecontainer;
 
-import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.StateListDrawable;
@@ -36,7 +35,8 @@ import com.codebag.code.mycode.utils.MultiViews.MyAdapter;
  *  focusableInTouchModel的引入是为了满足触摸屏幕对焦点获取的需要。因为焦点本质上是为了按键，轨迹球等的定位。
  *  而触摸屏默认是不需要显示焦点的，点哪就是哪。所以如果触摸屏幕如果强行想获得焦点那么就必须设置focusableInTouchModel。
  *  
- *  注意点：StateListDrawable的状态设置范围要从小到大
+ *  注意点：只要有一个状态与之相配，背景就会被换掉.如果sd.addState(new[]{},normal)放在第一个的话，就没有什么效果了
+ *  所以StateListDrawable的状态设置范围要从小到大
  */			
 public class StateListDrawable_ extends MyCode implements OnClickListener{
 
