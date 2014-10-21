@@ -232,7 +232,7 @@ public class CodeBag extends Application implements Thread.UncaughtExceptionHand
 	}
 	
 	public int getRootViewRes() {
-		int status = getSharedPreferences("rootview_controller", Context.MODE_PRIVATE).getInt("status", H_PULL);
+		int status = getSharedPreferences("rootview_controller", Context.MODE_PRIVATE).getInt("status", HB_PULL);
 		int res = R.layout.activity_root2;
 		switch(status){
 		case B_PULL:
