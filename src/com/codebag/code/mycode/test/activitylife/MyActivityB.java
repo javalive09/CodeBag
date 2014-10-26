@@ -118,6 +118,12 @@ public class MyActivityB extends Activity {
 		Log.addLog(this, "onDestroy");
 	}
 
+	@Override
+	public void finish() {
+//		setResult(Activity.RESULT_OK, new Intent()); 
+		super.finish();
+	}
+
 	
 	
 }

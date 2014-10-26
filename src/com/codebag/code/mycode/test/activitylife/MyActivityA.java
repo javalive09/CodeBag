@@ -19,15 +19,14 @@ public class MyActivityA extends Activity {
 	 */
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		Button bt = new Button(this);
 		bt.setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
-				// TODO Auto-generated method stub
-				startActivity(new Intent(MyActivityA.this, MyActivityB.class));
+//				startActivity(new Intent(MyActivityA.this, MyActivityB.class));
+				startActivityForResult(new Intent(MyActivityA.this, MyActivityB.class), 0);
 			}
 			
 		});
@@ -37,6 +36,16 @@ public class MyActivityA extends Activity {
 		fl.addView(bt);
 		Log.addLog(this,"onCreate");
 	}
+	
+	
+
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
+		Log.addLog(this, "onActivityResult()");
+	}
+
+
 
 	/* 
 	 * start对应的是显示的开始

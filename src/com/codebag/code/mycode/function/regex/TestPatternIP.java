@@ -24,6 +24,12 @@ public class TestPatternIP extends MyCode {
     	Log.addLog(this, "isValid ip = " + isValid);
 	}
 	
+	@Entry()
+	public void runMatcher2() {
+		boolean isValid = isValidIP("127.0.0.1");
+		Log.addLog(this, "isValid ip = " + isValid);
+	}
+	
 	public boolean isValidIP(String str) {
 		
 		String regex = "^(\\d{1,2}|1\\d\\d|2[0-4]\\d|25[0-5])\\."+
