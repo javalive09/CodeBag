@@ -1,12 +1,15 @@
 package com.codebag.code.mycode.view.toast;
 
 import android.graphics.Color;
+import android.graphics.Rect;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.SpannableStringBuilder;
 import android.text.style.BackgroundColorSpan;
 import android.text.style.ForegroundColorSpan;
+import android.view.Gravity;
 import android.view.View;
+import android.view.Window;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -14,6 +17,9 @@ import com.codebag.R;
 import com.codebag.bag.Entry;
 import com.codebag.bag.MainActivity;
 import com.codebag.bag.MyCode;
+import com.codebag.code.mycode.utils.DisplayMetricsUtil;
+import com.codebag.code.mycode.utils.DisplayUtil;
+import com.codebag.code.mycode.utils.Log;
 
 public class MyToast extends MyCode {
 
@@ -42,10 +48,29 @@ public class MyToast extends MyCode {
 		ss.setSpan(new ForegroundColorSpan(Color.parseColor("#24a0ff")),2,6,Spannable.SPAN_EXCLUSIVE_INCLUSIVE);     //设置指定位置文字的颜色  
 		tv.setText(ss);
 		toast.setDuration(10*1000);
+		
+		int yOffset = DisplayUtil.dip2px(getActivity(), 50);
+		
+		toast.setGravity(Gravity.TOP, 0, yOffset);
 		toast.setView(view);
 		toast.show();
 	}
 	
+	@Entry
+	public void getStatusBarHeight() {
+		Rect rect = new Rect();
+
+		Window win = getActivity().getWindow();
+
+		win.getDecorView().getWindowVisibleDisplayFrame(rect);
+
+		int statusBarHeight = rect.top;
+
+		int contentViewTop = win.findViewById(Window.ID_ANDROID_CONTENT).getTop();
+
+		Log.addLog(this, "statusBarHeight = " + statusBarHeight); 
+		Log.addLog(this, "contentViewTop = " + contentViewTop); 
+	}
 	
 	@Entry
 	public void showSuperToast2() {

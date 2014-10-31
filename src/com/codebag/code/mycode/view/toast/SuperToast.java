@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Color;
 import android.graphics.PixelFormat;
 import android.os.Handler;
+import android.os.Looper;
 import android.view.Gravity;
 import android.view.View;
 import android.view.WindowManager;
@@ -19,7 +20,7 @@ public class SuperToast {
 
 	public static final int LENGTH_SHORT = 2000;
 	public static final int LENGTH_LONG = 3500;
-	private final Handler mHandler = new Handler();
+	private final Handler mHandler = new Handler(Looper.getMainLooper());
 	private int mDuration = LENGTH_SHORT;
 	private int mGravity = Gravity.BOTTOM;
 	private int mX, mY;
