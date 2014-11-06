@@ -20,21 +20,21 @@ public class FatherView extends LinearLayout {
 	@Override
 	public boolean dispatchTouchEvent(MotionEvent ev) {
 		boolean r = super.dispatchTouchEvent(ev);
-		Log.addLog(this, "dispatchTouchEvent=" + r);
+		Log.addLog("peter", this, "dispatchTouchEvent=" + r);
 		return r;
 	}
 
 	@Override
 	public boolean onInterceptTouchEvent(MotionEvent ev) {
 		boolean r = super.onInterceptTouchEvent(ev);
-		Log.addLog(this, "onInterceptTouchEvent=" + r);
+		Log.addLog("peter", this, "onInterceptTouchEvent=" + r);
 		return r;
 	}
 
 	@Override
 	public boolean onTouchEvent(MotionEvent event) {
 		boolean r = super.onTouchEvent(event);
-		Log.addLog(this, "onTouchEvent＝" + r);
+		Log.addLog("peter", this, "onTouchEvent＝" + r);
 		return false;
 	}
 

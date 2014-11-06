@@ -27,7 +27,7 @@ public class FirstFace extends MyCode {
 		map.put("1", new SameHashCodeObj(1));
 		map.put("2", new SameHashCodeObj(2));
 		map.put("3", new SameHashCodeObj(3));
-		Log.addLog(this, map.toString());
+		Log.addLog("peter", this, map.toString());
 	}
 	
 	@Entry

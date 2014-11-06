@@ -74,7 +74,7 @@ public class InvokePrivateMethod extends MyCode {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		Log.addLog(this, "returnValue=" + returnObj.toString());
+		Log.addLog("peter", this, "returnValue=" + returnObj.toString());
 	}
 
 	@Entry

@@ -76,17 +76,17 @@ public class MainService extends Service {
 		@Override
 		public void onAudioFocusChange(int focusChange) {
 			if (focusChange == AudioManager.AUDIOFOCUS_LOSS_TRANSIENT) {
-				Log.addLog(this, "AUDIOFOCUS_LOSS_TRANSIENT");
+				Log.addLog("peter", this, "AUDIOFOCUS_LOSS_TRANSIENT");
 			} else if (focusChange == AudioManager.AUDIOFOCUS_GAIN) {
-				Log.addLog(this, "AUDIOFOCUS_GAIN");
+				Log.addLog("peter", this, "AUDIOFOCUS_GAIN");
 				// Resume playback
 			} else if (focusChange == AudioManager.AUDIOFOCUS_LOSS) {
-				Log.addLog(this, "AUDIOFOCUS_LOSS");
+				Log.addLog("peter", this, "AUDIOFOCUS_LOSS");
 				// Stop playback
 			} else if (focusChange == AudioManager.AUDIOFOCUS_REQUEST_GRANTED) {
-				Log.addLog(this, "AUDIOFOCUS_REQUEST_GRANTED");
+				Log.addLog("peter", this, "AUDIOFOCUS_REQUEST_GRANTED");
 			} else if (focusChange == AudioManager.AUDIOFOCUS_REQUEST_FAILED) {
-				Log.addLog(this, "AUDIOFOCUS_REQUEST_FAILED");
+				Log.addLog("peter", this, "AUDIOFOCUS_REQUEST_FAILED");
 			}
 		}
 	}

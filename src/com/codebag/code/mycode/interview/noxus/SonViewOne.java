@@ -15,14 +15,14 @@ public class SonViewOne extends Button {
 	@Override
 	public boolean dispatchTouchEvent(MotionEvent ev) {
 		boolean r = super.dispatchTouchEvent(ev);
-		Log.addLog(this, "dispatchTouchEvent=" + r);
+		Log.addLog("peter", this, "dispatchTouchEvent=" + r);
 		return r;
 	}
 
 	@Override
 	public boolean onTouchEvent(MotionEvent event) {
 		boolean r = super.onTouchEvent(event);
-		Log.addLog(this, "default onTouchEvent=" + r);
+		Log.addLog("peter", this, "default onTouchEvent=" + r);
 		
 		return false;
 	}

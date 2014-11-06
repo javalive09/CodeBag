@@ -8,20 +8,20 @@ public class Reflection {
 	private String name = "peter";
 	
 	private String show() {
-		Log.addLog(this, "show()");
+		Log.addLog("peter", this, "show()");
 		return "Reflection()";
 	}
 	
 	private void show(int a) {
-		Log.addLog(this, "show(" + a + ")");
+		Log.addLog("peter", this, "show(" + a + ")");
 	}
 	
 	private void show(int a, String str) {
-		Log.addLog(this, "show(" + a + ","+str + ")");
+		Log.addLog("peter", this, "show(" + a + ","+str + ")");
 	}
 	
 	private void show(Test test) {
-		Log.addLog(this, "show(" + test.toString() + ")");
+		Log.addLog("peter", this, "show(" + test.toString() + ")");
 	}
 	
 	static class Test{

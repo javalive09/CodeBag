@@ -21,13 +21,13 @@ public class TestPatternIP extends MyCode {
 	@Entry()
 	public void runMatcher() {
 		boolean isValid = isValidIP("192.168.1.1");
-    	Log.addLog(this, "isValid ip = " + isValid);
+    	Log.addLog("peter", this, "isValid ip = " + isValid);
 	}
 	
 	@Entry()
 	public void runMatcher2() {
 		boolean isValid = isValidIP("127.0.0.1");
-		Log.addLog(this, "isValid ip = " + isValid);
+		Log.addLog("peter", this, "isValid ip = " + isValid);
 	}
 	
 	public boolean isValidIP(String str) {

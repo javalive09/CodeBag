@@ -32,20 +32,20 @@ import com.codebag.code.mycode.utils.Log;
 
 			@Override
 			public boolean shouldOverrideUrlLoading(WebView view, String url) {
-				Log.addLog(this, "shouldOverrideUrlLoading()");
+				Log.addLog("peter", this, "shouldOverrideUrlLoading()");
 				return false;
 			}
 
 			@Override
 			public void onPageStarted(WebView view, String url, Bitmap favicon) {
 				super.onPageStarted(view, url, favicon);
-				Log.addLog(this, "onPageStarted()");
+				Log.addLog("peter", this, "onPageStarted()");
 				wv.addJavascriptInterface(new Invoke(), "android");
 			}
 
 			@Override
 			public void onPageFinished(WebView view, String url) {
-				Log.addLog(this, "onPageFinished()");
+				Log.addLog("peter", this, "onPageFinished()");
 			}
 			
 		});
@@ -56,33 +56,33 @@ import com.codebag.code.mycode.utils.Log;
 		
 //		@JavascriptInterface
 		public int getLotteryCount() {
-			Log.addLog(this, "getLotteryCount()");
+			Log.addLog("peter", this, "getLotteryCount()");
 			Toast.makeText(getActivity(), "getLotteryCount()", Toast.LENGTH_SHORT).show();
 			return 0;
 		}
 
 //		@JavascriptInterface
 		public void setLotteryCount(int count) {
-			Log.addLog(this, "setLotteryCount() = " + count);
+			Log.addLog("peter", this, "setLotteryCount() = " + count);
 			Toast.makeText(getActivity(), "setLotteryCount() = " + count, Toast.LENGTH_SHORT).show();
 		}
 
 //		@JavascriptInterface
 		public String getLotteryRecord() {
-			Log.addLog(this, "getLotteryRecord()");
+			Log.addLog("peter", this, "getLotteryRecord()");
 			Toast.makeText(getActivity(), "getLotteryRecord()", Toast.LENGTH_SHORT).show();
 			return null;
 		}
 
 //		@JavascriptInterface
 		public void showShareWindow() {
-			Log.addLog(this, "showShareWindow()");
+			Log.addLog("peter", this, "showShareWindow()");
 			Toast.makeText(getActivity(), "showShareWindow()", Toast.LENGTH_SHORT).show();
 		}
 
 //		@JavascriptInterface
 		public int getDeviceId() {
-			Log.addLog(this, "getDeviceId()");
+			Log.addLog("peter", this, "getDeviceId()");
 			Toast.makeText(getActivity(), "getDeviceId()", Toast.LENGTH_SHORT).show();
 			return 0;
 		}

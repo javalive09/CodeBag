@@ -21,7 +21,7 @@ public class TestPatternNum extends MyCode {
 	@Entry()
 	public void runMatcher() {
 		boolean isNum = isNumber("123");
-		Log.addLog(this, "isNum = "  + isNum);
+		Log.addLog("peter", this, "isNum = "  + isNum);
 	}
 		
 	public boolean isNumber(String str) {
@@ -32,6 +32,6 @@ public class TestPatternNum extends MyCode {
 	@Entry
 	public void testChar() {
 		char a = 'A';
-		Log.addLog(this, " a = " + a);
+		Log.addLog("peter", this, " a = " + a);
 	}
 }

@@ -16,7 +16,7 @@ public class TimeWidgetProvider extends AppWidgetProvider {
 	@Override
 	public void onUpdate(Context context, AppWidgetManager appWidgetManager,
 			int[] appWidgetIds) {
-		Log.addLog(this, "onUpdate()");
+		Log.addLog("peter", this, "onUpdate()");
 		
 //		final int N = appWidgetIds.length;  
 //        for (int i=0; i<N; i++) {  
@@ -29,19 +29,19 @@ public class TimeWidgetProvider extends AppWidgetProvider {
 
 	// 当一个Widgets删除时会被调用
 	public void onDeleted(Context context, int[] appWidgetIds) {
-		Log.addLog(this, "onDeleted()");
+		Log.addLog("peter", this, "onDeleted()");
 		super.onDeleted(context, appWidgetIds);
 	}
 
 	// 第一次往桌面添加Widgets时会被调用，之后添加同类型Widgets不会被调用
 	public void onEnabled(Context context) {
-		Log.addLog(this, "onEnabled()");
+		Log.addLog("peter", this, "onEnabled()");
 		context.startService(new Intent(context, TimerService.class));
 	}
 
 	// 从桌面上删除最后一个Widgets时会被调用
 	public void onDisabled(Context context) {
-		Log.addLog(this, "onDisabled()");
+		Log.addLog("peter", this, "onDisabled()");
 		context.stopService(new Intent(context, TimerService.class));
 	}
 	

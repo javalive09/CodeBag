@@ -22,9 +22,9 @@ public class SystemTime extends MyCode {
 		
 		boolean currentTimeBig = currentTime > endTime;
 		
-		Log.addLog(this, "currentTime = " + currentTime);
-		Log.addLog(this, "endTime = " + endTime);
-		Log.addLog(this, "currentTimeBig = " + currentTimeBig);
+		Log.addLog("peter", this, "currentTime = " + currentTime);
+		Log.addLog("peter", this, "endTime = " + endTime);
+		Log.addLog("peter", this, "currentTimeBig = " + currentTimeBig);
 	}
 
 }

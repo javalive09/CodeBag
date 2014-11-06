@@ -40,7 +40,7 @@ public class Inovker extends MyCode {
 	@Entry
 	public void getLauncherPackageName() {
 		String name = getLauncherPackageName(getActivity());
-		Log.addLog(this, name);
+		Log.addLog("peter", this, name);
 	}
 
 	@Entry
@@ -58,7 +58,7 @@ public class Inovker extends MyCode {
 			for (int appWidgetId : list) {
 				AppWidgetProviderInfo info = manager
 						.getAppWidgetInfo(appWidgetId);
-				Log.addLog(this, "info=" + info);
+				Log.addLog("peter", this, "info=" + info);
 			}
 		}
 	}
@@ -80,7 +80,7 @@ public class Inovker extends MyCode {
 		AppWidgetManager manager = AppWidgetManager.getInstance(getActivity());
 		List<AppWidgetProviderInfo> list = manager.getInstalledProviders();
 		for (AppWidgetProviderInfo info : list) {
-			Log.addLog(this, info.toString());
+			Log.addLog("peter", this, info.toString());
 		}
 	}
 
@@ -127,10 +127,10 @@ public class Inovker extends MyCode {
 					"com.android.launcher.permission.WRITE_SETTINGS");
 		}
 		if (AUTHORITY == null) {
-			Log.addLog(this, "no authority");
+			Log.addLog("peter", this, "no authority");
 			return null;
 		}
-		Log.addLog(this, "authority:" + AUTHORITY);
+		Log.addLog("peter", this, "authority:" + AUTHORITY);
 
 		ArrayList<Integer> idList = new ArrayList<Integer>();
 		Uri CONTENT_URI = Uri.parse("content://" + AUTHORITY
@@ -159,7 +159,7 @@ public class Inovker extends MyCode {
 						+ "|iconPackage =" + iconPackage;
 				idList.add(appWidgetId);
 
-				Log.addLog(this, log);
+				Log.addLog("peter", this, log);
 			}
 
 		}
@@ -195,7 +195,7 @@ public class Inovker extends MyCode {
 				.queryBroadcastReceivers(intent, 64);
 		for (ResolveInfo info : list) {
 			String packageName = info.activityInfo.packageName;
-			Log.addLog(this, "packageName =" + packageName);
+			Log.addLog("peter", this, "packageName =" + packageName);
 		}
 	}
 
@@ -206,7 +206,7 @@ public class Inovker extends MyCode {
 				.queryBroadcastReceivers(intent, 64);
 		for (ResolveInfo info : list) {
 			String packageName = info.activityInfo.packageName;
-			Log.addLog(this, "packageName =" + packageName);
+			Log.addLog("peter", this, "packageName =" + packageName);
 		}
 	}
 
@@ -217,7 +217,7 @@ public class Inovker extends MyCode {
 				.queryBroadcastReceivers(intent, 64);
 		for (ResolveInfo info : list) {
 			String packageName = info.activityInfo.packageName;
-			Log.addLog(this, "packageName =" + packageName);
+			Log.addLog("peter", this, "packageName =" + packageName);
 		}
 	}
 
@@ -228,7 +228,7 @@ public class Inovker extends MyCode {
 				.queryBroadcastReceivers(intent, 64);
 		for (ResolveInfo info : list) {
 			String packageName = info.activityInfo.packageName;
-			Log.addLog(this, "packageName =" + packageName);
+			Log.addLog("peter", this, "packageName =" + packageName);
 		}
 	}
 

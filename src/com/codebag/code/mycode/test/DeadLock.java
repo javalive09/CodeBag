@@ -46,7 +46,7 @@ public class DeadLock extends MyCode {
 				e.printStackTrace();
 			}
 			synchronized(lockTwo) {
-				Log.addLog(this, "methodA");
+				Log.addLog("peter", this, "methodA");
 			}
 		}
 	}
@@ -59,7 +59,7 @@ public class DeadLock extends MyCode {
 				e.printStackTrace();
 			}
 			synchronized(lockOne) {
-				Log.addLog(this, "methodB");
+				Log.addLog("peter", this, "methodB");
 			}
 		}
 	}

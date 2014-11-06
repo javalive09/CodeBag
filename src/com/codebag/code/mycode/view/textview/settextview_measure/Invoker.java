@@ -25,11 +25,11 @@ public class Invoker extends MyCode {
 			@Override
 			protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
 				super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-				Log.addLog(this, "measureCount = " + measureCount++);
+				Log.addLog("peter", this, "measureCount = " + measureCount++);
 			}
 			
 			public void requestLayout() {
-				Log.addLog(this, "requestCount = " + requestCount++);
+				Log.addLog("peter", this, "requestCount = " + requestCount++);
 			}
 			
 		};

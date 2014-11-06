@@ -35,7 +35,7 @@ public class Invoker extends MyCode {
 		List<ResolveInfo> playerList = packageManager.queryIntentActivities(intent, 0);
 		for (ResolveInfo info : playerList) {
 			String name = info.activityInfo.packageName;
-			Log.addLog(this, name);
+			Log.addLog("peter", this, name);
 		}
 	}
 	
@@ -70,7 +70,7 @@ public class Invoker extends MyCode {
 			 
 			String track = intent.getStringExtra("track");
 			
-			Log.addLog("peter 123456 ", intent.toString());
+			Log.addLog("peter", "peter 123456 ", intent.toString());
 			 
 			}}, intentFilter);
 
@@ -104,7 +104,7 @@ public class Invoker extends MyCode {
 		AudioManager mAm = (AudioManager) getActivity().getSystemService(
 				Context.AUDIO_SERVICE);
 		boolean isActive = mAm.isMusicActive();
-		Log.addLog(this, "isActive = " + isActive);
+		Log.addLog("peter", this, "isActive = " + isActive);
 	}
 
 	@Entry
@@ -120,7 +120,7 @@ public class Invoker extends MyCode {
 					AudioManager mAm = (AudioManager) getActivity()
 							.getSystemService(Context.AUDIO_SERVICE);
 					boolean isActive = mAm.isMusicActive();
-					Log.showSystemLog(this, "isActive = " + isActive);
+					Log.addLog("peter", this, "isActive = " + isActive);
 
 					try {
 						Thread.sleep(1000);

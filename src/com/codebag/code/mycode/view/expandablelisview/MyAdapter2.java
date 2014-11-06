@@ -95,7 +95,7 @@ public class MyAdapter2 extends BaseExpandableListAdapter {
 
 			@Override
 			public void onClick(View v) {
-				Log.addLog(this, "" + v);
+				Log.addLog("peter", this, "" + v);
 			}
 		});
 		g.addView(tv);

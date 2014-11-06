@@ -45,13 +45,13 @@ public class MyActivityB extends Activity {
 		setContentView(R.layout.activity_root3);
 		FrameLayout fl = (FrameLayout) findViewById(R.id.container);
 		fl.addView(bt);
-		Log.addLog(this, "onCreate");
+		Log.addLog("peter", this, "onCreate");
 	}
 	
 	public static class MyHandler extends Handler{
 		@Override
 		public void handleMessage(Message msg) {
-			Log.addLog(this, "msg =" + msg.what + "; obj = "+msg.obj);
+			Log.addLog("peter", this, "msg =" + msg.what + "; obj = "+msg.obj);
 			msg = Message.obtain(msg);
 			msg.what++;
 			sendMessageDelayed(msg, 1000);
@@ -73,49 +73,49 @@ public class MyActivityB extends Activity {
 	protected void onStart() {
 		// TODO Auto-generated method stub
 		super.onStart();
-		Log.addLog(this, "onStart");
+		Log.addLog("peter", this, "onStart");
 	}
 
 	@Override
 	protected void onRestart() {
 		// TODO Auto-generated method stub
 		super.onRestart();
-		Log.addLog(this, "onRestart");
+		Log.addLog("peter", this, "onRestart");
 	}
 
 	@Override
 	protected void onResume() {
 		// TODO Auto-generated method stub
 		super.onResume();
-		Log.addLog(this, "onResume");
+		Log.addLog("peter", this, "onResume");
 	}
 
 	@Override
 	protected void onNewIntent(Intent intent) {
 		// TODO Auto-generated method stub
 		super.onNewIntent(intent);
-		Log.addLog(this, "onNewIntent");
+		Log.addLog("peter", this, "onNewIntent");
 	}
 
 	@Override
 	protected void onPause() {
 		// TODO Auto-generated method stub
 		super.onPause();
-		Log.addLog(this, "onPause");
+		Log.addLog("peter", this, "onPause");
 	}
 
 	@Override
 	protected void onStop() {
 		// TODO Auto-generated method stub
 		super.onStop();
-		Log.addLog(this, "onStop");
+		Log.addLog("peter", this, "onStop");
 	}
 
 	@Override
 	protected void onDestroy() {
 		// TODO Auto-generated method stub
 		super.onDestroy();
-		Log.addLog(this, "onDestroy");
+		Log.addLog("peter", this, "onDestroy");
 	}
 
 	@Override

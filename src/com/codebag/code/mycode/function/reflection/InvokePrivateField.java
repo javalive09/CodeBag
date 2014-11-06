@@ -21,7 +21,7 @@ public class InvokePrivateField  extends MyCode {
 			Field field = Reflection.class.getDeclaredField("name");
 			field.setAccessible(true);
 			Object obj = field.get(reflection);
-			Log.addLog(this, "obj=" + obj);
+			Log.addLog("peter", this, "obj=" + obj);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -37,7 +37,7 @@ public class InvokePrivateField  extends MyCode {
 			e.printStackTrace();
 		}
 		
-		Log.addLog(this, "setFiled = " + reflection.getAge());
+		Log.addLog("peter", this, "setFiled = " + reflection.getAge());
 	}
 
 }

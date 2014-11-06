@@ -1,6 +1,9 @@
 package com.codebag.bag;
 
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.PrintStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Enumeration;
@@ -8,6 +11,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import com.codebag.R;
+import com.codebag.code.mycode.utils.Log;
 
 import dalvik.system.DexFile;
 import android.app.Application;
@@ -15,10 +19,10 @@ import android.content.Context;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
-import android.util.Log;
 
 public class CodeBag extends Application implements Thread.UncaughtExceptionHandler{
 
+	private static final String TAG = CodeBag.class.getSimpleName();
 	public static final String ROOT_DIR = "com.codebag.code.mycode";
 	public static final int FILE = 0;
 	public static final int DIR = 1;
@@ -48,9 +52,8 @@ public class CodeBag extends Application implements Thread.UncaughtExceptionHand
 		} catch (NameNotFoundException e) {
 			e.printStackTrace();
 		}
-		
-		Log.i("~peter", "apkDir = " + apkDir);
-		Log.i("~peter", "pkgName = " + pkgName);
+		Log.addLog(TAG, this, "apkDir = " + apkDir);
+		Log.addLog(TAG, this, "pkgName = " + pkgName);
 
 		DexFile dexFile = null;
 		try {
@@ -72,7 +75,7 @@ public class CodeBag extends Application implements Thread.UncaughtExceptionHand
 					
 					loadCodeBagNode(className, strs, 0, mRootNode);
 					
-					Log.i("~peter", "fileName = " + fileName);
+					Log.addLog(TAG, this, "fileName = " + fileName);
 				}
 				
 			}
@@ -126,7 +129,7 @@ public class CodeBag extends Application implements Thread.UncaughtExceptionHand
 					if("codebag_appdemo".equals(type)) {
 						Node node = new Node(appInfo.packageName, Node.APP);
 						appNode.mSubNodeList.add(node);
-						Log.i("packageName", info.packageName );
+						Log.addLog(TAG, this, "packageName=" + info.packageName);
 					}
 				}
 				
@@ -141,8 +144,9 @@ public class CodeBag extends Application implements Thread.UncaughtExceptionHand
 	}
 	
 	private void printNode(Node node) {
-		Log.i("!peter", "name=" + node.name);
-		Log.i("!peter", "fullname=" + node.className);
+		
+		Log.addLog(TAG, this, "name=" + node.name);
+		Log.addLog(TAG, this, "fullname=" + node.className);
 		
 		if(node.mSubNodeList != null) {
 	
@@ -250,7 +254,22 @@ public class CodeBag extends Application implements Thread.UncaughtExceptionHand
 
 	@Override
 	public void uncaughtException(Thread thread, Throwable ex) {
-		 Log.i("peter", "uncaughtException");
+		 Log.addLog(TAG, this, "uncaughtException");
+		 
+		 try {
+             //将crash log写入文件
+             FileOutputStream fileOutputStream = new FileOutputStream(Log.CRASH_TXT_PATH, true);
+             PrintStream printStream = new PrintStream(fileOutputStream);
+             ex.printStackTrace(printStream);
+             printStream.flush();
+             printStream.close();
+             fileOutputStream.close();
+         } catch (FileNotFoundException e) {
+             e.printStackTrace();
+         } catch (IOException e) {
+             e.printStackTrace();
+         }
+		 
 		 System.exit(0);
 	}
 	

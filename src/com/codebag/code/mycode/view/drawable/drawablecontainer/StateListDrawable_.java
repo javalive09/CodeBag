@@ -67,7 +67,7 @@ public class StateListDrawable_ extends MyCode implements OnClickListener{
 						@Override
 						public boolean onTouchEvent(MotionEvent event) {
 							boolean focus = hasFocus();
-							Log.addLog(this, "isFocusable = " + isFocusable() + "; isFocusableInTouchMode = " + isFocusableInTouchMode());
+							Log.addLog("peter", this, "isFocusable = " + isFocusable() + "; isFocusableInTouchMode = " + isFocusableInTouchMode());
 							boolean result = super.onTouchEvent(event);
 							focus = hasFocus();
 							return result;
@@ -127,7 +127,7 @@ public class StateListDrawable_ extends MyCode implements OnClickListener{
 	public void onClick(View v) {
 		switch(v.getId()) {
 		case 0 :
-			Log.addLog(this, "show");
+			Log.addLog("peter", this, "show");
 			break;
 		case 1:
 			show.setEnabled(true);

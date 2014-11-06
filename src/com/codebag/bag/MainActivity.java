@@ -50,6 +50,7 @@ import android.widget.Toast;
 
 public class MainActivity extends Activity{
 
+	private static final String TAG = MainActivity.class.getSimpleName();
 	private static final String NODE = "node";
 	
 	private MyMenu mMenu;
@@ -478,9 +479,9 @@ public class MainActivity extends Activity{
 				Node node = (Node) adapter.getItem(position);
 				if (node != null) {
 					if(node.type == Node.CLASS) {
-						Log.addLog(MainActivity.this, node.className);
+						Log.addLog(TAG, MainActivity.this, node.className);
 						String dir = node.className.replace(".", "/") + ".java";
-						Log.addLog(MainActivity.this, dir);
+						Log.addLog(TAG, MainActivity.this, dir);
 						InputStream is = null;
 						try {
 							is = getAssets().open(dir);

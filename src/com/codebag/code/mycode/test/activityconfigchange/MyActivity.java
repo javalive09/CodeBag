@@ -22,7 +22,7 @@ public class MyActivity extends Activity {
 	@Override
 	public void onConfigurationChanged(Configuration newConfig) {
 		super.onConfigurationChanged(newConfig);
-		Log.addLog(this, "onConfigurationChanged" + newConfig.toString());
+		Log.addLog("peter", this, "onConfigurationChanged" + newConfig.toString());
 	}
 
 }

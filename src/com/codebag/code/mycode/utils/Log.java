@@ -1,37 +1,49 @@
 package com.codebag.code.mycode.utils;
 
+import android.os.Environment;
+
 public class Log {
 	
+	public static final String CRASH_TXT_PATH = Environment.getExternalStorageDirectory().getPath() + "codebad_crash_log.txt";
+	private static final boolean DEBUG = true;
 	private static StringBuffer mLog = new StringBuffer();
 	private static long startTime = 0;
 	
-	public static void addLog(Object invoker, String msg) {
-		mLog.append(invoker.getClass().getSimpleName() + ":" + msg + "\n");
-		android.util.Log.i("log="+ invoker.getClass().getSimpleName(), msg);
+	public static void addLog(String tag, Object invoker, String msg) {
+		if(DEBUG) {
+			mLog.append(invoker.getClass().getSimpleName() + ":" + msg + "\n");
+			android.util.Log.i(tag, "invoker = " + invoker.getClass().getSimpleName() + ", msg =" + msg + "/n");
+		}
 	}
 	
 	public static String getLog() {
-		return mLog.toString();
-	}
-	
-	public static void showSystemLog(Object invoker, String msg) {
-		android.util.Log.i("log="+ invoker.getClass().getSimpleName(), msg);
+		if(DEBUG) {
+			return mLog.toString();
+		}
+		return "";
 	}
 	
 	public static void clearLog() {
-		mLog.setLength(0);
+		if(DEBUG) {
+			mLog.setLength(0);
+		}
 	}
 	
 	public static void startCountTime(Object invoker, String msg) {
-		startTime = System.currentTimeMillis();
-		Log.addLog(invoker, msg + " startTime=" + startTime + ">>>>>>>>>>>>>>>>>>>>>>>");
+		if(DEBUG) {
+			startTime = System.currentTimeMillis();
+			Log.addLog("startCountTime", invoker, msg + " startTime=" + startTime + ">>>>>>>>>>>>>>>>>>>>>>>");
+		}
 	}
 	
 	public static long endCountTime(Object invoker, String msg) {
-		long endTime = System.currentTimeMillis();
-		long detaTime = endTime - startTime;
-		Log.addLog(invoker, msg + " cost =" + detaTime + ">>>>>>>>>>>>>>>>>>>>>>>");
-		return detaTime;
+		if(DEBUG) {
+			long endTime = System.currentTimeMillis();
+			long detaTime = endTime - startTime;
+			Log.addLog("endCountTime", invoker, msg + " cost =" + detaTime + ">>>>>>>>>>>>>>>>>>>>>>>");
+			return detaTime;
+		}
+		return 0;
 	}
 	
 }

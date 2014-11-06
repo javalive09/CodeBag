@@ -68,8 +68,8 @@ public class MyToast extends MyCode {
 
 		int contentViewTop = win.findViewById(Window.ID_ANDROID_CONTENT).getTop();
 
-		Log.addLog(this, "statusBarHeight = " + statusBarHeight); 
-		Log.addLog(this, "contentViewTop = " + contentViewTop); 
+		Log.addLog("peter", this, "statusBarHeight = " + statusBarHeight); 
+		Log.addLog("peter", this, "contentViewTop = " + contentViewTop); 
 	}
 	
 	@Entry

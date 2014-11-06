@@ -34,7 +34,7 @@ public class MyActivityA extends Activity {
 		setContentView(((CodeBag) getApplication()).getRootViewRes());
 		FrameLayout fl = (FrameLayout) findViewById(R.id.container);
 		fl.addView(bt);
-		Log.addLog(this,"onCreate");
+		Log.addLog("peter", this,"onCreate");
 	}
 	
 	
@@ -42,7 +42,7 @@ public class MyActivityA extends Activity {
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);
-		Log.addLog(this, "onActivityResult()");
+		Log.addLog("peter", this, "onActivityResult()");
 	}
 
 
@@ -54,7 +54,7 @@ public class MyActivityA extends Activity {
 	protected void onStart() {
 		// TODO Auto-generated method stub
 		super.onStart();
-		Log.addLog(this, "onStart");
+		Log.addLog("peter", this, "onStart");
 	}
 
 	/* 
@@ -64,14 +64,14 @@ public class MyActivityA extends Activity {
 	protected void onRestart() {
 		// TODO Auto-generated method stub
 		super.onRestart();
-		Log.addLog(this, "onRestart");
+		Log.addLog("peter", this, "onRestart");
 	}
 
 	@Override
 	protected void onResume() {
 		// TODO Auto-generated method stub
 		super.onResume();
-		Log.addLog(this, "onResume");
+		Log.addLog("peter", this, "onResume");
 	}
 
 	/* 
@@ -81,28 +81,28 @@ public class MyActivityA extends Activity {
 	protected void onNewIntent(Intent intent) {
 		// TODO Auto-generated method stub
 		super.onNewIntent(intent);
-		Log.addLog(this, "onNewIntent");
+		Log.addLog("peter", this, "onNewIntent");
 	}
 
 	@Override
 	protected void onPause() {
 		// TODO Auto-generated method stub
 		super.onPause();
-		Log.addLog(this, "onPause");
+		Log.addLog("peter", this, "onPause");
 	}
 
 	@Override
 	protected void onStop() {
 		// TODO Auto-generated method stub
 		super.onStop();
-		Log.addLog(this, "onStop");
+		Log.addLog("peter", this, "onStop");
 	}
 
 	@Override
 	protected void onDestroy() {
 		// TODO Auto-generated method stub
 		super.onDestroy();
-		Log.addLog(this, "onDestroy");
+		Log.addLog("peter", this, "onDestroy");
 	}
 
 	

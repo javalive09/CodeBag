@@ -20,7 +20,7 @@ public class Factorial extends MyCode {
 	@Entry()
 	public void function() {
 		int result = factorial(5);
-		Log.addLog(this, "result = " + result);
+		Log.addLog("peter", this, "result = " + result);
 	}
 	
 	private int factorial(int n) {

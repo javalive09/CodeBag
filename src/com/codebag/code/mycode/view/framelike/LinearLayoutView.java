@@ -33,7 +33,7 @@ public class LinearLayoutView extends LinearLayout {
 		Log.startCountTime(this, "dispatchDraw");
 		super.dispatchDraw(canvas);
 		totalCost += Log.endCountTime(this, "dispatchDraw");
-		Log.addLog(this, "totalCost = " + totalCost);
+		Log.addLog("peter", this, "totalCost = " + totalCost);
 	}
 	
 	
