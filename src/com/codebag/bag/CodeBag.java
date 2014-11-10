@@ -255,6 +255,7 @@ public class CodeBag extends Application implements Thread.UncaughtExceptionHand
 	@Override
 	public void uncaughtException(Thread thread, Throwable ex) {
 		 Log.addLog(TAG, this, "uncaughtException");
+		 Log.addLog(TAG, this, "uncaughtException" + "; path = " + Log.CRASH_TXT_PATH);
 		 
 		 try {
              //将crash log写入文件

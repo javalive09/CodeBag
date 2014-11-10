@@ -116,6 +116,7 @@ public class MainActivity extends Activity{
 					showAlertDialog(getString(R.string.action_about), getString(R.string.action_about_msg));
 					break;
 				case R.string.action_settings:
+					int i = 5/0;
 					break;
 				case R.string.action_feedback:
 					break;
