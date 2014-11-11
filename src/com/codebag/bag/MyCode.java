@@ -4,7 +4,7 @@ import android.content.Intent;
 import android.view.View;
 import android.widget.FrameLayout;
 
-public class MyCode{
+public class MyCode{//
 	
 	public static final int NEW_ACTIVITY = 0XFFFFFF;
 

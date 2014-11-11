@@ -4,7 +4,7 @@ import android.os.Environment;
 
 public class Log {
 	
-	public static final String CRASH_TXT_PATH = Environment.getExternalStorageDirectory().getPath() + "codebad_crash_log.txt";
+	public static final String CRASH_TXT_PATH = "/sdcard/codebag_crash_log.txt";
 	private static final boolean DEBUG = true;
 	private static StringBuffer mLog = new StringBuffer();
 	private static long startTime = 0;
