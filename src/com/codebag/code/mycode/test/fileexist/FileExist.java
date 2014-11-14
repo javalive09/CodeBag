@@ -5,6 +5,8 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Environment;
@@ -28,7 +30,7 @@ public class FileExist extends MyCode {
 	 */
 	@Entry
 	public void writeFile() {
-		String sdPath = "/sdcard/peter123.jpg";
+		String sdPath = Environment.getExternalStorageDirectory() + "/peter123.jpg";
 		Log.i(TAG, "sdCard path = " + sdPath);
 		
 		File mFile = new File(sdPath);
@@ -72,5 +74,23 @@ public class FileExist extends MyCode {
 	public void exist() {
 		
 	}
+	
+	@Entry
+    public void getDebugConfigValuel() {
+        String value = null;
+            // 读取测试配置文件,方便测试
+            String state = Environment.getExternalStorageState();
+            String dir_ = Environment.getExternalStorageDirectory().toString();
+            if (state.equals(Environment.MEDIA_MOUNTED)) {
+                File dir = new File(Environment.getExternalStorageDirectory(), "peter_dir");
+                Log.i("peter", "dir = " + dir);
+                
+                if (!dir.exists()) {
+                    dir.mkdirs();
+                }
+//                if (file.isFile() && file.canRead()) {
+
+        }
+    }
 
 }
