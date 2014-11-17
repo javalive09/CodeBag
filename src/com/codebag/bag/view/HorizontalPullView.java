@@ -51,8 +51,13 @@ public class HorizontalPullView extends ViewGroup {
 			scrollTo(mScrollerX, mScrollerY);
 			invalidate();
 		}else if(mFinish) {
-			Activity act = (Activity) getContext();
-			act.finish();
+			ViewGroup parent = (ViewGroup) getParent();
+			if(parent.getChildCount() == 1) {
+				Activity act = (Activity) getContext();
+				act.onBackPressed();
+			}else {
+				parent.removeView(this);
+			}
 		}
 	}
 	

@@ -6,6 +6,7 @@ import com.codebag.code.mycode.utils.Log;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -13,12 +14,16 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 
 public class MyFragmentActivity extends FragmentActivity {
 
 	int rootId = 123456;
+	int id = 0;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -33,16 +38,38 @@ public class MyFragmentActivity extends FragmentActivity {
 			public View onCreateView(LayoutInflater inflater, ViewGroup container,
 					Bundle savedInstanceState) {
 				super.onCreateView(inflater, container, savedInstanceState);
-				TextView tv = new TextView(MyFragmentActivity.this);
-				tv.setText("FragmentActivity-MyFragment");
-				return tv;
+				Button bt = new Button(MyFragmentActivity.this);
+				bt.setOnClickListener(new OnClickListener() {
+					
+					@Override
+					public void onClick(View v) {
+						FragmentManager fragmentManager = getSupportFragmentManager();
+						FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+						Fragment ft = new MyFragment() {
+							public View onCreateView(LayoutInflater inflater, ViewGroup container,
+									Bundle savedInstanceState) {
+								FrameLayout fl = new FrameLayout(MyFragmentActivity.this);
+								fl.setBackgroundColor(Color.BLACK);
+								TextView tv = new TextView(MyFragmentActivity.this);
+								tv.setText("FragmentActivity-MyFragment");
+								fl.addView(tv);
+								return fl;
+							}
+						};
+						fragmentTransaction.replace(R.id.container, ft);
+						fragmentTransaction.addToBackStack(null);
+						fragmentTransaction.commit();
+					}
+				});
+				bt.setText("new fragment" + id++);
+				return bt;
 				
 			}
 		}, "new");
 		fragmentTransaction.commit();
 		
 	}
-
+	
 	@Override
 	protected void onStart() {
 		super.onStart();

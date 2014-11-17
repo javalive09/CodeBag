@@ -1,7 +1,5 @@
 package com.codebag.code.mycode.utils;
 
-import android.os.Environment;
-
 public class Log {
 	
 	public static final String CRASH_TXT_PATH = "/sdcard/codebag_crash_log.txt";
@@ -12,7 +10,7 @@ public class Log {
 	public static void addLog(String tag, Object invoker, String msg) {
 		if(DEBUG) {
 			mLog.append(invoker.getClass().getSimpleName() + ":" + msg + "\n");
-			android.util.Log.i(tag, "invoker = " + invoker.getClass().getSimpleName() + ", msg =" + msg + "/n");
+			android.util.Log.i(tag, "invoker = " + invoker + "name = " + invoker.getClass().getSimpleName() + ", msg =" + msg + "/n");
 		}
 	}
 	

@@ -7,7 +7,6 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
-
 import com.codebag.R;
 import com.codebag.bag.CodeBag.Node;
 import com.codebag.bag.view.MyMenu;
@@ -15,7 +14,6 @@ import com.codebag.bag.view.MyMenu.ItemViewCreater;
 import com.codebag.bag.view.MyMenu.ItemViewOnClickListener;
 import com.codebag.bag.view.TextViewFixTouchConsume;
 import com.codebag.code.mycode.utils.Log;
-
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
@@ -116,7 +114,6 @@ public class MainActivity extends Activity{
 					showAlertDialog(getString(R.string.action_about), getString(R.string.action_about_msg));
 					break;
 				case R.string.action_settings:
-					int i = 5/0;
 					break;
 				case R.string.action_feedback:
 					break;
@@ -153,7 +150,13 @@ public class MainActivity extends Activity{
 		if(mMenu != null && mMenu.isShowing()) {
 			mMenu.dismiss();
 		}else {
-			super.onBackPressed();
+			FrameLayout root = (FrameLayout) findViewById(R.id.root_view);
+			int index = root.getChildCount() - 1;
+			if(index == 0) {
+				super.onBackPressed();
+			}else {
+				root.removeViewAt(index);
+			}
 		}
 	}
 
@@ -178,7 +181,7 @@ public class MainActivity extends Activity{
 	public void onClick(View view) {
 		switch(view.getId()) {
 		case R.id.back:
-			finish();
+			onBackPressed();
 			break;
 		case R.id.menu:
 			mMenu.show();
@@ -200,7 +203,7 @@ public class MainActivity extends Activity{
 	}
 	
 	private void showMainView(Node node) {
-		setContentView(((CodeBag) getApplication()).getRootViewRes());
+		setContentView(R.layout.main_view);
 		switch (node.type) {
 		case Node.DIR:
 			showDirView(node);
@@ -219,9 +222,9 @@ public class MainActivity extends Activity{
 		// Debug.stopMethodTracing();
 	}
 
-	private void setTitle(CharSequence titleTxt, int titleIconResId) {
-		findViewById(R.id.titlebar).setVisibility(View.VISIBLE);
-		TextView title = (TextView) findViewById(R.id.title);
+	private void setTitle(View main, CharSequence titleTxt, int titleIconResId) {
+		main.findViewById(R.id.titlebar).setVisibility(View.VISIBLE);
+		TextView title = (TextView) main.findViewById(R.id.title);
 		title.setText(titleTxt);
 		Drawable titleIcon = getResources().getDrawable(titleIconResId);
 		titleIcon.setBounds(0, 0, titleIcon.getMinimumWidth(),
@@ -229,10 +232,14 @@ public class MainActivity extends Activity{
 		title.setCompoundDrawables(titleIcon, null, null, null);
 	}
 
-	public void showView(View view) {
-		FrameLayout container = (FrameLayout) findViewById(R.id.container);
-		container.removeAllViews();
+	public View showView(View view) {
+		FrameLayout root = (FrameLayout) findViewById(R.id.root_view);
+		LayoutInflater factory = LayoutInflater.from(MainActivity.this);
+        View main = factory.inflate(((CodeBag) getApplication()).getRootViewRes(), root, false);
+        root.addView(main);
+        FrameLayout container = (FrameLayout) main.findViewById(R.id.container);
 		container.addView(view);
+		return main;
 	}
 	
 	public void showView(View view, FrameLayout.LayoutParams params) {
@@ -256,8 +263,8 @@ public class MainActivity extends Activity{
 
 	private void showAppDemoView(Node node) {
 		ListView listView = new ListView(MainActivity.this);
-		setTitle(node.name, R.drawable.folder);
-		showView(listView);
+		View main = showView(listView);
+		setTitle(main, node.name, R.drawable.folder);
 		listView.setAdapter(new ListAdapter<Node>(MainActivity.this, node.mSubNodeList) {
 			@Override
 			public View getView(int position, View convertView, ViewGroup parent) {
@@ -304,7 +311,6 @@ public class MainActivity extends Activity{
 			Constructor<?> con = cls.getConstructor(MainActivity.class);
 			Object obj = con.newInstance(MainActivity.this);
 			Method method = cls.getDeclaredMethod(methodName);
-			setTitle(method.getName(), R.drawable.file);
 			method.invoke(obj);
 		} catch (ClassNotFoundException e1) {
 			e1.printStackTrace();
@@ -325,8 +331,8 @@ public class MainActivity extends Activity{
 		// class file
 		final String className = node.className;
 		ListView caseListview = new ListView(MainActivity.this);
-		setTitle(node.name + ".java", R.drawable.file);
-		showView(caseListview);
+		View main = showView(caseListview);
+		setTitle(main, node.name + ".java", R.drawable.file);
 		ArrayList<String> list = new ArrayList<String>();
 		try {
 			Class<?> cls = Class.forName(className);
@@ -361,9 +367,7 @@ public class MainActivity extends Activity{
 				String methodName = (String) parent.getAdapter().getItem(
 						position);
 				Node node = new Node(methodName, Node.METHOD, className);
-				Intent intent = new Intent(MainActivity.this, MainActivity.class);
-				intent.putExtra(NODE, node);
-				startActivity(intent);
+				showMethodView(node);
 				Toast.makeText(MainActivity.this, node.name, Toast.LENGTH_SHORT).show();
 			}
 		});
@@ -395,8 +399,9 @@ public class MainActivity extends Activity{
 
 	private void showDirView(Node node) {
 		ListView listView = new ListView(MainActivity.this);
-		setTitle(node.name, R.drawable.folder);
-		showView(listView);
+		listView.setBackgroundColor(Color.WHITE);
+		View main = showView(listView);
+		setTitle(main, node.name, R.drawable.folder);
 		listView.setAdapter(new ListAdapter<Node>(MainActivity.this, node.mSubNodeList) {
 			@Override
 			public View getView(int position, View convertView, ViewGroup parent) {
@@ -457,18 +462,19 @@ public class MainActivity extends Activity{
 				Node node = (Node) adapter.getItem(position);
 				if (node != null) {
 					if (adapter.getItemViewType(position) == ListAdapter.ENTRY) {
-						Intent intent = new Intent(MainActivity.this, MainActivity.class);
-						intent.putExtra(NODE, node);
-						startActivity(intent);
+						switch(node.type) {
+						case Node.CLASS:
+							showClassView(node);
+							break;
+						case Node.DIR:
+							showDirView(node);
+							break;
+						case Node.APP:
+							showAppDemoView(node);
+							break;
+						}
 					}
-				} else {
-					int count = adapter.getCount();
-					if (position == count - 1) {// footer
-						Intent intent = new Intent(MainActivity.this, MainActivity.class);
-						intent.putExtra(NODE, node);
-						startActivity(intent);
-					}
-				}
+				} 
 			}
 		});
 

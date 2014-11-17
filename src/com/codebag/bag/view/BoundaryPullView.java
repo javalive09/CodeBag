@@ -60,8 +60,13 @@ public class BoundaryPullView extends ViewGroup {
 			scrollTo(mScrollerX, mScrollerY);
 			invalidate();
 		}else if(mFinish) {
-			Activity act = (Activity) getContext();
-			act.finish();
+			ViewGroup parent = (ViewGroup) getParent();
+			if(parent == null){
+				Activity act = (Activity) getContext();
+				act.onBackPressed();
+			}else {
+				parent.removeView(this);
+			}
 		}
 	}
 	
