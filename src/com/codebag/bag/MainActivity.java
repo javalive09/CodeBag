@@ -242,10 +242,14 @@ public class MainActivity extends Activity{
 		return main;
 	}
 	
-	public void showView(View view, FrameLayout.LayoutParams params) {
-		FrameLayout container = (FrameLayout) findViewById(R.id.container);
-		container.removeAllViews();
+	public View showView(View view, FrameLayout.LayoutParams params) {
+		FrameLayout root = (FrameLayout) findViewById(R.id.root_view);
+		LayoutInflater factory = LayoutInflater.from(MainActivity.this);
+        View main = factory.inflate(((CodeBag) getApplication()).getRootViewRes(), root, false);
+        root.addView(main);
+        FrameLayout container = (FrameLayout) main.findViewById(R.id.container);
 		container.addView(view, params);
+		return main;
 	}
 
 	private Drawable getRightSizeIcon(BitmapDrawable drawable) {

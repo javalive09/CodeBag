@@ -61,7 +61,7 @@ public class BoundaryPullView extends ViewGroup {
 			invalidate();
 		}else if(mFinish) {
 			ViewGroup parent = (ViewGroup) getParent();
-			if(parent == null){
+			if(parent.getChildCount() == 1) {
 				Activity act = (Activity) getContext();
 				act.onBackPressed();
 			}else {
