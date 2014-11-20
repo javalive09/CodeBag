@@ -24,8 +24,8 @@ public class ProgressView extends FrameLayout implements AniminationCallBack{
 	
 	private void init(Context context) {
 		mProgress = new CircleView(context);
-		int color = Color.parseColor("#1e83d1");
-		mProgress.setBackgroundColor(color);
+//		int color = Color.parseColor("#1e83d1");
+//		mProgress.setBackgroundColor(color);
 		mProgress.setDuration(0);
 		FrameLayout.LayoutParams paramsP = new FrameLayout.LayoutParams(-2, -2);
 		paramsP.gravity = Gravity.CENTER;
