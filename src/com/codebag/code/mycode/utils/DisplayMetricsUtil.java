@@ -7,6 +7,7 @@ import android.util.DisplayMetrics;
 import android.view.View;
 import android.widget.TextView;
 
+import com.codebag.R;
 import com.codebag.bag.MyCode;
 import com.codebag.bag.Entry;
 import com.codebag.bag.MainActivity;
@@ -54,13 +55,17 @@ public class DisplayMetricsUtil extends MyCode{
 					TelephonyManager tm = (TelephonyManager) getActivity().getSystemService(Context.TELEPHONY_SERVICE);
 					view.setText("IMEI: " + tm.getDeviceId());
 					break;
+				case 6:
+				    view = new TextView(getActivity());
+				    String str = getActivity().getString(R.string.values_marks);
+				    view.setText("res 资源读取目录: " + str);
 				}
 				return view;
 			}
 			
 			@Override
 			public int getCount() {
-				return 6;
+				return 7;
 			}
 		});
 		views.setBackgroundColor(Color.WHITE);

@@ -79,6 +79,8 @@ public class CakeWaveView2 extends ImageView {
 		mCirclePaint.setColor(cirCleColor);
 	}
 	
+	PorterDuffXfermode mode = new PorterDuffXfermode(PorterDuff.Mode.SRC_ATOP);
+	
 	@Override
 	protected void onDraw(Canvas canvas) {
 		canvas.save();
@@ -93,7 +95,7 @@ public class CakeWaveView2 extends ImageView {
                                   Canvas.FULL_COLOR_LAYER_SAVE_FLAG |
                                   Canvas.CLIP_TO_LAYER_SAVE_FLAG);
 		canvas.drawBitmap(mCircleBg, 0, 0, paint);
-		paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_ATOP));		
+		paint.setXfermode(mode);		
 		canvas.drawBitmap(mWave, 0, 0, paint);		
 		paint.setXfermode(null);
 		

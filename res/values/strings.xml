@@ -30,4 +30,5 @@
     <string name="format_test_name_place">my name is %1$11s, i am from %2$s</string>
     <string name="format_test_name_place_old">my name is %1$11Vs, i am from %2$s, i am %3$d years old</string>
 
+     <string name="values_marks">values</string>
 </resources>

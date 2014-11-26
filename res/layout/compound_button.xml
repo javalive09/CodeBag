@@ -34,11 +34,11 @@
         android:background="@android:color/darker_gray"
         android:text="Switch ，ToggleButton用于切换" />
 
-    <Switch
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textOff="switch off"
-        android:textOn="switch on" />
+<!--     <Switch -->
+<!--         android:layout_width="wrap_content" -->
+<!--         android:layout_height="wrap_content" -->
+<!--         android:textOff="switch off" -->
+<!--         android:textOn="switch on" /> -->
 
     <ToggleButton
         android:layout_width="wrap_content"

@@ -2,6 +2,10 @@ package com.codebag.code.mycode.cleanmaster.progress;
 
 import android.graphics.Color;
 import android.view.Gravity;
+import android.view.MotionEvent;
+import android.view.View;
+import android.view.View.OnTouchListener;
+import android.view.ViewGroup;
 import android.widget.FrameLayout;
 
 import com.codebag.bag.Entry;
@@ -35,6 +39,15 @@ public class Invoke extends MyCode {
 		showView(v, params);
 		
 		v.startAnim();
+		v.setOnTouchListener(new OnTouchListener() {
+            
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                ViewGroup vg = (ViewGroup) v;
+                vg.getChildAt(0).setVisibility(View.GONE);
+                return true;
+            }
+        });
 	}
 	
 }

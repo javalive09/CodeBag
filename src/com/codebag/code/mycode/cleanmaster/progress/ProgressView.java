@@ -4,7 +4,7 @@ import com.codebag.R;
 import com.codebag.code.mycode.cleanmaster.progress.CircleView.AniminationCallBack;
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.graphics.Color;
+import android.graphics.Canvas;
 import android.view.Gravity;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -15,7 +15,7 @@ public class ProgressView extends FrameLayout implements AniminationCallBack{
 
 	private ImageView mIcon;
 	private CircleView mProgress;
-	private ImageView mRotate;
+	private ImageView mRotate;//要隐藏旋转动画，先clearAnimation(),再隐藏
 	
 	public ProgressView(Context context) {
 		super(context);
@@ -54,6 +54,11 @@ public class ProgressView extends FrameLayout implements AniminationCallBack{
         animation.start();
         mProgress.startAnim();
 	}
+	
+    @Override
+    protected void dispatchDraw(Canvas canvas) {
+        super.dispatchDraw(canvas);
+    }
 
 	@Override
 	public void start() {}

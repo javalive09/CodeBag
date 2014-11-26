@@ -11,8 +11,14 @@ import android.graphics.RectF;
 import android.os.Handler;
 import android.os.Message;
 import android.view.View;
-import android.widget.FrameLayout;
 
+/**
+ * 
+ * ui框架支持visiable 的设置，所以不用考虑重写这个方法
+ * 
+ * @author zhangrui-ms
+ *
+ */
 public class CircleView extends View {
 
     private int mInnerDiameter;
@@ -53,9 +59,21 @@ public class CircleView extends View {
     public void setAniminationCallBack(AniminationCallBack callBack) {
         mCallBack = callBack;
     }
+    
+    
+    
+    @Override
+    public void setVisibility(int visibility) {
+        super.setVisibility(visibility);
+    }
+
+    @Override
+    protected void dispatchDraw(Canvas canvas) {
+        super.dispatchDraw(canvas);
+    }
 
     public void onDraw(Canvas canvas) {
-        
+
         canvas.translate(mOuterDiameter / 2, mOuterDiameter / 2);
 
         float rotation = 360.0f / 100;

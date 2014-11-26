@@ -198,12 +198,12 @@ public class CradCleanDial extends FrameLayout {
 		mCakeBar.setData(ply, diameter, 2);
 	}
 	
-	
+	PaintFlagsDrawFilter filter = new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG
+            | Paint.FILTER_BITMAP_FLAG);
 
 	@Override
 	protected void onDraw(Canvas canvas) {
-		canvas.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG
-				 | Paint.FILTER_BITMAP_FLAG));
+		canvas.setDrawFilter(filter);
 		super.onDraw(canvas);
 	}
 

@@ -52,9 +52,11 @@ public class Xfermodes_clip {
 
 		}
 
+		Paint paint = new Paint();
+		PorterDuffXfermode mode = new PorterDuffXfermode(PorterDuff.Mode.SRC_ATOP);
+		
 		protected void onDraw(Canvas canvas) {
 
-			Paint paint = new Paint();
 			paint.setFilterBitmap(false);
 
             int x = 100;
@@ -70,7 +72,7 @@ public class Xfermodes_clip {
 			
             canvas.translate(x, y);
 			canvas.drawBitmap(mDstB, 0, 0, paint);
-			paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_ATOP));
+			paint.setXfermode(mode);
 			canvas.drawBitmap(mSrcB, 0, 0, paint);
 			
 			paint.setXfermode(null);

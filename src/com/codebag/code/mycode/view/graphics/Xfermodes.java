@@ -91,13 +91,15 @@ public class Xfermodes{
             mBG.setLocalMatrix(m);
         }
         
+        Paint labelP = new Paint(Paint.ANTI_ALIAS_FLAG);
+        Paint paint = new Paint();
+        
         protected void onDraw(Canvas canvas) {
             canvas.drawColor(Color.WHITE);
             
-            Paint labelP = new Paint(Paint.ANTI_ALIAS_FLAG);
+            
             labelP.setTextAlign(Paint.Align.CENTER);
             
-            Paint paint = new Paint();
             paint.setFilterBitmap(false);
             
             canvas.translate(15, 35);
