@@ -85,7 +85,18 @@ public class MainActivity extends Activity{
 		codeBag.addActivity(this);
 	}
 	
-	private void initMenu() {
+	@Override
+    protected void onResume() {
+        super.onResume();
+        Log.addLog("onResume", this, "onResume");
+    }
+
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+        Log.addLog("onWindowFocusChanged", this, "onWindowFocusChanged = " + hasFocus);
+    }
+
+    private void initMenu() {
 		mMenu = new MyMenu(MainActivity.this);
 		View anchor = findViewById(R.id.menu);
 		mMenu.setAnchor(anchor);
