@@ -34,5 +34,6 @@ public class Example extends MyCode {
 		v.setTextSize(30);
 		showView(v);
 	}
+	
 }
 
