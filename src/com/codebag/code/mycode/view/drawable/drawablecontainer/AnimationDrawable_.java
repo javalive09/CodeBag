@@ -9,6 +9,7 @@ import android.graphics.drawable.BitmapDrawable;
 import android.view.Gravity;
 import android.view.View;
 import android.view.View.*;
+import android.view.ViewGroup.LayoutParams;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -53,7 +54,10 @@ public class AnimationDrawable_ extends MyCode implements OnClickListener{
 		ImageView iv = new ImageView(getActivity());
 		iv.setBackgroundDrawable(ad);
 		
-//		fl.addView(iv, wrapContentParams(Gravity.CENTER | Gravity.CENTER_HORIZONTAL));
+		  FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+	        params.gravity = Gravity.CENTER | Gravity.CENTER_HORIZONTAL;
+		
+		fl.addView(iv, params);
 		
 		Button start = new Button(getActivity());
 		start.setText("start");
@@ -65,8 +69,14 @@ public class AnimationDrawable_ extends MyCode implements OnClickListener{
 		stop.setId(1);
 		stop.setOnClickListener(this);
 		
-//		fl.addView(start, wrapContentParams(Gravity.BOTTOM|Gravity.LEFT));
-//		fl.addView(stop, wrapContentParams(Gravity.BOTTOM|Gravity.RIGHT));
+        FrameLayout.LayoutParams params2 = new FrameLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+        params2.gravity = Gravity.BOTTOM|Gravity.LEFT;
+		
+		fl.addView(start, params2);
+		
+        FrameLayout.LayoutParams params3 = new FrameLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+        params3.gravity = Gravity.BOTTOM|Gravity.RIGHT;
+		fl.addView(stop, params3);
 		fl.setBackgroundColor(Color.WHITE);
 		showView(fl);
 	}

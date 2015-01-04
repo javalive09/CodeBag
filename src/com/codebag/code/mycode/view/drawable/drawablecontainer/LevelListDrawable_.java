@@ -8,6 +8,7 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.LevelListDrawable;
 import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup.LayoutParams;
 import android.view.View.*;
 import android.widget.Button;
 import android.widget.FrameLayout;
@@ -53,17 +54,21 @@ public class LevelListDrawable_ extends MyCode implements OnClickListener{
 		FrameLayout fl = new FrameLayout(getActivity());
 		ImageView iv = new ImageView(getActivity());
 		iv.setBackgroundDrawable(ad);
-		
-//		fl.addView(iv, wrapContentParams(Gravity.CENTER | Gravity.CENTER_HORIZONTAL));
+		FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+		params.gravity = Gravity.CENTER | Gravity.CENTER_HORIZONTAL;
+		fl.addView(iv, params);
 		
 		Button start = new Button(getActivity());
 		start.setText("next");
 		start.setId(0);
 		start.setOnClickListener(this);
 		
-//		fl.addView(start, wrapContentParams(Gravity.BOTTOM|Gravity.CENTER_HORIZONTAL));
+		FrameLayout.LayoutParams params2 = new FrameLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+		params2.gravity = Gravity.BOTTOM|Gravity.CENTER_HORIZONTAL;
+		fl.addView(start, params2);
 		fl.setBackgroundColor(Color.WHITE);
-		showView(fl);
+		
+		showView(fl, new FrameLayout.LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.FILL_PARENT));
 	}
 
 	@Override

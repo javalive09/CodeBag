@@ -1,5 +1,6 @@
 package com.codebag.code.mycode.view.anim;
 
+import android.graphics.Canvas;
 import android.view.Gravity;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -23,12 +24,20 @@ public class AddAndRemoveView extends MyCode {
 	
 	public AddAndRemoveView(MainActivity context) {
 		super(context);
-		container = new FrameLayout(context);
+		container = new FrameLayout(context){
+		    public void draw(Canvas canvas) {
+                super.draw(canvas);
+            }
+		};
 	}
 	
 	@Entry
 	public void addView() {
-		final ImageView iv = new ImageView(getActivity());
+		final ImageView iv = new ImageView(getActivity()){
+		    public void draw(Canvas canvas) {
+		        super.draw(canvas);
+		    }
+		};
 		iv.setBackgroundResource(R.drawable.ic_launcher);
 		
 		Button addView = new Button(getActivity());

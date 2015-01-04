@@ -31,13 +31,24 @@ public class Invoker extends MyCode {
 	@Entry
 	public void showClipDrawable() {
 
-		ImageView iv = new ImageView(getActivity());
+		ImageView iv = new ImageView(getActivity()) {
+
+            @Override
+            protected void onAttachedToWindow() {
+                super.onAttachedToWindow();
+                showClip();
+            }
+            
+            
+		    
+		};
 		iv.setBackgroundDrawable(cd);
 		level = 0;
 		cd.setLevel(level);
 		showView(iv);
-		showClip();
 	}
+	
+	
 	
 	private void showClip() {
 		getActivity().runOnUiThread(new Runnable() {

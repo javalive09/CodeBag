@@ -1,7 +1,21 @@
-<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
-    android:layout_height="wrap_content"
-    android:padding="@dimen/list_item_drawable_padding"
-    android:textSize="@dimen/list_item_text_size" >
+    android:layout_height="40dp"
+    android:orientation="vertical"
+    android:background="@drawable/menu_item_bg" >
 
-</TextView>
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:background="@android:color/black" />
+
+    <TextView
+        android:id="@+id/text"
+        android:layout_width="fill_parent"
+        android:layout_height="39dp"
+        android:gravity="center_vertical"
+        android:textColor="@android:color/white"
+        android:paddingLeft="@dimen/list_item_drawable_padding"
+        android:textSize="@dimen/list_item_text_size" />
+
+</LinearLayout>

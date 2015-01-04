@@ -108,9 +108,10 @@ public class MainActivity extends Activity{
 			@Override
 			public View createView(int position, ViewGroup parent) {
 				LayoutInflater factory = LayoutInflater.from(MainActivity.this);
-				TextView tv = (TextView) factory.inflate(R.layout.menu_item, parent, false);
+				View menu = factory.inflate(R.layout.menu_item, parent, false);
+				TextView tv = (TextView) menu.findViewById(R.id.text);
 				tv.setText(menuTitleRes[position]);
-				return tv;
+				return menu;
 			}
 		});
 		mMenu.setMenuItemOnClickListener(new ItemViewOnClickListener() {
