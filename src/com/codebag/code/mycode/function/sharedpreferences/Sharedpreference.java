@@ -2,6 +2,7 @@ package com.codebag.code.mycode.function.sharedpreferences;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 
 import com.codebag.bag.Entry;
 import com.codebag.bag.MainActivity;
@@ -37,8 +38,14 @@ public class Sharedpreference extends MyCode {
 	@Entry
 	public void set3() {
 		SharedPreferences sp = getActivity().getPreferences(Context.MODE_PRIVATE);
+		String name = getActivity().getLocalClassName();
 		sp.edit().putString("peter3", "6789").commit();
 	}
 	
+	@Entry
+	public void set4() {
+	    SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getActivity());
+	    sp.edit().putString("peter34", "0000").commit();
+	}
 
 }

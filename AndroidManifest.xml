@@ -87,6 +87,10 @@
         </service>
         <service android:name="com.codebag.code.mycode.cleanmaster.cleanmastertest.audioplayerrun.MainService" >
         </service>
+        
+        <service android:name="com.codebag.code.mycode.function.aidl.AIDLService" 
+            android:process="com.aidl.service">
+        </service>
     </application>
 
 </manifest>

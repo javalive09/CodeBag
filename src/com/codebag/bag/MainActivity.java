@@ -7,6 +7,8 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.HashMap;
+
 import com.codebag.R;
 import com.codebag.bag.CodeBag.Node;
 import com.codebag.bag.view.MyMenu;
@@ -50,7 +52,7 @@ public class MainActivity extends Activity{
 
 	private static final String TAG = MainActivity.class.getSimpleName();
 	private static final String NODE = "node";
-	
+	private HashMap<String , Object> methodObjs= new HashMap<String ,Object>(1);
 	private MyMenu mMenu;
 	
 	private int[] menuTitleRes = {
@@ -170,6 +172,7 @@ public class MainActivity extends Activity{
 				super.onBackPressed();
 			}else {
 				root.removeViewAt(index);
+				methodObjs.clear();
 			}
 		}
 	}
@@ -325,9 +328,13 @@ public class MainActivity extends Activity{
 		String methodName = node.name;
 		String className = node.className;
 		try {
-			Class<?> cls = Class.forName(className);
-			Constructor<?> con = cls.getConstructor(MainActivity.class);
-			Object obj = con.newInstance(MainActivity.this);
+		    Object obj = methodObjs.get(className);
+		    Class<?> cls = Class.forName(className);
+		    if(obj == null) {
+    			Constructor<?> con = cls.getConstructor(MainActivity.class);
+    			obj = con.newInstance(MainActivity.this);
+    			methodObjs.put(className, obj);
+		    }
 			Method method = cls.getDeclaredMethod(methodName);
 			method.invoke(obj);
 		} catch (ClassNotFoundException e1) {
