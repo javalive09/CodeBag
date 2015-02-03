@@ -137,14 +137,17 @@ public class MainActivity extends Activity{
 				case R.string.action_h_pull:
 					((CodeBag) getApplication()).setRootViewController(CodeBag.H_PULL);
 					((CodeBag) getApplication()).exit();
+					startActivity(new Intent(MainActivity.this, MainActivity.class));
 					break;
 				case R.string.action_b_pull:
 					((CodeBag) getApplication()).setRootViewController(CodeBag.B_PULL);
 					((CodeBag) getApplication()).exit();
+					startActivity(new Intent(MainActivity.this, MainActivity.class));
 					break;
 				case R.string.action_hb_pull:
 					((CodeBag) getApplication()).setRootViewController(CodeBag.HB_PULL);
 					((CodeBag) getApplication()).exit();
+					startActivity(new Intent(MainActivity.this, MainActivity.class));
 					break;
 				case R.string.action_showlog:
 					showAlertDialog("log", Log.getLog());

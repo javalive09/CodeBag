@@ -106,7 +106,7 @@ public class CodeBag extends Application implements Thread.UncaughtExceptionHand
 		for(MainActivity act : mActContainer) {
 			act.finish();
 		}
-		android.os.Process.killProcess(android.os.Process.myPid());
+//		android.os.Process.killProcess(android.os.Process.myPid());
 	}
 	
 	public Node getRootNode() {
