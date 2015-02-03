@@ -5,6 +5,9 @@ import com.codebag.R;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
 import android.graphics.Rect;
 import android.util.AttributeSet;
 import android.util.Log;
@@ -49,9 +52,33 @@ public class BoundaryPullView extends ViewGroup {
     private void init() {
 		mScroller = new Scroller(getContext(), new BounceInterpolator());
 		mTouchSlop = ViewConfiguration.get(getContext()).getScaledTouchSlop();
-		boundaryPly = mTouchSlop * 2;
+		boundaryPly = mTouchSlop * 3;
     }
 	
+	Rect Left = new Rect();
+	Rect right = new Rect();
+	Paint paint = new Paint();
+	
+	@Override
+	public void draw(Canvas canvas) {
+		super.draw(canvas);
+    	Log.i("peter", "draw===");
+	}
+	
+    protected void onDraw(Canvas canvas) {
+    	Log.i("peter", "onDraw===");
+    }
+    
+    protected void dispatchDraw(Canvas canvas) {
+    	super.dispatchDraw(canvas);
+    	Left.set(0, 0, boundaryPly, getHeight());
+    	right.set(getWidth() - boundaryPly, 0, getWidth(), getHeight());
+    	paint.setColor(0x22000000);
+    	canvas.drawRect(Left, paint);
+    	canvas.drawRect(right, paint);
+    	Log.i("peter", "dispatchDraw===");
+    }
+    
 	@Override
 	public void computeScroll() {
 		if (mScroller.computeScrollOffset()) {

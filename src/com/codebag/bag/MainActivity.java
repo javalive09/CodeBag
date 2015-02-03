@@ -44,7 +44,6 @@ import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.BaseAdapter;
 import android.widget.FrameLayout;
 import android.widget.ListView;
-import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -210,12 +209,8 @@ public class MainActivity extends Activity{
 	public void showAlertDialog(String title, String content) {
 		AlertDialog dialog = new AlertDialog.Builder(MainActivity.this).create();
 		dialog.setCanceledOnTouchOutside(true);
-		ScrollView view = new ScrollView(MainActivity.this);
-		TextView msg = new TextView(MainActivity.this);
-		msg.setText(content);
-		view.addView(msg);
 		dialog.setTitle(title);
-		dialog.setView(view);
+		dialog.setMessage(content);
 		dialog.show();
 	}
 	
@@ -522,7 +517,7 @@ public class MainActivity extends Activity{
 						}
 						if (is != null) {
 							String content = readTextFile(is);
-							showAlertDialog(node.name, content);
+							showAlertDialog(node.name + ".java", content);
 						}
 					}else if(node.type == Node.DIR) {
 						int count = getSubFileCount(node);
