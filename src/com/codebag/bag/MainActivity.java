@@ -175,6 +175,13 @@ public class MainActivity extends Activity{
 			}
 		}
 	}
+	
+	
+
+	@Override
+	public void finish() {
+		super.finish();
+	}
 
 	private void showSplash() {
 		setContentView(new SplashView(MainActivity.this));

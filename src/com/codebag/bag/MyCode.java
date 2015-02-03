@@ -27,7 +27,7 @@ public class MyCode{//
 	}
 	
 	public void startActivity(Intent intent) {//启动activity时，重定向
-		mActivity.finish();
+//		mActivity.finish();
 		mActivity.startActivity(intent);
 	}
 	
