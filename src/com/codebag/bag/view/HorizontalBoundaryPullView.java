@@ -59,15 +59,15 @@ public class HorizontalBoundaryPullView extends ViewGroup {
     	Log.i("peter", "onDraw===");
     }
     
-    protected void dispatchDraw(Canvas canvas) {
-    	super.dispatchDraw(canvas);
-    	Left.set(0, 0, boundaryPly, getHeight());
-    	right.set(getWidth() - boundaryPly, 0, getWidth(), getHeight());
-    	paint.setColor(0x22000000);
-    	canvas.drawRect(Left, paint);
-    	canvas.drawRect(right, paint);
-    	Log.i("peter", "dispatchDraw===");
-    }
+//    protected void dispatchDraw(Canvas canvas) {
+//    	super.dispatchDraw(canvas);
+//    	Left.set(0, 0, boundaryPly, getHeight());
+//    	right.set(getWidth() - boundaryPly, 0, getWidth(), getHeight());
+//    	paint.setColor(0x22000000);
+//    	canvas.drawRect(Left, paint);
+//    	canvas.drawRect(right, paint);
+//    	Log.i("peter", "dispatchDraw===");
+//    }
 	
 	@Override
 	public void computeScroll() {
