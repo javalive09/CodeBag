@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="XuiCircularProgressBar">
+        <attr name="stroke_width" format="dimension" />
+        <attr name="progress" format="float" />
+        <attr name="progress_color" format="color" />
+        <attr name="progress_radius" format="dimension" />
+        <attr name="thumb_visible" format="boolean" />
+    </declare-styleable>
+
+    <attr name="circularProgressBarStyle" format="reference" />
+
+</resources>

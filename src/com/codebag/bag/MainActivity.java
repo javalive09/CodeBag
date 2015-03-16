@@ -159,6 +159,7 @@ public class MainActivity extends Activity{
 					((CodeBag) getApplication()).exit();
 					break;
 				}
+				mMenu.dismiss();
 			}
 		});
 	}
