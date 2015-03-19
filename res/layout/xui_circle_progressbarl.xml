@@ -5,11 +5,11 @@
 
     <com.codebag.code.mycode.xui.progress.XuiCircularProgressBar
         android:id="@+id/progress_bar"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         xui:stroke_width="5dp"
-        xui:progress="0.5"
-        xui:thumb_visible="true"
-        xui:progress_radius="144dp"/>
+        xui:progress_radius="500dp"
+        xui:thumb_visible="false"
+        ></com.codebag.code.mycode.xui.progress.XuiCircularProgressBar>
 
 </LinearLayout>

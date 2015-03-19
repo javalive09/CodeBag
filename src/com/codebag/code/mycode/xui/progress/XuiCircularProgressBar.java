@@ -1,6 +1,7 @@
 package com.codebag.code.mycode.xui.progress;
 
 import com.codebag.R;
+import com.nineoldandroids.animation.ObjectAnimator;
 
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -11,6 +12,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.util.AttributeSet;
 import android.view.View;
+import android.view.animation.BounceInterpolator;
 
 public class XuiCircularProgressBar extends View {
 
@@ -22,7 +24,7 @@ public class XuiCircularProgressBar extends View {
 
 	private Paint mProgressColorPaint;
 
-	private int mInnerRadius;
+	private float mInnerRadius;
 
 	private int mOuterRadius;
 
@@ -63,7 +65,7 @@ public class XuiCircularProgressBar extends View {
 								true));
 				setCircleStrockWidth(attributes.getDimensionPixelSize(
 						R.styleable.XuiCircularProgressBar_stroke_width, 1));
-				setProgressRadius(attributes.getDimensionPixelSize(
+				setRadius(attributes.getDimensionPixelSize(
 						R.styleable.XuiCircularProgressBar_progress_radius,
 						100));
 			} finally {
@@ -95,7 +97,10 @@ public class XuiCircularProgressBar extends View {
 	}
 
 	public void startAnimination() {
-		postDelayed(mRunnable, 50);
+		ObjectAnimator mRadiusAnimator = ObjectAnimator.ofFloat(this, "radius", 20.0f, 344f);
+		mRadiusAnimator.setDuration(1000);
+		mRadiusAnimator.setInterpolator(new BounceInterpolator());
+		mRadiusAnimator.start();
 	}
 
 	private float getCurrentRotation() {
@@ -114,8 +119,9 @@ public class XuiCircularProgressBar extends View {
 		mCircleStrokeWidth = strokeWidth;
 	}
 
-	public void setProgressRadius(int radius) {
+	public void setRadius(float radius) {
 		mInnerRadius = radius;
+		invalidate();
 	}
 
 	@Override
@@ -140,8 +146,10 @@ public class XuiCircularProgressBar extends View {
 	@Override
 	protected void onMeasure(final int widthMeasureSpec,
 			final int heightMeasureSpec) {
-		int diameter = mInnerRadius * 2;
-		mInnerRadius = (int) (diameter * 0.5f);
+		int width = getDefaultSize(getSuggestedMinimumWidth(), widthMeasureSpec);
+        int height = getDefaultSize(getSuggestedMinimumHeight(), heightMeasureSpec);
+		int diameter = Math.min(width, height);
+//		mInnerRadius = diameter * 0.5f;
 		int outerDiameter = diameter + mCell;
 		mOuterRadius = (int) (outerDiameter * 0.5f);
 		setMeasuredDimension(outerDiameter, outerDiameter);

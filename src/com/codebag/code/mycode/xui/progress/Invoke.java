@@ -17,8 +17,9 @@ public class Invoke extends MyCode {
 		
 		View view = View.inflate(getActivity(), R.layout.xui_circle_progressbarl, null);
 		XuiCircularProgressBar progressBar = (XuiCircularProgressBar) view.findViewById(R.id.progress_bar);
-		progressBar.startAnimination();
 		showView(view);
+		progressBar.startAnimination();
+		
 	}
 
 }
