@@ -1,7 +1,5 @@
 package com.codebag.code.mycode.utils;
 
-import kankan.wheel.widget.WheelView;
-import kankan.wheel.widget.adapters.NumericWheelAdapter;
 import android.content.Context;
 import android.graphics.Color;
 import android.telephony.TelephonyManager;
@@ -19,6 +17,8 @@ import com.codebag.bag.MyCode;
 import com.codebag.bag.Entry;
 import com.codebag.bag.MainActivity;
 import com.codebag.code.mycode.utils.MultiViews.MyAdapter;
+import com.codebag.code.others.kankan.wheel.widget.WheelView;
+import com.codebag.code.others.kankan.wheel.widget.adapters.NumericWheelAdapter;
 
 public class DisplayMetricsUtil extends MyCode{
 
