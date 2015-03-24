@@ -1,4 +1,4 @@
-package com.codebag.code.mycode.view.anim;
+package com.codebag.code.mycode.view.anim.add_remove;
 
 import android.graphics.Canvas;
 import android.view.Gravity;
