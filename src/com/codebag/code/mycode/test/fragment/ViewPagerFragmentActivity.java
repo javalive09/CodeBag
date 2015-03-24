@@ -1,8 +1,6 @@
 package com.codebag.code.mycode.test.fragment;
 
 import com.codebag.R;
-import com.codebag.bag.CodeBag;
-import com.codebag.code.mycode.utils.DisplayUtil;
 import com.codebag.code.mycode.utils.Log;
 
 import android.app.Activity;
@@ -34,7 +32,7 @@ public class ViewPagerFragmentActivity extends FragmentActivity {
 		super.onCreate(savedInstanceState);
 		Log.addLog("peter", this, "ViewPagerFragmentActivity====" + "onCreate");
 		
-		setContentView(((CodeBag) getApplication()).getRootViewRes());
+		setContentView(R.layout.activity_root);
 		FrameLayout fl = (FrameLayout) findViewById(R.id.container);
 		
 		View.inflate(this, R.layout.viewpager_fragment, fl);

@@ -31,7 +31,7 @@ public class MyActivityA extends Activity {
 			
 		});
 		bt.setText("start activityB");
-		setContentView(((CodeBag) getApplication()).getRootViewRes());
+		setContentView(R.layout.activity_root);
 		FrameLayout fl = (FrameLayout) findViewById(R.id.container);
 		fl.addView(bt);
 		Log.addLog("peter", this,"onCreate");

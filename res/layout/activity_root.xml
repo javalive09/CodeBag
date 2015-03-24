@@ -1,68 +1,68 @@
-<com.codebag.bag.view.BoundaryPullView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/root"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent" >
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
 
-    <LinearLayout
+    <RelativeLayout
+        android:id="@+id/titlebar"
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:background="@drawable/bg"
-        android:orientation="vertical"
-        android:padding="1dp" >
+        android:layout_height="wrap_content"
+        android:background="@color/title_bar_color"
+        android:gravity="center_vertical" >
 
-        <RelativeLayout
-            android:id="@+id/titlebar"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/title_bar_color"
+        <ImageView
+            android:id="@+id/menu"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_alignParentRight="true"
+            android:background="@drawable/press_bg"
+            android:onClick="onClick"
+            android:src="@drawable/menu" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="48dp"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@id/menu"
             android:gravity="center_vertical"
-            android:visibility="gone" >
+            android:orientation="horizontal">
 
-            <LinearLayout
+            <ImageView
                 android:id="@+id/back"
                 android:layout_width="wrap_content"
-                android:layout_height="48dp"
-                android:layout_alignParentLeft="true"
-                android:layout_centerVertical="true"
-                android:background="@drawable/press_bg"
-                android:gravity="center_vertical"
+                android:layout_height="fill_parent"
+                android:paddingLeft="10dp"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:paddingRight="10dp"
                 android:onClick="onClick"
-                android:orientation="horizontal" >
+                android:src="@drawable/back" 
+                android:background="@drawable/press_bg"/>
 
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/back" />
+            <HorizontalScrollView
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
+                android:scrollbars="none" >
 
                 <TextView
                     android:id="@+id/title"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="fill_parent"
                     android:drawableLeft="@drawable/folder"
                     android:drawablePadding="5dp"
                     android:ellipsize="end"
                     android:gravity="center_vertical"
                     android:singleLine="true"
-                    android:text=""
                     android:textColor="@android:color/white" />
-            </LinearLayout>
+            </HorizontalScrollView>
+        </LinearLayout>
+    </RelativeLayout>
 
-            <ImageView
-                android:id="@+id/menu"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:layout_alignParentRight="true"
-                android:background="@drawable/press_bg"
-                android:onClick="onClick"
-                android:src="@drawable/menu" />
-        </RelativeLayout>
+    <FrameLayout
+        android:id="@+id/container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+    </FrameLayout>
 
-        <FrameLayout
-            android:id="@+id/container"
-            android:layout_width="fill_parent"
-            android:layout_height="0px"
-            android:layout_weight="1" >
-        </FrameLayout>
-    </LinearLayout>
-
-</com.codebag.bag.view.BoundaryPullView>
+</LinearLayout>

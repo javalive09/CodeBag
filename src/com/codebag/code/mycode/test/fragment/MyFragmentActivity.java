@@ -30,7 +30,7 @@ public class MyFragmentActivity extends FragmentActivity {
 		super.onCreate(savedInstanceState);
 		Log.addLog("peter", this, "FragmentActivity====" + "onCreate");
 		
-		setContentView(((CodeBag) getApplication()).getRootViewRes());
+		setContentView(R.layout.activity_root);
 		
 		FragmentManager fragmentManager = getSupportFragmentManager();
 		FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();

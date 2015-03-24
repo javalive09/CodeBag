@@ -169,19 +169,17 @@ public class MainActivity extends Activity{
 		if(mMenu != null && mMenu.isShowing()) {
 			mMenu.dismiss();
 		}else {
-			FrameLayout root = (FrameLayout) findViewById(R.id.root_view);
-			int index = root.getChildCount() - 1;
+			FrameLayout frame = (FrameLayout) findViewById(R.id.frame);
+			int index = frame.getChildCount() - 1;
 			if(index == 0) {
 				super.onBackPressed();
 			}else {
-				root.removeViewAt(index);
+				frame.removeViewAt(index);
 				methodObjs.clear();
 			}
 		}
 	}
 	
-	
-
 	@Override
 	public void finish() {
 		super.finish();
@@ -226,7 +224,7 @@ public class MainActivity extends Activity{
 	}
 	
 	private void showMainView(Node node) {
-		setContentView(R.layout.main_view);
+		setContentView(R.layout.activity_frame);
 		switch (node.type) {
 		case Node.DIR:
 			showDirView(node);
@@ -246,7 +244,6 @@ public class MainActivity extends Activity{
 	}
 
 	private void setTitle(View main, CharSequence titleTxt, int titleIconResId) {
-		main.findViewById(R.id.titlebar).setVisibility(View.VISIBLE);
 		TextView title = (TextView) main.findViewById(R.id.title);
 		title.setText(titleTxt);
 		Drawable titleIcon = getResources().getDrawable(titleIconResId);
@@ -256,23 +253,23 @@ public class MainActivity extends Activity{
 	}
 
 	public View showView(View view) {
-		FrameLayout root = (FrameLayout) findViewById(R.id.root_view);
+		FrameLayout frame = (FrameLayout) findViewById(R.id.frame);
 		LayoutInflater factory = LayoutInflater.from(MainActivity.this);
-        View main = factory.inflate(((CodeBag) getApplication()).getRootViewRes(), root, false);
-        root.addView(main);
-        FrameLayout container = (FrameLayout) main.findViewById(R.id.container);
+		View currentViewRoot = factory.inflate(R.layout.activity_root, frame, false);
+		ViewGroup container = (ViewGroup) currentViewRoot.findViewById(R.id.container);
+		frame.addView(currentViewRoot);
 		container.addView(view);
-		return main;
+		return currentViewRoot;
 	}
 	
 	public View showView(View view, FrameLayout.LayoutParams params) {
-		FrameLayout root = (FrameLayout) findViewById(R.id.root_view);
+		FrameLayout frame = (FrameLayout) findViewById(R.id.frame);
 		LayoutInflater factory = LayoutInflater.from(MainActivity.this);
-        View main = factory.inflate(((CodeBag) getApplication()).getRootViewRes(), root, false);
-        root.addView(main);
-        FrameLayout container = (FrameLayout) main.findViewById(R.id.container);
+		View currentViewRoot = factory.inflate(R.layout.activity_root, frame, false);
+		ViewGroup container = (ViewGroup) currentViewRoot.findViewById(R.id.container);
+		frame.addView(currentViewRoot);
 		container.addView(view, params);
-		return main;
+		return currentViewRoot;
 	}
 
 	private Drawable getRightSizeIcon(BitmapDrawable drawable) {
@@ -290,8 +287,8 @@ public class MainActivity extends Activity{
 
 	private void showAppDemoView(Node node) {
 		ListView listView = new ListView(MainActivity.this);
-		View main = showView(listView);
-		setTitle(main, node.name, R.drawable.folder);
+		View currentContainer =showView(listView);
+		setTitle(currentContainer, node.name, R.drawable.folder);
 		listView.setAdapter(new ListAdapter<Node>(MainActivity.this, node.mSubNodeList) {
 			@Override
 			public View getView(int position, View convertView, ViewGroup parent) {
@@ -362,8 +359,9 @@ public class MainActivity extends Activity{
 		// class file
 		final String className = node.className;
 		ListView caseListview = new ListView(MainActivity.this);
-		View main = showView(caseListview);
-		setTitle(main, node.name + ".java", R.drawable.file);
+		caseListview.setBackgroundColor(Color.WHITE);//方法列表view 白色背景
+		View currentContainer = showView(caseListview);
+		setTitle(currentContainer, node.name + ".java", R.drawable.file);
 		ArrayList<String> list = new ArrayList<String>();
 		try {
 			Class<?> cls = Class.forName(className);
@@ -431,8 +429,8 @@ public class MainActivity extends Activity{
 	private void showDirView(Node node) {
 		ListView listView = new ListView(MainActivity.this);
 		listView.setBackgroundColor(Color.WHITE);
-		View main = showView(listView);
-		setTitle(main, node.name, R.drawable.folder);
+		View currentContainer = showView(listView);
+		setTitle(currentContainer, node.fullName, R.drawable.folder);
 		listView.setAdapter(new ListAdapter<Node>(MainActivity.this, node.mSubNodeList) {
 			@Override
 			public View getView(int position, View convertView, ViewGroup parent) {
@@ -493,6 +491,10 @@ public class MainActivity extends Activity{
 				Node node = (Node) adapter.getItem(position);
 				if (node != null) {
 					if (adapter.getItemViewType(position) == ListAdapter.ENTRY) {
+						int[] screenLocation = new int[2];
+		                view.getLocationOnScreen(screenLocation);
+						node.pointX = screenLocation[0];
+						node.pointY = screenLocation[1];	
 						switch(node.type) {
 						case Node.CLASS:
 							showClassView(node);

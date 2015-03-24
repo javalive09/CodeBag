@@ -31,7 +31,7 @@ public class ResultActivity extends Activity {
 		});
 		
 		
-		setContentView(((CodeBag) getApplication()).getRootViewRes());
+		setContentView(R.layout.activity_root);
 		FrameLayout fl = (FrameLayout) findViewById(R.id.container);
 		
 		fl.addView(tv);

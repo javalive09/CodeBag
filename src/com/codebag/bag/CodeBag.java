@@ -171,7 +171,7 @@ public class CodeBag extends Application implements Thread.UncaughtExceptionHand
 		if(index == strs.length - 1) {//数组的最后一个元素为class
 			getSubNode(nodeName, Node.CLASS, className, currentNode);
 		}else {//数组中其他元素为目录
-			Node subNode = getSubNode(nodeName, Node.DIR, null, currentNode);
+			Node subNode = getSubNode(nodeName, Node.DIR, className, currentNode);
 			index++;
 			loadCodeBagNode(className, strs, index, subNode);
 		}
@@ -213,43 +213,31 @@ public class CodeBag extends Application implements Thread.UncaughtExceptionHand
 		
 		public int type = -1;
 		public String name;
-		public String className;//类节点才有
+		public String className;
+		public String fullName;//全名
 		public ArrayList<Node> mSubNodeList;
+		public float pointX;
+		public float pointY;
 		
-		public Node() {
-		}
+		public Node() {}
 		
 		public Node(String name, int type) {
 			this.name = name;
 			this.type = type;
+			fullName = name;
 		}
 		
 		public Node(String name, int type, String className) {
 			this(name, type);
 			this.className = className;
+			int index = className.indexOf(name);
+			fullName = className.substring(0, index + name.length());
 		}
 		
 	}
 	
 	public void setRootViewController(int status) {
 		getSharedPreferences("rootview_controller", Context.MODE_PRIVATE).edit().putInt("status", status).commit();
-	}
-	
-	public int getRootViewRes() {
-		int status = getSharedPreferences("rootview_controller", Context.MODE_PRIVATE).getInt("status", HB_PULL);
-		int res = R.layout.activity_root2;
-		switch(status){
-		case B_PULL:
-			res = R.layout.activity_root;
-			break;
-		case H_PULL:
-			res = R.layout.activity_root2;
-			break;
-		case HB_PULL:
-			res = R.layout.activity_root3;
-			break;
-		}
-		return res;
 	}
 
 	@Override

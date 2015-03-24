@@ -42,7 +42,7 @@ public class MyActivityB extends Activity {
 			
 		});
 		bt.setText("///////");
-		setContentView(R.layout.activity_root3);
+		setContentView(R.layout.activity_root);
 		FrameLayout fl = (FrameLayout) findViewById(R.id.container);
 		fl.addView(bt);
 		Log.addLog("peter", this, "onCreate");
