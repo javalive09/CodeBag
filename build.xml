@@ -6,9 +6,9 @@
 <property name="res" value="./assets/com/codebag/code/mycode"/>
 	
  <target name="main" >
-<!--  	<copy todir="${res}">    -->
-<!--  		<fileset dir="${src}"/>    -->
-<!--  	</copy> -->
+ 	<copy todir="${res}">   
+ 		<fileset dir="${src}"/>   
+ 	</copy>
   </target>
   <echo message="end ----- "/>
 </project>
