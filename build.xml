@@ -2,8 +2,8 @@
 
 <project name="resource" default="main" basedir=".">
 <echo message="start ----- "/>
-<property name="src" value="./src/com/codebag/code/mycode"/>
-<property name="res" value="./assets/com/codebag/code/mycode"/>
+<property name="src" value="./src/com/codebag/code"/>
+<property name="res" value="./assets/com/codebag/code"/>
 	
  <target name="main" >
  	<copy todir="${res}">   
