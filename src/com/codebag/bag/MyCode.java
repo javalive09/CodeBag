@@ -6,11 +6,8 @@ import android.widget.FrameLayout;
 
 public class MyCode{//
 	
-	public static final int NEW_ACTIVITY = 0XFFFFFF;
 	public FrameLayout.LayoutParams wrap_content;
 	public FrameLayout.LayoutParams match_parent;
-	
-
 	MainActivity mActivity;
 	
 	public MyCode(MainActivity act) {
@@ -24,11 +21,15 @@ public class MyCode{//
 	}
 	
 	public void showView(View view) {
-		mActivity.showView(view);
+		StackTraceElement[] em = Thread.currentThread().getStackTrace();
+		String methodName = em[3].getMethodName();
+		mActivity.showMethodView(view, methodName, null);
 	}
 	
 	public void showView(View view, FrameLayout.LayoutParams params) {
-		mActivity.showView(view, params);
+		StackTraceElement[] em = Thread.currentThread().getStackTrace();
+		String methodName = em[3].getMethodName();
+		mActivity.showMethodView(view, methodName, params);
 	}
 	
 	public void startActivity(Intent intent) {//启动activity时，重定向

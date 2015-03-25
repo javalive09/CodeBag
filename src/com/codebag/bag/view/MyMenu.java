@@ -6,6 +6,8 @@ import com.codebag.R;
 import com.codebag.code.mycode.utils.DisplayUtil;
 
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.PaintDrawable;
 import android.view.KeyEvent;
 import android.view.View;
@@ -97,7 +99,7 @@ public class MyMenu {
 				return super.dispatchKeyEvent(event);
 			}
 			
-		    protected LayoutParams generateDefaultLayoutParams() {
+            protected LayoutParams generateDefaultLayoutParams() {
 		        return new LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT);
 		    }
 			
@@ -110,6 +112,7 @@ public class MyMenu {
 		
 		mListView.setAdapter(new Adapter());
 		mInit = true;
+		mListView.setDividerHeight(0);
 		mListView.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override

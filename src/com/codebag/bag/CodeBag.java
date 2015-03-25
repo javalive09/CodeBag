@@ -10,7 +10,6 @@ import java.util.Enumeration;
 import java.util.LinkedList;
 import java.util.List;
 
-import com.codebag.R;
 import com.codebag.code.mycode.utils.Log;
 
 import dalvik.system.DexFile;
@@ -204,7 +203,7 @@ public class CodeBag extends Application implements Thread.UncaughtExceptionHand
 		return node;
 	}
 	
-	public static class Node implements Serializable{
+	public static class Node implements Serializable {
 		private static final long serialVersionUID = 7667945539869687742L;
 		public static final int DIR = 0;
 		public static final int CLASS = 1;
@@ -233,7 +232,7 @@ public class CodeBag extends Application implements Thread.UncaughtExceptionHand
 			int index = className.indexOf(name);
 			fullName = className.substring(0, index + name.length());
 		}
-		
+
 	}
 	
 	public void setRootViewController(int status) {

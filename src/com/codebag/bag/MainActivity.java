@@ -7,8 +7,9 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
-
 import com.codebag.R;
 import com.codebag.bag.CodeBag.Node;
 import com.codebag.bag.view.MyMenu;
@@ -16,6 +17,8 @@ import com.codebag.bag.view.MyMenu.ItemViewCreater;
 import com.codebag.bag.view.MyMenu.ItemViewOnClickListener;
 import com.codebag.bag.view.TextViewFixTouchConsume;
 import com.codebag.code.mycode.utils.Log;
+import android.annotation.SuppressLint;
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
@@ -27,7 +30,9 @@ import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Looper;
 import android.os.MessageQueue.IdleHandler;
@@ -60,9 +65,6 @@ public class MainActivity extends Activity{
 			R.string.action_settings, 
 			R.string.action_feedback, 
 			R.string.action_search, 
-			R.string.action_h_pull,
-			R.string.action_b_pull,
-			R.string.action_hb_pull,
 			R.string.action_showlog, 
 			R.string.action_clearlog, 
 			R.string.action_exit};
@@ -134,21 +136,6 @@ public class MainActivity extends Activity{
 					break;
 				case R.string.action_search:
 					break;
-				case R.string.action_h_pull:
-					((CodeBag) getApplication()).setRootViewController(CodeBag.H_PULL);
-					((CodeBag) getApplication()).exit();
-					startActivity(new Intent(MainActivity.this, MainActivity.class));
-					break;
-				case R.string.action_b_pull:
-					((CodeBag) getApplication()).setRootViewController(CodeBag.B_PULL);
-					((CodeBag) getApplication()).exit();
-					startActivity(new Intent(MainActivity.this, MainActivity.class));
-					break;
-				case R.string.action_hb_pull:
-					((CodeBag) getApplication()).setRootViewController(CodeBag.HB_PULL);
-					((CodeBag) getApplication()).exit();
-					startActivity(new Intent(MainActivity.this, MainActivity.class));
-					break;
 				case R.string.action_showlog:
 					showAlertDialog("log", Log.getLog());
 					break;
@@ -215,8 +202,9 @@ public class MainActivity extends Activity{
 		}
 	}
 	
+	@TargetApi(Build.VERSION_CODES.HONEYCOMB)
 	public void showAlertDialog(String title, String content) {
-		AlertDialog dialog = new AlertDialog.Builder(MainActivity.this).create();
+		AlertDialog dialog = new AlertDialog.Builder(MainActivity.this, AlertDialog.THEME_HOLO_DARK).create();
 		dialog.setCanceledOnTouchOutside(true);
 		dialog.setTitle(title);
 		dialog.setMessage(content);
@@ -252,23 +240,22 @@ public class MainActivity extends Activity{
 		title.setCompoundDrawables(titleIcon, null, null, null);
 	}
 
-	public View showView(View view) {
-		FrameLayout frame = (FrameLayout) findViewById(R.id.frame);
-		LayoutInflater factory = LayoutInflater.from(MainActivity.this);
-		View currentViewRoot = factory.inflate(R.layout.activity_root, frame, false);
-		ViewGroup container = (ViewGroup) currentViewRoot.findViewById(R.id.container);
-		frame.addView(currentViewRoot);
-		container.addView(view);
-		return currentViewRoot;
+	public void showMethodView(View view, String methodName, FrameLayout.LayoutParams params) {
+		View currentContainer = showView(view, params);
+		setTitle(currentContainer, methodName, R.drawable.method);
 	}
 	
-	public View showView(View view, FrameLayout.LayoutParams params) {
+	private View showView(View view, FrameLayout.LayoutParams params) {
 		FrameLayout frame = (FrameLayout) findViewById(R.id.frame);
 		LayoutInflater factory = LayoutInflater.from(MainActivity.this);
 		View currentViewRoot = factory.inflate(R.layout.activity_root, frame, false);
 		ViewGroup container = (ViewGroup) currentViewRoot.findViewById(R.id.container);
 		frame.addView(currentViewRoot);
-		container.addView(view, params);
+		if(params == null) {
+			container.addView(view);
+		}else {
+			container.addView(view, params);
+		}
 		return currentViewRoot;
 	}
 
@@ -287,7 +274,7 @@ public class MainActivity extends Activity{
 
 	private void showAppDemoView(Node node) {
 		ListView listView = new ListView(MainActivity.this);
-		View currentContainer =showView(listView);
+		View currentContainer =showView(listView, null);
 		setTitle(currentContainer, node.name, R.drawable.folder);
 		listView.setAdapter(new ListAdapter<Node>(MainActivity.this, node.mSubNodeList) {
 			@Override
@@ -359,8 +346,9 @@ public class MainActivity extends Activity{
 		// class file
 		final String className = node.className;
 		ListView caseListview = new ListView(MainActivity.this);
+		caseListview.setSelector(new ColorDrawable(Color.TRANSPARENT));
 		caseListview.setBackgroundColor(Color.WHITE);//方法列表view 白色背景
-		View currentContainer = showView(caseListview);
+		View currentContainer = showView(caseListview, null);
 		setTitle(currentContainer, node.name + ".java", R.drawable.file);
 		ArrayList<String> list = new ArrayList<String>();
 		try {
@@ -375,6 +363,19 @@ public class MainActivity extends Activity{
 			e.printStackTrace();
 		}
 
+		Collections.sort(list, new Comparator<String>() {
+
+			@Override
+			public int compare(String lhs, String rhs) {
+				if(lhs.charAt(0) > rhs.charAt(0)) {
+					return 1;
+				}else if(lhs.charAt(0) < rhs.charAt(0)) {
+					return -1;
+				}
+				return 0;
+			}
+			
+		});
 		caseListview.setAdapter(new ListAdapter<String>(MainActivity.this, list) {
 
 					@Override
@@ -384,6 +385,9 @@ public class MainActivity extends Activity{
 							convertView = View.inflate(MainActivity.this, R.layout.main_item, null);
 						}
 						TextView tv = (TextView) convertView.findViewById(R.id.listitem_tv);
+						Drawable icon = getResources().getDrawable(R.drawable.method);
+						icon.setBounds(0, 0, icon.getIntrinsicWidth(), icon.getIntrinsicHeight());
+						tv.setCompoundDrawables(icon, null, null, null);
 						tv.setText(getItem(position) + " ( )");
 						return convertView;
 					}
@@ -425,12 +429,26 @@ public class MainActivity extends Activity{
 		}
 		return super.onKeyUp(keyCode, event);
 	}
-
+	
 	private void showDirView(Node node) {
 		ListView listView = new ListView(MainActivity.this);
+		listView.setSelector(new ColorDrawable(Color.TRANSPARENT));
 		listView.setBackgroundColor(Color.WHITE);
-		View currentContainer = showView(listView);
-		setTitle(currentContainer, node.fullName, R.drawable.folder);
+		View currentContainer = showView(listView, null);
+		setTitle(currentContainer, node.name, R.drawable.folder);
+		Collections.sort(node.mSubNodeList, new Comparator<Node>() {
+
+			@Override
+			public int compare(Node lhs, Node rhs) {
+				if(lhs.name.charAt(0) > rhs.name.charAt(0)) {
+					return 1;
+				}else if(lhs.name.charAt(0) < rhs.name.charAt(0)) {
+					return -1;
+				}
+				return 0;
+			}
+			
+		});
 		listView.setAdapter(new ListAdapter<Node>(MainActivity.this, node.mSubNodeList) {
 			@Override
 			public View getView(int position, View convertView, ViewGroup parent) {

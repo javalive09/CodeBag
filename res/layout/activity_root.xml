@@ -17,6 +17,7 @@
             android:layout_alignParentRight="true"
             android:background="@drawable/press_bg"
             android:onClick="onClick"
+            android:scaleType="centerInside"
             android:src="@drawable/menu" />
 
         <LinearLayout
@@ -26,19 +27,16 @@
             android:layout_centerVertical="true"
             android:layout_toLeftOf="@id/menu"
             android:gravity="center_vertical"
-            android:orientation="horizontal">
+            android:orientation="horizontal" >
 
             <ImageView
                 android:id="@+id/back"
-                android:layout_width="wrap_content"
-                android:layout_height="fill_parent"
-                android:paddingLeft="10dp"
-                android:paddingTop="10dp"
-                android:paddingBottom="10dp"
-                android:paddingRight="10dp"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:background="@drawable/press_bg"
                 android:onClick="onClick"
-                android:src="@drawable/back" 
-                android:background="@drawable/press_bg"/>
+                android:scaleType="centerInside"
+                android:src="@drawable/back" />
 
             <HorizontalScrollView
                 android:layout_width="wrap_content"
@@ -49,12 +47,12 @@
                     android:id="@+id/title"
                     android:layout_width="wrap_content"
                     android:layout_height="fill_parent"
-                    android:drawableLeft="@drawable/folder"
+                    android:drawableLeft="@drawable/method"
                     android:drawablePadding="5dp"
                     android:ellipsize="end"
                     android:gravity="center_vertical"
                     android:singleLine="true"
-                    android:textColor="@android:color/white" />
+                    android:textColor="@android:color/darker_gray" />
             </HorizontalScrollView>
         </LinearLayout>
     </RelativeLayout>

@@ -1,7 +1,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
-    android:descendantFocusability= "blocksDescendants" >
+    android:descendantFocusability= "blocksDescendants"
+    android:background="@drawable/main_item_bg" >
 
     <com.codebag.bag.view.TextViewFixTouchConsume
         android:id="@+id/listitem_tv"
@@ -12,7 +13,6 @@
         android:minHeight="@dimen/list_item_min_h"
         android:padding="@dimen/list_item_drawable_padding"
         android:text="@string/item_string"
-        android:textColor="@android:color/black"
-        android:textSize="@dimen/list_item_text_size" />
+        android:textColor="@android:color/black" />
 
 </LinearLayout>

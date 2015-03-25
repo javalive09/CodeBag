@@ -13,7 +13,7 @@
     </style>
 
     <!-- Application theme. -->
-    
+
     <style name="AppTheme">
         <item name="android:windowBackground">@android:color/transparent</item>
         <item name="android:windowFrame">@null</item>
