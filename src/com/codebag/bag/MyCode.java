@@ -26,6 +26,12 @@ public class MyCode{//
 		mActivity.showMethodView(view, methodName, null);
 	}
 	
+	public void showView(int resId) {
+		StackTraceElement[] em = Thread.currentThread().getStackTrace();
+		String methodName = em[3].getMethodName();
+		mActivity.showMethodView(resId, methodName);
+	}
+	
 	public void showView(View view, FrameLayout.LayoutParams params) {
 		StackTraceElement[] em = Thread.currentThread().getStackTrace();
 		String methodName = em[3].getMethodName();

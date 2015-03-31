@@ -17,7 +17,6 @@ import com.codebag.bag.view.MyMenu.ItemViewCreater;
 import com.codebag.bag.view.MyMenu.ItemViewOnClickListener;
 import com.codebag.bag.view.TextViewFixTouchConsume;
 import com.codebag.code.mycode.utils.Log;
-import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -243,6 +242,21 @@ public class MainActivity extends Activity{
 	public void showMethodView(View view, String methodName, FrameLayout.LayoutParams params) {
 		View currentContainer = showView(view, params);
 		setTitle(currentContainer, methodName, R.drawable.method);
+	}
+	
+	public void showMethodView(int resId, String methodName) {
+		View currentContainer = showView(resId);
+		setTitle(currentContainer, methodName, R.drawable.method);
+	}
+	
+	private View showView(int resId) {
+		FrameLayout frame = (FrameLayout) findViewById(R.id.frame);
+		LayoutInflater factory = LayoutInflater.from(MainActivity.this);
+		View currentViewRoot = factory.inflate(R.layout.activity_root, frame, false);
+		ViewGroup container = (ViewGroup) currentViewRoot.findViewById(R.id.container);
+		frame.addView(currentViewRoot);
+		factory.inflate(resId, container, true);
+		return currentViewRoot;
 	}
 	
 	private View showView(View view, FrameLayout.LayoutParams params) {
