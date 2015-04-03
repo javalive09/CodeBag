@@ -6,5 +6,9 @@
     <dimen name="list_item_drawable_padding">11dp</dimen>
     <dimen name="list_item_min_h">50dp</dimen>
     <dimen name="list_item_text_size">18sp</dimen>
+    <dimen name="porgress_point_margin_l">3dp</dimen>
+    <dimen name="porgress_point_margin_r">5dp</dimen>
+    <dimen name="porgress_point_circle_d">3dp</dimen>
+    <dimen name="porgress_point_circle_gap">4dp</dimen>
 
 </resources>

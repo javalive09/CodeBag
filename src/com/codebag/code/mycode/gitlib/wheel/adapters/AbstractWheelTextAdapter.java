@@ -13,7 +13,7 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package com.codebag.code.others.kankan.wheel.widget.adapters;
+package com.codebag.code.mycode.gitlib.wheel.adapters;
 
 import android.content.Context;
 import android.graphics.Typeface;

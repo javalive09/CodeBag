@@ -14,7 +14,7 @@
  *  limitations under the License.
  */
 
-package com.codebag.code.others.kankan.wheel.widget.adapters;
+package com.codebag.code.mycode.gitlib.wheel.adapters;
 
 import java.util.LinkedList;
 import java.util.List;

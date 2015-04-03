@@ -10,5 +10,13 @@
     </declare-styleable>
 
     <attr name="circularProgressBarStyle" format="reference" />
+    
+        <declare-styleable name="XuiPointLine">
+        <attr name="point_line_radius" format="dimension" />
+        <attr name="point_line_gap" format="dimension" />
+        <attr name="point_line_color" format="color" />
+    </declare-styleable>
+    
+    <attr name="pointLine" format="reference" />
 
 </resources>

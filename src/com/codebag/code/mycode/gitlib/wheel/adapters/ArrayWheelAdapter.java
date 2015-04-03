@@ -13,50 +13,45 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-
-package com.codebag.code.others.kankan.wheel.widget.adapters;
-
-import com.codebag.code.others.kankan.wheel.widget.WheelAdapter;
+package com.codebag.code.mycode.gitlib.wheel.adapters;
 
 import android.content.Context;
 
 /**
- * Adapter class for old wheel adapter (deprecated WheelAdapter class).
- * 
- * @deprecated Will be removed soon
+ * The simple Array wheel adapter
+ * @param <T> the element type
  */
-public class AdapterWheel extends AbstractWheelTextAdapter {
-
-    // Source adapter
-    private WheelAdapter adapter;
+public class ArrayWheelAdapter<T> extends AbstractWheelTextAdapter {
     
+    // items
+    private T items[];
+
     /**
      * Constructor
      * @param context the current context
-     * @param adapter the source adapter
+     * @param items the items
      */
-    public AdapterWheel(Context context, WheelAdapter adapter) {
+    public ArrayWheelAdapter(Context context, T items[]) {
         super(context);
         
-        this.adapter = adapter;
-    }
-
-    /**
-     * Gets original adapter
-     * @return the original adapter
-     */
-    public WheelAdapter getAdapter() {
-        return adapter;
+        //setEmptyItemResource(TEXT_VIEW_ITEM_RESOURCE);
+        this.items = items;
     }
     
     @Override
-    public int getItemsCount() {
-        return adapter.getItemsCount();
+    public CharSequence getItemText(int index) {
+        if (index >= 0 && index < items.length) {
+            T item = items[index];
+            if (item instanceof CharSequence) {
+                return (CharSequence) item;
+            }
+            return item.toString();
+        }
+        return null;
     }
 
     @Override
-    protected CharSequence getItemText(int index) {
-        return adapter.getItem(index);
+    public int getItemsCount() {
+        return items.length;
     }
-
 }

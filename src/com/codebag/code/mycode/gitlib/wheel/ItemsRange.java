@@ -17,7 +17,7 @@
  *  limitations under the License.
  */
 
-package com.codebag.code.others.kankan.wheel.widget;
+package com.codebag.code.mycode.gitlib.wheel;
 
 /**
  * Range for visible items.

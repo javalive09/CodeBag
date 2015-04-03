@@ -17,7 +17,7 @@
  *  limitations under the License.
  */
 
-package com.codebag.code.others.kankan.wheel.widget;
+package com.codebag.code.mycode.gitlib.wheel;
 
 import android.content.Context;
 import android.os.Handler;

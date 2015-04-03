@@ -17,13 +17,13 @@
  *  limitations under the License.
  */
 
-package com.codebag.code.others.kankan.wheel.widget;
+package com.codebag.code.mycode.gitlib.wheel;
 
 import java.util.LinkedList;
 import java.util.List;
 
 import com.codebag.R;
-import com.codebag.code.others.kankan.wheel.widget.adapters.WheelViewAdapter;
+import com.codebag.code.mycode.gitlib.wheel.adapters.WheelViewAdapter;
 
 import android.content.Context;
 import android.database.DataSetObserver;
