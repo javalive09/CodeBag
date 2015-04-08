@@ -4,7 +4,6 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.PrintStream;
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.LinkedList;
@@ -22,15 +21,15 @@ import android.content.pm.PackageManager.NameNotFoundException;
 public class CodeBag extends Application implements Thread.UncaughtExceptionHandler{
 
 	private static final String TAG = CodeBag.class.getSimpleName();
-	public static final String ROOT_DIR = "com.codebag.code.mycode";
-	public static final int FILE = 0;
-	public static final int DIR = 1;
-	private boolean mHashInit = false;
-	private Node mRootNode = new Node(ROOT_DIR, Node.DIR);
+	private static final String META_DATA_TYPE = "appType";
+	private static final String META_DATA_INFO = "appInfo";
+	private static final String META_DATA_SOURCE_URL = "appSourceUrl";
+	public static final String ROOT_DIR = "com.codebag.code";
+	public static final String MYCODE_DIR = ROOT_DIR + ".mycode";
 	private LinkedList<MainActivity> mActContainer = new LinkedList<MainActivity>();
-	public static final int H_PULL = 0;
-	public static final int B_PULL = 1;
-	public static final int HB_PULL = 2;
+	private static final boolean PRINT_NODE = false;
+	private boolean mHashInit = false;
+	private Node mRootNode;
 	
 	@Override
 	public void onCreate() {
@@ -44,6 +43,26 @@ public class CodeBag extends Application implements Thread.UncaughtExceptionHand
 			return;
 		}
 		
+		mRootNode = new Node(ROOT_DIR, Node.DIR);
+		mRootNode.mSubNodeList = new ArrayList<Node>(2);
+		
+		//加入mycode节点
+		Node myCodeNode = getMyCodeNode();
+		mRootNode.mSubNodeList.add(myCodeNode);
+		
+		//加入appDemo节点
+		Node appNode = getAppDemoNode();
+		if(appNode != null) {
+			mRootNode.mSubNodeList.add(appNode);
+		}
+		
+		printNode(mRootNode);
+		
+		mHashInit = true;
+	}
+
+	private Node getMyCodeNode() {
+		Node myCodeNode = new Node("mycode", Node.DIR);
 		String pkgName = getPackageName();
 		String apkDir = null;
 		try {
@@ -56,7 +75,7 @@ public class CodeBag extends Application implements Thread.UncaughtExceptionHand
 
 		DexFile dexFile = null;
 		try {
-			String prefix = ROOT_DIR;
+			String prefix = MYCODE_DIR;
 			int startLen = prefix.length() + 1;
 			dexFile = new DexFile(apkDir);
 			Enumeration<String> apkClassNames = dexFile.entries();
@@ -72,7 +91,7 @@ public class CodeBag extends Application implements Thread.UncaughtExceptionHand
 					String fileName = className.substring(startLen);
 					String[] strs = fileName.split("\\.");
 					
-					loadCodeBagNode(className, strs, 0, mRootNode);
+					loadCodeBagNode(className, strs, 0, myCodeNode);
 					
 					Log.addLog(TAG, this, "fileName = " + fileName);
 				}
@@ -81,16 +100,7 @@ public class CodeBag extends Application implements Thread.UncaughtExceptionHand
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
-		//加入appDemo节点
-		Node appNode = getAppDemoNode();
-		if(appNode != null) {
-			mRootNode.mSubNodeList.add(appNode);
-		}
-		
-		printNode(mRootNode);
-		
-		mHashInit = true;
+		return myCodeNode;
 	}
 	
 	public void addActivity(MainActivity act) {
@@ -105,7 +115,7 @@ public class CodeBag extends Application implements Thread.UncaughtExceptionHand
 		for(MainActivity act : mActContainer) {
 			act.finish();
 		}
-//		android.os.Process.killProcess(android.os.Process.myPid());
+		android.os.Process.killProcess(android.os.Process.myPid());
 	}
 	
 	public Node getRootNode() {
@@ -113,7 +123,7 @@ public class CodeBag extends Application implements Thread.UncaughtExceptionHand
 	}
 	
 	public Node getAppDemoNode() {
-		Node appNode = new Node("app demo", Node.APP);
+		Node appNode = new Node("open source demo", Node.APP);
 		appNode.mSubNodeList = new ArrayList<CodeBag.Node>();		
 		
     	PackageManager pm = getPackageManager();
@@ -123,10 +133,14 @@ public class CodeBag extends Application implements Thread.UncaughtExceptionHand
 				ApplicationInfo appInfo = pm.getApplicationInfo(info.packageName, PackageManager.GET_META_DATA);
 				if(appInfo.metaData != null) {
 					
-					String type = appInfo.metaData.getString("appType");
+					String type = appInfo.metaData.getString(META_DATA_TYPE);
 					
 					if("codebag_appdemo".equals(type)) {
+						String inf = appInfo.metaData.getString(META_DATA_INFO);
+						String source = appInfo.metaData.getString(META_DATA_SOURCE_URL);
 						Node node = new Node(appInfo.packageName, Node.APP);
+						node.openSourceInfo = inf;
+						node.openSourceUrl = source;
 						appNode.mSubNodeList.add(node);
 						Log.addLog(TAG, this, "packageName=" + info.packageName);
 					}
@@ -143,12 +157,13 @@ public class CodeBag extends Application implements Thread.UncaughtExceptionHand
 	}
 	
 	private void printNode(Node node) {
-		
+		if(!PRINT_NODE) {
+			return;
+		}
 		Log.addLog(TAG, this, "name=" + node.name);
 		Log.addLog(TAG, this, "fullname=" + node.className);
 		
 		if(node.mSubNodeList != null) {
-	
 			for(int i = 0; i < node.mSubNodeList.size(); i++) {
 				printNode(node.mSubNodeList.get(i));
 			}
@@ -203,8 +218,7 @@ public class CodeBag extends Application implements Thread.UncaughtExceptionHand
 		return node;
 	}
 	
-	public static class Node implements Serializable {
-		private static final long serialVersionUID = 7667945539869687742L;
+	public static class Node {
 		public static final int DIR = 0;
 		public static final int CLASS = 1;
 		public static final int APP = 3;
@@ -217,6 +231,8 @@ public class CodeBag extends Application implements Thread.UncaughtExceptionHand
 		public ArrayList<Node> mSubNodeList;
 		public float pointX;
 		public float pointY;
+		public String openSourceInfo;
+		public String openSourceUrl;
 		
 		public Node() {}
 		

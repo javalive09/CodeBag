@@ -42,6 +42,13 @@
         <!-- android:name="appType" -->
         <!-- android:value="codebag_appdemo" > -->
         <!-- </meta-data> -->
+<!--         <meta-data -->
+<!--             android:name="appInfo" -->
+<!--             android:value="可以显示列表item的删除后，整体上移效果"/> -->
+<!--         <meta-data -->
+<!--             android:name="appSourceUrl" -->
+<!--             android:value="https://github.com/timroes/EnhancedListView.git"/> -->
+        
 
         <activity
             android:name="com.codebag.bag.MainActivity"

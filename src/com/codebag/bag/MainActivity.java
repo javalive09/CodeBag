@@ -10,6 +10,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
+import java.util.List;
+
 import com.codebag.R;
 import com.codebag.bag.CodeBag.Node;
 import com.codebag.bag.view.MyMenu;
@@ -17,13 +19,16 @@ import com.codebag.bag.view.MyMenu.ItemViewCreater;
 import com.codebag.bag.view.MyMenu.ItemViewOnClickListener;
 import com.codebag.bag.view.TextViewFixTouchConsume;
 import com.codebag.code.mycode.utils.Log;
+
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.graphics.Bitmap;
 import android.graphics.Color;
@@ -322,9 +327,31 @@ public class MainActivity extends Activity{
 				Adapter adapter = parent.getAdapter();
 				Node mNode = (Node) adapter.getItem(position);
 				if (mNode != null) {
-					Intent intent = getPackageManager().getLaunchIntentForPackage(mNode.className);
+					Intent intent = new Intent();
+					intent.setPackage(mNode.name);
+					intent.setAction(Intent.ACTION_MAIN);
+					List<ResolveInfo> infos = getPackageManager().queryIntentActivities(intent, PackageManager.GET_INTENT_FILTERS);
+					ResolveInfo inf = infos.get(0);
+					String className = inf.activityInfo.name;
+					intent.setClassName(mNode.name, className);
 					startActivity(intent);
 				}
+			}
+		});
+		
+		listView.setOnItemLongClickListener(new OnItemLongClickListener() {
+
+			@Override
+			public boolean onItemLongClick(AdapterView<?> parent, View view,
+					int position, long id) {
+				Adapter adapter = parent.getAdapter();
+				Node mNode = (Node) adapter.getItem(position);
+				if (mNode != null) {
+					String title = mNode.name;
+					String content = mNode.openSourceInfo + "\n" + mNode.openSourceUrl;
+					showAlertDialog(title, content);
+				}
+				return true;
 			}
 		});
 	}
@@ -474,14 +501,19 @@ public class MainActivity extends Activity{
 				TextView tv = (TextView) convertView.findViewById(R.id.listitem_tv);
 				Drawable icon = null;
 				CharSequence name = node.name;
-				if (node.type == Node.CLASS) {
+				switch(node.type) {
+				case Node.CLASS:
 					icon = getResources().getDrawable(R.drawable.file);
 					name = name + ".java";
-				} else if (node.type == Node.DIR) {
+					break;
+				case Node.DIR:
 					icon = getResources().getDrawable(R.drawable.folder);
-				} else if (node.type == Node.APP) {
+					break;
+				case Node.APP:
 					icon = getResources().getDrawable(R.drawable.folder);
+					break;
 				}
+				
 				icon.setBounds(0, 0, icon.getIntrinsicWidth(), icon.getIntrinsicHeight());
 				tv.setCompoundDrawables(icon, null, null, null);
 				tv.setText(name);
