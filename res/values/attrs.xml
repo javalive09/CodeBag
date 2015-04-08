@@ -19,4 +19,13 @@
     
     <attr name="pointLine" format="reference" />
 
+    
+     <attr name="roateView" format="reference" />
+    
+        <declare-styleable name="search">
+        <attr name="search_radius" format="dimension" />
+        <attr name="rearch_angle" format="float" />/>
+        <attr name="rearch_res" format="integer" />/>
+    </declare-styleable>
+    
 </resources>

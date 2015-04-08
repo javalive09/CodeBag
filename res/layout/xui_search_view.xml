@@ -1,0 +1,14 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:xui="http://schemas.android.com/apk/res/com.codebag"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
+
+    <com.codebag.code.mycode.xui.search.SearchView
+        android:id="@+id/searchView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        xui:search_radius="50dp"
+        xui:rearch_res="@drawable/setting_icon"
+        ></com.codebag.code.mycode.xui.search.SearchView>
+
+</LinearLayout>
