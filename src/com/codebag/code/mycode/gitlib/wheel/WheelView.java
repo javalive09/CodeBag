@@ -107,6 +107,7 @@ public class WheelView extends View {
 		initData(context);
 	}
 
+	
 	/**
 	 * Constructor
 	 */
@@ -505,6 +506,10 @@ public class WheelView extends View {
                 MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED));
 
 		return width;
+	}
+	
+	public LinearLayout getContainer() {
+		return itemsLayout;
 	}
 
 	@Override
