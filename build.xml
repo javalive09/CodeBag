@@ -1,14 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<project
+    name="resource"
+    basedir="."
+    default="main" >
 
-<project name="resource" default="main" basedir=".">
-<echo message="start ----- "/>
-<property name="src" value="./src/com/codebag/code"/>
-<property name="res" value="./assets/com/codebag/code"/>
-	
- <target name="main" >
- 	<copy todir="${res}">   
- 		<fileset dir="${src}"/>   
- 	</copy>
-  </target>
-  <echo message="end ----- "/>
+    <echo message="start ----- " />
+
+    <property
+        name="src"
+        value="./src/com/codebag/code" />
+
+    <property
+        name="res"
+        value="./assets/com/codebag/code" />
+
+    <target name="main" >
+
+        <copy todir="${res}" >
+
+            <fileset dir="${src}" />
+        </copy>
+
+        <!-- 刷新文件夹  http://www.srccodes.com/p/article/34/problem-failed-to-create-task-or-type-eclipse-refreshlocal -->
+        <eclipse.refreshLocal
+            depth="infinite"
+            resource="CodeBag/assets" />
+    </target>
+
+    <echo message="end ----- " />
+
 </project>
