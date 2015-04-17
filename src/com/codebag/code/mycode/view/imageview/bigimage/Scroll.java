@@ -1,4 +1,4 @@
-package com.codebag.code.mycode.view.scrollview;
+package com.codebag.code.mycode.view.imageview.bigimage;
 
 import android.graphics.Color;
 import android.view.Gravity;

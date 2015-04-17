@@ -1,4 +1,4 @@
-package com.codebag.code.mycode.view.zoomimageview;
+package com.codebag.code.mycode.view.imageview.zoomimageview;
 
 import android.content.Context;
 import android.graphics.Bitmap;
