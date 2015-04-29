@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.View.*;
 import android.widget.Button;
 
+import com.codebag.R;
 import com.codebag.bag.MainActivity;
 import com.codebag.bag.MyCode;
 import com.codebag.bag.Entry;
@@ -37,11 +38,22 @@ import com.codebag.code.mycode.utils.MultiViews.MyAdapter;
  *  
  *  注意点：只要有一个状态与之相配，背景就会被换掉.如果sd.addState(new[]{},normal)放在第一个的话，就没有什么效果了
  *  所以StateListDrawable的状态设置范围要从小到大
+ *  
+ *  
+ * statelist 是selector
+ *
+ * http://developer.android.com/guide/topics/resources/drawable-resource.html#StateList
  */			
 public class StateListDrawable_ extends MyCode implements OnClickListener{
 
 	StateListDrawable sd = new StateListDrawable();
 	Button show = null;
+	
+	@Entry
+	public void stateList_xml() {
+		View v = View.inflate(getActivity(), R.layout.drawable_state_list_file, null);
+		showView(v);
+	}
 	
 	public StateListDrawable_(MainActivity context) {
 		super(context);

@@ -1,6 +1,5 @@
 package com.codebag.code.mycode.view.drawable.clipdrawable;
 
-import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
@@ -15,6 +14,8 @@ import com.codebag.bag.Entry;
 
 /**
  * 横向展开动画效果
+ * 
+ * http://developer.android.com/guide/topics/resources/drawable-resource.html#Clip
  */
 public class Invoker extends MyCode {
 

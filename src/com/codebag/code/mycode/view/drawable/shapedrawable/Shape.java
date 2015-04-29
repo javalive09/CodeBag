@@ -1,4 +1,4 @@
-package com.codebag.code.mycode.view.shape;
+package com.codebag.code.mycode.view.drawable.shapedrawable;
 
 
 import com.codebag.R;

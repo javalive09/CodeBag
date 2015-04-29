@@ -50,6 +50,15 @@ public class LevelListDrawable_ extends MyCode implements OnClickListener{
 	}
 	
 	@Entry
+	public void showLevelListDrawable_xml() {
+		View v = View.inflate(getActivity(), R.layout.drawable_level_list, null);
+		v.setOnClickListener(this);
+		ImageView iv = (ImageView) v.findViewById(R.id.image);
+		ad = (LevelListDrawable) iv.getBackground();
+		showView(v);
+	}
+	
+	@Entry
 	public void show() {
 		FrameLayout fl = new FrameLayout(getActivity());
 		ImageView iv = new ImageView(getActivity());
@@ -73,16 +82,12 @@ public class LevelListDrawable_ extends MyCode implements OnClickListener{
 
 	@Override
 	public void onClick(View v) {
-		switch(v.getId()) {
-		case 0:
-			int level = ad.getLevel();
-			level++;
-			if(level < 6) {
-				ad.setLevel(level);
-			}else {
-				ad.setLevel(0);
-			}
-			break;
+		int level = ad.getLevel();
+		level++;
+		if (level < 6) {
+			ad.setLevel(level);
+		} else {
+			ad.setLevel(0);
 		}
 	}
 	
