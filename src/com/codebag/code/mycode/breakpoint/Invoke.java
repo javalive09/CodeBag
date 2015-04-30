@@ -43,6 +43,8 @@ public class Invoke extends MyCode {
 	
 	/**
 	 * 三， 异常断点
+	 * 
+	 * 当程序有异常，而不知道具体位置的时候可以使用这个断点
 	 */
 	public void breakpoint_exception() {
 		int a = 0;
