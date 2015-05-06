@@ -1,6 +1,5 @@
 package com.codebag.code.mycode.view.drawable.drawablecontainer;
 
-import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
@@ -25,11 +24,15 @@ import com.codebag.bag.Entry;
  */
 public class AnimationDrawable_ extends MyCode implements OnClickListener{
 	
-	AnimationDrawable ad = new AnimationDrawable();
+	AnimationDrawable ad; 
 	
 	public AnimationDrawable_(MainActivity context) {
 		super(context);
-		
+	}
+	
+	@Entry
+	public void show() {
+		ad = new AnimationDrawable();
 		Bitmap bitmap0 = BitmapFactory.decodeResource(getActivity().getResources(), R.drawable.wifi0);
 		Bitmap bitmap1 = BitmapFactory.decodeResource(getActivity().getResources(), R.drawable.wifi1);
 		Bitmap bitmap2 = BitmapFactory.decodeResource(getActivity().getResources(), R.drawable.wifi2);
@@ -44,12 +47,18 @@ public class AnimationDrawable_ extends MyCode implements OnClickListener{
 		ad.addFrame(new BitmapDrawable(bitmap4), 200);
 		ad.addFrame(new BitmapDrawable(bitmap5), 200);
 		
-		ad.setOneShot(false);
-		
+		anim();
+	}
+
+	@Entry
+	public void show_xml() {
+		ad = (AnimationDrawable) getActivity().getResources().getDrawable(R.drawable.animation_drawable);
+		anim();
 	}
 	
-	@Entry
-	public void show() {
+	private void anim() {
+		ad.setOneShot(false);
+		
 		FrameLayout fl = new FrameLayout(getActivity());
 		ImageView iv = new ImageView(getActivity());
 		iv.setBackgroundDrawable(ad);
@@ -80,7 +89,8 @@ public class AnimationDrawable_ extends MyCode implements OnClickListener{
 		fl.setBackgroundColor(Color.WHITE);
 		showView(fl);
 	}
-
+	
+	
 	@Override
 	public void onClick(View v) {
 		switch(v.getId()) {
