@@ -76,7 +76,8 @@
         <activity android:name="com.codebag.code.mycode.test.fragment.ResultActivity" 
             android:launchMode="standard"/>
         
-        
+        <activity android:name="com.codebag.code.mycode.test.actiitytask.MyActivity" 
+            android:launchMode="standard"/>
         
 
         <!-- AppWidgetProvider的注册 mythou -->
