@@ -3,5 +3,6 @@
 
     <color name="title_bar_color">#22292c</color>
     <color name="main_item_color">#336ea3e5</color>
+    <color name="transparent">#ff000000</color> 
 
 </resources>

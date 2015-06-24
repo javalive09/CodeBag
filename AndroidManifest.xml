@@ -1,13 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.codebag"
     android:versionCode="2"
-    android:versionName="2.0" xmlns:tools="http://schemas.android.com/tools">
+    android:versionName="2.0" >
 
     <uses-sdk
-        android:minSdkVersion="8"
+        android:maxSdkVersion="19"
+        android:minSdkVersion="14"
         android:targetSdkVersion="14"
-        android:maxSdkVersion="19" tools:ignore="OldTargetApi"/>
+        tools:ignore="OldTargetApi" />
 
     <!-- 为了准确获取分辨率 -->
     <supports-screens
@@ -23,32 +25,32 @@
     <uses-permission android:name="com.android.launcher.permission.READ_SETTINGS" />
     <uses-permission android:name="android.permission.INTERACT_ACROSS_USERS_FULL" />
     <uses-permission android:name="INTERACT_ACROSS_USERS_FULL" />
-    <uses-permission android:name="android.permission.INTERNET"/>
-    
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <!-- 获取IMEI号需要权限 -->
-    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
-    
-    <!-- 生成桌面快捷方式 -->>
-    <uses-permission android:name="com.android.launcher.permission.INSTALL_SHORTCUT"/>
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+
+    <!-- 生成桌面快捷方式 -->
+>
+    <uses-permission android:name="com.android.launcher.permission.INSTALL_SHORTCUT" />
 
     <application
         android:name="com.codebag.bag.CodeBag"
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@android:style/Theme.Light.NoTitleBar">
+        android:theme="@android:style/Theme.Light.NoTitleBar" >
 
         <!-- <meta-data -->
         <!-- android:name="appType" -->
         <!-- android:value="codebag_appdemo" > -->
         <!-- </meta-data> -->
-<!--         <meta-data -->
-<!--             android:name="appInfo" -->
-<!--             android:value="可以显示列表item的删除后，整体上移效果"/> -->
-<!--         <meta-data -->
-<!--             android:name="appSourceUrl" -->
-<!--             android:value="https://github.com/timroes/EnhancedListView.git"/> -->
-        
+        <!-- <meta-data -->
+        <!-- android:name="appInfo" -->
+        <!-- android:value="可以显示列表item的删除后，整体上移效果"/> -->
+        <!-- <meta-data -->
+        <!-- android:name="appSourceUrl" -->
+        <!-- android:value="https://github.com/timroes/EnhancedListView.git"/> -->
 
         <activity
             android:name="com.codebag.bag.MainActivity"
@@ -71,14 +73,14 @@
         <activity
             android:name="com.codebag.code.mycode.test.activitylife.MyActivityA"
             android:launchMode="singleTask" />
-        <activity android:name="com.codebag.code.mycode.test.activitylife.MyActivityB" />
-        
-        <activity android:name="com.codebag.code.mycode.test.fragment.ResultActivity" 
-            android:launchMode="standard"/>
-        
-        <activity android:name="com.codebag.code.mycode.test.actiitytask.MyActivity" 
-            android:launchMode="standard"/>
-        
+        <activity android:name="com.codebag.code.mycode.test.activitylife.MyActivityB"
+            android:theme="@style/TestWindowBackGround" />
+        <activity
+            android:name="com.codebag.code.mycode.test.fragment.ResultActivity"
+            android:launchMode="standard" />
+        <activity
+            android:name="com.codebag.code.mycode.test.actiitytask.MyActivity"
+            android:launchMode="standard" />
 
         <!-- AppWidgetProvider的注册 mythou -->
         <receiver android:name="com.codebag.code.mycode.cleanmaster.cleanmastertest.homewidget.TimeWidgetProvider" >
@@ -95,9 +97,9 @@
         </service>
         <service android:name="com.codebag.code.mycode.cleanmaster.cleanmastertest.audioplayerrun.MainService" >
         </service>
-        
-        <service android:name="com.codebag.code.mycode.function.aidl.AIDLService" 
-            android:process="com.aidl.service">
+        <service
+            android:name="com.codebag.code.mycode.function.aidl.AIDLService"
+            android:process="com.aidl.service" >
         </service>
     </application>
 
