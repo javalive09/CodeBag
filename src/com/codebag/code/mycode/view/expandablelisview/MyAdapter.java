@@ -64,6 +64,13 @@ public class MyAdapter extends BaseExpandableListAdapter {
     }
      
     /**
+     * 注意： 如果groupview中有button ExpandableListView无法展开
+     * 
+     * 如果含有，把它改成TextView或者ImageView试试，可能问题就解决。
+	 * 原因：布局文件的监听事件顺序是组件视图，然后才是布局文件本事，
+	 * 而像OnItemClickListener这样的监听事件，都是监听的布局，
+	 * 如果上面有了Button这样的，就会被拦截而监听不到了
+     * 
      * 显示：group
      */
     @Override
@@ -74,17 +81,17 @@ public class MyAdapter extends BaseExpandableListAdapter {
     	g.setOrientation(LinearLayout.HORIZONTAL);
     	TextView tv = new TextView(context);
     	tv.setText(group.get(groupPosition));
-    	Button b = new Button(context);
-    	b.setOnClickListener(new OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				Log.addLog("peter", this, "" + v);
-			}
-		});
+//    	Button b = new Button(context);
+//    	b.setOnClickListener(new OnClickListener() {
+//			
+//			@Override
+//			public void onClick(View v) {
+//				Log.addLog("peter", this, "" + v);
+//			}
+//		});
     	g.addView(tv);
-    	g.addView(b);
-    	g.setBackgroundColor(Color.CYAN);
+//    	g.addView(b);
+//    	g.setBackgroundColor(Color.CYAN);
     	return g;
     }
      

@@ -21,7 +21,7 @@ public class InvokerShader extends MyCode {
 		tv.setTextSize(50);
 		tv.setTextColor(Color.GRAY);
 		tv.setBackgroundColor(Color.WHITE);
-		tv.setShadowLayer(0f, 10, 10, Color.BLUE);
+		tv.setShadowLayer(0f, 10, 10, Color.BLUE);//radius 是羽化半径
 		tv.setGravity(Gravity.CENTER);
 		showView(tv);
 	}

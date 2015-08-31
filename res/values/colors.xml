@@ -4,5 +4,11 @@
     <color name="title_bar_color">#22292c</color>
     <color name="main_item_color">#336ea3e5</color>
     <color name="transparent">#ff000000</color> 
-
+    <color name="group_item_press">#f6f6f6</color> 
+    <color name="group_item_normal">#ffffff</color> 
+    <color name="child_item0_normal">#f6f6f6</color> 
+    <color name="child_item0_press">#f1f1f1</color> 
+    <color name="child_item1_normal">#efefef</color> 
+    <color name="child_item1_press">#eaeaea</color> 
+	
 </resources>

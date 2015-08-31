@@ -26,7 +26,6 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ApplicationInfo;
-import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.content.pm.PackageManager.NameNotFoundException;
@@ -40,6 +39,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Looper;
 import android.os.MessageQueue.IdleHandler;
+import android.support.v4.app.FragmentActivity;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -56,7 +56,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class MainActivity extends Activity{
+public class MainActivity extends FragmentActivity{
 
 	private static final String TAG = MainActivity.class.getSimpleName();
 	private static final String NODE = "node";

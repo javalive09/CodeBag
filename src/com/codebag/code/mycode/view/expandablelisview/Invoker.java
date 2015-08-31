@@ -2,13 +2,10 @@ package com.codebag.code.mycode.view.expandablelisview;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ExpandableListView;
-import android.widget.ExpandableListView.OnGroupClickListener;
-
+import android.widget.ExpandableListView.OnGroupExpandListener;
 import com.codebag.R;
 import com.codebag.bag.MainActivity;
 import com.codebag.bag.MyCode;
@@ -34,18 +31,25 @@ public class Invoker extends MyCode {
 		initData();
 		adapter = new MyAdapter(getActivity(), group, child);
 		listView.setAdapter(adapter);
-		for (int i = 0; i < adapter.getGroupCount(); i++) {
-			listView.expandGroup(i);
-		}
+//		for (int i = 0; i < adapter.getGroupCount(); i++) {
+//			listView.expandGroup(i);
+//		}
 		
-		listView.setOnGroupClickListener(new OnGroupClickListener() {
-
-			@Override
-			public boolean onGroupClick(ExpandableListView parent, View v,
-					int groupPosition, long id) {
-				return true;
-			}
+//		listView.setOnGroupClickListener(new OnGroupClickListener() {
+//
+//			@Override
+//			public boolean onGroupClick(ExpandableListView parent, View v,
+//					int groupPosition, long id) {
+//				return true;
+//			}
+//			
+//		});
+		
+		listView.setOnGroupExpandListener(new OnGroupExpandListener() {
 			
+            public void onGroupExpand(int groupPosition) {
+            	
+			}
 		});
 		
 		showView(root);

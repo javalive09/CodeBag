@@ -27,6 +27,7 @@ public class MyActivityA extends Activity {
 			public void onClick(View v) {
 //				startActivity(new Intent(MyActivityA.this, MyActivityB.class));
 				startActivityForResult(new Intent(MyActivityA.this, MyActivityB.class), 0);
+				Log.addLog("peter", this, "class name = " + MyActivityA.class.getName());
 			}
 			
 		});

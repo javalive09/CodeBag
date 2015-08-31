@@ -42,5 +42,9 @@ public class MyCode{//
 		mActivity.startActivity(intent);
 	}
 	
+	public View findViewById(int id) {
+		return mActivity.findViewById(id);
+	}
+	
 	
 }
