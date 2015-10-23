@@ -1,5 +1,7 @@
 package com.codebag.code.mycode.view.drawable.clipdrawable;
 
+import android.animation.ValueAnimator;
+import android.animation.ValueAnimator.AnimatorUpdateListener;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
@@ -25,6 +27,8 @@ public class Invoker extends MyCode {
 	int level = 0;
 	ClipDrawable cd = null;
 	
+	ValueAnimator va;
+	
 	public Invoker(MainActivity context) {
 		super(context);
 	}
@@ -33,14 +37,15 @@ public class Invoker extends MyCode {
 	public void showClipDrawable() {
 		Bitmap b = BitmapFactory.decodeResource(getActivity().getResources(), R.drawable.head);
 		BitmapDrawable d = new BitmapDrawable(getActivity().getResources(), b);
-		cd = new ClipDrawable(d, Gravity.CENTER, ClipDrawable.HORIZONTAL);
+		cd = new ClipDrawable(d, Gravity.LEFT, ClipDrawable.HORIZONTAL);
 		
 		ImageView iv = new ImageView(getActivity());
 		iv.post(new Runnable() {
 
 			@Override
 			public void run() {
-				clipHandler.sendEmptyMessage(0);
+//				clipHandler.sendEmptyMessage(0);
+				va.start();
 			}
 			
 		});
@@ -48,6 +53,17 @@ public class Invoker extends MyCode {
 		level = 0;
 		cd.setLevel(level);
 		showView(iv, match_parent);
+		
+		va = ValueAnimator.ofInt(0, 10000);
+		va.setDuration(1000);
+		va.addUpdateListener(new AnimatorUpdateListener() {
+			
+			@Override
+			public void onAnimationUpdate(ValueAnimator animation) {
+				int level = (Integer) animation.getAnimatedValue();
+				cd.setLevel(level);
+			}
+		});
 	}
 	
 	Handler clipHandler = new Handler(Looper.getMainLooper()) {
@@ -74,6 +90,7 @@ public class Invoker extends MyCode {
 			@Override
 			public void run() {
 				clipHandler.sendEmptyMessage(0);
+//				va.start();
 			}
 			
 		});
