@@ -3,12 +3,12 @@ package com.codebag.code.mycode.test.threadpool;
 import android.util.Log;
 
 import com.codebag.bag.Entry;
-import com.codebag.bag.MainActivity;
 import com.codebag.bag.MyCode;
+import com.codebag.bag.main.InovkedViewActivity;
 
 public class BlockMainThread extends MyCode {
 
-	public BlockMainThread(MainActivity act) {
+	public BlockMainThread(InovkedViewActivity act) {
 		super(act);
 	}
 	

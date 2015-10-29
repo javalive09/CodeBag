@@ -1,14 +1,14 @@
 package com.codebag.code.mycode.test;
 
 import com.codebag.bag.Entry;
-import com.codebag.bag.MainActivity;
 import com.codebag.bag.MyCode;
+import com.codebag.bag.main.InovkedViewActivity;
 import com.codebag.code.mycode.utils.DisplayUtil;
 import com.codebag.code.mycode.utils.Log;
 
 public class DPITest extends MyCode {
 
-	public DPITest(MainActivity act) {
+	public DPITest(InovkedViewActivity act) {
 		super(act);
 	}
 	

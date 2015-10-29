@@ -4,6 +4,7 @@ import com.codebag.code.mycode.xui.bindpath.RectPathView.MyAnimListener;
 
 import android.content.Context;
 import android.graphics.Point;
+import android.util.AttributeSet;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -25,6 +26,11 @@ public class ButtonLineComponent extends FrameLayout {
 	
 	public ButtonLineComponent(Context context) {
 		super(context);
+		init(context);
+	}
+	
+	public ButtonLineComponent(Context context, AttributeSet attrs) {
+		super(context, attrs);
 		init(context);
 	}
 

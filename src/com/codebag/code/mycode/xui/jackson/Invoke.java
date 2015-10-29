@@ -6,8 +6,8 @@ import org.json.JSONObject;
 import android.util.Log;
 
 import com.codebag.bag.Entry;
-import com.codebag.bag.MainActivity;
 import com.codebag.bag.MyCode;
+import com.codebag.bag.main.InovkedViewActivity;
 
 public class Invoke extends MyCode {
 
@@ -15,7 +15,7 @@ public class Invoke extends MyCode {
 			+ "{\"pid\":1,\"pname\":\"全国\",\"spname\":\"全国基础资源包\",\"citys\":[{\"cid\":1,\"cname\":\"全国\",\"scname\":\"全国基础资源包\"}]},"
 			+ "]}";
 	
-	public Invoke(MainActivity act) {
+	public Invoke(InovkedViewActivity act) {
 		super(act);
 	}
 	

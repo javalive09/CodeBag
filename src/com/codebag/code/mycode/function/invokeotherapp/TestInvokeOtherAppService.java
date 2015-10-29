@@ -5,9 +5,9 @@ import android.content.ComponentName;
 import android.content.Intent;
 import android.widget.Toast;
 
-import com.codebag.bag.MainActivity;
 import com.codebag.bag.MyCode;
 import com.codebag.bag.Entry;
+import com.codebag.bag.main.InovkedViewActivity;
 
 /**
  * 跨应用调用其他程序的service
@@ -17,7 +17,7 @@ import com.codebag.bag.Entry;
  */
 public class TestInvokeOtherAppService extends MyCode {
 
-	public TestInvokeOtherAppService(MainActivity context) {
+	public TestInvokeOtherAppService(InovkedViewActivity context) {
 		super(context);
 	}
 	

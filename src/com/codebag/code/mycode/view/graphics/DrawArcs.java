@@ -8,13 +8,13 @@ import android.graphics.RectF;
 import android.view.Gravity;
 import android.view.View;
 
-import com.codebag.bag.MainActivity;
 import com.codebag.bag.MyCode;
 import com.codebag.bag.Entry;
+import com.codebag.bag.main.InovkedViewActivity;
 
 public class DrawArcs extends MyCode {
 
-	public DrawArcs(MainActivity context) {
+	public DrawArcs(InovkedViewActivity context) {
 		super(context);
 	}
 	

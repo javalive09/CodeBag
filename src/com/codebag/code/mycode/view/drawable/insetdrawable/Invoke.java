@@ -4,8 +4,8 @@ import android.view.View;
 
 import com.codebag.R;
 import com.codebag.bag.Entry;
-import com.codebag.bag.MainActivity;
 import com.codebag.bag.MyCode;
+import com.codebag.bag.main.InovkedViewActivity;
 
 /**
  * 
@@ -17,7 +17,7 @@ import com.codebag.bag.MyCode;
  */
 public class Invoke extends MyCode {
 
-	public Invoke(MainActivity act) {
+	public Invoke(InovkedViewActivity act) {
 		super(act);
 	}
 	

@@ -16,8 +16,8 @@ import android.widget.ExpandableListView.OnGroupClickListener;
 
 import com.codebag.R;
 import com.codebag.bag.Entry;
-import com.codebag.bag.MainActivity;
 import com.codebag.bag.MyCode;
+import com.codebag.bag.main.InovkedViewActivity;
 import com.codebag.code.mycode.xui.mapdetail.AnimatedExpandableListView.AnimatedExpandableListAdapter;
 
 public class Invoker extends MyCode {
@@ -25,7 +25,7 @@ public class Invoker extends MyCode {
     private AnimatedExpandableListView listView;
     private ExampleAdapter adapter;
 	
-	public Invoker(MainActivity act) {
+	public Invoker(InovkedViewActivity act) {
 		super(act);
 	}
 	

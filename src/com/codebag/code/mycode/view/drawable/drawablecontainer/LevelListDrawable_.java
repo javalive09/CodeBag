@@ -15,9 +15,9 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 
 import com.codebag.R;
-import com.codebag.bag.MainActivity;
 import com.codebag.bag.MyCode;
 import com.codebag.bag.Entry;
+import com.codebag.bag.main.InovkedViewActivity;
 
 /**
  * android中动态的修改背景drawable，用于自定义不同状态下的view的不同的背景。也可以用level-list配置xml来实现
@@ -30,7 +30,7 @@ public class LevelListDrawable_ extends MyCode implements OnClickListener{
 	
 	LevelListDrawable ad = new LevelListDrawable();
 	
-	public LevelListDrawable_(MainActivity context) {
+	public LevelListDrawable_(InovkedViewActivity context) {
 		super(context);
 		
 		Bitmap bitmap0 = BitmapFactory.decodeResource(getActivity().getResources(), R.drawable.wifi0);

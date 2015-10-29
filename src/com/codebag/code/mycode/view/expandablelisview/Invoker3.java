@@ -9,9 +9,9 @@ import android.widget.ExpandableListView;
 import android.widget.ExpandableListView.OnGroupClickListener;
 
 import com.codebag.R;
-import com.codebag.bag.MainActivity;
 import com.codebag.bag.MyCode;
 import com.codebag.bag.Entry;
+import com.codebag.bag.main.InovkedViewActivity;
 
 public class Invoker3 extends MyCode {
 
@@ -20,7 +20,7 @@ public class Invoker3 extends MyCode {
 	private List<List<String>> child;
 	private MyAdapter3 adapter;
 
-	public Invoker3(MainActivity context) {
+	public Invoker3(InovkedViewActivity context) {
 		super(context);
 	}
 

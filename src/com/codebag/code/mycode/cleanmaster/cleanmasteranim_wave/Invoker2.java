@@ -2,13 +2,13 @@ package com.codebag.code.mycode.cleanmaster.cleanmasteranim_wave;
 
 import android.graphics.Color;
 
-import com.codebag.bag.MainActivity;
 import com.codebag.bag.MyCode;
 import com.codebag.bag.Entry;
+import com.codebag.bag.main.InovkedViewActivity;
 
 public class Invoker2 extends MyCode {
 
-	public Invoker2(MainActivity context) {
+	public Invoker2(InovkedViewActivity context) {
 		super(context);
 	}
 	

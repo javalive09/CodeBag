@@ -1,11 +1,12 @@
 package com.codebag.code.mycode.interview.noxus;
 
 import java.util.HashMap;
+
 import android.graphics.Color;
 
-import com.codebag.bag.MainActivity;
 import com.codebag.bag.MyCode;
 import com.codebag.bag.Entry;
+import com.codebag.bag.main.InovkedViewActivity;
 import com.codebag.code.mycode.utils.Log;
 
 /**
@@ -17,7 +18,7 @@ import com.codebag.code.mycode.utils.Log;
  */
 public class FirstFace extends MyCode {
 
-	public FirstFace(MainActivity context) {
+	public FirstFace(InovkedViewActivity context) {
 		super(context);
 	}
 

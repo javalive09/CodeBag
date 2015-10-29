@@ -1,18 +1,20 @@
 package com.codebag.code.mycode.xui.search;
 
+import android.animation.ValueAnimator;
+import android.animation.ValueAnimator.AnimatorUpdateListener;
 import android.view.View;
 import android.view.animation.LinearInterpolator;
 
 import com.codebag.R;
 import com.codebag.bag.Entry;
-import com.codebag.bag.MainActivity;
 import com.codebag.bag.MyCode;
+import com.codebag.bag.main.InovkedViewActivity;
 import com.nineoldandroids.animation.AnimatorSet;
 import com.nineoldandroids.animation.ObjectAnimator;
 
 public class Invoke extends MyCode {
 
-	public Invoke(MainActivity act) {
+	public Invoke(InovkedViewActivity act) {
 		super(act);
 	}
 
@@ -41,6 +43,44 @@ public class Invoke extends MyCode {
 				set.start();
 			}
 		});
+	}
+	
+	@Entry
+	public void showAnim2() {
+		showView(R.layout.searchlayout);
+		final View root = getActivity().findViewById(R.id.root);
+		final View search = root.findViewById(R.id.search);
+		search.post(new Runnable() {
+
+			@Override
+			public void run() {
+				final int width = search.getWidth();
+		        final int rootH = root.getWidth();
+		        final int R = (rootH - width) / 2;
+				ValueAnimator tValue = ValueAnimator.ofFloat(0, (float) (2.0f * Math.PI));
+				tValue.setDuration(2000);
+				tValue.setRepeatCount(ValueAnimator.INFINITE);
+				tValue.setInterpolator(new LinearInterpolator());
+				tValue.addUpdateListener(new AnimatorUpdateListener() {
+
+		            @Override
+		            public void onAnimationUpdate(ValueAnimator animation) {
+		                // 圆的参数方程 x = R*sin(t) y = R*cos(t)
+		                float t = (Float) animation.getAnimatedValue();
+		                int x = (int) (R * Math.sin(t)) + R;
+		                int y = (int) (R * Math.cos(t)) + R;
+		                
+		                int cell = width;
+		                int left = x;
+		                int top = y;
+		                search.layout(left, top, left + cell, top + cell);
+		            }
+		        });
+				tValue.start();
+			}
+			
+		});
+
 	}
 	
 }

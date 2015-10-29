@@ -3,9 +3,10 @@ package com.codebag.code.mycode.test.threadpool;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import com.codebag.bag.MainActivity;
+
 import com.codebag.bag.MyCode;
 import com.codebag.bag.Entry;
+import com.codebag.bag.main.InovkedViewActivity;
 
 /**
  * 有唯一线程的线程池，它和 Executors.newFixedThreadPool(1)的区别是：如果任务异常，会重新开启一个线程，继续执行
@@ -15,7 +16,7 @@ import com.codebag.bag.Entry;
  */
 public class SingleThreadPool extends MyCode {
 
-	public SingleThreadPool(MainActivity context) {
+	public SingleThreadPool(InovkedViewActivity context) {
 		super(context);
 	}
 

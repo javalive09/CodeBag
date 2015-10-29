@@ -4,9 +4,9 @@ package com.codebag.code.mycode.function.invokeotherapp;
 import android.content.ComponentName;
 import android.content.Intent;
 
-import com.codebag.bag.MainActivity;
 import com.codebag.bag.MyCode;
 import com.codebag.bag.Entry;
+import com.codebag.bag.main.InovkedViewActivity;
 
 /**
  * 跨应用调用其他activity的两种方式: componentName, action
@@ -18,7 +18,7 @@ import com.codebag.bag.Entry;
  */
 public class TestInvokeOtherAppActivity extends MyCode {
 
-	public TestInvokeOtherAppActivity(MainActivity context) {
+	public TestInvokeOtherAppActivity(InovkedViewActivity context) {
 		super(context);
 	}
 

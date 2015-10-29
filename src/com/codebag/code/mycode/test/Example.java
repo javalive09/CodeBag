@@ -5,13 +5,13 @@ import android.graphics.Color;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.codebag.bag.MainActivity;
 import com.codebag.bag.MyCode;
 import com.codebag.bag.Entry;
+import com.codebag.bag.main.InovkedViewActivity;
 
 public class Example extends MyCode {
 
-	public Example(MainActivity context) {
+	public Example(InovkedViewActivity context) {
 		super(context);
 	}
 

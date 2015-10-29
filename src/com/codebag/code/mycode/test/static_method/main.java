@@ -1,12 +1,12 @@
 package com.codebag.code.mycode.test.static_method;
 
 import com.codebag.bag.Entry;
-import com.codebag.bag.MainActivity;
 import com.codebag.bag.MyCode;
+import com.codebag.bag.main.InovkedViewActivity;
 
 public class main extends MyCode {
 
-	public main(MainActivity act) {
+	public main(InovkedViewActivity act) {
 		super(act);
 	}
 	

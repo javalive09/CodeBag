@@ -12,9 +12,9 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.codebag.bag.MainActivity;
 import com.codebag.bag.MyCode;
 import com.codebag.bag.Entry;
+import com.codebag.bag.main.InovkedViewActivity;
 import com.codebag.code.mycode.gitlib.wheel.OnWheelScrollListener;
 import com.codebag.code.mycode.gitlib.wheel.WheelView;
 import com.codebag.code.mycode.gitlib.wheel.adapters.NumericWheelAdapter;
@@ -25,7 +25,7 @@ public class ColorUtils extends MyCode implements OnWheelScrollListener{
 	WheelView wvAlpha1, wvAlpha2, wvRed1, wvRed2, wvGreen1, wvGreen2, wvBlue1, wvBlue2;
 	TextView showView;
 	
-	public ColorUtils(MainActivity context) {
+	public ColorUtils(InovkedViewActivity context) {
 		super(context);
 	}
 	

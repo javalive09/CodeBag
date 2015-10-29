@@ -1,8 +1,8 @@
 package com.codebag.code.mycode.pattern.behavioral.observer;
 
 import com.codebag.bag.Entry;
-import com.codebag.bag.MainActivity;
 import com.codebag.bag.MyCode;
+import com.codebag.bag.main.InovkedViewActivity;
 
 /**
  * 一个对象状态的改变能影响一系列对象状态的改变
@@ -12,7 +12,7 @@ import com.codebag.bag.MyCode;
  */
 public class Invoker extends MyCode {
 
-    public Invoker(MainActivity act) {
+    public Invoker(InovkedViewActivity act) {
         super(act);
     }
     

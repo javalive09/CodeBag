@@ -26,7 +26,7 @@ public class CodeBag extends Application implements Thread.UncaughtExceptionHand
 	private static final String META_DATA_SOURCE_URL = "appSourceUrl";
 	public static final String ROOT_DIR = "com.codebag.code";
 	public static final String MYCODE_DIR = ROOT_DIR + ".mycode";
-	private LinkedList<MainActivity> mActContainer = new LinkedList<MainActivity>();
+//	private LinkedList<InovkedViewActivity> mActContainer = new LinkedList<InovkedViewActivity>();
 	private static final boolean PRINT_NODE = false;
 	private boolean mHashInit = false;
 	private Node mRootNode;
@@ -34,7 +34,7 @@ public class CodeBag extends Application implements Thread.UncaughtExceptionHand
 	@Override
 	public void onCreate() {
 //		Debug.startMethodTracing("mytrace"); 
-		Thread.setDefaultUncaughtExceptionHandler(this);
+//		Thread.setDefaultUncaughtExceptionHandler(this);
 	}
 
 	public void init() {
@@ -103,20 +103,20 @@ public class CodeBag extends Application implements Thread.UncaughtExceptionHand
 		return myCodeNode;
 	}
 	
-	public void addActivity(MainActivity act) {
-		mActContainer.add(act);
-	}
-	
-	public void removeActivity(MainActivity act) {
-		mActContainer.remove(act);
-	}
-	
-	public void exit() {
-		for(MainActivity act : mActContainer) {
-			act.finish();
-		}
-		android.os.Process.killProcess(android.os.Process.myPid());
-	}
+//	public void addActivity(InovkedViewActivity act) {
+//		mActContainer.add(act);
+//	}
+//	
+//	public void removeActivity(InovkedViewActivity act) {
+//		mActContainer.remove(act);
+//	}
+//	
+//	public void exit() {
+//		for(InovkedViewActivity act : mActContainer) {
+//			act.finish();
+//		}
+//		android.os.Process.killProcess(android.os.Process.myPid());
+//	}
 	
 	public Node getRootNode() {
 		return mRootNode;
@@ -124,7 +124,7 @@ public class CodeBag extends Application implements Thread.UncaughtExceptionHand
 	
 	public Node getAppDemoNode() {
 		Node appNode = new Node("open source demo", Node.APP);
-		appNode.mSubNodeList = new ArrayList<CodeBag.Node>();		
+		appNode.mSubNodeList = new ArrayList<Node>();		
 		
     	PackageManager pm = getPackageManager();
 		List<ApplicationInfo> appList = pm.getInstalledApplications(PackageManager.GET_UNINSTALLED_PACKAGES);
@@ -216,39 +216,6 @@ public class CodeBag extends Application implements Thread.UncaughtExceptionHand
 		Node node = new Node(nodeName, type, className);
 		currentNode.mSubNodeList.add(node);
 		return node;
-	}
-	
-	public static class Node {
-		public static final int DIR = 0;
-		public static final int CLASS = 1;
-		public static final int APP = 3;
-		public static final int METHOD = 4;
-		
-		public int type = -1;
-		public String name;
-		public String className;
-		public String fullName;//全名
-		public ArrayList<Node> mSubNodeList;
-		public float pointX;
-		public float pointY;
-		public String openSourceInfo;
-		public String openSourceUrl;
-		
-		public Node() {}
-		
-		public Node(String name, int type) {
-			this.name = name;
-			this.type = type;
-			fullName = name;
-		}
-		
-		public Node(String name, int type, String className) {
-			this(name, type);
-			this.className = className;
-			int index = className.indexOf(name);
-			fullName = className.substring(0, index + name.length());
-		}
-
 	}
 	
 	public void setRootViewController(int status) {

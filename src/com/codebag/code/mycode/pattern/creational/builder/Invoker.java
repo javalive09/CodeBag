@@ -1,7 +1,7 @@
 package com.codebag.code.mycode.pattern.creational.builder;
 
-import com.codebag.bag.MainActivity;
 import com.codebag.bag.MyCode;
+import com.codebag.bag.main.InovkedViewActivity;
 
 /**
  * 
@@ -12,7 +12,7 @@ import com.codebag.bag.MyCode;
  */
 public class Invoker extends MyCode {
 
-    public Invoker(MainActivity act) {
+    public Invoker(InovkedViewActivity act) {
         super(act);
     }
     

@@ -7,12 +7,12 @@ import java.util.Random;
 import android.util.Log;
 
 import com.codebag.bag.Entry;
-import com.codebag.bag.MainActivity;
 import com.codebag.bag.MyCode;
+import com.codebag.bag.main.InovkedViewActivity;
 
 public class Action extends MyCode {
 
-	public Action(MainActivity act) {
+	public Action(InovkedViewActivity act) {
 		super(act);
 	}
 	

@@ -4,9 +4,9 @@ import android.graphics.Color;
 import android.widget.TextView;
 
 import com.codebag.R;
-import com.codebag.bag.MainActivity;
 import com.codebag.bag.MyCode;
 import com.codebag.bag.Entry;
+import com.codebag.bag.main.InovkedViewActivity;
 
 /**
  * 使用 String.format 格式化输出字符串来动态的在本地资源中加入一些可以作为变量的字符。
@@ -22,7 +22,7 @@ import com.codebag.bag.Entry;
  */
 public class StringFormat extends MyCode{
 
-	public StringFormat(MainActivity context) {
+	public StringFormat(InovkedViewActivity context) {
 		super(context);
 	}
 	

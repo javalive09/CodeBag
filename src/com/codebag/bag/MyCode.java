@@ -1,22 +1,21 @@
 package com.codebag.bag;
 
+import com.codebag.bag.main.InovkedViewActivity;
+
 import android.content.Intent;
 import android.view.View;
 import android.widget.FrameLayout;
 
 public class MyCode{//
-	
 	public FrameLayout.LayoutParams wrap_content;
 	public FrameLayout.LayoutParams match_parent;
-	MainActivity mActivity;
+	InovkedViewActivity mActivity;
 	
-	public MyCode(MainActivity act) {
+	public MyCode(InovkedViewActivity act) {
 		mActivity = act;
-		wrap_content = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.WRAP_CONTENT, FrameLayout.LayoutParams.WRAP_CONTENT);
-		match_parent = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT);
 	}
 
-	public MainActivity getActivity() {
+	public InovkedViewActivity getActivity() {
 		return mActivity;
 	}
 	

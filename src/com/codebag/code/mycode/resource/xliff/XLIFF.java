@@ -1,7 +1,7 @@
 package com.codebag.code.mycode.resource.xliff;
 
-import com.codebag.bag.MainActivity;
 import com.codebag.bag.MyCode;
+import com.codebag.bag.main.InovkedViewActivity;
 
 /**
  * noxliff:XML Localization Interchange File Format
@@ -21,7 +21,7 @@ import com.codebag.bag.MyCode;
  */
 public class XLIFF extends MyCode{
 
-	public XLIFF(MainActivity context) {
+	public XLIFF(InovkedViewActivity context) {
 		super(context);
 	}
 	

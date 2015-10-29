@@ -5,13 +5,13 @@ import android.graphics.BitmapFactory;
 import android.graphics.Color;
 
 import com.codebag.R;
-import com.codebag.bag.MainActivity;
 import com.codebag.bag.MyCode;
 import com.codebag.bag.Entry;
+import com.codebag.bag.main.InovkedViewActivity;
 
 public class ZoomView extends MyCode {
 
-	public ZoomView(MainActivity context) {
+	public ZoomView(InovkedViewActivity context) {
 		super(context);
 	}
 	

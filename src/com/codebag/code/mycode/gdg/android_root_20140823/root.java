@@ -1,11 +1,11 @@
 package com.codebag.code.mycode.gdg.android_root_20140823;
 
-import com.codebag.bag.MainActivity;
 import com.codebag.bag.MyCode;
+import com.codebag.bag.main.InovkedViewActivity;
 
 public class root extends MyCode {
 
-	public root(MainActivity context) {
+	public root(InovkedViewActivity context) {
 		super(context);
 	}
 

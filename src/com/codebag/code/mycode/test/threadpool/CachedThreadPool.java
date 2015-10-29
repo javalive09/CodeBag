@@ -3,9 +3,10 @@ package com.codebag.code.mycode.test.threadpool;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import com.codebag.bag.MainActivity;
+
 import com.codebag.bag.MyCode;
 import com.codebag.bag.Entry;
+import com.codebag.bag.main.InovkedViewActivity;
 
 
 /**
@@ -16,7 +17,7 @@ import com.codebag.bag.Entry;
  */
 public class CachedThreadPool extends MyCode {
 
-	public CachedThreadPool(MainActivity context) {
+	public CachedThreadPool(InovkedViewActivity context) {
 		super(context);
 	}
 

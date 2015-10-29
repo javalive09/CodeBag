@@ -13,8 +13,8 @@ import android.os.Environment;
 import android.widget.Toast;
 
 import com.codebag.bag.Entry;
-import com.codebag.bag.MainActivity;
 import com.codebag.bag.MyCode;
+import com.codebag.bag.main.InovkedViewActivity;
 
 /**
  * 可以被清除的缓存目录
@@ -28,7 +28,7 @@ import com.codebag.bag.MyCode;
  */
 public class Android_data_files extends MyCode {
 
-	public Android_data_files(MainActivity act) {
+	public Android_data_files(InovkedViewActivity act) {
 		super(act);
 	}
 	

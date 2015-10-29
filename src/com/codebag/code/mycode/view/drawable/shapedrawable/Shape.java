@@ -3,12 +3,12 @@ package com.codebag.code.mycode.view.drawable.shapedrawable;
 
 import com.codebag.R;
 import com.codebag.bag.Entry;
-import com.codebag.bag.MainActivity;
 import com.codebag.bag.MyCode;
+import com.codebag.bag.main.InovkedViewActivity;
 
 public class Shape extends MyCode {
 
-	public Shape(MainActivity act) {
+	public Shape(InovkedViewActivity act) {
 		super(act);
 	}
 

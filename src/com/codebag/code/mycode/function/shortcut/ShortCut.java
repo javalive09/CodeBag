@@ -12,12 +12,12 @@ import android.os.Parcelable;
 
 import com.codebag.R;
 import com.codebag.bag.Entry;
-import com.codebag.bag.MainActivity;
 import com.codebag.bag.MyCode;
+import com.codebag.bag.main.InovkedViewActivity;
 
 public class ShortCut extends MyCode{
 
-	public ShortCut(MainActivity act) {
+	public ShortCut(InovkedViewActivity act) {
 		super(act);
 	}
 	
@@ -27,7 +27,7 @@ public class ShortCut extends MyCode{
 	@Entry
 	public void createShortCut() {
 		Intent shortcutintent = new Intent();
-		Intent launcherIntent = new Intent(getActivity().getApplicationContext() , MainActivity.class);
+		Intent launcherIntent = new Intent(getActivity().getApplicationContext() , InovkedViewActivity.class);
 		
 		//不允许重复创建
 		shortcutintent.putExtra("duplicate", false);
@@ -50,7 +50,7 @@ public class ShortCut extends MyCode{
 	    Intent intent = new Intent("com.android.launcher.action.INSTALL_SHORTCUT");
 	    intent.putExtra("duplicate", false);
 	    intent.putExtra(Intent.EXTRA_SHORTCUT_ICON, getBitmap());
-	    intent.putExtra(Intent.EXTRA_SHORTCUT_INTENT, new Intent(getActivity().getApplicationContext() , MainActivity.class));
+	    intent.putExtra(Intent.EXTRA_SHORTCUT_INTENT, new Intent(getActivity().getApplicationContext() , InovkedViewActivity.class));
 	    intent.putExtra(Intent.EXTRA_SHORTCUT_NAME, "peter");
 	    getActivity().sendBroadcast(intent);
 	    

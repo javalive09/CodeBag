@@ -3,15 +3,15 @@ package com.codebag.code.mycode.test.arraylist;
 import java.util.ArrayList;
 
 import com.codebag.bag.Entry;
-import com.codebag.bag.MainActivity;
 import com.codebag.bag.MyCode;
+import com.codebag.bag.main.InovkedViewActivity;
 import com.codebag.code.mycode.utils.Log;
 
 public class AddIndex extends MyCode {
 
     ArrayList a = new ArrayList();
     
-    public AddIndex(MainActivity act) {
+    public AddIndex(InovkedViewActivity act) {
         super(act);
         a.add("a");
         a.add("b");

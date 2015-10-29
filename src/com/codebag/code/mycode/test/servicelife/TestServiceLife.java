@@ -6,9 +6,9 @@ import android.content.Intent;
 import android.content.ServiceConnection;
 import android.os.IBinder;
 
-import com.codebag.bag.MainActivity;
 import com.codebag.bag.MyCode;
 import com.codebag.bag.Entry;
+import com.codebag.bag.main.InovkedViewActivity;
 
 /**
  * service生命周期
@@ -19,7 +19,7 @@ import com.codebag.bag.Entry;
 public class TestServiceLife extends MyCode {
 
 	
-	public TestServiceLife(MainActivity context) {
+	public TestServiceLife(InovkedViewActivity context) {
 		super(context);
 	}
 

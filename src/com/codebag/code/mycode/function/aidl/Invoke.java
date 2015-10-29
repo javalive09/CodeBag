@@ -9,8 +9,8 @@ import android.os.RemoteException;
 import android.util.Log;
 
 import com.codebag.bag.Entry;
-import com.codebag.bag.MainActivity;
 import com.codebag.bag.MyCode;
+import com.codebag.bag.main.InovkedViewActivity;
 
 /**
  *注意每次调用方法都会inflate 一个新的Invoke 对象。 所以共用属性用静态的方式。
@@ -24,7 +24,7 @@ public class Invoke extends MyCode {
 
     private boolean isBound;
     
-    public Invoke(MainActivity act) {
+    public Invoke(InovkedViewActivity act) {
         super(act);
     }
 

@@ -4,13 +4,13 @@ import android.graphics.Color;
 import android.view.Gravity;
 import android.widget.TextView;
 
-import com.codebag.bag.MainActivity;
 import com.codebag.bag.MyCode;
 import com.codebag.bag.Entry;
+import com.codebag.bag.main.InovkedViewActivity;
 
 public class InvokerShader extends MyCode {
 
-	public InvokerShader(MainActivity context) {
+	public InvokerShader(InovkedViewActivity context) {
 		super(context);
 	}
 	

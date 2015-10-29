@@ -1,11 +1,11 @@
 package com.codebag.code.mycode.gdg.material_design_20150425;
 
-import com.codebag.bag.MainActivity;
 import com.codebag.bag.MyCode;
+import com.codebag.bag.main.InovkedViewActivity;
 
 public class MaterialDesign extends MyCode {
 
-	public MaterialDesign(MainActivity act) {
+	public MaterialDesign(InovkedViewActivity act) {
 		super(act);
 	}
 

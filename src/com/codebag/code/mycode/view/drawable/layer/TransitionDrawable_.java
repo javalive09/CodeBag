@@ -7,8 +7,8 @@ import android.widget.ImageView;
 
 import com.codebag.R;
 import com.codebag.bag.Entry;
-import com.codebag.bag.MainActivity;
 import com.codebag.bag.MyCode;
+import com.codebag.bag.main.InovkedViewActivity;
 
 /**
  * 用于动画过渡
@@ -18,7 +18,7 @@ import com.codebag.bag.MyCode;
  */
 public class TransitionDrawable_ extends MyCode {
 
-	public TransitionDrawable_(MainActivity act) {
+	public TransitionDrawable_(InovkedViewActivity act) {
 		super(act);
 	}
 	

@@ -9,14 +9,14 @@ import java.util.List;
 import android.widget.TextView;
 
 import com.codebag.bag.Entry;
-import com.codebag.bag.MainActivity;
 import com.codebag.bag.MyCode;
+import com.codebag.bag.main.InovkedViewActivity;
 
 public class CPUFreqSetting extends MyCode {
 	
 	private final String cpuFreqPath = "/sys/devices/system/cpu/cpu0/cpufreq"; 
 
-	public CPUFreqSetting(MainActivity act) {
+	public CPUFreqSetting(InovkedViewActivity act) {
 		super(act);
 	}
 	

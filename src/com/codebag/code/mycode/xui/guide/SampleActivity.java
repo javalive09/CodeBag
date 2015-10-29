@@ -2,8 +2,8 @@ package com.codebag.code.mycode.xui.guide;
 
 import com.codebag.R;
 import com.codebag.bag.Entry;
-import com.codebag.bag.MainActivity;
 import com.codebag.bag.MyCode;
+import com.codebag.bag.main.InovkedViewActivity;
 import com.nineoldandroids.animation.ObjectAnimator;
 
 import android.graphics.Color;
@@ -32,7 +32,7 @@ public class SampleActivity extends MyCode {
 	
 	private static final String SUB_TITLE = "商店里的歌曲、地图、应用！";
 
-	public SampleActivity(MainActivity act) {
+	public SampleActivity(InovkedViewActivity act) {
 		super(act);
 	}
 

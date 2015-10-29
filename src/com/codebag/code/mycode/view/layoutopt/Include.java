@@ -6,13 +6,13 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.codebag.R;
-import com.codebag.bag.MainActivity;
 import com.codebag.bag.MyCode;
 import com.codebag.bag.Entry;
+import com.codebag.bag.main.InovkedViewActivity;
 
 public class Include extends MyCode {
 
-	public Include(MainActivity context) {
+	public Include(InovkedViewActivity context) {
 		super(context);
 	}
 	

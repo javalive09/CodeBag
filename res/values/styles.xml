@@ -11,6 +11,11 @@
             backward-compatibility can go here.
         -->
     </style>
+    
+    
+    <style name="AppMaterial" parent="Theme.AppCompat.Light">
+         <item name="android:windowAnimationStyle">@style/activityAnimation</item>
+    </style>
 
     <!-- Application theme. -->
 

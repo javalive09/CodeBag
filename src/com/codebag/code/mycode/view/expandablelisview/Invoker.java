@@ -2,14 +2,16 @@ package com.codebag.code.mycode.view.expandablelisview;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ExpandableListView;
 import android.widget.ExpandableListView.OnGroupExpandListener;
+
 import com.codebag.R;
-import com.codebag.bag.MainActivity;
 import com.codebag.bag.MyCode;
 import com.codebag.bag.Entry;
+import com.codebag.bag.main.InovkedViewActivity;
 
 public class Invoker extends MyCode {
 
@@ -18,7 +20,7 @@ public class Invoker extends MyCode {
 	private List<List<String>> child;
 	private MyAdapter adapter;
 
-	public Invoker(MainActivity context) {
+	public Invoker(InovkedViewActivity context) {
 		super(context);
 	}
 

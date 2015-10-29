@@ -1,8 +1,8 @@
 package com.codebag.code.mycode.pattern.structural.adapter;
 
 import com.codebag.bag.Entry;
-import com.codebag.bag.MainActivity;
 import com.codebag.bag.MyCode;
+import com.codebag.bag.main.InovkedViewActivity;
 
 /**
  * 更好的连接不兼容的接口
@@ -12,7 +12,7 @@ import com.codebag.bag.MyCode;
  */
 public class Invoke extends MyCode {
 
-    public Invoke(MainActivity act) {
+    public Invoke(InovkedViewActivity act) {
         super(act);
     }
     

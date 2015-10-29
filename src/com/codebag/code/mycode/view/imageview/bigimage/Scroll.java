@@ -9,15 +9,15 @@ import android.widget.ImageView;
 
 import com.codebag.R;
 import com.codebag.bag.Entry;
-import com.codebag.bag.MainActivity;
 import com.codebag.bag.MyCode;
+import com.codebag.bag.main.InovkedViewActivity;
 
 public class Scroll extends MyCode {
 
 	ImageView iv;
 	FrameLayout fl;
 	
-	public Scroll(MainActivity act) {
+	public Scroll(InovkedViewActivity act) {
 		super(act);
 		iv = new ImageView(act){
 

@@ -1,8 +1,8 @@
 package com.codebag.code.mycode.pattern.behavioral.chain_of_responsibility;
 
 import com.codebag.bag.Entry;
-import com.codebag.bag.MainActivity;
 import com.codebag.bag.MyCode;
+import com.codebag.bag.main.InovkedViewActivity;
 
 /**
  * 使多个对象都有机会处理消息。
@@ -12,7 +12,7 @@ import com.codebag.bag.MyCode;
  */
 public class Invoker extends MyCode {
 
-    public Invoker(MainActivity act) {
+    public Invoker(InovkedViewActivity act) {
         super(act);
     }
 

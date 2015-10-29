@@ -7,13 +7,13 @@ import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.codebag.bag.MainActivity;
 import com.codebag.bag.MyCode;
 import com.codebag.bag.Entry;
+import com.codebag.bag.main.InovkedViewActivity;
 
 public class Invoker extends MyCode {
 
-	public Invoker(MainActivity context) {
+	public Invoker(InovkedViewActivity context) {
 		super(context);
 	}
 	

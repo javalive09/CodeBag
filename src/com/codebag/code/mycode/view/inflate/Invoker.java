@@ -6,16 +6,16 @@ import android.view.View;
 import android.widget.FrameLayout;
 
 import com.codebag.R;
-import com.codebag.bag.MainActivity;
 import com.codebag.bag.MyCode;
 import com.codebag.bag.Entry;
+import com.codebag.bag.main.InovkedViewActivity;
 
 public class Invoker extends MyCode {
 
 	LayoutInflater factory;
 	FrameLayout root;
 	
-	public Invoker(MainActivity context) {
+	public Invoker(InovkedViewActivity context) {
 		super(context);
 		factory = LayoutInflater.from(context);
 		root = new FrameLayout(getActivity());

@@ -14,15 +14,15 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 
 import com.codebag.R;
-import com.codebag.bag.MainActivity;
 import com.codebag.bag.MyCode;
 import com.codebag.bag.Entry;
+import com.codebag.bag.main.InovkedViewActivity;
 
 public class AddAndRemoveView extends MyCode {
 
 	private FrameLayout container;
 	
-	public AddAndRemoveView(MainActivity context) {
+	public AddAndRemoveView(InovkedViewActivity context) {
 		super(context);
 		container = new FrameLayout(context){
 		    public void draw(Canvas canvas) {

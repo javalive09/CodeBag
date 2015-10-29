@@ -9,9 +9,9 @@ import android.view.View.*;
 import android.widget.Button;
 
 import com.codebag.R;
-import com.codebag.bag.MainActivity;
 import com.codebag.bag.MyCode;
 import com.codebag.bag.Entry;
+import com.codebag.bag.main.InovkedViewActivity;
 import com.codebag.code.mycode.utils.Log;
 import com.codebag.code.mycode.utils.MultiViews;
 import com.codebag.code.mycode.utils.MultiViews.MyAdapter;
@@ -55,7 +55,7 @@ public class StateListDrawable_ extends MyCode implements OnClickListener{
 		showView(v);
 	}
 	
-	public StateListDrawable_(MainActivity context) {
+	public StateListDrawable_(InovkedViewActivity context) {
 		super(context);
 		sd.addState(new int[]{android.R.attr.state_enabled, android.R.attr.state_pressed}, new ColorDrawable(Color.RED));
 		sd.addState(new int[]{android.R.attr.state_enabled, android.R.attr.state_selected}, new ColorDrawable(Color.YELLOW));

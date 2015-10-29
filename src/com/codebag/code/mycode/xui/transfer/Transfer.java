@@ -5,8 +5,8 @@ import android.view.animation.LinearInterpolator;
 
 import com.codebag.R;
 import com.codebag.bag.Entry;
-import com.codebag.bag.MainActivity;
 import com.codebag.bag.MyCode;
+import com.codebag.bag.main.InovkedViewActivity;
 import com.nineoldandroids.animation.ObjectAnimator;
 import com.nineoldandroids.view.ViewHelper;
 import com.nineoldandroids.view.animation.AnimatorProxy;
@@ -15,7 +15,7 @@ public class Transfer extends MyCode {
 
 	AnimatorProxy mMusicProxy;
 
-	public Transfer(MainActivity act) {
+	public Transfer(InovkedViewActivity act) {
 		super(act);
 	}
 

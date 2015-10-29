@@ -1,15 +1,15 @@
 package com.codebag.code.mycode.pattern.behavioral.mediator;
 
 import com.codebag.bag.Entry;
-import com.codebag.bag.MainActivity;
 import com.codebag.bag.MyCode;
+import com.codebag.bag.main.InovkedViewActivity;
 
 /**
  * 一个功能的内部的各个模块有千丝万缕的联系。中介者用来解耦。
  */
 public class Invoker extends MyCode {
 
-	public Invoker(MainActivity act) {
+	public Invoker(InovkedViewActivity act) {
 		super(act);
 	}
 	

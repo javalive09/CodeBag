@@ -4,9 +4,10 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import com.codebag.bag.MainActivity;
+
 import com.codebag.bag.MyCode;
 import com.codebag.bag.Entry;
+import com.codebag.bag.main.InovkedViewActivity;
 import com.codebag.code.mycode.utils.Log;
 
 public class Invoker extends MyCode {
@@ -16,7 +17,7 @@ public class Invoker extends MyCode {
 //	String path = "/storage/ext_sd/system.txt";//htc/
 //	String path = "/storage/sdcard1/system.txt";//honor
 	
-	public Invoker(MainActivity context) {
+	public Invoker(InovkedViewActivity context) {
 		super(context);
 	}
 	

@@ -7,12 +7,12 @@ import android.view.animation.AnimationSet;
 import android.view.animation.RotateAnimation;
 import android.view.animation.ScaleAnimation;
 
-import com.codebag.bag.MainActivity;
 import com.codebag.bag.MyCode;
+import com.codebag.bag.main.InovkedViewActivity;
 
 public class Invoker extends MyCode {
 
-	public Invoker(MainActivity context) {
+	public Invoker(InovkedViewActivity context) {
 		super(context);
 	}
 	

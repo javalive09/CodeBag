@@ -8,13 +8,13 @@ import android.content.ComponentName;
 import android.content.pm.PackageManager;
 
 import com.codebag.bag.Entry;
-import com.codebag.bag.MainActivity;
 import com.codebag.bag.MyCode;
+import com.codebag.bag.main.InovkedViewActivity;
 import com.codebag.code.mycode.utils.Log;
 
 public class Invoker extends MyCode {
 
-	public Invoker(MainActivity act) {
+	public Invoker(InovkedViewActivity act) {
 		super(act);
 	}
 	

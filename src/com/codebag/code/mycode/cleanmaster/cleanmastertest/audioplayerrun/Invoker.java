@@ -12,16 +12,16 @@ import android.media.AudioManager;
 import android.net.Uri;
 import android.provider.MediaStore;
 
-import com.codebag.bag.MainActivity;
 import com.codebag.bag.MyCode;
 import com.codebag.bag.Entry;
+import com.codebag.bag.main.InovkedViewActivity;
 import com.codebag.code.mycode.utils.Log;
 
 public class Invoker extends MyCode {
 
 	private boolean running = false;
 
-	public Invoker(MainActivity context) {
+	public Invoker(InovkedViewActivity context) {
 		super(context);
 	}
 	

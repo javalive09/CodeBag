@@ -8,9 +8,9 @@ import android.widget.Button;
 import android.widget.FrameLayout;
 
 import com.codebag.R;
-import com.codebag.bag.MainActivity;
 import com.codebag.bag.MyCode;
 import com.codebag.bag.Entry;
+import com.codebag.bag.main.InovkedViewActivity;
 import com.codebag.code.mycode.utils.DisplayUtil;
 import com.codebag.code.mycode.utils.MultiViews;
 import com.codebag.code.mycode.utils.MultiViews.MyAdapter;
@@ -19,7 +19,7 @@ public class Invoker extends MyCode {
 
 	public CradCleanDial c;
 	
-	public Invoker(MainActivity act) {
+	public Invoker(InovkedViewActivity act) {
 		super(act);
 		c = new CradCleanDial(act);
 		c.setBackgroundColor(Color.DKGRAY);

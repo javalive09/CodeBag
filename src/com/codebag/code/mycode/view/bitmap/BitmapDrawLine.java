@@ -10,9 +10,9 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 
 import com.codebag.R;
-import com.codebag.bag.MainActivity;
 import com.codebag.bag.MyCode;
 import com.codebag.bag.Entry;
+import com.codebag.bag.main.InovkedViewActivity;
 import com.codebag.code.mycode.utils.DisplayUtil;
 
 public class BitmapDrawLine extends MyCode {
@@ -20,7 +20,7 @@ public class BitmapDrawLine extends MyCode {
 	int width = DisplayUtil.dip2px(getActivity(), 54);
 	int height = DisplayUtil.dip2px(getActivity(), 58);
 
-	public BitmapDrawLine(MainActivity context) {
+	public BitmapDrawLine(InovkedViewActivity context) {
 		super(context);
 		width = DisplayUtil.dip2px(context, 54);
 		height = DisplayUtil.dip2px(context, 58);

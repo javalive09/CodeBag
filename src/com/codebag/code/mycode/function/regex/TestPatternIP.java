@@ -1,9 +1,10 @@
 package com.codebag.code.mycode.function.regex;
 
 import java.util.regex.Pattern;
-import com.codebag.bag.MainActivity;
+
 import com.codebag.bag.MyCode;
 import com.codebag.bag.Entry;
+import com.codebag.bag.main.InovkedViewActivity;
 import com.codebag.code.mycode.utils.Log;
 
 /**
@@ -14,7 +15,7 @@ import com.codebag.code.mycode.utils.Log;
  */
 public class TestPatternIP extends MyCode {
 
-	public TestPatternIP(MainActivity context) {
+	public TestPatternIP(InovkedViewActivity context) {
 		super(context);
 	}
 

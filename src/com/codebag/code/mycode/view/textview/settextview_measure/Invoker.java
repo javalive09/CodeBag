@@ -5,9 +5,10 @@ import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
 import android.widget.TextView;
-import com.codebag.bag.MainActivity;
+
 import com.codebag.bag.MyCode;
 import com.codebag.bag.Entry;
+import com.codebag.bag.main.InovkedViewActivity;
 import com.codebag.code.mycode.utils.Log;
 
 public class Invoker extends MyCode {
@@ -18,7 +19,7 @@ public class Invoker extends MyCode {
 	
 	int requestCount;
 	
-	public Invoker(MainActivity context) {
+	public Invoker(InovkedViewActivity context) {
 		super(context);
 		view = new TextView(context) {
 

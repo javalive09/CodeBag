@@ -3,13 +3,13 @@ package com.codebag.code.mycode.view.layoutopt;
 import android.content.Context;
 
 import com.codebag.R;
-import com.codebag.bag.MainActivity;
 import com.codebag.bag.MyCode;
 import com.codebag.bag.Entry;
+import com.codebag.bag.main.InovkedViewActivity;
 
 public class Merge extends MyCode {
 
-	public Merge(MainActivity context) {
+	public Merge(InovkedViewActivity context) {
 		super(context);
 	}
 	

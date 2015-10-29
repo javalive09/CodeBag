@@ -5,8 +5,8 @@ import android.widget.TextView;
 
 import com.codebag.R;
 import com.codebag.bag.Entry;
-import com.codebag.bag.MainActivity;
 import com.codebag.bag.MyCode;
+import com.codebag.bag.main.InovkedViewActivity;
 
 /**
  * layerlist 用于图片的叠加
@@ -17,7 +17,7 @@ import com.codebag.bag.MyCode;
  */
 public class Layer_list extends MyCode {
 
-	public Layer_list(MainActivity act) {
+	public Layer_list(InovkedViewActivity act) {
 		super(act);
 	}
 	

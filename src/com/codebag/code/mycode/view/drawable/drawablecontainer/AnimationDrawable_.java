@@ -14,9 +14,9 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 
 import com.codebag.R;
-import com.codebag.bag.MainActivity;
 import com.codebag.bag.MyCode;
 import com.codebag.bag.Entry;
+import com.codebag.bag.main.InovkedViewActivity;
 
 /**
  * android 帧动画，也可以用animation-list 配置xml来做
@@ -26,7 +26,7 @@ public class AnimationDrawable_ extends MyCode implements OnClickListener{
 	
 	AnimationDrawable ad; 
 	
-	public AnimationDrawable_(MainActivity context) {
+	public AnimationDrawable_(InovkedViewActivity context) {
 		super(context);
 	}
 	

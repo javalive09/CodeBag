@@ -8,9 +8,9 @@ import android.widget.Button;
 import android.widget.FrameLayout;
 
 import com.codebag.R;
-import com.codebag.bag.MainActivity;
 import com.codebag.bag.MyCode;
 import com.codebag.bag.Entry;
+import com.codebag.bag.main.InovkedViewActivity;
 import com.codebag.code.mycode.cleanmaster.cleanmasteranim_wave.CradCleanDial;
 import com.codebag.code.mycode.utils.DisplayUtil;
 import com.codebag.code.mycode.utils.MultiViews;
@@ -19,7 +19,7 @@ import com.codebag.code.mycode.utils.MultiViews.MyAdapter;
 public class Invoker3 extends MyCode {
 public CradCleanDial c;
 	
-	public Invoker3(MainActivity context) {
+	public Invoker3(InovkedViewActivity context) {
 		super(context);
 		c = new CradCleanDial(context);
 	}

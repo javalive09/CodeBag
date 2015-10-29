@@ -3,9 +3,10 @@ package com.codebag.code.mycode.test.threadpool;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import com.codebag.bag.MainActivity;
+
 import com.codebag.bag.MyCode;
 import com.codebag.bag.Entry;
+import com.codebag.bag.main.InovkedViewActivity;
 
 /**
  * 计划线程池，工作线程上限：无限制。跟jvm的线程上限有关。 工作线程下限：核心线程数。
@@ -15,7 +16,7 @@ import com.codebag.bag.Entry;
  */
 public class ScheduleThreadPool extends MyCode {
 
-	public ScheduleThreadPool(MainActivity context) {
+	public ScheduleThreadPool(InovkedViewActivity context) {
 		super(context);
 	}
 

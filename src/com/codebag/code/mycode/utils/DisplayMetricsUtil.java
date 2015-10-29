@@ -15,14 +15,14 @@ import android.widget.TextView;
 import com.codebag.R;
 import com.codebag.bag.MyCode;
 import com.codebag.bag.Entry;
-import com.codebag.bag.MainActivity;
+import com.codebag.bag.main.InovkedViewActivity;
 import com.codebag.code.mycode.gitlib.wheel.WheelView;
 import com.codebag.code.mycode.gitlib.wheel.adapters.NumericWheelAdapter;
 import com.codebag.code.mycode.utils.MultiViews.MyAdapter;
 
 public class DisplayMetricsUtil extends MyCode{
 
-	public DisplayMetricsUtil(MainActivity context) {
+	public DisplayMetricsUtil(InovkedViewActivity context) {
 		super(context);
 	}
 

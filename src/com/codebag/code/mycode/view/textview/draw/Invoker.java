@@ -1,13 +1,14 @@
 package com.codebag.code.mycode.view.textview.draw;
 
 import android.graphics.Color;
-import com.codebag.bag.MainActivity;
+
 import com.codebag.bag.MyCode;
 import com.codebag.bag.Entry;
+import com.codebag.bag.main.InovkedViewActivity;
 
 public class Invoker extends MyCode {
 
-	public Invoker(MainActivity context) {
+	public Invoker(InovkedViewActivity context) {
 		super(context);
 	}
 	

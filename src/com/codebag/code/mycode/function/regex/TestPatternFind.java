@@ -2,11 +2,12 @@ package com.codebag.code.mycode.function.regex;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
 import android.widget.Toast;
 
-import com.codebag.bag.MainActivity;
 import com.codebag.bag.MyCode;
 import com.codebag.bag.Entry;
+import com.codebag.bag.main.InovkedViewActivity;
 
 /**
  * 正则查询操作
@@ -16,7 +17,7 @@ import com.codebag.bag.Entry;
  */
 public class TestPatternFind extends MyCode {
 
-	public TestPatternFind(MainActivity context) {
+	public TestPatternFind(InovkedViewActivity context) {
 		super(context);
 	}
 	

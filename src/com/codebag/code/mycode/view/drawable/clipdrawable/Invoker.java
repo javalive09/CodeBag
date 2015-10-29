@@ -13,9 +13,9 @@ import android.view.Gravity;
 import android.widget.ImageView;
 
 import com.codebag.R;
-import com.codebag.bag.MainActivity;
 import com.codebag.bag.MyCode;
 import com.codebag.bag.Entry;
+import com.codebag.bag.main.InovkedViewActivity;
 
 /**
  * 横向展开动画效果
@@ -29,7 +29,7 @@ public class Invoker extends MyCode {
 	
 	ValueAnimator va;
 	
-	public Invoker(MainActivity context) {
+	public Invoker(InovkedViewActivity context) {
 		super(context);
 	}
 
@@ -85,12 +85,22 @@ public class Invoker extends MyCode {
 	public void showClipDrawable_xml() {
 		cd = (ClipDrawable) getActivity().getResources().getDrawable(R.drawable.clip_drawable);
 		ImageView iv = new ImageView(getActivity());
+		va = ValueAnimator.ofInt(0, 10000);
+		va.setDuration(1000);
+		va.addUpdateListener(new AnimatorUpdateListener() {
+			
+			@Override
+			public void onAnimationUpdate(ValueAnimator animation) {
+				int level = (Integer) animation.getAnimatedValue();
+				cd.setLevel(level);
+			}
+		});
 		iv.post(new Runnable() {
 
 			@Override
 			public void run() {
-				clipHandler.sendEmptyMessage(0);
-//				va.start();
+//				clipHandler.sendEmptyMessage(0);
+				va.start();
 			}
 			
 		});

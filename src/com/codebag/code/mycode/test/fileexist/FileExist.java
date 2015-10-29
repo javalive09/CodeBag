@@ -13,15 +13,15 @@ import android.os.Environment;
 import android.util.Log;
 
 import com.codebag.bag.Entry;
-import com.codebag.bag.MainActivity;
 import com.codebag.bag.MyCode;
+import com.codebag.bag.main.InovkedViewActivity;
 
 public class FileExist extends MyCode {
 
 	private static final String TAG = FileExist.class.getSimpleName();
 	private static final String FILE_NAME = "peter_test.jpg";
 	
-	public FileExist(MainActivity act) {
+	public FileExist(InovkedViewActivity act) {
 		super(act);
 	}
 	

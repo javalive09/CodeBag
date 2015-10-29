@@ -9,8 +9,8 @@ import android.widget.ImageView.ScaleType;
 
 import com.codebag.R;
 import com.codebag.bag.Entry;
-import com.codebag.bag.MainActivity;
 import com.codebag.bag.MyCode;
+import com.codebag.bag.main.InovkedViewActivity;
 
 /**
  * fit 开头的和inside的type 都是不丢失图片内容的展示类型。
@@ -27,7 +27,7 @@ public class Invoke extends MyCode {
 
 	public FrameLayout.LayoutParams mLayoutParams;
 
-	public Invoke(MainActivity act) {
+	public Invoke(InovkedViewActivity act) {
 		super(act);
 		mLayoutParams = match_parent;
 		match_parent.width = 800;

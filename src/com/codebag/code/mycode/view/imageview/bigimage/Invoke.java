@@ -1,13 +1,14 @@
 package com.codebag.code.mycode.view.imageview.bigimage;
 
 import android.webkit.WebView;
-import com.codebag.bag.MainActivity;
+
 import com.codebag.bag.MyCode;
 import com.codebag.bag.Entry;
+import com.codebag.bag.main.InovkedViewActivity;
 
 public class Invoke extends MyCode {
 
-	public Invoke(MainActivity context) {
+	public Invoke(InovkedViewActivity context) {
 		super(context);
 	}
 

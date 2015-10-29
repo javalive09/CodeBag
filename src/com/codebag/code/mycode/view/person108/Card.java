@@ -5,12 +5,12 @@ import android.widget.ImageView;
 
 import com.codebag.R;
 import com.codebag.bag.Entry;
-import com.codebag.bag.MainActivity;
 import com.codebag.bag.MyCode;
+import com.codebag.bag.main.InovkedViewActivity;
 
 public class Card extends MyCode {
 
-    public Card(MainActivity act) {
+    public Card(InovkedViewActivity act) {
         super(act);
     }
     

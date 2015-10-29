@@ -13,7 +13,6 @@ import java.util.HashMap;
 import java.util.List;
 
 import com.codebag.R;
-import com.codebag.bag.CodeBag.Node;
 import com.codebag.bag.view.MyMenu;
 import com.codebag.bag.view.MyMenu.ItemViewCreater;
 import com.codebag.bag.view.MyMenu.ItemViewOnClickListener;
@@ -21,7 +20,6 @@ import com.codebag.bag.view.TextViewFixTouchConsume;
 import com.codebag.code.mycode.utils.Log;
 
 import android.annotation.TargetApi;
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -37,10 +35,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Looper;
-import android.os.MessageQueue.IdleHandler;
 import android.support.v4.app.FragmentActivity;
-import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -89,7 +84,7 @@ public class MainActivity extends FragmentActivity{
 		}
 		
 		CodeBag codeBag = (CodeBag) getApplication();
-		codeBag.addActivity(this);
+//		codeBag.addActivity(this);
 	}
 	
 	@Override
@@ -148,7 +143,7 @@ public class MainActivity extends FragmentActivity{
 					Log.clearLog();
 					break;
 				case R.string.action_exit:
-					((CodeBag) getApplication()).exit();
+//					((CodeBag) getApplication()).exit();
 					break;
 				}
 				mMenu.dismiss();
@@ -178,21 +173,7 @@ public class MainActivity extends FragmentActivity{
 	}
 
 	private void showSplash() {
-		setContentView(new SplashView(MainActivity.this));
-
-		IdleHandler handler = new IdleHandler() {
-
-			@Override
-			public boolean queueIdle() {
-				CodeBag app = (CodeBag) getApplication();
-				app.init();
-				CodeBag codeBag = (CodeBag) getApplication();
-				showMainView(codeBag.getRootNode());
-				return false;
-			}
-
-		};
-		Looper.myQueue().addIdleHandler(handler);
+//		setContentView(new SplashView(MainActivity.this));
 	}
 
 	public void onClick(View view) {
@@ -301,7 +282,7 @@ public class MainActivity extends FragmentActivity{
 			public View getView(int position, View convertView, ViewGroup parent) {
 				Node node = getItem(position);
 				if (convertView == null) {
-					convertView = View.inflate(MainActivity.this, R.layout.main_item, null);
+//					convertView = View.inflate(MainActivity.this, R.layout.folder_item, null);
 				}
 				TextView tv = (TextView) convertView.findViewById(R.id.listitem_tv);
 				try {
@@ -424,7 +405,7 @@ public class MainActivity extends FragmentActivity{
 					public View getView(int position, View convertView,
 							ViewGroup parent) {
 						if (convertView == null) {
-							convertView = View.inflate(MainActivity.this, R.layout.main_item, null);
+//							convertView = View.inflate(MainActivity.this, R.layout.folder_item, null);
 						}
 						TextView tv = (TextView) convertView.findViewById(R.id.listitem_tv);
 						Drawable icon = getResources().getDrawable(R.drawable.method);
@@ -474,8 +455,6 @@ public class MainActivity extends FragmentActivity{
 	
 	private void showDirView(Node node) {
 		ListView listView = new ListView(MainActivity.this);
-		listView.setSelector(new ColorDrawable(Color.TRANSPARENT));
-		listView.setBackgroundColor(Color.WHITE);
 		View currentContainer = showView(listView, null);
 		setTitle(currentContainer, node.name, R.drawable.folder);
 		Collections.sort(node.mSubNodeList, new Comparator<Node>() {
@@ -496,7 +475,7 @@ public class MainActivity extends FragmentActivity{
 			public View getView(int position, View convertView, ViewGroup parent) {
 				Node node = getItem(position);
 				if (convertView == null) {
-					convertView = View.inflate(MainActivity.this, R.layout.main_item, null);
+//					convertView = View.inflate(MainActivity.this, R.layout.folder_item, null);
 				}
 				TextView tv = (TextView) convertView.findViewById(R.id.listitem_tv);
 				Drawable icon = null;
@@ -635,7 +614,7 @@ public class MainActivity extends FragmentActivity{
 	protected void onDestroy() {
 		super.onDestroy();
 		CodeBag codeBag = (CodeBag) getApplication();
-		codeBag.removeActivity(this);
+//		codeBag.removeActivity(this);
 	}
 
 	public static class ListAdapter<T> extends BaseAdapter {
@@ -674,21 +653,4 @@ public class MainActivity extends FragmentActivity{
 			return null;
 		}
 	}
-
-	public class SplashView extends TextView {
-
-		public SplashView(Context context) {
-			super(context);
-			init(context);
-		}
-
-		private void init(Context context) {
-			setText("Loading...");
-			setTextColor(Color.BLACK);
-			setTextSize(50);
-			setBackgroundColor(Color.WHITE);
-			setGravity(Gravity.CENTER);
-		}
-	}
-
 }
