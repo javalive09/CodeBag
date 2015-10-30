@@ -9,8 +9,6 @@ import java.util.ArrayList;
 import com.codebag.R;
 import com.codebag.bag.Entry;
 import com.codebag.bag.Node;
-import com.codebag.code.mycode.utils.Log;
-
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -96,12 +94,13 @@ public class FileNodeActivity extends BaseActivity implements OnClickListener ,O
 			holder.tv.setCompoundDrawables(icon, null, null, null);
 			holder.tv.setText(name);
 			if (getItemViewType(position) == NO_ENTRY) {
-				convertView.setEnabled(false);
+				convertView.setBackgroundResource(android.R.color.darker_gray);
+				convertView.setOnClickListener(null);
 			}else {
-				convertView.setEnabled(true);
+				convertView.setBackgroundResource(R.drawable.ripple_item_bg);
+				convertView.setOnClickListener(mContext);
 			}
 			
-			convertView.setOnClickListener(mContext);
 			convertView.setOnLongClickListener(mContext);
 			convertView.setTag(R.id.main_item_pos, position);
 			return convertView;
@@ -178,7 +177,7 @@ public class FileNodeActivity extends BaseActivity implements OnClickListener ,O
 			String title = getString(R.string.app_count_title);
 			showAlertDialog(title, count + "");
 		}
-		return false;
+		return true;
 	}
 
 	private String readTextFile(InputStream inputStream) {

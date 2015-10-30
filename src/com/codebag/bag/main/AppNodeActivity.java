@@ -21,7 +21,6 @@ import android.view.View;
 import android.view.View.OnLongClickListener;
 import android.view.ViewGroup;
 import android.view.View.OnClickListener;
-import android.widget.Adapter;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -139,7 +138,7 @@ public class AppNodeActivity extends BaseActivity implements OnClickListener, On
 		String title = node.name;
 		String content = node.openSourceInfo + "\n" + node.openSourceUrl;
 		showAlertDialog(title, content);
-		return false;
+		return true;
 	}
 	
 }

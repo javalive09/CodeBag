@@ -23,13 +23,9 @@ public class SplashActivity extends Activity {
 				CodeBag app = (CodeBag) getApplication();
 				app.init();
 				CodeBag codeBag = (CodeBag) getApplication();
-				
 				Intent intent = new Intent(SplashActivity.this, FileNodeActivity.class);
-				
 				intent.putExtra("node", codeBag.getRootNode());
-				
 				startActivity(intent);
-				
 				finish();
 				return false;
 			}
