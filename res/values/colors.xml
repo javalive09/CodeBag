@@ -2,7 +2,7 @@
 <resources>
 
     <color name="title_bar_color">#22292c</color>
-    <color name="main_item_color">#336ea3e5</color>
+    <color name="main_item_color">#aa6ea3e5</color>
     <color name="transparent">#ff000000</color>
     <color name="group_item_press">#f6f6f6</color>
     <color name="group_item_normal">#ffffff</color>
@@ -16,7 +16,9 @@
     <color name="material_green_A200">#FD87A9</color>
     
     <color name="theme_primary">#FD87A9</color>
-    <color name="red">#34495e</color>
+    
     <color name="titlebar">#34495e</color>
+    
+    <color name="blue">#03A9F4</color>
 
 </resources>

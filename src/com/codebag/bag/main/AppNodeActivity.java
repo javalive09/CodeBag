@@ -6,7 +6,6 @@ import java.util.List;
 import com.codebag.R;
 import com.codebag.bag.Node;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
@@ -25,7 +24,7 @@ import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
-public class AppNodeActivity extends Activity implements OnClickListener{
+public class AppNodeActivity extends BaseActivity implements OnClickListener{
 
 	ListAdapter adapter;
 	
@@ -33,13 +32,9 @@ public class AppNodeActivity extends Activity implements OnClickListener{
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main_view);
-		Intent intent = getIntent();
-		if(intent != null ) {
-			Node node = (Node) intent.getSerializableExtra("node");
-			ListView listview = (ListView) findViewById(R.id.lv);
-			adapter = new ListAdapter(AppNodeActivity.this, node.mSubNodeList);
-			listview.setAdapter(adapter);
-		}
+		ListView listview = (ListView) findViewById(R.id.lv);
+		adapter = new ListAdapter(AppNodeActivity.this, mNode.mSubNodeList);
+		listview.setAdapter(adapter);
 	}
 	
 	public static class ListAdapter extends BaseAdapter {

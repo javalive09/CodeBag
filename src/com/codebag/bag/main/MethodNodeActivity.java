@@ -1,15 +1,10 @@
 package com.codebag.bag.main;
 
-import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
-
 import com.codebag.R;
 import com.codebag.bag.Entry;
 import com.codebag.bag.Node;
-
-import android.app.Activity;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -22,7 +17,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class MethodNodeActivity extends Activity implements OnClickListener{
+public class MethodNodeActivity extends BaseActivity implements OnClickListener{
 
 	ListAdapter adapter;
 	String className;
@@ -31,26 +26,22 @@ public class MethodNodeActivity extends Activity implements OnClickListener{
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main_view);
-		Intent intent = getIntent();
-		if (intent != null) {
-			Node node = (Node) intent.getSerializableExtra("node");
-			ListView listview = (ListView) findViewById(R.id.lv);
-			ArrayList<String> list = new ArrayList<String>();
-			try {
-				className = node.className;
-				Class<?> cls = Class.forName(className);
-				Method[] methods = cls.getDeclaredMethods();
-				for (Method m : methods) {
-					if (m.isAnnotationPresent(Entry.class)) {
-						list.add(m.getName());
-					}
+		ListView listview = (ListView) findViewById(R.id.lv);
+		ArrayList<String> list = new ArrayList<String>();
+		try {
+			className = mNode.className;
+			Class<?> cls = Class.forName(className);
+			Method[] methods = cls.getDeclaredMethods();
+			for (Method m : methods) {
+				if (m.isAnnotationPresent(Entry.class)) {
+					list.add(m.getName());
 				}
-			} catch (ClassNotFoundException e) {
-				e.printStackTrace();
 			}
-			adapter = new ListAdapter(MethodNodeActivity.this, list);
-			listview.setAdapter(adapter);
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
 		}
+		adapter = new ListAdapter(MethodNodeActivity.this, list);
+		listview.setAdapter(adapter);
 	}
 
 	public class ListAdapter extends BaseAdapter {

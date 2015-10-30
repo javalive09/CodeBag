@@ -2,30 +2,21 @@ package com.codebag.bag.main;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;
-
 import com.codebag.R;
 import com.codebag.bag.Entry;
 import com.codebag.bag.Node;
-
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
-public class FileNodeActivity extends AppCompatActivity implements OnClickListener {
+public class FileNodeActivity extends BaseActivity implements OnClickListener {
 
 	ListAdapter adapter = null;
 
@@ -33,26 +24,9 @@ public class FileNodeActivity extends AppCompatActivity implements OnClickListen
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main_view);
-		Intent intent = getIntent();
-		if (intent != null) {
-			Node node = (Node) intent.getSerializableExtra("node");
-			ListView listview = (ListView) findViewById(R.id.lv);
-			adapter = new ListAdapter(FileNodeActivity.this, node.mSubNodeList);
-			listview.setAdapter(adapter);
-		}
-	}
-	
-	public boolean onCreateOptionsMenu(Menu menu) {
-		super.onCreateOptionsMenu(menu);
-		MenuInflater menuInflater = getMenuInflater();
-        menuInflater.inflate(R.menu.main, menu);
-		return true;
-	}
-	
-	public boolean onOptionsItemSelected(MenuItem item) {
-		super.onOptionsItemSelected(item);
-		
-		return true; 
+		ListView listview = (ListView) findViewById(R.id.lv);
+		adapter = new ListAdapter(FileNodeActivity.this, mNode.mSubNodeList);
+		listview.setAdapter(adapter);
 	}
 
 	public class ListAdapter extends BaseAdapter {
@@ -115,10 +89,11 @@ public class FileNodeActivity extends AppCompatActivity implements OnClickListen
 			holder.tv.setCompoundDrawables(icon, null, null, null);
 			holder.tv.setText(name);
 			if (getItemViewType(position) == NO_ENTRY) {
-				convertView.setBackgroundResource(android.R.color.darker_gray);
+				convertView.setEnabled(false);
+			}else {
+				convertView.setEnabled(true);
 			}
 			
-			holder.tv.setText(node.name);
 			convertView.setOnClickListener(mContext);
 			convertView.setTag(R.id.main_item_pos, position);
 			return convertView;

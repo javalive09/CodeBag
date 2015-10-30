@@ -6,11 +6,8 @@ import java.io.IOException;
 import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Enumeration;
-import java.util.LinkedList;
 import java.util.List;
-
 import com.codebag.code.mycode.utils.Log;
-
 import dalvik.system.DexFile;
 import android.app.Application;
 import android.content.Context;
@@ -21,14 +18,12 @@ import android.content.pm.PackageManager.NameNotFoundException;
 public class CodeBag extends Application implements Thread.UncaughtExceptionHandler{
 
 	private static final String TAG = CodeBag.class.getSimpleName();
-	private static final String META_DATA_TYPE = "appType";
-	private static final String META_DATA_INFO = "appInfo";
 	private static final String META_DATA_SOURCE_URL = "appSourceUrl";
 	public static final String ROOT_DIR = "com.codebag.code";
 	public static final String MYCODE_DIR = ROOT_DIR + ".mycode";
-//	private LinkedList<InovkedViewActivity> mActContainer = new LinkedList<InovkedViewActivity>();
+	private static final String META_DATA_TYPE = "appType";
+	private static final String META_DATA_INFO = "appInfo";
 	private static final boolean PRINT_NODE = false;
-	private boolean mHashInit = false;
 	private Node mRootNode;
 	
 	@Override
@@ -37,28 +32,22 @@ public class CodeBag extends Application implements Thread.UncaughtExceptionHand
 //		Thread.setDefaultUncaughtExceptionHandler(this);
 	}
 
-	public void init() {
+	public Node init() {
 		
-		if(mHashInit) {
-			return;
+		if(mRootNode == null) {
+			mRootNode = new Node(ROOT_DIR, Node.DIR);
+			mRootNode.mSubNodeList = new ArrayList<Node>(2);
+			//加入mycode节点
+			Node myCodeNode = getMyCodeNode();
+			mRootNode.mSubNodeList.add(myCodeNode);
+			//加入appDemo节点
+			Node appNode = getAppDemoNode();
+			if(appNode != null) {
+				mRootNode.mSubNodeList.add(appNode);
+			}
+			printNode(mRootNode);
 		}
-		
-		mRootNode = new Node(ROOT_DIR, Node.DIR);
-		mRootNode.mSubNodeList = new ArrayList<Node>(2);
-		
-		//加入mycode节点
-		Node myCodeNode = getMyCodeNode();
-		mRootNode.mSubNodeList.add(myCodeNode);
-		
-		//加入appDemo节点
-		Node appNode = getAppDemoNode();
-		if(appNode != null) {
-			mRootNode.mSubNodeList.add(appNode);
-		}
-		
-		printNode(mRootNode);
-		
-		mHashInit = true;
+		return mRootNode;
 	}
 
 	private Node getMyCodeNode() {
@@ -102,21 +91,6 @@ public class CodeBag extends Application implements Thread.UncaughtExceptionHand
 		}
 		return myCodeNode;
 	}
-	
-//	public void addActivity(InovkedViewActivity act) {
-//		mActContainer.add(act);
-//	}
-//	
-//	public void removeActivity(InovkedViewActivity act) {
-//		mActContainer.remove(act);
-//	}
-//	
-//	public void exit() {
-//		for(InovkedViewActivity act : mActContainer) {
-//			act.finish();
-//		}
-//		android.os.Process.killProcess(android.os.Process.myPid());
-//	}
 	
 	public Node getRootNode() {
 		return mRootNode;

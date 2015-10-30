@@ -5,14 +5,12 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import com.codebag.R;
 import com.codebag.bag.Node;
-import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.FrameLayout;
 
-public class InovkedViewActivity extends Activity {
+public class InovkedViewActivity extends BaseActivity {
 
 	FrameLayout root;
 	
@@ -20,18 +18,14 @@ public class InovkedViewActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_invoke_view);
-		Intent intent = getIntent();
-		if (intent != null) {
-			final Node node = (Node) intent.getSerializableExtra("node");
 			root = (FrameLayout) findViewById(R.id.invoke_view);
 			root.post(new Runnable() {
 				
 				@Override
 				public void run() {
-					InvokeMethod(node);
+					InvokeMethod(mNode);
 				}
 			});
-		}
 	}
 	
 	private void InvokeMethod(Node node) {
