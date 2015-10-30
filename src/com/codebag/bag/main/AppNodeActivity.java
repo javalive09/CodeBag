@@ -18,13 +18,15 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnLongClickListener;
 import android.view.ViewGroup;
 import android.view.View.OnClickListener;
+import android.widget.Adapter;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
-public class AppNodeActivity extends BaseActivity implements OnClickListener{
+public class AppNodeActivity extends BaseActivity implements OnClickListener, OnLongClickListener{
 
 	ListAdapter adapter;
 	
@@ -89,6 +91,7 @@ public class AppNodeActivity extends BaseActivity implements OnClickListener{
 				e.printStackTrace();
 			}
 			convertView.setOnClickListener(mContext);
+			convertView.setOnLongClickListener(mContext);
 			convertView.setTag(R.id.main_item_pos, position);
 			
 			return convertView;
@@ -127,6 +130,16 @@ public class AppNodeActivity extends BaseActivity implements OnClickListener{
 			intent.setClassName(node.name, className);
 			startActivity(intent);
 		}
+	}
+
+	@Override
+	public boolean onLongClick(View v) {
+		int position = (Integer) v.getTag(R.id.main_item_pos);
+		Node node = adapter.getItem(position);
+		String title = node.name;
+		String content = node.openSourceInfo + "\n" + node.openSourceUrl;
+		showAlertDialog(title, content);
+		return false;
 	}
 	
 }

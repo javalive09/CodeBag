@@ -1,22 +1,29 @@
 package com.codebag.bag.main;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
+
 import com.codebag.R;
 import com.codebag.bag.Entry;
 import com.codebag.bag.Node;
+import com.codebag.code.mycode.utils.Log;
+
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.View.OnLongClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
-public class FileNodeActivity extends BaseActivity implements OnClickListener {
+public class FileNodeActivity extends BaseActivity implements OnClickListener ,OnLongClickListener{
 
 	ListAdapter adapter = null;
 
@@ -95,6 +102,7 @@ public class FileNodeActivity extends BaseActivity implements OnClickListener {
 			}
 			
 			convertView.setOnClickListener(mContext);
+			convertView.setOnLongClickListener(mContext);
 			convertView.setTag(R.id.main_item_pos, position);
 			return convertView;
 		}
@@ -145,4 +153,63 @@ public class FileNodeActivity extends BaseActivity implements OnClickListener {
 		startActivity(intent);
 	}
 
+	@Override
+	public boolean onLongClick(View v) {
+		int position = (Integer) v.getTag(R.id.main_item_pos);
+		Node node = (Node) adapter.getItem(position);
+		if(node.type == Node.CLASS) {
+			String dir = node.className.replace(".", "/") + ".java";
+			InputStream is = null;
+			try {
+				is = getAssets().open(dir);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			if (is != null) {
+				String content = readTextFile(is);
+				showAlertDialog(node.name + ".java", content);
+			}
+		}else if(node.type == Node.DIR) {
+			int count = getSubFileCount(node);
+			String title = getString(R.string.java_count_title);
+			showAlertDialog(title, count + "");
+		}else if(node.type == Node.APP) {
+			int count = getSubFileCount(node);
+			String title = getString(R.string.app_count_title);
+			showAlertDialog(title, count + "");
+		}
+		return false;
+	}
+
+	private String readTextFile(InputStream inputStream) {
+		ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+		byte buf[] = new byte[1024];
+		int len;
+		try {
+			while ((len = inputStream.read(buf)) != -1) {
+				outputStream.write(buf, 0, len);
+			}
+			outputStream.close();
+			inputStream.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return outputStream.toString();
+	}
+	
+	private int getSubFileCount(Node node) {
+		int count = 0;
+		ArrayList<Node> nodes = node.mSubNodeList;
+		if (nodes != null) {
+			for (int i = 0, len = nodes.size(); i < len; i++) {
+				Node n = nodes.get(i);
+				if (n.type == Node.CLASS || n.type == Node.APP) {
+					count++;
+				} else if (n.type == Node.DIR) {
+					count += getSubFileCount(n);
+				}
+			}
+		}
+		return count;
+	}
 }

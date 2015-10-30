@@ -32,4 +32,6 @@
 
      <string name="values_marks">values</string>
      <string name="loading">loading&#8230;</string>
+     <string name="java_count_title">java file number:</string>
+     <string name="app_count_title">app demo number:</string>
 </resources>

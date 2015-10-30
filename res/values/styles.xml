@@ -38,5 +38,11 @@
         <item name="android:dividerHeight">1px</item>
         <item name="android:background">@color/titlebar</item>
 	</style>
+	
+	<style name="AppCompatAlertDialogStyle" parent="Theme.AppCompat.Light.Dialog.Alert">
+    	<item name="colorAccent">#FFCC00</item>
+   		<item name="android:textColorPrimary">#FFFFFF</item>
+    	<item name="android:background">@color/titlebar</item>
+	</style>
 
 </resources>

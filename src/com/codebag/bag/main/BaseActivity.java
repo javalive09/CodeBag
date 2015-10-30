@@ -7,9 +7,9 @@ import com.codebag.R;
 import com.codebag.bag.Node;
 import com.codebag.code.mycode.utils.Log;
 
-import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -106,7 +106,7 @@ public class BaseActivity extends AppCompatActivity {
 	}
 	
 	public void showAlertDialog(String title, String content) {
-		AlertDialog dialog = new AlertDialog.Builder(BaseActivity.this, AlertDialog.THEME_HOLO_DARK).create();
+		AlertDialog dialog = new AlertDialog.Builder(BaseActivity.this, R.style.AppCompatAlertDialogStyle).create();
 		dialog.setCanceledOnTouchOutside(true);
 		dialog.setTitle(title);
 		dialog.setMessage(content);
