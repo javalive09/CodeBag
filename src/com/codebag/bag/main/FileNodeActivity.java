@@ -7,19 +7,25 @@ import com.codebag.R;
 import com.codebag.bag.Entry;
 import com.codebag.bag.Node;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
-public class FileNodeActivity extends Activity implements OnClickListener {
+public class FileNodeActivity extends AppCompatActivity implements OnClickListener {
 
 	ListAdapter adapter = null;
 
@@ -31,10 +37,22 @@ public class FileNodeActivity extends Activity implements OnClickListener {
 		if (intent != null) {
 			Node node = (Node) intent.getSerializableExtra("node");
 			ListView listview = (ListView) findViewById(R.id.lv);
-			adapter = new ListAdapter(FileNodeActivity.this,
-					node.mSubNodeList);
+			adapter = new ListAdapter(FileNodeActivity.this, node.mSubNodeList);
 			listview.setAdapter(adapter);
 		}
+	}
+	
+	public boolean onCreateOptionsMenu(Menu menu) {
+		super.onCreateOptionsMenu(menu);
+		MenuInflater menuInflater = getMenuInflater();
+        menuInflater.inflate(R.menu.main, menu);
+		return true;
+	}
+	
+	public boolean onOptionsItemSelected(MenuItem item) {
+		super.onOptionsItemSelected(item);
+		
+		return true; 
 	}
 
 	public class ListAdapter extends BaseAdapter {

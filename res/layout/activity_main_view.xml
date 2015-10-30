@@ -1,15 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="@android:color/black" >
-
+    android:orientation="vertical" >
     <ListView
         android:id="@+id/lv"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layoutAnimation="@anim/animationlayout"
-        android:background="@android:color/black" >
+        android:divider="@null"
+        android:layoutAnimation="@anim/animationlayout" >
     </ListView>
 
-</FrameLayout>
+</LinearLayout>
