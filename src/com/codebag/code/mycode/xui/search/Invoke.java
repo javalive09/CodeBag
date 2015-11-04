@@ -2,8 +2,10 @@ package com.codebag.code.mycode.xui.search;
 
 import android.animation.ValueAnimator;
 import android.animation.ValueAnimator.AnimatorUpdateListener;
+import android.graphics.Color;
 import android.view.View;
 import android.view.animation.LinearInterpolator;
+import android.widget.TextView;
 
 import com.codebag.R;
 import com.codebag.bag.Entry;
@@ -81,6 +83,19 @@ public class Invoke extends MyCode {
 			
 		});
 
+	}
+	
+	@Entry
+	public void sinPi() {
+		TextView tv = new TextView(getActivity());
+		tv.setText("sin (0) =" + (int)Math.sin(0) + "\n"
+				+ "sin (pi/2) =" + (int)Math.sin(Math.PI / 2) + "\n"
+				+ "sin (pi) =" + (int)Math.sin(Math.PI) + "\n"
+				+ "sin (pi/2*3) =" + (int)Math.sin(Math.PI / 2 * 3) + "\n"
+				+ "sin (2pi) =" + (int)Math.sin(Math.PI * 2) + "\n"
+				);
+		tv.setTextColor(Color.BLACK);
+		showView(tv);
 	}
 	
 }
