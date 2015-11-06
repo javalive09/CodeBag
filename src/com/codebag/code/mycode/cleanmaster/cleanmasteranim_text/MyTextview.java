@@ -72,8 +72,8 @@ public class MyTextview extends MyCode {
 
 		LinearLayout.LayoutParams paramsWrap = new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT,
 				LayoutParams.WRAP_CONTENT);
-		LinearLayout.LayoutParams paramsFill = new LinearLayout.LayoutParams(LayoutParams.FILL_PARENT,
-				LayoutParams.FILL_PARENT);
+		LinearLayout.LayoutParams paramsFill = new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT,
+				LayoutParams.MATCH_PARENT);
 		paramsWrap.gravity = Gravity.CENTER;
 		paramsFill.gravity = Gravity.CENTER;
 		

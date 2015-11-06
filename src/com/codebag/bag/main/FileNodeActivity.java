@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import com.codebag.R;
 import com.codebag.bag.Entry;
 import com.codebag.bag.Node;
+
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -64,6 +65,7 @@ public class FileNodeActivity extends BaseActivity implements OnClickListener ,O
 			return position;
 		}
 
+		@SuppressWarnings("deprecation")
 		@Override
 		public View getView(int position, View convertView, ViewGroup parent) {
 			Holder holder = null;

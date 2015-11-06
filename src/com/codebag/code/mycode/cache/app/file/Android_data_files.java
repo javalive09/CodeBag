@@ -36,6 +36,7 @@ public class Android_data_files extends MyCode {
 		File requestFile = new File(dir, transferFile);
 		requestFile.setReadable(true, false);
 		writeToFile("filexxxx", requestFile);
+		showTxt("dir =" + requestFile.getAbsolutePath());
 	}
 	
 	@Entry
@@ -44,7 +45,7 @@ public class Android_data_files extends MyCode {
 		File dir = getActivity().getFilesDir();
 		File requestFile = new File(dir, transferFile);
 		String str = readFromFile(requestFile);
-		Toast.makeText(getActivity(), str, Toast.LENGTH_LONG).show();
+		showTxt(transferFile +":"+ str);
 	}
 	
 	@Entry
@@ -54,6 +55,7 @@ public class Android_data_files extends MyCode {
 		File requestFile = new File(dir, transferFile);
 		requestFile.setReadable(true, false);
 		writeToFile("cachexxxx", requestFile);
+		showTxt("dir =" + requestFile.getAbsolutePath());
 	}
 	
 	@Entry
@@ -62,18 +64,20 @@ public class Android_data_files extends MyCode {
 		File dir = getActivity().getCacheDir();
 		File requestFile = new File(dir, transferFile);
 		String str = readFromFile(requestFile);
-		Toast.makeText(getActivity(), str, Toast.LENGTH_LONG).show();
+		showTxt(transferFile +":"+ str);
 	}
 	
 	@Entry
 	public void write_openfile() {
 		writeToFile("write_openfilexxxx");
+		showTxt( "str :"+ "write_openfilexxxx");
 	}
 	
 	@Entry
 	public void read_openfile() {
 		String str = readFromFile();
 		Toast.makeText(getActivity(), str, Toast.LENGTH_LONG).show();
+		showTxt( "file :"+ str);
 	}
 	
 	private void writeToFile(String data, File extDir) {

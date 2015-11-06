@@ -1,16 +1,11 @@
 package com.codebag.code.mycode.cleanmaster.cleanmastertest.homewidget;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
-import com.codebag.R;
 import com.codebag.code.mycode.utils.Log;
 
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
 import android.content.Context;
 import android.content.Intent;
-import android.widget.RemoteViews;
 
 public class TimeWidgetProvider extends AppWidgetProvider {
 	@Override

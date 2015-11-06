@@ -1,7 +1,6 @@
 package com.codebag.code.mycode.function.invokejs;
 
 import android.annotation.SuppressLint;
-import android.content.Context;
 import android.graphics.Bitmap;
 //import android.webkit.JavascriptInterface;
 import android.webkit.WebSettings;
@@ -22,6 +21,7 @@ import com.codebag.code.mycode.utils.Log;
 		super(context);
 	}
 	
+	@SuppressLint("SetJavaScriptEnabled")
 	@Entry
 	public void showWebView() {
 		wv = new WebView(getActivity());

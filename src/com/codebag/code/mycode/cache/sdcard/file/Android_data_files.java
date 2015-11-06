@@ -8,10 +8,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
-
 import android.os.Environment;
-import android.widget.Toast;
-
 import com.codebag.bag.Entry;
 import com.codebag.bag.MyCode;
 import com.codebag.bag.main.InovkedViewActivity;
@@ -58,7 +55,7 @@ public class Android_data_files extends MyCode {
 	 * 
 	 */
 	@Entry
-	public void invoke_file() {
+	public void write_file() {
 		if(!isExternalStorageWritable()) {
 			return;
 		}
@@ -67,10 +64,11 @@ public class Android_data_files extends MyCode {
 		File requestFile = new File(extDir, transferFile);
 		requestFile.setReadable(true, false);
 		writeToFile("filexxx", requestFile);
+		showTxt("dir=" + requestFile.getAbsolutePath());
 	}
 	
 	@Entry
-	public void get_file_str() {
+	public void read_file_str() {
 		if(!isExternalStorageReadable()) {
 			return;
 		}
@@ -78,7 +76,7 @@ public class Android_data_files extends MyCode {
 		File extDir = getActivity().getExternalFilesDir(null);
 		File requestFile = new File(extDir, transferFile);
 		String str = readFromFile(requestFile);
-		Toast.makeText(getActivity(), str, Toast.LENGTH_LONG).show();
+		showTxt("file str =" + str);
 	}
 	
 	/**
@@ -88,7 +86,7 @@ public class Android_data_files extends MyCode {
 	 * 
 	 */
 	@Entry
-	public void invoke_cache() {
+	public void write_cache() {
 		if(!isExternalStorageWritable()) {
 			return;
 		}
@@ -97,10 +95,11 @@ public class Android_data_files extends MyCode {
 		File requestFile = new File(extDir, transferFile);
 		requestFile.setReadable(true, false);
 		writeToFile("cachexxx", requestFile);
+		showTxt("dir=" + requestFile.getAbsolutePath());
 	}
 
 	@Entry
-	public void get_cache_str() {
+	public void read_cache_str() {
 		if(!isExternalStorageReadable()) {
 			return;
 		}
@@ -108,7 +107,7 @@ public class Android_data_files extends MyCode {
 		File extDir = getActivity().getExternalCacheDir();
 		File requestFile = new File(extDir, transferFile);
 		String str = readFromFile(requestFile);
-		Toast.makeText(getActivity(), str, Toast.LENGTH_LONG).show();
+		showTxt("file str =" + str);
 	}
 	
 	private void writeToFile(String data, File extDir) {

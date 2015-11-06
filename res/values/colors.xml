@@ -18,6 +18,7 @@
     <color name="theme_primary">#FD87A9</color>
     
     <color name="titlebar">#34495e</color>
+    <color name="statusbar">#455a6f</color>
     
     <color name="blue">#03A9F4</color>
 

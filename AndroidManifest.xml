@@ -6,7 +6,7 @@
     android:versionName="2.0" >
 
     <uses-sdk
-        android:maxSdkVersion="21"
+        android:maxSdkVersion="22"
         android:minSdkVersion="14"
         android:targetSdkVersion="14"
         tools:ignore="OldTargetApi" />

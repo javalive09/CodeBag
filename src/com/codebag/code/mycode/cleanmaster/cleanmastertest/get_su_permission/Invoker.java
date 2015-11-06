@@ -3,9 +3,6 @@ package com.codebag.code.mycode.cleanmaster.cleanmastertest.get_su_permission;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-
-import android.content.Context;
-
 import com.codebag.bag.MyCode;
 import com.codebag.bag.Entry;
 import com.codebag.bag.main.InovkedViewActivity;

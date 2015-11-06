@@ -111,7 +111,7 @@ public class ColorUtils extends MyCode implements OnWheelScrollListener{
 			}
 		});
 		
-		views.setBackgroundColor(Color.WHITE);
+		views.setBackgroundColor(Color.BLACK);
 		showView(views);
 	
 	}
@@ -214,7 +214,7 @@ public class ColorUtils extends MyCode implements OnWheelScrollListener{
 			}
 			
 		});
-		views.setBackgroundColor(Color.WHITE);
+		views.setBackgroundColor(Color.BLACK);
 		showView(views);
 	}
 	

@@ -1,9 +1,5 @@
 package com.codebag.code.mycode.cleanmaster.cleanmastertest.delete_file_and4_4;
 
-import java.io.File;
-import java.io.IOException;
-
-import android.content.ContentResolver;
 
 //public class MediaFileUtil {
 //

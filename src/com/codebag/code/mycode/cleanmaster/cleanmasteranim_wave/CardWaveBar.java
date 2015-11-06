@@ -65,8 +65,8 @@ public class CardWaveBar extends CardBar {
 		mProgressBar = new CakeWaveView(context);
 		LayoutParams paramsWrap = new LayoutParams(LayoutParams.WRAP_CONTENT,
 				LayoutParams.WRAP_CONTENT);
-		LayoutParams paramsFill = new LayoutParams(LayoutParams.FILL_PARENT,
-				LayoutParams.FILL_PARENT);
+		LayoutParams paramsFill = new LayoutParams(LayoutParams.MATCH_PARENT,
+				LayoutParams.MATCH_PARENT);
 		paramsWrap.gravity = Gravity.CENTER;
 		paramsFill.gravity = Gravity.CENTER;
 

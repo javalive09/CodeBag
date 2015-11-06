@@ -3,8 +3,10 @@ package com.codebag.bag;
 import com.codebag.bag.main.InovkedViewActivity;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.view.View;
 import android.widget.FrameLayout;
+import android.widget.TextView;
 
 public class MyCode{//
 	public FrameLayout.LayoutParams wrap_content;
@@ -17,6 +19,13 @@ public class MyCode{//
 
 	public InovkedViewActivity getActivity() {
 		return mActivity;
+	}
+	
+	public void showTxt(String text) {
+		TextView tv = new TextView(mActivity);
+		tv.setTextColor(Color.BLACK);
+		tv.setText(text);
+		showView(tv);
 	}
 	
 	public void showView(View view) {

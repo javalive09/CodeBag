@@ -28,7 +28,7 @@ public class Invoke extends MyCode {
 				try {
 					String name = Thread.currentThread().getName();
 					Log.i("peter", "thread name =" + name);
-					Thread.currentThread().sleep(2000);
+					Thread.sleep(2000);
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}

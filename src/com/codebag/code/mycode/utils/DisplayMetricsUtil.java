@@ -75,7 +75,7 @@ public class DisplayMetricsUtil extends MyCode{
 				return 7;
 			}
 		});
-		views.setBackgroundColor(Color.WHITE);
+		views.setBackgroundColor(Color.BLACK);
 		showView(views);
 	}
 	

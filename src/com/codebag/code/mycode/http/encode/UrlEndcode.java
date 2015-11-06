@@ -1,6 +1,8 @@
 package com.codebag.code.mycode.http.encode;
 
+import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
+import java.nio.charset.Charset;
 
 import android.util.Log;
 
@@ -21,7 +23,12 @@ public class UrlEndcode extends MyCode {
 
 	@Entry
 	public void urldeCode() {
-		String decodeUrl = URLDecoder.decode(url);
-		Log.i("peter", "decodeUrl = " + decodeUrl);
+		try {
+			String decodeUrl = URLDecoder.decode(url, Charset.defaultCharset().name());
+			Log.i("peter", "decodeUrl = " + decodeUrl);
+			showTxt("decodeUrl = " + decodeUrl);
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
 	}
 }

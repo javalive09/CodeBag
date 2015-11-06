@@ -2,7 +2,6 @@ package com.codebag.code.mycode.breakpoint;
 
 import android.util.Log;
 
-import com.codebag.bag.Entry;
 import com.codebag.bag.MyCode;
 import com.codebag.bag.main.InovkedViewActivity;
 
@@ -12,16 +11,15 @@ import com.codebag.bag.main.InovkedViewActivity;
  * http://www.oschina.net/translate/again-10-tips-on-java-debugging-with-eclipse
  *
  */
-public class Invoke extends MyCode {
+public class Guide extends MyCode {
 
-	public Invoke(InovkedViewActivity act) {
+	public Guide(InovkedViewActivity act) {
 		super(act);
 	}
 
 	/**
 	 * 一，一般断点
 	 */
-	@Entry
 	public void breakpoint_normal() {
 		int a = 1;
 		int b = 2;
