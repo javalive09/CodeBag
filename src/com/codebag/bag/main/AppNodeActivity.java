@@ -96,6 +96,7 @@ public class AppNodeActivity extends BaseActivity implements OnClickListener, On
 			return convertView;
 		}
 		
+		@SuppressWarnings("deprecation")
 		private Drawable getRightSizeIcon(BitmapDrawable drawable) {
 			Drawable rightDrawable = mContext.getResources().getDrawable(R.drawable.ic_launcher);
 			int rightSize = rightDrawable.getIntrinsicWidth();

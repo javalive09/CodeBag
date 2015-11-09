@@ -20,7 +20,7 @@ import com.codebag.bag.main.InovkedViewActivity;
  * 
  * Context.getExternalCacheDir() 对应设置里面的清除缓存
  * 
- * 这两个目录在程序卸载或设置里的清除数据后，会全被清除。
+ * 这两个目录在程序卸载或设置里的清除数据后，会全被清除。覆盖安装不会被清除。
  *
  */
 public class Android_data_files extends MyCode {

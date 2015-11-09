@@ -2,9 +2,11 @@ package com.codebag.bag.main;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;
+
 import com.codebag.R;
 import com.codebag.bag.Entry;
 import com.codebag.bag.Node;
+
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -71,6 +73,7 @@ public class MethodNodeActivity extends BaseActivity implements OnClickListener{
 			return position;
 		}
 
+		@SuppressWarnings("deprecation")
 		@Override
 		public View getView(int position, View convertView, ViewGroup parent) {
 			Holder holder = null;
