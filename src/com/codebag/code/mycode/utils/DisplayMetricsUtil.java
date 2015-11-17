@@ -1,5 +1,7 @@
 package com.codebag.code.mycode.utils;
 
+import java.lang.reflect.Field;
+
 import android.content.Context;
 import android.graphics.Color;
 import android.telephony.TelephonyManager;
@@ -66,18 +68,40 @@ public class DisplayMetricsUtil extends MyCode{
 				    view = new TextView(getActivity());
 				    String str = getActivity().getString(R.string.values_marks);
 				    view.setText("res 资源读取目录: " + str);
+				    break;
+				case 7:
+					view = new TextView(getActivity());
+					str = getActivity().getString(R.string.values_marks);
+					view.setText("状态栏高度: " + getStatusBarHeight(getActivity()));
 				}
 				return view;
 			}
 			
 			@Override
 			public int getCount() {
-				return 7;
+				return 8;
 			}
 		});
 		views.setBackgroundColor(Color.BLACK);
 		showView(views);
 	}
+	
+	private int getStatusBarHeight(Context context){ 
+        Class<?> c = null; 
+        Object obj = null; 
+        Field field = null; 
+        int x = 0, statusBarHeight = 0; 
+        try { 
+            c = Class.forName("com.android.internal.R$dimen"); 
+            obj = c.newInstance(); 
+            field = c.getField("status_bar_height"); 
+            x = Integer.parseInt(field.get(obj).toString()); 
+            statusBarHeight = context.getResources().getDimensionPixelSize(x);  
+        } catch (Exception e1) { 
+            e1.printStackTrace(); 
+        }  
+        return statusBarHeight; 
+    }
 	
 	WheelView wv1, wv2, wv3, wv4;
 	TextView dp, sp;
@@ -93,6 +117,7 @@ public class DisplayMetricsUtil extends MyCode{
 				switch(position) {
 				case 0:
 					TextView v = new TextView(getActivity());
+					v.setTextColor(Color.BLACK);
 					v.setText("输入像素值（px）");
 					v.setGravity(Gravity.CENTER);
 					view = v;
@@ -123,12 +148,14 @@ public class DisplayMetricsUtil extends MyCode{
 					break;
 				case 3:
 					dp = new TextView(getActivity());
+					dp.setTextColor(Color.BLACK);
 					dp.setText("dp :" + DisplayUtil.px2dip(getActivity(), getPx()));
 					dp.setGravity(Gravity.CENTER);
 					view = dp;
 					break;
 				case 4:
 					sp = new TextView(getActivity());
+					sp.setTextColor(Color.BLACK);
 					sp.setText("sp : " + DisplayUtil.px2sp(getActivity(), getPx()));
 					sp.setGravity(Gravity.CENTER);
 					view = sp;
