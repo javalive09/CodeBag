@@ -1,6 +1,7 @@
 package com.codebag.code.mycode.xui.downloading;
 
 import android.graphics.drawable.AnimationDrawable;
+import android.view.Gravity;
 import android.view.View;
 
 import com.codebag.R;
@@ -20,7 +21,8 @@ public class Invoke extends MyCode {
 		View iv = v.findViewById(R.id.anim);
 		AnimationDrawable ad = (AnimationDrawable) iv.getBackground();
 		ad.start();
-		showView(v);
+		match_parent.gravity = Gravity.CENTER;
+		showView(v, match_parent);
 	}
 
 }

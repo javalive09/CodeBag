@@ -2,8 +2,7 @@ package com.codebag.code.mycode.view.anim.pathanim;
 
 import android.animation.ValueAnimator;
 import android.graphics.Color;
-import android.widget.ImageView;
-
+import android.view.Gravity;
 import com.codebag.R;
 import com.codebag.bag.Entry;
 import com.codebag.bag.MyCode;
@@ -42,20 +41,8 @@ public class Invoke extends MyCode {
 
 	@Entry
 	public void customView() {
-		showView(new CustomView(getActivity()));
+		match_parent.gravity = Gravity.CENTER;
+		showView(new CustomView(getActivity()), match_parent);
 	}
 	
-	@Entry
-	public void myView() {
-		showView(new MyView(getActivity()));
-	}
-	
-	@Entry
-	public void pathDrawable() {
-		ImageView iv = new ImageView(getActivity());
-		PathDrawable d = new PathDrawable();
-		d.setBounds(0,0, 1000, 1000);
-		iv.setBackgroundDrawable(d);
-		showView(iv, match_parent);
-	}
 }

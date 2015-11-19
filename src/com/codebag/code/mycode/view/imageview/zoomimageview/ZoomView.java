@@ -15,18 +15,9 @@ public class ZoomView extends MyCode {
 		super(context);
 	}
 	
-	@Entry()
-	public void show1() {
-
-		
-		ZoomImageView view = new ZoomImageView(getActivity());
-		view.setImageResource(R.drawable.head);
-		view.setBackgroundColor(Color.BLACK);
-		showView(view);
-	}
 	
 	@Entry()
-	public void show2() {
+	public void show() {
 		
 		MyImageView view = new MyImageView(getActivity(), 1000,1000);
 		Bitmap bitMap = BitmapFactory.decodeResource(getActivity().getResources(), R.drawable.head);

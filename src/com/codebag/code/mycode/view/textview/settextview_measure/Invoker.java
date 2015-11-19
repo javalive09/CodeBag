@@ -36,12 +36,12 @@ public class Invoker extends MyCode {
 		};
 		view.setText("invoker = ");
 		view.setTextSize(30);
-		view.setBackgroundColor(Color.WHITE);
+		view.setBackgroundColor(Color.BLACK);
 	}
 	
 	@Entry
 	public void setText() {
-//		showView(view, wrapH_fillW_Params(Gravity.CENTER));
+		showView(view);
 		mHandler.sendEmptyMessageDelayed(0, 100);
 	}
 	

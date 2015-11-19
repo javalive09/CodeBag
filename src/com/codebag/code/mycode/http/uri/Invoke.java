@@ -1,4 +1,4 @@
-package com.codebag.code.mycode.uri;
+package com.codebag.code.mycode.http.uri;
 
 import android.net.Uri;
 

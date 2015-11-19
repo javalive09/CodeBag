@@ -15,11 +15,6 @@ public class Invoke extends MyCode {
 	}
 	
 	@Entry
-	public void show() {
-		showView(new RectPathView(getActivity()));
-	}
-	
-	@Entry
 	public void showBtn() {
 		ColorButton end = new ColorButton(getActivity()); 
 		end.setRippleColor(Color.parseColor("#6096e9"), 1.0f);

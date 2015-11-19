@@ -15,6 +15,12 @@ public class MyCode{//
 	
 	public MyCode(InovkedViewActivity act) {
 		mActivity = act;
+		wrap_content = new FrameLayout.LayoutParams(
+				FrameLayout.LayoutParams.WRAP_CONTENT, 
+				FrameLayout.LayoutParams.WRAP_CONTENT);
+		match_parent = new FrameLayout.LayoutParams(
+				FrameLayout.LayoutParams.MATCH_PARENT, 
+				FrameLayout.LayoutParams.MATCH_PARENT);
 	}
 
 	public InovkedViewActivity getActivity() {

@@ -15,7 +15,6 @@ public class Chain2 extends ImageView {
 	protected void onDraw(Canvas canvas) {
 		canvas.clipRect(30, 30, 700, 700, Region.Op.INTERSECT);
 		super.onDraw(canvas);
-		
 	}
 	
 	

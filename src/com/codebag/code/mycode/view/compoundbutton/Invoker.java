@@ -15,7 +15,7 @@ public class Invoker extends MyCode {
 	
 	@Entry
 	public void show() {
-//		showView(R.layout.compound_button);
+		showView(R.layout.compound_button);
 	}
 
 }

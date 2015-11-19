@@ -19,7 +19,7 @@ public class Merge extends MyCode {
 	 */
 	@Entry
 	public void showMerge() {
-//		showView(R.layout.merge);
+		showView(R.layout.merge);
 	}
 
 }

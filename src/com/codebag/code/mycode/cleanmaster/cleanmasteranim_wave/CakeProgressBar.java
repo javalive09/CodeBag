@@ -19,7 +19,7 @@ import android.widget.ImageView;
 public class CakeProgressBar extends ImageView {
 
 	public static final int DEFAUTL_SPEED = 1;
-	public static final int DELAY = 2;
+	public static final int DELAY = 20;
 	private int mSpeed = DEFAUTL_SPEED;
 	private Paint mPaint;
 	private RectF mRectIn;
@@ -100,13 +100,20 @@ public class CakeProgressBar extends ImageView {
 		invalidate();
 	}
 
-	public void startAnimination(int endProgress) {
-		mRoatingAnim = true;
-		mEndProgress = endProgress;
-		mHandler.sendEmptyMessageDelayed(100, DELAY);
-		if (mListener != null) {
-			mListener.start();
-		}
+	public void startAnimination(final int endProgress) {
+		post(new Runnable() {
+			
+			@Override
+			public void run() {
+				mRoatingAnim = true;
+				mEndProgress = endProgress;
+				mHandler.sendEmptyMessageDelayed(100, DELAY);
+				if (mListener != null) {
+					mListener.start();
+				}
+			}
+		});
+		
 	}
 	
 	public void cancelAnim() {

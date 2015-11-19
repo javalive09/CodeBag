@@ -1,4 +1,4 @@
-package com.codebag.code.mycode.function.sharedpreferences;
+package com.codebag.code.mycode.cache.sharedpreference;
 
 import android.content.Context;
 import android.content.SharedPreferences;

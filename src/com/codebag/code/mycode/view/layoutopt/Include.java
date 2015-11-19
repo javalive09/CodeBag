@@ -1,7 +1,5 @@
 package com.codebag.code.mycode.view.layoutopt;
 
-import android.content.Context;
-import android.graphics.Color;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -21,16 +19,15 @@ public class Include extends MyCode {
 	 */
 	@Entry
 	public void showInclude() {
-//		showView(R.layout.include);
-//		
-//		View c = getContainer();
-//		View top = c.findViewById(R.id.top);
-//		ImageView topImg = (ImageView) top.findViewById(R.id.iv);
-//		topImg.setBackgroundResource(R.drawable.card_danager_privacy);
-//		
-//		View center = c.findViewById(R.id.center);
-//		ImageView centerImg = (ImageView) center.findViewById(R.id.iv);
-//		centerImg.setBackgroundResource(R.drawable.card_danager_storage);
+		showView(R.layout.include);
+		
+		View top = findViewById(R.id.top);
+		ImageView topImg = (ImageView) top.findViewById(R.id.iv);
+		topImg.setBackgroundResource(R.drawable.card_danager_privacy);
+		
+		View center = findViewById(R.id.center);
+		ImageView centerImg = (ImageView) center.findViewById(R.id.iv);
+		centerImg.setBackgroundResource(R.drawable.card_danager_storage);
 		
 	}
 
