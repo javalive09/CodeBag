@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<scale xmlns:android="http://schemas.android.com/apk/res/android"
+    android:drawable="@drawable/head"
+    android:scaleHeight="100%"
+    android:scaleGravity="center"
+    android:scaleWidth="100%" >
+
+</scale><!-- From: file:/Users/peter/git/CodeBag/app/src/main/res/drawable/scaledrawable.xml -->

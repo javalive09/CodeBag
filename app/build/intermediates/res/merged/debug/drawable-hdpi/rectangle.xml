@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle" >
+    <!-- 设置弧度 -->
+    <corners android:radius="9dp" />
+    <gradient
+        android:angle="270"
+        android:endColor="#5EADF4"
+        android:startColor="#B3F0FF" />
+    <padding
+        android:bottom="5dp"
+        android:left="5dp"
+        android:right="5dp"
+        android:top="5dp" />
+    <stroke
+        android:dashGap="1dp"
+        android:dashWidth="10dp"
+        android:width="6dp"
+        android:color="#0000FF" />
+</shape><!-- From: file:/Users/peter/git/CodeBag/app/src/main/res/drawable-hdpi/rectangle.xml -->

@@ -1,0 +1,38 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:yourapp="http://schemas.android.com/apk/res-auto" >
+
+    <item
+        android:id="@+id/action_help"
+        android:orderInCategory="1"
+        android:showAsAction="always"
+        android:title="@string/action_help"/>
+    <item
+        android:id="@+id/action_about"
+        android:orderInCategory="2"
+        android:title="@string/action_about"/>
+<!--     <item -->
+<!--         android:id="@+id/action_settings" -->
+<!--         android:orderInCategory="3" -->
+<!--         android:title="@string/action_settings"/> -->
+    <item
+        android:id="@+id/action_feedback"
+        android:orderInCategory="4"
+        android:title="@string/action_feedback"/>
+<!--     <item -->
+<!--         android:id="@+id/action_search" -->
+<!--         android:orderInCategory="5" -->
+<!--         android:title="@string/action_search"/> -->
+    <item
+        android:id="@+id/action_showlog"
+        android:orderInCategory="7"
+        android:title="@string/action_showlog"/>
+    <item
+        android:id="@+id/action_clearlog"
+        android:orderInCategory="8"
+        android:title="@string/action_clearlog"/>
+    <item
+        android:id="@+id/action_exit"
+        android:orderInCategory="9"
+        android:title="@string/action_exit"/>
+
+</menu><!-- From: file:/Users/peter/git/CodeBag/app/src/main/res/menu/main.xml -->

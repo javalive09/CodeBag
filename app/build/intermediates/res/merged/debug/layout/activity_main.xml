@@ -1,0 +1,16 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <com.codebag.code.mycode.xui.mapdetail.AnimatedExpandableListView
+        android:id="@+id/listView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:divider="#999999"
+        android:childDivider="#f6f6f6"
+        android:dividerHeight="1px"
+        android:groupIndicator="@null" />
+
+
+</RelativeLayout><!-- From: file:/Users/peter/git/CodeBag/app/src/main/res/layout/activity_main.xml -->

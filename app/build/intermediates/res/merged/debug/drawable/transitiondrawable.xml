@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<transition xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:drawable="@drawable/transition1"/>
+    <item android:drawable="@drawable/transition2"/>
+</transition><!-- From: file:/Users/peter/git/CodeBag/app/src/main/res/drawable/transitiondrawable.xml -->

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:drawable="@color/main_item_color" android:state_pressed="true"></item>
+    <item android:drawable="@android:color/white"/>
+
+</selector><!-- From: file:/Users/peter/git/CodeBag/app/src/main/res/drawable/ripple_item_bg.xml -->

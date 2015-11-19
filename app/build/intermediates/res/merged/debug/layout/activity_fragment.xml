@@ -1,0 +1,6 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/myfragment"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
+
+</FrameLayout><!-- From: file:/Users/peter/git/CodeBag/app/src/main/res/layout/activity_fragment.xml -->
