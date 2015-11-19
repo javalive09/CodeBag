@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<selector xmlns:android="http://schemas.android.com/apk/res/android" >
-    <item android:state_pressed="true" android:drawable="@color/group_item_press"></item>
-    <item android:drawable="@color/group_item_normal"></item>
-
-</selector>
-<!-- From: file:/Users/peter/git/CodeBag/app/src/main/res/drawable/exp_group_item_selector.xml -->

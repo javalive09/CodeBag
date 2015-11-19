@@ -23,14 +23,11 @@ import com.codebag.code.mycode.utils.Log;
 
 public class MToast extends MyCode {
 
-	
-	SuperToastA st2;
-	
+
 	public MToast(InovkedViewActivity act) {
 		super(act);
 		
 		Toast toast = Toast.makeText(getActivity(), "6666666666666!", Toast.LENGTH_LONG);
-		st2 = new SuperToastA(toast);
 	}
 	
 	@Entry
@@ -72,16 +69,7 @@ public class MToast extends MyCode {
 		Log.addLog("peter", this, "contentViewTop = " + contentViewTop); 
 	}
 	
-	@Entry
-	public void showSuperToast2() {
-		st2.show();
-	}
-	
-	@Entry
-	public void hideSuperToast2() {
-		st2.hide();
-	}
-	
+
 	@Entry
 	public void showSuperToast3() {
 		Toast toast = Toast.makeText(getActivity(), "6666666666666!", Toast.LENGTH_SHORT);

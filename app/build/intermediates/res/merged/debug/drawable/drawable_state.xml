@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<selector xmlns:android="http://schemas.android.com/apk/res/android">
-
-    <item android:drawable="@android:color/black" android:state_enabled="true" android:state_pressed="true"/>
-    <item android:drawable="@android:color/white"/>
-
-</selector><!-- From: file:/Users/peter/git/CodeBag/app/src/main/res/drawable/drawable_state.xml -->

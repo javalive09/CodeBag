@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<clip xmlns:android="http://schemas.android.com/apk/res/android" 
-    android:drawable="@drawable/head"
-    android:clipOrientation="horizontal"
-    android:gravity="center">
-</clip><!-- From: file:/Users/peter/git/CodeBag/app/src/main/res/drawable/clip_drawable.xml -->
