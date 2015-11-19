@@ -1,5 +1,7 @@
 package com.codebag.code.mycode.xui.search;
 
+import android.animation.AnimatorSet;
+import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
 import android.animation.ValueAnimator.AnimatorUpdateListener;
 import android.graphics.Color;
@@ -11,8 +13,6 @@ import com.codebag.R;
 import com.codebag.bag.Entry;
 import com.codebag.bag.MyCode;
 import com.codebag.bag.main.InovkedViewActivity;
-import com.nineoldandroids.animation.AnimatorSet;
-import com.nineoldandroids.animation.ObjectAnimator;
 
 public class Invoke extends MyCode {
 

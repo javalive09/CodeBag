@@ -1,5 +1,6 @@
 package com.codebag.code.mycode.view.anim.pathanim;
 
+import android.animation.ValueAnimator;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -10,7 +11,6 @@ import android.support.v4.view.ViewCompat;
 import android.util.AttributeSet;
 import android.view.View;
 
-import com.nineoldandroids.animation.ValueAnimator;
 
 public class CustomView extends View implements ValueAnimator.AnimatorUpdateListener {
 

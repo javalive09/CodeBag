@@ -15,7 +15,8 @@
  */
 package com.codebag.code.mycode.xui.transfer;
 
-import com.nineoldandroids.animation.TypeEvaluator;
+import android.animation.TypeEvaluator;
+
 
 /**
  * This evaluator interpolates between two PathPoint values given the value t, the

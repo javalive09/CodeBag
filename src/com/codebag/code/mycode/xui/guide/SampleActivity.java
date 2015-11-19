@@ -4,8 +4,8 @@ import com.codebag.R;
 import com.codebag.bag.Entry;
 import com.codebag.bag.MyCode;
 import com.codebag.bag.main.InovkedViewActivity;
-import com.nineoldandroids.animation.ObjectAnimator;
 
+import android.animation.ObjectAnimator;
 import android.graphics.Color;
 import android.support.v4.view.ViewPager;
 import android.text.SpannableString;

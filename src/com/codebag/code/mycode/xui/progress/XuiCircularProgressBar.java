@@ -1,8 +1,8 @@
 package com.codebag.code.mycode.xui.progress;
 
 import com.codebag.R;
-import com.nineoldandroids.animation.ObjectAnimator;
 
+import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Bitmap;

@@ -1,5 +1,6 @@
 package com.codebag.code.mycode.xui.transfer;
 
+import android.animation.ObjectAnimator;
 import android.view.View;
 import android.view.animation.LinearInterpolator;
 
@@ -7,14 +8,11 @@ import com.codebag.R;
 import com.codebag.bag.Entry;
 import com.codebag.bag.MyCode;
 import com.codebag.bag.main.InovkedViewActivity;
-import com.nineoldandroids.animation.ObjectAnimator;
-import com.nineoldandroids.view.ViewHelper;
-import com.nineoldandroids.view.animation.AnimatorProxy;
 
 public class Transfer extends MyCode {
 
-	AnimatorProxy mMusicProxy;
-
+	View music;
+	
 	public Transfer(InovkedViewActivity act) {
 		super(act);
 	}
@@ -22,19 +20,19 @@ public class Transfer extends MyCode {
 	@Entry
 	public void trans() {
 		showView(R.layout.curve_path);
-		final View music = getActivity().findViewById(R.id.music);
+		music = getActivity().findViewById(R.id.music);
 		music.post(new Runnable() {
 			
 			@Override
 			public void run() {
-				anim(music);
+				anim();
 			}
 		});
 		
 
 	}
 
-	private void anim(final View music) {
+	private void anim() {
 		AnimatorPath path = new AnimatorPath();
 		View root = getActivity().findViewById(R.id.rootview);
 		int x = root.getWidth();
@@ -42,7 +40,6 @@ public class Transfer extends MyCode {
 		
 		path.moveTo(0, y);
 		path.curveTo(0, y, x/2, 0, x, y);
-		mMusicProxy = AnimatorProxy.wrap(music);
 
 		ObjectAnimator anim = ObjectAnimator.ofObject(this, "MusicLoc",
 				new PathEvaluator(), path.getPoints().toArray());
@@ -50,8 +47,8 @@ public class Transfer extends MyCode {
 		anim.setDuration(2000);
 		anim.start();
 
-		ViewHelper.setPivotX(music, music.getWidth() / 2f);
-		ViewHelper.setPivotY(music, music.getHeight() / 2f);
+		music.setPivotX(music.getWidth() / 2f);
+		music.setPivotY(music.getHeight() / 2f);
 		ObjectAnimator xa = ObjectAnimator.ofFloat(music, "scaleX", 0.2f, 1,
 				0.2f);
 		ObjectAnimator ya = ObjectAnimator.ofFloat(music, "scaleY", 0.2f, 1,
@@ -69,8 +66,8 @@ public class Transfer extends MyCode {
 	}
 
 	public void setMusicLoc(PathPoint newLoc) {
-		mMusicProxy.setTranslationX(newLoc.mX);
-		mMusicProxy.setTranslationY(newLoc.mY);
+		music.setTranslationX(newLoc.mX);
+		music.setTranslationY(newLoc.mY);
 	}
 
 }
