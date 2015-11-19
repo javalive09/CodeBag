@@ -1,3 +1,6 @@
 /gen
 /assets
 /bin
+.gradle/*
+.idea/*
+/app/*
