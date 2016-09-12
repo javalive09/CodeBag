@@ -1,13 +1,16 @@
 package com.codebag.bag;
 
 
+/**
+ * log 工具类 能自动打印调用类和调用方法
+ */
 public class LogUtil {
 	
 	private static final boolean DEBUG = true;
 	private static StringBuffer mLog = new StringBuffer();
 	private static long startTime = 0;
 
-	public static void addLog(String msg) {
+	public static void i(String msg) {
 		if(DEBUG) {
 			String[] invoker = getCaller("LogUtil");
 			mLog.append(invoker[0] + ">" + invoker[1] + "()" + ":" + msg + "\n");
@@ -15,14 +18,22 @@ public class LogUtil {
 		}
 	}
 
-	public static void addLog() {
+	public static void w(String msg) {
 		if(DEBUG) {
 			String[] invoker = getCaller("LogUtil");
-			mLog.append(invoker[0] + ">" + invoker[1] + "()" + "\n");
-			android.util.Log.i(invoker[0], invoker[1] + "()");
+			mLog.append(invoker[0] + ">" + invoker[1] + "()" + ":" + msg + "\n");
+			android.util.Log.w(invoker[0], invoker[1] + "()" + ":" + msg);
 		}
 	}
-	
+
+	public static void e(String msg) {
+		if(DEBUG) {
+			String[] invoker = getCaller("LogUtil");
+			mLog.append(invoker[0] + ">" + invoker[1] + "()" + ":" + msg + "\n");
+			android.util.Log.e(invoker[0], invoker[1] + "()" + ":" + msg);
+		}
+	}
+
 	public static String getLog() {
 		if(DEBUG) {
 			return mLog.toString();
@@ -39,7 +50,7 @@ public class LogUtil {
 	public static void startCountTime(String msg) {
 		if(DEBUG) {
 			startTime = System.currentTimeMillis();
-			LogUtil.addLog("startTime=" + startTime + ">>>>>>>>>>>>>>>>>>>>>>>");
+			LogUtil.i("startTime=" + startTime + ">>>>>>>>>>>>>>>>>>>>>>>");
 		}
 	}
 	
@@ -47,7 +58,7 @@ public class LogUtil {
 		if(DEBUG) {
 			long endTime = System.currentTimeMillis();
 			long detaTime = endTime - startTime;
-			LogUtil.addLog(" cost =" + detaTime + ">>>>>>>>>>>>>>>>>>>>>>>");
+			LogUtil.i(" cost =" + detaTime + ">>>>>>>>>>>>>>>>>>>>>>>");
 			return detaTime;
 		}
 		return 0;
