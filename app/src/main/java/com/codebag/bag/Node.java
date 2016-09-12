@@ -9,23 +9,19 @@ public class Node implements Serializable{
 	public static final int CLASS = 1;
 	public static final int METHOD = 2;
 
-	public int type = -1;
+	public int type;
 	public String name;
 	public String className;
-	public String fullName;//全名
 	public ArrayList<Node> mSubNodeList;
 	
 	public Node(String name, int type) {
 		this.name = name;
 		this.type = type;
-		fullName = name;
 	}
 	
 	public Node(String name, int type, String className) {
 		this(name, type);
 		this.className = className;
-		int index = className.indexOf(name);
-		fullName = className.substring(0, index + name.length());
 	}
 
 }

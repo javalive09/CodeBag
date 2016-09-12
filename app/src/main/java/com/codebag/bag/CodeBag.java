@@ -98,7 +98,7 @@ public class CodeBag extends Application {
      */
     private Node getSubNode(String nodeName, int type, String className, Node currentNode) {
         if (currentNode.mSubNodeList == null) {//创建子节点列表
-            currentNode.mSubNodeList = new ArrayList<Node>();
+            currentNode.mSubNodeList = new ArrayList<>();
         } else {
             for (Node n : currentNode.mSubNodeList) {//父节点有子节点列表，则遍历一下
                 if (n.name.equals(nodeName)) {
