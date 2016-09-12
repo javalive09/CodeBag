@@ -21,5 +21,6 @@
     <color name="statusbar">#455a6f</color>
     
     <color name="blue">#03A9F4</color>
+    <color name="transparent_background">#50000000</color>
 
 </resources>

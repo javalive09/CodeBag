@@ -1,12 +1,24 @@
-<TextView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/listitem_tv"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+android:id="@+id/list_item"
+android:layout_width="fill_parent"
+android:layout_height="wrap_content"
+android:minHeight="@dimen/list_item_min_h"
+android:padding="@dimen/list_item_padding"
+android:background="@drawable/list_item_bg"
+android:orientation="horizontal">
+
+<ImageView
+    android:id="@+id/list_item_icon"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center_vertical" />
+
+<TextView
+    android:id="@+id/list_item_text"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
-    android:drawablePadding="@dimen/list_item_drawable_padding"
-    android:drawableLeft="@drawable/ic_launcher"
     android:gravity="center_vertical"
-    android:minHeight="@dimen/list_item_min_h"
-    android:padding="@dimen/list_item_drawable_padding"
-    android:text="@string/item_string"
-    android:background="@drawable/ripple_item_bg"
+    android:paddingLeft="@dimen/list_item_padding"
     android:textColor="@android:color/black" />
+
+</LinearLayout>

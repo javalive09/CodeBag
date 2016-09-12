@@ -13,10 +13,18 @@
         <item name="dropDownListViewStyle">@style/PopupMenuListView</item>
     </style>
 
+    <style name="show_view_dialog" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:minHeight">@dimen/dialog_mini_h</item>
+        <item name="android:minWidth">@dimen/dialog_mini_w</item>
+        <item name="android:gravity">center</item>
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowIsTranslucent">true</item>
+    </style>
+
     <style name="TestWindowBackGround">
         <item name="android:windowBackground">@android:color/transparent</item>
         <item name="android:windowIsTranslucent">false</item>
-        <item name="android:windowAnimationStyle">@+android:style/Animation.Translucent</item>
     </style>
 
     <!-- popupwindow animation 样式 -->

@@ -1,38 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     package="com.codebag"
     android:versionCode="2"
     android:versionName="2.0" >
-
-    <uses-sdk
-        android:maxSdkVersion="22"
-        android:minSdkVersion="14"
-        android:targetSdkVersion="14"
-        tools:ignore="OldTargetApi" />
-
-    <!-- 为了准确获取分辨率 -->
-    <supports-screens
-        android:anyDensity="true"
-        android:largeScreens="true"
-        android:normalScreens="true"
-        android:resizeable="true"
-        android:smallScreens="true" />
-
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="a.b.c" />
-    <uses-permission android:name="android.permission.CHANGE_CONFIGURATION" />
-    <uses-permission android:name="com.android.launcher.permission.READ_SETTINGS" />
-    <uses-permission android:name="android.permission.INTERACT_ACROSS_USERS_FULL" />
-    <uses-permission android:name="INTERACT_ACROSS_USERS_FULL" />
-    <uses-permission android:name="android.permission.INTERNET" />
-
-    <!-- 获取IMEI号需要权限 -->
-    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
-
-    <!-- 生成桌面快捷方式 -->
->
-    <uses-permission android:name="com.android.launcher.permission.INSTALL_SHORTCUT" />
 
     <application
         android:name="com.codebag.bag.CodeBag"
@@ -40,71 +10,15 @@
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
-
-        <!-- <meta-data -->
-        <!-- android:name="appType" -->
-        <!-- android:value="codebag_appdemo" > -->
-        <!-- </meta-data> -->
-        <!-- <meta-data -->
-        <!-- android:name="appInfo" -->
-        <!-- android:value="可以显示列表item的删除后，整体上移效果"/> -->
-        <!-- <meta-data -->
-        <!-- android:name="appSourceUrl" -->
-        <!-- android:value="https://github.com/timroes/EnhancedListView.git"/> -->
-
         <activity
-            android:name="com.codebag.bag.main.SplashActivity"
+            android:name=".bag.MainActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.codebag.bag.main.FileNodeActivity" />
-        <activity android:name="com.codebag.bag.main.MethodNodeActivity" />
-        <activity android:name="com.codebag.bag.main.AppNodeActivity" />
-        <activity android:name="com.codebag.bag.main.InovkedViewActivity" />
-        <activity android:name="com.codebag.code.mycode.test.fragment.MyFragmentActivity" />
-        <activity android:name="com.codebag.code.mycode.test.fragment.ViewPagerFragmentActivity" />
 
-        <service android:name="com.codebag.code.mycode.test.servicelife.myService" />
-
-        <activity
-            android:name="com.codebag.code.mycode.test.activityconfigchange.MyActivity"
-            android:configChanges="orientation|locale|fontScale|mcc|mnc|keyboard" />
-        <activity
-            android:name="com.codebag.code.mycode.test.activitylife.MyActivityA"
-            android:launchMode="singleTask" />
-        <activity
-            android:name="com.codebag.code.mycode.test.activitylife.MyActivityB"
-            android:theme="@style/TestWindowBackGround" />
-        <activity
-            android:name="com.codebag.code.mycode.test.fragment.ResultActivity"
-            android:launchMode="standard" />
-        <activity
-            android:name="com.codebag.code.mycode.test.actiitytask.MyActivity"
-            android:launchMode="standard" />
-
-        <!-- AppWidgetProvider的注册 mythou -->
-        <receiver android:name="com.codebag.code.mycode.cleanmaster.cleanmastertest.homewidget.TimeWidgetProvider" >
-            <intent-filter>
-                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
-            </intent-filter>
-
-            <meta-data
-                android:name="android.appwidget.provider"
-                android:resource="@xml/timewidget_info" />
-        </receiver>
-
-        <service android:name="com.codebag.code.mycode.cleanmaster.cleanmastertest.homewidget.TimerService" >
-        </service>
-        <service android:name="com.codebag.code.mycode.cleanmaster.cleanmastertest.audioplayerrun.MainService" >
-        </service>
-        <service
-            android:name="com.codebag.code.mycode.function.aidl.AIDLService"
-            android:process="com.aidl.service" >
-        </service>
     </application>
 
 </manifest>
