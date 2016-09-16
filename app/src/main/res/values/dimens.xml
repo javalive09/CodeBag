@@ -13,6 +13,9 @@
     <dimen name="dialog_mini_h">200dp</dimen>
     <dimen name="dialog_mini_w">1024dp</dimen>
     <dimen name="dialog_code_text_size">18sp</dimen>
+    <dimen name="utils_phonedata_item_padding">5dp</dimen>
+    <dimen name="scrollbar_size">5dp</dimen>
+    <dimen name="utils_text_size">19sp</dimen>
 
 
 </resources>

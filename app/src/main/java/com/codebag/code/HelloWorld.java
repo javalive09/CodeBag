@@ -18,11 +18,11 @@ public class HelloWorld extends Entry {
         TextView button = new TextView(getActivity());
         button.setTextColor(Color.BLACK);
         button.setText("hello world !");
-        showView(button);
+        showView(button, null, true);
     }
 
     public void showViewById() {
-        showView(R.layout.helloworld);
+        showView(R.layout.helloworld, null, true);
     }
 
 }

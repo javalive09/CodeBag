@@ -47,7 +47,7 @@ public class CodeBag extends Application {
                     String fileName = className.substring(startLen);
                     String[] strs = fileName.split("\\.");
                     loadCodeBagNode(className, strs, 0, rootNode);
-                    LogUtil.addLog("fileName = " + fileName);
+                    LogUtil.i("fileName = " + fileName);
                 }
 
             }
@@ -58,8 +58,8 @@ public class CodeBag extends Application {
     }
 
     private void printNode(Node node) {
-        LogUtil.addLog("name=" + node.name);
-        LogUtil.addLog("fullname=" + node.className);
+        LogUtil.i("name=" + node.name);
+        LogUtil.i("fullname=" + node.className);
         if (node.mSubNodeList != null) {
             for (int i = 0; i < node.mSubNodeList.size(); i++) {
                 printNode(node.mSubNodeList.get(i));

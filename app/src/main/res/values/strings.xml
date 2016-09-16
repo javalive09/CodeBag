@@ -34,4 +34,19 @@
      <string name="loading">loading&#8230;</string>
      <string name="java_count_title">java file number:</string>
      <string name="app_count_title">app demo number:</string>
+
+    <string name="util_phone_mode">phone mode:  %s</string>
+    <string name="util_phone_sdk">sdk version:  %s</string>
+    <string name="util_phone_firmware">firmware version:  %s</string>
+    <string name="util_phone_resolution">resolution:  %s</string>
+    <string name="util_phone_density">density:  %s</string>
+    <string name="util_phone_imei">imei:  %s</string>
+    <string name="util_phone_res_dir">current res dir:  %s</string>
+    <string name="util_phone_status_bar_h">status bar height:  %d</string>
+    <string name="util_phone_brand">brand:  %s</string>
+
+    <string name="util_color">current color</string>
+    <string name="util_color_title">input color (alpha, red, green, blue)</string>
+    <string name="util_alpha_title">alpha value</string>
+    <string name="util_alpha_percent_title">alpha percent</string>
 </resources>
