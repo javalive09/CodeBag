@@ -47,7 +47,7 @@ public class CodeBag extends Application {
                     String fileName = className.substring(startLen);
                     String[] strs = fileName.split("\\.");
                     loadCodeBagNode(className, strs, 0, rootNode);
-                    LogUtil.i("fileName = " + fileName);
+//                    LogUtil.i("fileName = " + fileName);
                 }
 
             }
