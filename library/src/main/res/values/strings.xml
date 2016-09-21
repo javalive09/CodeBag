@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="codebag_name">CodeBag</string>
+    <string name="action_help">help</string>
+    <string name="action_help_msg">New a folder in code Dir and put a new java file which Extends Entry in it with public method as entry.</string>
+    <string name="action_about">about</string>
+    <string name="action_about_msg">This a simple app for collect your own code.</string>
+    <string name="action_showlog">show log</string>
+    <string name="action_clearlog">clear log</string>
+    <string name="action_exit">exit</string>
+
+    <string name="item_string_java">%s .java</string>
+    <string name="item_string_method">%s ( )</string>
+
+</resources>

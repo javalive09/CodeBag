@@ -1,0 +1,9 @@
+<resources>
+
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="list_item_padding">11dp</dimen>
+    <dimen name="list_item_min_h">50dp</dimen>
+    <dimen name="dialog_mini_h">200dp</dimen>
+    <dimen name="dialog_mini_w">1024dp</dimen>
+
+</resources>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="CodeBagTheme" parent="@style/AppBaseTheme">
+        
+	<item name="android:navigationBarColor">@color/titlebar</item>
+	<item name="android:statusBarColor">@color/titlebar</item>
+    </style>
+
+    <style name="MyProgressBar" parent="Base.Widget.AppCompat.ProgressBar">
+        <item name="android:indeterminateTint">@color/blue</item>
+        <item name="android:indeterminateTintMode">src_atop</item>
+    </style>
+
+</resources>

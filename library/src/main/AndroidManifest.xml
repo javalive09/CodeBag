@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.codebag.bag">
+
+    <application
+        android:name="com.codebag.bag.CodeBag"
+        android:icon="@drawable/codebag_icon"
+        android:label="@string/codebag_name"
+        android:theme="@style/CodeBagTheme"
+        tools:replace="android:label">
+        <activity android:name="com.codebag.bag.CodeBagActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application>
+
+</manifest>
