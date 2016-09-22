@@ -4,7 +4,8 @@ package com.codebag.bag;
 import android.text.TextUtils;
 
 /**
- * log 工具类 能自动打印调用类和调用方法
+ * log util for auto print invoker class and method name
+ * Created by peter on 16/9/21.
  */
 public class LogUtil {
 

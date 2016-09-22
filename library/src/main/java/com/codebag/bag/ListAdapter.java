@@ -12,6 +12,9 @@ import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Created by peter on 16/9/21.
+ */
 public class ListAdapter extends BaseAdapter {
 
     static final int NO_ENTRY = 0; // 不含有入口方法

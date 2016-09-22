@@ -23,6 +23,9 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
+/**
+ * Created by peter on 16/9/21.
+ */
 public class CodeBagActivity extends AppCompatActivity implements View.OnClickListener, View.OnLongClickListener {
 
     private static final String NODE_NAME = "node";
@@ -37,7 +40,7 @@ public class CodeBagActivity extends AppCompatActivity implements View.OnClickLi
         Intent intent = getIntent();
         if (intent != null) {
             Node node = intent.getParcelableExtra(NODE_NAME);
-            if(node == null) {//初始化
+            if(node == null) {//init
                 CodeBag app = (CodeBag) getApplication();
                 node = app.init();
             }

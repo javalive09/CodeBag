@@ -4,6 +4,9 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import java.util.ArrayList;
 
+/**
+ * Created by peter on 16/9/21.
+ */
 public class Node implements Parcelable{
 	public static final int DIR = 0;
 	public static final int CLASS = 1;

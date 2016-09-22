@@ -9,6 +9,9 @@ import android.content.Context;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.text.TextUtils;
 
+/**
+ * Created by peter on 16/9/21.
+ */
 public class CodeBag extends Application {
 
     private static final boolean PRINT_NODE = false;
