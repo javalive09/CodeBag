@@ -141,18 +141,31 @@ public class CodeBagActivity extends AppCompatActivity implements View.OnClickLi
         }
     }
 
-    public static String getRootUrl() {
+    private String getRootUrl() {
         int ownerStrId = CodeBag.instance().getApplicationContext().getResources()
                 .getIdentifier("git_owner", "string", CodeBag.instance().getPackageName());
-        int repoStrId = CodeBag.instance().getApplicationContext().getResources()
-                .getIdentifier("git_repo", "string", CodeBag.instance().getPackageName());
-        int dirStrId = CodeBag.instance().getApplicationContext().getResources()
-                .getIdentifier("git_dir", "string", CodeBag.instance().getPackageName());
-        String owner = CodeBag.instance().getResources().getString(ownerStrId);
-        String repo = CodeBag.instance().getResources().getString(repoStrId);
-        String rootDir = CodeBag.instance().getResources().getString(dirStrId);
-        String url = GIT_HUB_HOME + owner + "/" + repo + "/master/" + rootDir + "/src/main/java/";
-        return url;
+        if(ownerStrId != 0) {
+            int repoStrId = CodeBag.instance().getApplicationContext().getResources()
+                    .getIdentifier("git_repo", "string", CodeBag.instance().getPackageName());
+            if(repoStrId != 0) {
+                int dirStrId = CodeBag.instance().getApplicationContext().getResources()
+                        .getIdentifier("git_dir", "string", CodeBag.instance().getPackageName());
+                if(dirStrId != 0) {
+                    String owner = CodeBag.instance().getResources().getString(ownerStrId);
+                    String repo = CodeBag.instance().getResources().getString(repoStrId);
+                    String rootDir = CodeBag.instance().getResources().getString(dirStrId);
+                    String url = GIT_HUB_HOME + owner + "/" + repo + "/master/" + rootDir + "/src/main/java/";
+                    return url;
+                }else {
+                    Toast.makeText(CodeBagActivity.this, R.string.no_dir, Toast.LENGTH_LONG).show();
+                }
+            }else {
+                Toast.makeText(CodeBagActivity.this, R.string.no_repo, Toast.LENGTH_LONG).show();
+            }
+        }else {
+            Toast.makeText(CodeBagActivity.this, R.string.no_owner, Toast.LENGTH_LONG).show();
+        }
+        return "";
     }
 
 
@@ -163,15 +176,17 @@ public class CodeBagActivity extends AppCompatActivity implements View.OnClickLi
         if(node.type == Node.CLASS) {//get code source
             final AlertDialog dialog = showAlertDialog(node.name + ".java", getString(R.string.loading));
             String path = node.className.replace(".", "/") + ".java";
-            final AsyncTask loading = getGitHubCode(dialog, getRootUrl() + path);
-            dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
-                @Override
-                public void onDismiss(DialogInterface dialog) {
-                    loading.cancel(true);
-                }
-            });
-
-            return true;
+            String url = getRootUrl();
+            if(!TextUtils.isEmpty(url)) {
+                final AsyncTask loading = getGitHubCode(dialog, getRootUrl() + path);
+                dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+                    @Override
+                    public void onDismiss(DialogInterface dialog) {
+                        loading.cancel(true);
+                    }
+                });
+                return true;
+            }
         }
         return false;
     }
