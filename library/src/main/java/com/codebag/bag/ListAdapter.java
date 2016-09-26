@@ -83,7 +83,11 @@ public class ListAdapter extends BaseAdapter {
                 break;
         }
 
-        convertView.setEnabled(getItemViewType(position) == ENTRY);
+        if(getItemViewType(position) != ENTRY) {
+            convertView.setBackgroundResource(android.R.color.darker_gray);
+        }else {
+            convertView.setBackgroundResource(R.drawable.list_item_bg);
+        }
         convertView.setOnClickListener(mActivity);
         convertView.setOnLongClickListener(mActivity);
         convertView.setTag(R.id.main_item_pos, position);
