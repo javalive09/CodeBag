@@ -15,7 +15,7 @@ public class LogUtil {
 
     public static void i(String msg) {
         if (DEBUG) {
-            CallerInfo info = CallerInfo.get(CodeBag.instance().getPackageName(), "LogUtil", "i");
+            CallerInfo info = CallerInfo.get("com.codebag.bag", "LogUtil", "i");
             mLog.append(info.className + " > " + info.methodName + ": " + msg + "\n");
             android.util.Log.i(info.className, info.methodName + ": " + msg);
         }
@@ -23,7 +23,7 @@ public class LogUtil {
 
     public static void w(String msg) {
         if (DEBUG) {
-            CallerInfo info = CallerInfo.get(CodeBag.instance().getPackageName(), "LogUtil", "w");
+            CallerInfo info = CallerInfo.get("com.codebag.bag", "LogUtil", "w");
             mLog.append(info.className + " > " + info.methodName + ": " + msg + "\n");
             android.util.Log.w(info.className, info.methodName + ": " + msg);
         }
@@ -31,7 +31,7 @@ public class LogUtil {
 
     public static void e(String msg) {
         if (DEBUG) {
-            CallerInfo info = CallerInfo.get(CodeBag.instance().getPackageName(), "LogUtil", "e");
+            CallerInfo info = CallerInfo.get("com.codebag.bag", "LogUtil", "e");
             mLog.append(info.className + " > " + info.methodName + ": " + msg + "\n");
             android.util.Log.e(info.className, info.methodName + ": " + msg);
         }
