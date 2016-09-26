@@ -3,6 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.codebag.bag">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:name="com.codebag.bag.CodeBag"
         android:icon="@drawable/codebag_icon"

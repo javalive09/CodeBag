@@ -3,7 +3,7 @@
     package="com.codebag.sample">
     <application>
 
-        <activity android:name=".HelloWorldActivity" />
+        <activity android:name=".HelloWorldActivity"/>
 
     </application>
 </manifest>

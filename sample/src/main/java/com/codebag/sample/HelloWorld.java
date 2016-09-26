@@ -28,7 +28,8 @@ public class HelloWorld extends Entry {
     }
 
     public void startActivity() {
-        startActivity(new Intent(getActivity(), HelloWorldActivity.class));
+        Intent intent = new Intent(getActivity(), HelloWorldActivity.class);
+        startActivity(intent);
     }
 
 }
