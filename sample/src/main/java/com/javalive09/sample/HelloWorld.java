@@ -1,10 +1,10 @@
-package com.codebag.sample;
+package com.javalive09.sample;
 
 import android.content.Intent;
 import android.graphics.Color;
 import android.widget.Button;
 
-import com.codebag.bag.Entry;
+import com.javalive09.codebag.Entry;
 
 /**
  * Created by peter on 16/9/21.

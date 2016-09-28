@@ -5,7 +5,7 @@ android {
     buildToolsVersion "24.0.2"
 
     defaultConfig {
-        applicationId "com.codebag.sample"
+        applicationId "com.javalive09.sample"
         minSdkVersion 14
         targetSdkVersion 24
         versionCode 1

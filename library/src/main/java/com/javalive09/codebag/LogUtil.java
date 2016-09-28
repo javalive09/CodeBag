@@ -1,4 +1,4 @@
-package com.codebag.bag;
+package com.javalive09.codebag;
 
 
 import android.text.TextUtils;
@@ -15,7 +15,7 @@ public class LogUtil {
 
     public static void i(String msg) {
         if (DEBUG) {
-            CallerInfo info = CallerInfo.get("com.codebag.bag", "LogUtil", "i");
+            CallerInfo info = CallerInfo.get("com.javalive09.codebag", "LogUtil", "i");
             mLog.append(info.className + " > " + info.methodName + ": " + msg + "\n");
             android.util.Log.i(info.className, info.methodName + ": " + msg);
         }
@@ -23,7 +23,7 @@ public class LogUtil {
 
     public static void w(String msg) {
         if (DEBUG) {
-            CallerInfo info = CallerInfo.get("com.codebag.bag", "LogUtil", "w");
+            CallerInfo info = CallerInfo.get("com.javalive09.codebag", "LogUtil", "w");
             mLog.append(info.className + " > " + info.methodName + ": " + msg + "\n");
             android.util.Log.w(info.className, info.methodName + ": " + msg);
         }
@@ -31,7 +31,7 @@ public class LogUtil {
 
     public static void e(String msg) {
         if (DEBUG) {
-            CallerInfo info = CallerInfo.get("com.codebag.bag", "LogUtil", "e");
+            CallerInfo info = CallerInfo.get("com.javalive09.codebag", "LogUtil", "e");
             mLog.append(info.className + " > " + info.methodName + ": " + msg + "\n");
             android.util.Log.e(info.className, info.methodName + ": " + msg);
         }
@@ -78,9 +78,11 @@ public class LogUtil {
         }
 
         /**
-         * @param currentClassName
-         * @param currentMethodName
-         * @return
+         *
+         * @param packageName  your package name
+         * @param currentClassName your class name
+         * @param currentMethodName you current method name
+         * @return CallerInfo contain invoker's method name and class name
          */
         public static CallerInfo get(String packageName, String currentClassName, String currentMethodName) {
             StackTraceElement stack[] = Thread.currentThread().getStackTrace();

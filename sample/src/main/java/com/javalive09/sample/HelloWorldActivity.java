@@ -1,4 +1,4 @@
-package com.codebag.sample;
+package com.javalive09.sample;
 
 import android.app.Activity;
 import android.os.Bundle;

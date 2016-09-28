@@ -1,4 +1,4 @@
-package com.codebag.bag;
+package com.javalive09.codebag;
 
 import android.os.Parcel;
 import android.os.Parcelable;
