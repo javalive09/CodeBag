@@ -21,5 +21,5 @@ android {
 }
 
 dependencies {
-    compile project(':library')
+    compile 'com.javalive09.codebag:codebag:1.0.1'
 }
