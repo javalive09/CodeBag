@@ -28,6 +28,6 @@ publish {
     groupId = 'com.javalive09.codebag'//包名
     artifactId = 'codebag'//项目名称
     publishVersion = '1.0'//版本号
-    desc = 'simple library for programmer collect code(demo, unit test ...)'//描述，不重要
-    website = 'https://github.com/javalive09/CodeBag'//网站，不重要；尽量模拟github上的地址，例如我这样的；当然你有地址最好了
+    desc = 'simple library for programmer collect code(demo, unit test ...)'//描述
+    website = 'https://github.com/javalive09/CodeBag'//网站
 }

@@ -1,9 +1,0 @@
-<resources>
-
-    <string name="git_owner">javalive09</string>
-
-    <string name="git_repo">CodeBag</string>
-
-    <string name="git_dir">sample</string>
-
-</resources>

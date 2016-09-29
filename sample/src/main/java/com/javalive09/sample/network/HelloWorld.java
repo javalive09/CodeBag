@@ -1,4 +1,4 @@
-package com.javalive09.sample;
+package com.javalive09.sample.network;
 
 import android.content.Intent;
 import android.graphics.Color;
@@ -6,6 +6,8 @@ import android.widget.Button;
 
 import com.javalive09.codebag.Entry;
 import com.javalive09.codebag.LogUtil;
+import com.javalive09.sample.HelloWorldActivity;
+import com.javalive09.sample.R;
 
 /**
  * a sample for entry

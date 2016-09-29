@@ -1,3 +1,7 @@
 <resources>
+    <string name="git_owner">javalive09</string>  <!-- your github user name -->
+    <string name="git_repo">CodeBag</string> <!--your repository name-->
+    <string name="git_dir">sample</string> <!--your root dir name-->
+
     <string name="app_name">sample</string>
 </resources>

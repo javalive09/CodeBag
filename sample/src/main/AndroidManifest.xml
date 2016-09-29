@@ -4,6 +4,6 @@
     <application>
 
         <activity android:name="com.javalive09.sample.HelloWorldActivity"/>
-
+        ...
     </application>
 </manifest>
