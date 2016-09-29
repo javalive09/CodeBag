@@ -14,10 +14,9 @@ compile 'com.javalive09.codebag:codebag:1.0'
 How Collect your code
 ---------------------
 
--  Keep AndroidManifest.xml application Tag with no Attribute
--  Keep AndroidManifest.xml have no launcher activity
-- Create a file extends Entry class with public method as your code entrance
-- There is no limited for your file and folder’s name and the hierarchy
+-  Keep Your Project AndroidManifest.xml application Tag with no Attribute
+-  Keep Your Project AndroidManifest.xml have no launcher activity
+- Create a file extends Entry class with public method as your code entrance (There is no limited for your file and folder’s name and the hierarchy)
 
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
@@ -64,7 +63,7 @@ How Collect your code
             }
         }
 
-![file list][1]
+![file list][1] 
 
 Show your source code on phone
 ---------------------------------------
@@ -100,5 +99,5 @@ License
     
 
 
-  [1]: http://7xoxmg.com1.z0.glb.clouddn.com/collect_code_middle.png
-  [3]: http://7xoxmg.com1.z0.glb.clouddn.com/collect_source_code_middle.png
+  [1]: http://7xoxmg.com1.z0.glb.clouddn.com/collect_code_small.jpg
+  [3]: http://7xoxmg.com1.z0.glb.clouddn.com/collect_source_code_small.jpg
