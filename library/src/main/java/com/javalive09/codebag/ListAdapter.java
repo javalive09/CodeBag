@@ -103,12 +103,17 @@ public class ListAdapter extends BaseAdapter {
             String className = node.className;
             try {
                 Class<?> cls = Class.forName(className);
-                String superClassName = cls.getSuperclass().getSimpleName();
-                if (superClassName.equals("Entry")) {
-                    Method[] methods = cls.getDeclaredMethods();
-                    for (Method m : methods) {
-                        if (Modifier.PUBLIC == m.getModifiers()) {
-                            return ENTRY;
+                if(cls != null) {
+                    Class<?> superCls = cls.getSuperclass();
+                    if(superCls != null) {
+                        String superClassName = superCls.getSimpleName();
+                        if (superClassName.equals("Entry")) {
+                            Method[] methods = cls.getDeclaredMethods();
+                            for (Method m : methods) {
+                                if (Modifier.PUBLIC == m.getModifiers()) {
+                                    return ENTRY;
+                                }
+                            }
                         }
                     }
                 }
