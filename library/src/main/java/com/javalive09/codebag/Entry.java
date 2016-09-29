@@ -15,31 +15,35 @@ public class Entry {
 
     private CodeBagActivity mActivity = null;
 
-    protected CodeBagActivity getActivity() {
+    public CodeBagActivity getActivity() {
         return mActivity;
     }
 
-    protected void showTxt(String text) {
-        View view = showView(R.layout.dialog_code_textview, null, true);
+    public void showTxt(String text) {
+        showTxt(text, null, true);
+    }
+
+    public void showTxt(String text, DialogInterface.OnDismissListener listener, boolean touchOutsideCancel) {
+        View view = showView(R.layout.dialog_code_textview, listener, touchOutsideCancel);
         TextView textView = (TextView) view.findViewById(R.id.code_text);
         textView.setText(text);
     }
 
-    protected View showView(int resId) {
+    public View showView(int resId) {
         return showView(resId, null, true);
     }
 
-    protected View showView(View view) {
+    public View showView(View view) {
         return showView(view, null, true);
     }
 
-    protected View showView(int resId, DialogInterface.OnDismissListener listener, boolean touchOutsideCancel) {
+    public View showView(int resId, DialogInterface.OnDismissListener listener, boolean touchOutsideCancel) {
         View view = View.inflate(mActivity, resId, null);
         showView(view, listener, touchOutsideCancel);
         return view;
     }
 
-    protected View showView(View view, DialogInterface.OnDismissListener listener, boolean touchOutsideCancel) {
+    public View showView(View view, DialogInterface.OnDismissListener listener, boolean touchOutsideCancel) {
         AlertDialog dialog = new AlertDialog.Builder(mActivity, R.style.show_view_dialog).create();
         dialog.setCanceledOnTouchOutside(touchOutsideCancel);
         dialog.show();

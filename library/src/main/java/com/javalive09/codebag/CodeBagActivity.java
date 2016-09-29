@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -43,8 +44,9 @@ public class CodeBagActivity extends AppCompatActivity implements View.OnClickLi
     private static final String GIT_HUB_HOME = "https://raw.githubusercontent.com/";
     private static final String NODE_NAME = "node";
     private static List<CodeBagActivity> mActContainer = new LinkedList<>();
-
+    private Node mCurrentNode;
     private ListView mListView;
+    private ActivityCallback mActivityCallback;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +59,7 @@ public class CodeBagActivity extends AppCompatActivity implements View.OnClickLi
                 CodeBag app = (CodeBag) getApplication();
                 node = app.init();
             }
+            mCurrentNode = node;
             initActionBar(node);
             initStatusBar();
             setContentView(R.layout.activity_main_view);
@@ -64,6 +67,16 @@ public class CodeBagActivity extends AppCompatActivity implements View.OnClickLi
             ListAdapter adapter = new ListAdapter(CodeBagActivity.this, node.mSubNodeList);
             mListView.setAdapter(adapter);
         }
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putParcelable(NODE_NAME, mCurrentNode);
+    }
+
+    public void setmActivityCallback(ActivityCallback callback) {
+        mActivityCallback = callback;
     }
 
     private ArrayList<Node> getMethodNodes(Node parentNode) {
@@ -353,5 +366,25 @@ public class CodeBagActivity extends AppCompatActivity implements View.OnClickLi
         return dialog;
     }
 
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if(mActivityCallback != null) {
+            mActivityCallback.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(mActivityCallback != null) {
+            mActivityCallback.onActivityResult(requestCode, resultCode, data);
+        }
+    }
+
+    public interface ActivityCallback{
+        void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults);
+        void onActivityResult(int requestCode, int resultCode, Intent data);
+    }
 
 }
