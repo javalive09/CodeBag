@@ -63,8 +63,9 @@ How Collect your code
                 LogUtil.e("hello world !");
             }
         }
+
 ![file list][1]
-![menu][2]
+
 Show your source code on phone
 ---------------------------------------
   - push your project to github
@@ -79,6 +80,7 @@ Show your source code on phone
     <string name="app_name">sample</string>
 </resources>
 ```
+
 ![source dialog][3]
 
 License
