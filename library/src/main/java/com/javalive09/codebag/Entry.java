@@ -7,7 +7,9 @@ import android.view.View;
 import android.widget.TextView;
 
 /**
+ *
  * Created by peter on 16/9/21.
+ *
  */
 public class Entry {
 

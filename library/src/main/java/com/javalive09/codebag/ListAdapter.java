@@ -13,18 +13,20 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ *
  * Created by peter on 16/9/21.
+ *
  */
 public class ListAdapter extends BaseAdapter {
 
-    static final int NO_ENTRY = 0; // 不含有入口方法
-    static final int ENTRY = 1; // 含有入口方法
+    private static final int NO_ENTRY = 0; // 不含有入口方法
+    private static final int ENTRY = 1; // 含有入口方法
 
-    CodeBagActivity mActivity;
-    LayoutInflater factory;
-    List<Node> mList;
+    private CodeBagActivity mActivity;
+    private LayoutInflater factory;
+    private List<Node> mList;
 
-    public ListAdapter(CodeBagActivity context, ArrayList<Node> list) {
+    ListAdapter(CodeBagActivity context, ArrayList<Node> list) {
         factory = LayoutInflater.from(context);
         mActivity = context;
         mList = list;
@@ -118,7 +120,7 @@ public class ListAdapter extends BaseAdapter {
         return ENTRY;
     }
 
-    class Holder {
+    private class Holder {
         ImageView icon;
         TextView text;
     }

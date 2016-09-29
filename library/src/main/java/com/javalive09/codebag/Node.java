@@ -5,29 +5,31 @@ import android.os.Parcelable;
 import java.util.ArrayList;
 
 /**
+ *
  * Created by peter on 16/9/21.
+ *
  */
-public class Node implements Parcelable{
-	public static final int DIR = 0;
-	public static final int CLASS = 1;
-	public static final int METHOD = 2;
+class Node implements Parcelable{
+	static final int DIR = 0;
+	static final int CLASS = 1;
+	static final int METHOD = 2;
 
-	public int type;
-	public String name;
-	public String className;
-	public ArrayList<Node> mSubNodeList;
+	int type;
+	String name;
+	String className;
+	ArrayList<Node> mSubNodeList;
 	
-	public Node(String name, int type) {
+	Node(String name, int type) {
 		this.name = name;
 		this.type = type;
 	}
 	
-	public Node(String name, int type, String className) {
+	Node(String name, int type, String className) {
 		this(name, type);
 		this.className = className;
 	}
 
-	protected Node(Parcel in) {
+	Node(Parcel in) {
 		type = in.readInt();
 		name = in.readString();
 		className = in.readString();

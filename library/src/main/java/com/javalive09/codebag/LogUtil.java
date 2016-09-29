@@ -9,42 +9,50 @@ import android.text.TextUtils;
  */
 public class LogUtil {
 
+    private static String PACKAGE_NAME = "com.javalive09.codebag";
+    private static String CLASS_NAME = LogUtil.class.getSimpleName();
     private static final boolean DEBUG = true;
     private static StringBuffer mLog = new StringBuffer();
     private static long startTime = 0;
 
     public static void i(String msg) {
         if (DEBUG) {
-            CallerInfo info = CallerInfo.get("com.javalive09.codebag", "LogUtil", "i");
-            mLog.append(info.className + " > " + info.methodName + ": " + msg + "\n");
-            android.util.Log.i(info.className, info.methodName + ": " + msg);
+            CallerInfo info = CallerInfo.get(PACKAGE_NAME, CLASS_NAME, "i");
+            if(info != null) {
+                mLog.append(info.className).append(" > ").append(info.methodName).append(": ").append(msg).append("\n");
+                android.util.Log.i(info.className, info.methodName + ": " + msg);
+            }
         }
     }
 
     public static void w(String msg) {
         if (DEBUG) {
-            CallerInfo info = CallerInfo.get("com.javalive09.codebag", "LogUtil", "w");
-            mLog.append(info.className + " > " + info.methodName + ": " + msg + "\n");
-            android.util.Log.w(info.className, info.methodName + ": " + msg);
+            CallerInfo info = CallerInfo.get(PACKAGE_NAME, CLASS_NAME, "w");
+            if(info != null) {
+                mLog.append(info.className).append(" > ").append(info.methodName).append(": ").append(msg).append("\n");
+                android.util.Log.w(info.className, info.methodName + ": " + msg);
+            }
         }
     }
 
     public static void e(String msg) {
         if (DEBUG) {
-            CallerInfo info = CallerInfo.get("com.javalive09.codebag", "LogUtil", "e");
-            mLog.append(info.className + " > " + info.methodName + ": " + msg + "\n");
-            android.util.Log.e(info.className, info.methodName + ": " + msg);
+            CallerInfo info = CallerInfo.get(PACKAGE_NAME, CLASS_NAME, "e");
+            if(info != null) {
+                mLog.append(info.className).append(" > ").append(info.methodName).append(": ").append(msg).append("\n");
+                android.util.Log.e(info.className, info.methodName + ": " + msg);
+            }
         }
     }
 
-    public static String getLog() {
+    static String getLog() {
         if (DEBUG) {
             return mLog.toString();
         }
         return "";
     }
 
-    public static void clearLog() {
+    static void clearLog() {
         if (DEBUG) {
             mLog.setLength(0);
         }
@@ -67,12 +75,12 @@ public class LogUtil {
         return 0;
     }
 
-    public static class CallerInfo {
+    private static class CallerInfo {
 
         String className;
         String methodName;
 
-        public CallerInfo(String className, String methodName) {
+        CallerInfo(String className, String methodName) {
             this.className = className;
             this.methodName = methodName;
         }

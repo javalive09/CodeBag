@@ -34,7 +34,9 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
+ *
  * Created by peter on 16/9/21.
+ *
  */
 public class CodeBagActivity extends AppCompatActivity implements View.OnClickListener, View.OnLongClickListener {
 
@@ -82,9 +84,8 @@ public class CodeBagActivity extends AppCompatActivity implements View.OnClickLi
             }
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
-        } finally {
-            return methodList;
         }
+        return methodList;
     }
 
     private void initStatusBar() {
@@ -142,20 +143,16 @@ public class CodeBagActivity extends AppCompatActivity implements View.OnClickLi
     }
 
     private String getRootUrl() {
-        int ownerStrId = CodeBag.instance().getApplicationContext().getResources()
-                .getIdentifier("git_owner", "string", CodeBag.instance().getPackageName());
+        int ownerStrId = getResources().getIdentifier("git_owner", "string", getPackageName());
         if(ownerStrId != 0) {
-            int repoStrId = CodeBag.instance().getApplicationContext().getResources()
-                    .getIdentifier("git_repo", "string", CodeBag.instance().getPackageName());
+            int repoStrId = getResources().getIdentifier("git_repo", "string", getPackageName());
             if(repoStrId != 0) {
-                int dirStrId = CodeBag.instance().getApplicationContext().getResources()
-                        .getIdentifier("git_dir", "string", CodeBag.instance().getPackageName());
+                int dirStrId = getResources().getIdentifier("git_dir", "string", getPackageName());
                 if(dirStrId != 0) {
-                    String owner = CodeBag.instance().getResources().getString(ownerStrId);
-                    String repo = CodeBag.instance().getResources().getString(repoStrId);
-                    String rootDir = CodeBag.instance().getResources().getString(dirStrId);
-                    String url = GIT_HUB_HOME + owner + "/" + repo + "/master/" + rootDir + "/src/main/java/";
-                    return url;
+                    String owner = getString(ownerStrId);
+                    String repo = getString(repoStrId);
+                    String rootDir = getString(dirStrId);
+                    return GIT_HUB_HOME + owner + "/" + repo + "/master/" + rootDir + "/src/main/java/";
                 }else {
                     Toast.makeText(CodeBagActivity.this, R.string.no_dir, Toast.LENGTH_LONG).show();
                 }
@@ -259,15 +256,15 @@ public class CodeBagActivity extends AppCompatActivity implements View.OnClickLi
         });
     }
 
-    public static class StatusBarApiInvoke {
+    private static class StatusBarApiInvoke {
         Activity mAct;
 
-        public StatusBarApiInvoke(Activity act) {
+        StatusBarApiInvoke(Activity act) {
             mAct = act;
         }
 
         @TargetApi(21)
-        public void invoke() {
+        void invoke() {
             Window window = mAct.getWindow();
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
             window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);

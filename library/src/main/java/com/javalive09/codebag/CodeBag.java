@@ -5,27 +5,22 @@ import java.util.ArrayList;
 import java.util.Enumeration;
 import dalvik.system.DexFile;
 import android.app.Application;
-import android.content.Context;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.text.TextUtils;
 
 /**
+ *
  * Created by peter on 16/9/21.
+ *
  */
 public class CodeBag extends Application {
 
     private static final boolean PRINT_NODE = false;
-    private static Context mContext;
     private Node mRootNode;
 
     @Override
     public void onCreate() {
         super.onCreate();
-        mContext = this;
-    }
-
-    public static Context instance() {
-        return mContext;
     }
 
     public Node init() {
@@ -111,7 +106,7 @@ public class CodeBag extends Application {
      * @param type        子节点类型（目录/类）
      * @param className   子节点全名（目录一般为null，类才有）
      * @param currentNode 父节点
-     * @return
+     * @return  Node
      */
     private Node getSubNode(String nodeName, int type, String className, Node currentNode) {
         if (currentNode.mSubNodeList == null) {//创建子节点列表
