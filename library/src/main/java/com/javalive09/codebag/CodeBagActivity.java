@@ -19,6 +19,7 @@ import android.view.ViewConfiguration;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.BufferedReader;
@@ -254,7 +255,7 @@ public class CodeBagActivity extends AppCompatActivity implements View.OnClickLi
             protected void onPostExecute(String s) {
                 super.onPostExecute(s);
                 if(!TextUtils.isEmpty(s)) {
-                    dialog.setMessage(s);
+                    updateContent(dialog, s);
                 }
             }
         }.execute();
@@ -360,11 +361,22 @@ public class CodeBagActivity extends AppCompatActivity implements View.OnClickLi
         AlertDialog dialog = new AlertDialog.Builder(CodeBagActivity.this,
                 R.style.AppCompatAlertDialogStyle).create();
         dialog.setCanceledOnTouchOutside(true);
-        dialog.setTitle(title);
-        dialog.setMessage(content);
+        View dialogView = View.inflate(CodeBagActivity.this, R.layout.alertdialog_view, null);
+        dialog.setView(dialogView);
+        TextView titleView = (TextView) dialogView.findViewById(R.id.title);
+        TextView contentView = (TextView) dialogView.findViewById(R.id.content);
+        titleView.setText(title);
+        contentView.setText(content);
         dialog.show();
         return dialog;
     }
+
+    private void updateContent(AlertDialog dialog, String content) {
+        TextView contentView = (TextView) dialog.findViewById(R.id.content);
+        contentView.setText(content);
+        dialog.show();
+    }
+
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {

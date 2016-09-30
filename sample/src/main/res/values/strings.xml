@@ -4,4 +4,19 @@
     <string name="git_dir">sample</string> <!--your root dir name-->
 
     <string name="app_name">sample</string>
+    <string name="util_phone_mode">phone mode:  %s</string>
+    <string name="util_phone_sdk">sdk version:  %d</string>
+    <string name="util_phone_firmware">firmware version:  %s</string>
+    <string name="util_phone_resolution">resolution:  %s</string>
+    <string name="util_phone_density">density:  %d</string>
+    <string name="util_phone_imei">imei:  %s</string>
+    <string name="util_phone_res_dir">current res dir:  %s</string>
+    <string name="util_phone_status_bar_h">status bar height:  %d</string>
+    <string name="util_phone_brand">brand:  %s</string>
+
+    <string name="util_color">current color</string>
+    <string name="util_color_title">input color (alpha, red, green, blue)</string>
+    <string name="util_alpha_title">alpha value</string>
+    <string name="util_alpha_percent_title">alpha percent</string>
+    <string name="values_marks">values</string>
 </resources>

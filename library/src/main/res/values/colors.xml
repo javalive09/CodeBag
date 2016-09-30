@@ -4,7 +4,7 @@
     <color name="main_item_color">#aa6ea3e5</color>
     <color name="titlebar">#34495e</color>
     <color name="statusbar">#455a6f</color>
-
+    <color name="alertdialog_scrollbar">#b8b8b8</color>
     <color name="blue">#03A9F4</color>
 
 </resources>

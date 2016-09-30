@@ -4,6 +4,9 @@
     <dimen name="list_item_padding">11dp</dimen>
     <dimen name="list_item_min_h">50dp</dimen>
     <dimen name="dialog_mini_h">200dp</dimen>
+    <dimen name="dialog_title_h">50dp</dimen>
+    <dimen name="dialog_title_size">20sp</dimen>
     <dimen name="dialog_mini_w">1024dp</dimen>
-
+    <dimen name="dialog_padding">15dp</dimen>
+    <dimen name="alertdialog_scrollbar_size">4dp</dimen>
 </resources>
