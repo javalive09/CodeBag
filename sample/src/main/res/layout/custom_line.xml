@@ -1,0 +1,43 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:xui="http://schemas.android.com/apk/res-auto"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:layout_gravity="center" >
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" 
+        android:layout_alignParentLeft="true"
+        android:layout_centerVertical="true"
+        android:maxWidth="200dp"
+        android:singleLine="true"
+        android:ellipsize="end"
+        android:text="小苹果1111111111dddssssssssssss11111111111ddddddddddddddddddd"/>
+
+        <TextView
+        android:id="@+id/size"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" 
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:text="118.7M   "/>
+    
+    
+    <com.codebag.code.view.graphics.CustomLine
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" 
+        android:layout_toLeftOf="@id/size"
+        android:layout_toRightOf="@id/title"
+        android:layout_centerVertical="true"
+        xui:point_line_radius="5px"
+        xui:point_line_gap="12px"
+        xui:point_line_color="#88a2d4"
+        android:layout_marginLeft="9px"
+        android:layout_marginRight="15px">
+    </com.codebag.code.view.graphics.CustomLine>
+    
+    
+    
+
+</RelativeLayout>

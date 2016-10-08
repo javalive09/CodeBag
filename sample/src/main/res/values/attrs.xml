@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="XuiCircularProgressBar">
+        <attr name="stroke_width" format="dimension" />
+        <attr name="progress" format="float" />
+        <attr name="progress_color" format="color" />
+        <attr name="progress_radius" format="dimension" />
+        <attr name="thumb_visible" format="boolean" />
+    </declare-styleable>
+
+    <attr name="circularProgressBarStyle" format="reference" />
+    
+        <declare-styleable name="XuiPointLine">
+        <attr name="point_line_radius" format="dimension" />
+        <attr name="point_line_gap" format="dimension" />
+        <attr name="point_line_color" format="color" />
+    </declare-styleable>
+    
+    <attr name="pointLine" format="reference" />
+
+    
+     <attr name="roateView" format="reference" />
+    
+        <declare-styleable name="search">
+        <attr name="search_radius" format="dimension" />
+        <attr name="rearch_angle" format="float" />/>
+        <attr name="rearch_res" format="integer" />/>
+    </declare-styleable>
+    
+</resources>

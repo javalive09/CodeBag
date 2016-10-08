@@ -59,12 +59,12 @@
                 android:gravity="center"
                 android:orientation="horizontal">
 
-                <com.peter.demos.thirdlibs.wheel.WheelView
+                <com.javalive09.sample.thirdlibs.wheel.WheelView
                     android:id="@+id/alpha1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
 
-                <com.peter.demos.thirdlibs.wheel.WheelView
+                <com.javalive09.sample.thirdlibs.wheel.WheelView
                     android:id="@+id/alpha2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />

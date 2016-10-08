@@ -2,8 +2,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.javalive09.sample">
     <application>
-
-        <activity android:name="com.javalive09.sample.HelloWorldActivity"/>
-        ...
+        <activity android:name=".HelloWorldActivity"/>
+        <activity android:name= ".function.activity.activityconfigchange.MyActivity"/>
+        <activity android:name= ".function.activity.activitylife.MyActivityA"/>
+        <activity android:name= ".function.activity.activitylife.MyActivityB"/>
+        <activity android:name= ".function.activity.openurl_browser.MyActivity"/>
+        <service android:name= ".function.service.servicelife.myService"/>
     </application>
 </manifest>
