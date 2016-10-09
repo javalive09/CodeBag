@@ -9,6 +9,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.javalive09.codebag.Entry;
+import com.javalive09.sample.R;
 
 public class MyTextview extends Entry {
 
@@ -119,18 +120,18 @@ public class MyTextview extends Entry {
 		RelativeLayout.LayoutParams params_num = new RelativeLayout.LayoutParams(-2, -2);
 		params_num.addRule(RelativeLayout.CENTER_IN_PARENT);
 		mText.addView(mNum, params_num);
-		mNum.setId(1);
+		mNum.setId(R.id.one);
 		//percent
 	    RelativeLayout.LayoutParams params_percent = new RelativeLayout.LayoutParams
 	    		(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);  
-	    params_percent.addRule(RelativeLayout.RIGHT_OF, 1); 
-	    params_percent.addRule(RelativeLayout.ALIGN_TOP, 1); 
+	    params_percent.addRule(RelativeLayout.RIGHT_OF, R.id.one);
+	    params_percent.addRule(RelativeLayout.ALIGN_TOP, R.id.one);
 	    mText.addView(mPercentSign, params_percent);
 	    //used
 	    RelativeLayout.LayoutParams params_used = new RelativeLayout.LayoutParams
 	    		(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);  
-	    params_used.addRule(RelativeLayout.BELOW, 1); 
-	    params_used.addRule(RelativeLayout.CENTER_HORIZONTAL, 1); 
+	    params_used.addRule(RelativeLayout.BELOW, R.id.one);
+	    params_used.addRule(RelativeLayout.CENTER_HORIZONTAL, R.id.one);
 	    
 	    mText.addView(used, params_used);
 	    

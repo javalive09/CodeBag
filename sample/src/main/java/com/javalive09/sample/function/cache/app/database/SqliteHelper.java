@@ -99,6 +99,7 @@ public class SqliteHelper extends SQLiteOpenHelper {
 		    int index = cursor.getColumnIndex("columnName");
 			count = cursor.getInt(index);
 		}
+		cursor.close();
 		db.close();
 		return count;
 	}

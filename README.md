@@ -8,7 +8,7 @@ Download
 
 Gradle:
 ```
-compile 'com.javalive09.codebag:codebag:1.0.4'
+compile 'com.javalive09.codebag:codebag:1.0.7'
 ```
 
 How Collect your code
@@ -51,7 +51,7 @@ How Collect your code
             
             //start activity
             public void startActivity() {
-                Intent intent = new Intent(getActivity(),                 HelloWorldActivity.class);
+                Intent intent = new Intent(getActivity(), HelloWorldActivity.class);
                 startActivity(intent);
             }
             

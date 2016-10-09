@@ -8,7 +8,7 @@ import android.view.animation.RotateAnimation;
 import android.view.animation.ScaleAnimation;
 import com.javalive09.codebag.Entry;
 
-public class Guide extends Entry {
+public class Guide {
 
 	public void scaleAnimation(View view) {
 		AnimationSet animinationSet = new AnimationSet(true);

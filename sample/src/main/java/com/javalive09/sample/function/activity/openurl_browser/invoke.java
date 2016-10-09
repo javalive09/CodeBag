@@ -8,5 +8,5 @@ public class invoke extends Entry {
 	public void show() {
 		getActivity().startActivity(new Intent(getActivity(),MyActivity.class));
 	}
-	
+
 }

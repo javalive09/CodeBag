@@ -32,7 +32,7 @@ public class ButtonContainer extends FrameLayout {
 	
 	public void anim() {
 		end.setVisibility(View.VISIBLE);
-		ObjectAnimator mRadiusAnimator = ObjectAnimator.ofFloat(flow, "radius", flow.getDiameter(), 0).setDuration(2000);
+		ObjectAnimator mRadiusAnimator = ObjectAnimator.ofFloat(flow, "radius", flow.getDiameter(), 0).setDuration(1000);
 		mRadiusAnimator.addListener(new AnimatorListenerAdapter() {
 			
 			@Override

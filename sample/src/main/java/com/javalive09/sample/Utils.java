@@ -21,6 +21,7 @@ import com.fastaccess.permission.base.PermissionHelper;
 import com.fastaccess.permission.base.callback.OnPermissionCallback;
 import com.javalive09.codebag.CodeBagActivity;
 import com.javalive09.codebag.Entry;
+import com.javalive09.codebag.ShowViewActivity;
 import com.javalive09.sample.thirdlibs.wheel.OnWheelScrollListener;
 import com.javalive09.sample.thirdlibs.wheel.WheelView;
 import com.javalive09.sample.thirdlibs.wheel.adapters.NumericWheelAdapter;
@@ -53,7 +54,7 @@ public class Utils extends Entry {
             RadioGroup rg, switchType;
 
             private void show() {
-                View content = showView(R.layout.px_dp_layout, null, true);
+                View content = showView(R.layout.px_dp_layout, null);
                 wv1 = (WheelView) content.findViewById(R.id.th);
                 wv2 = (WheelView) content.findViewById(R.id.h);
                 wv3 = (WheelView) content.findViewById(R.id.ten);
@@ -68,10 +69,10 @@ public class Utils extends Entry {
                         setRealValue();
                     }
                 };
-                initWheel(wv1, listener);
-                initWheel(wv2, listener);
-                initWheel(wv3, listener);
-                initWheel(wv4, listener);
+                initWheel(wv1, listener, content.getContext());
+                initWheel(wv2, listener, content.getContext());
+                initWheel(wv3, listener, content.getContext());
+                initWheel(wv4, listener, content.getContext());
 
                 switchType = (RadioGroup) content.findViewById(R.id.switch_type);
                 switchType.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
@@ -119,8 +120,8 @@ public class Utils extends Entry {
                 return 0;
             }
 
-            private void initWheel(WheelView wheel, OnWheelScrollListener listener) {
-                NumericWheelAdapter adapter = new NumericWheelAdapter(getActivity(), 0, 9);
+            private void initWheel(WheelView wheel, OnWheelScrollListener listener, Context context) {
+                NumericWheelAdapter adapter = new NumericWheelAdapter(context, 0, 9);
                 adapter.setTextSize(50);
                 wheel.setViewAdapter(adapter);
                 wheel.setCurrentItem(0);
@@ -164,7 +165,7 @@ public class Utils extends Entry {
 
             private void show (){
 
-                  permissionHelper = PermissionHelper.getInstance(getActivity(), new OnPermissionCallback() {
+                permissionHelper = PermissionHelper.getInstance(getActivity(), new OnPermissionCallback() {
                     @Override
                     public void onPermissionGranted(@NonNull String[] permissionName) {
                         realshow();
@@ -180,12 +181,13 @@ public class Utils extends Entry {
                     }
                     @Override
                     public void onPermissionNeedExplanation(@NonNull String permissionName) {
-                        showTxt("need " + permissionName, new DialogInterface.OnDismissListener() {
+                        showTxt("need " + permissionName, new ShowViewActivity.ActivityCallback() {
+
                             @Override
-                            public void onDismiss(DialogInterface dialog) {
+                            public void onDestory() {
                                 permissionHelper.openSettingsScreen();
                             }
-                        }, true);
+                        });
 
                     }
                     @Override
@@ -197,7 +199,7 @@ public class Utils extends Entry {
 
                 });
 
-                getActivity().setmActivityCallback(new CodeBagActivity.ActivityCallback() {
+                getActivity().setmActivityCallback(new ShowViewActivity.ActivityCallback() {
 
 
                     @Override
@@ -209,6 +211,11 @@ public class Utils extends Entry {
                     public void onActivityResult(int requestCode, int resultCode, Intent data) {
                         permissionHelper.onActivityForResult(requestCode);
                     }
+
+                    @Override
+                    public void onDestory() {
+
+                    }
                 });
 
                 permissionHelper.setForceAccepting(true).request(PHONE_STATE);
@@ -218,7 +225,7 @@ public class Utils extends Entry {
 
                 DisplayMetrics dm = getActivity().getResources().getDisplayMetrics();
 
-                View view = showView(R.layout.utils_phonedata_layout, null, true);
+                View view = showView(R.layout.utils_phonedata_layout, null);
                 String modeStr = String.format(getActivity().getString(R.string.util_phone_mode), android.os.Build.MODEL);
                 ((TextView) view.findViewById(R.id.phone_mode)).
 
@@ -299,7 +306,7 @@ public class Utils extends Entry {
             View showView;
 
             public void show() {
-                View view = showView(R.layout.utils_color, null, true);
+                View view = showView(R.layout.utils_color, null);
 
                 showView = view.findViewById(R.id.color);
                 wvAlpha1 = (WheelView) view.findViewById(R.id.alpha1);
@@ -374,7 +381,7 @@ public class Utils extends Entry {
             TextView alphaValue;
 
             void show() {
-                View view = showView(R.layout.utils_alpha_percent, null, true);
+                View view = showView(R.layout.utils_alpha_percent, null);
                 alphaValue = (TextView) view.findViewById(R.id.alpha_value);
                 alpha1 = (WheelView) view.findViewById(R.id.alpha1);
                 alpha2 = (WheelView) view.findViewById(R.id.alpha2);
@@ -432,12 +439,12 @@ public class Utils extends Entry {
             boolean cancelTest = false;
 
             void show() {
-                View view =showView(R.layout.utils_networkspeed, new DialogInterface.OnDismissListener() {
+                View view =showView(R.layout.utils_networkspeed, new ShowViewActivity.ActivityCallback() {
                     @Override
-                    public void onDismiss(DialogInterface dialogInterface) {
+                    public void onDestory() {
                         cancelTest();
                     }
-                }, false);
+                });
                 pb = (ProgressBar) view.findViewById(R.id.loading);
                 bt = (Button) view.findViewById(R.id.start);
                 bt.setOnClickListener(new View.OnClickListener() {

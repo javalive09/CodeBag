@@ -107,7 +107,7 @@ public class Inovker extends Entry {
 	 * 
 	 * @param context
 	 */
-	public ArrayList<Integer> readLauncherProviderWidget(Context context) {
+	private ArrayList<Integer> readLauncherProviderWidget(Context context) {
 
 		final ContentResolver cr = context.getContentResolver();
 		String AUTHORITY = getAuthorityFromPermission(context,
@@ -154,6 +154,7 @@ public class Inovker extends Entry {
 
 		}
 
+		c.close();
 		return idList;
 
 	}
@@ -178,44 +179,44 @@ public class Inovker extends Entry {
 		}
 	}
 
-	public void getEnableWidget() {
-		Intent intent = new Intent(AppWidgetManager.ACTION_APPWIDGET_ENABLED);
-		List<ResolveInfo> list = getActivity().getPackageManager()
-				.queryBroadcastReceivers(intent, 64);
-		for (ResolveInfo info : list) {
-			String packageName = info.activityInfo.packageName;
-			LogUtil.i(    "packageName =" + packageName);
-		}
-	}
+//	public void getEnableWidget() {
+//		Intent intent = new Intent(AppWidgetManager.ACTION_APPWIDGET_ENABLED);
+//		List<ResolveInfo> list = getActivity().getPackageManager()
+//				.queryBroadcastReceivers(intent, 64);
+//		for (ResolveInfo info : list) {
+//			String packageName = info.activityInfo.packageName;
+//			LogUtil.i(    "packageName =" + packageName);
+//		}
+//	}
 
-	public void getUpdateWidget() {
-		Intent intent = new Intent(AppWidgetManager.ACTION_APPWIDGET_UPDATE);
-		List<ResolveInfo> list = getActivity().getPackageManager()
-				.queryBroadcastReceivers(intent, 64);
-		for (ResolveInfo info : list) {
-			String packageName = info.activityInfo.packageName;
-			LogUtil.i(    "packageName =" + packageName);
-		}
-	}
+//	public void getUpdateWidget() {
+//		Intent intent = new Intent(AppWidgetManager.ACTION_APPWIDGET_UPDATE);
+//		List<ResolveInfo> list = getActivity().getPackageManager()
+//				.queryBroadcastReceivers(intent, 64);
+//		for (ResolveInfo info : list) {
+//			String packageName = info.activityInfo.packageName;
+//			LogUtil.i(    "packageName =" + packageName);
+//		}
+//	}
 
-	public void getDeletedWidget() {
-		Intent intent = new Intent(AppWidgetManager.ACTION_APPWIDGET_DELETED);
-		List<ResolveInfo> list = getActivity().getPackageManager()
-				.queryBroadcastReceivers(intent, 64);
-		for (ResolveInfo info : list) {
-			String packageName = info.activityInfo.packageName;
-			LogUtil.i(    "packageName =" + packageName);
-		}
-	}
+//	public void getDeletedWidget() {
+//		Intent intent = new Intent(AppWidgetManager.ACTION_APPWIDGET_DELETED);
+//		List<ResolveInfo> list = getActivity().getPackageManager()
+//				.queryBroadcastReceivers(intent, 64);
+//		for (ResolveInfo info : list) {
+//			String packageName = info.activityInfo.packageName;
+//			LogUtil.i(    "packageName =" + packageName);
+//		}
+//	}
 
-	public void getPickWidget() {
-		Intent intent = new Intent(AppWidgetManager.ACTION_APPWIDGET_PICK);
-		List<ResolveInfo> list = getActivity().getPackageManager()
-				.queryBroadcastReceivers(intent, 64);
-		for (ResolveInfo info : list) {
-			String packageName = info.activityInfo.packageName;
-			LogUtil.i(    "packageName =" + packageName);
-		}
-	}
+//	public void getPickWidget() {
+//		Intent intent = new Intent(AppWidgetManager.ACTION_APPWIDGET_PICK);
+//		List<ResolveInfo> list = getActivity().getPackageManager()
+//				.queryBroadcastReceivers(intent, 64);
+//		for (ResolveInfo info : list) {
+//			String packageName = info.activityInfo.packageName;
+//			LogUtil.i(    "packageName =" + packageName);
+//		}
+//	}
 
 }

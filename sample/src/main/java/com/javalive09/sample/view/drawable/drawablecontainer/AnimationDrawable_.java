@@ -62,12 +62,12 @@ public class AnimationDrawable_ extends Entry implements OnClickListener{
 		
 		Button start = new Button(getActivity());
 		start.setText("start");
-		start.setId(0);
+		start.setId(R.id.one);
 		start.setOnClickListener(this);
 		
 		Button stop = new Button(getActivity());
 		stop.setText("stop");
-		stop.setId(1);
+		stop.setId(R.id.two);
 		stop.setOnClickListener(this);
 		
         FrameLayout.LayoutParams params2 = new FrameLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
@@ -86,12 +86,12 @@ public class AnimationDrawable_ extends Entry implements OnClickListener{
 	@Override
 	public void onClick(View v) {
 		switch(v.getId()) {
-		case 0:
+		case R.id.one:
 			if(ad != null && !ad.isRunning()) {
 				ad.start();
 			}
 			break;
-		case 1:	
+		case R.id.two:
 			if(ad != null && ad.isRunning()) {
 				ad.stop();
 			}

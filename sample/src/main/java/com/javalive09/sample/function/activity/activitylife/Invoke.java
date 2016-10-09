@@ -7,8 +7,8 @@ import com.javalive09.codebag.Entry;
 public class Invoke extends Entry {
 
 	public void actionA() {
-		startActivity(new Intent(getActivity(),MyActivityA.class));
+		getActivity().startActivity(new Intent(getActivity(),MyActivityA.class));
 	}
-	
+
 }
 

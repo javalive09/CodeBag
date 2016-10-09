@@ -36,7 +36,7 @@ public class HelloWorld extends Entry {
     //start activity
     public void startActivity() {
         Intent intent = new Intent(getActivity(), HelloWorldActivity.class);
-        startActivity(intent);
+        getActivity().startActivity(intent);
     }
 
     //show log

@@ -1,8 +1,5 @@
 package com.javalive09.codebag;
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
-import android.content.Intent;
 import android.view.View;
 import android.widget.TextView;
 
@@ -13,53 +10,43 @@ import android.widget.TextView;
  */
 public class Entry {
 
-    private CodeBagActivity mActivity = null;
+    private ShowViewActivity mActivity = null;
 
-    public CodeBagActivity getActivity() {
+    public ShowViewActivity getActivity() {
         return mActivity;
     }
 
     public void showTxt(String text) {
-        showTxt(text, null, true);
+        showTxt(text, null);
     }
 
-    public void showTxt(String text, DialogInterface.OnDismissListener listener, boolean touchOutsideCancel) {
-        View view = showView(R.layout.dialog_code_textview, listener, touchOutsideCancel);
-        TextView textView = (TextView) view.findViewById(R.id.code_text);
+    public void showTxt(String text, ShowViewActivity.ActivityCallback mActivityCallback) {
+        showView(R.layout.dialog_code_textview, mActivityCallback);
+        TextView textView = (TextView)findViewById(R.id.code_text);
         textView.setText(text);
     }
 
     public View showView(int resId) {
-        return showView(resId, null, true);
+        return showView(resId, null);
     }
 
-    public View showView(View view) {
-        return showView(view, null, true);
+    public View showView(int resId, ShowViewActivity.ActivityCallback mActivityCallback) {
+        mActivity.setmActivityCallback(mActivityCallback);
+        return mActivity.showMethodView(resId);
     }
 
-    public View showView(int resId, DialogInterface.OnDismissListener listener, boolean touchOutsideCancel) {
-        View view = View.inflate(mActivity, resId, null);
-        showView(view, listener, touchOutsideCancel);
-        return view;
+    public View showView(View view){
+        return showView(view, null);
     }
 
-    public View showView(View view, DialogInterface.OnDismissListener listener, boolean touchOutsideCancel) {
-        AlertDialog dialog = new AlertDialog.Builder(mActivity, R.style.show_view_dialog).create();
-        dialog.setCanceledOnTouchOutside(touchOutsideCancel);
-        dialog.show();
-        dialog.setContentView(view);
-        if(listener != null) {
-            dialog.setOnDismissListener(listener);
-        }
-        return view;
+    public View showView(View view, ShowViewActivity.ActivityCallback mActivityCallback) {
+        mActivity.setmActivityCallback(mActivityCallback);
+        return mActivity.showMethodView(view);
     }
 
-    protected void startActivity(Intent intent) {
-        mActivity.startActivity(intent);
+    public View findViewById(int id) {
+        return mActivity.findViewById(id);
     }
 
-    protected void startService(Intent intent) {
-        mActivity.startService(intent);
-    }
 
 }

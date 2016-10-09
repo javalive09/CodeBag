@@ -1,10 +1,9 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-             xmlns:tools="http://schemas.android.com/tools"
              android:layout_width="match_parent"
              android:layout_height="match_parent"
              android:background="#00000000">
 
-    <com.codebag.code.project.xui.guide.ColorAnimationView
+    <com.javalive09.sample.project.xui.guide.ColorAnimationView
         android:id="@+id/ColorAnimationView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>

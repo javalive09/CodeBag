@@ -15,27 +15,27 @@ public class Invoke extends Entry {
 
 	public void showAnim() {
 
-		final View p = showView(R.layout.searchlayout);
-		p.findViewById(R.id.root).setVisibility(View.INVISIBLE);
+		showView(R.layout.searchlayout);
+		findViewById(R.id.root).setVisibility(View.INVISIBLE);
 		getActivity().getWindow().getDecorView().postDelayed(new Runnable() {
 
 			@Override
 			public void run() {
 				AnimatorSet set = new AnimatorSet();
-				final View root = p.findViewById(R.id.root);
+				final View root = findViewById(R.id.root);
 				ObjectAnimator rootAnim = ObjectAnimator.ofFloat(root, "rotation", 0, 360);
 				rootAnim.setDuration(5000);
 				rootAnim.setRepeatCount(ObjectAnimator.INFINITE);
 				rootAnim.setInterpolator(new LinearInterpolator());
 
-				View search = p.findViewById(R.id.search);
+				View search = findViewById(R.id.search);
 				ObjectAnimator searchAnim = ObjectAnimator.ofFloat(search, "rotation", 360, 0);
 				searchAnim.setRepeatCount(ObjectAnimator.INFINITE);
 				searchAnim.setInterpolator(new LinearInterpolator());
 				searchAnim.setDuration(5000);
 				set.playTogether(rootAnim, searchAnim);
 				set.start();
-				p.findViewById(R.id.root).setVisibility(View.VISIBLE);
+				findViewById(R.id.root).setVisibility(View.VISIBLE);
 			}
 		}, 500);
 	}

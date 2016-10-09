@@ -8,7 +8,7 @@ import com.javalive09.codebag.Entry;
 
 /**
  * 跨应用调用其他程序的service
- * 
+ *
  * @author peter
  *
  */
@@ -21,6 +21,6 @@ public class TestInvokeOtherAppService extends Entry {
 		intent.setComponent(componentName);
 		getActivity().startService(intent);
 	}
-	
+
 }
 

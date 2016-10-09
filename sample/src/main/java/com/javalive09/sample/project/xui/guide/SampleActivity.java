@@ -34,10 +34,10 @@ public class SampleActivity extends Entry {
 	int currentPos = -1;
 	
 	public void invoke() {
-		View root = showView(View.inflate(getActivity(), R.layout.xui_guide_sample, null));
+		showView(View.inflate(getActivity(), R.layout.xui_guide_sample, null));
 		MyAdapter adpter = new MyAdapter();
-		ColorAnimationView colorAnimationView = (ColorAnimationView) root.findViewById(R.id.ColorAnimationView);
-		final ViewPager viewPager = (ViewPager) root.findViewById(R.id.viewPager);
+		ColorAnimationView colorAnimationView = (ColorAnimationView) findViewById(R.id.ColorAnimationView);
+		final ViewPager viewPager = (ViewPager) findViewById(R.id.viewPager);
 		viewPager.setAdapter(adpter);
 		colorAnimationView.setmViewPager(viewPager, 4, Color.parseColor("#ff30d9fd")
 				,Color.parseColor("#ffa7da5a")

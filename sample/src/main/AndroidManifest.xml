@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.javalive09.sample">
-    <application>
+
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+
+    <application
+        android:allowBackup="true">
         <activity android:name=".HelloWorldActivity"/>
         <activity android:name= ".function.activity.activityconfigchange.MyActivity"/>
         <activity android:name= ".function.activity.activitylife.MyActivityA"/>

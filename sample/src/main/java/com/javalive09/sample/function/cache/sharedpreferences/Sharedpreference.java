@@ -15,13 +15,25 @@ public class Sharedpreference extends Entry {
 		SharedPreferences sp = getActivity().getSharedPreferences("getSharedPreferences1", Context.MODE_PRIVATE);
 		sp.edit().putString("peter1", "12345").commit();
 	}
-	
+
+	public void get1() {
+		SharedPreferences sp = getActivity().getSharedPreferences("getSharedPreferences1", Context.MODE_PRIVATE);
+		String str = sp.getString("peter1", "");
+		showTxt(str);
+	}
+
 	/**
 	 * context定义的通用接口getSharedPreferences	    （名字，权限）
 	 */
 	public void set2() {
 		SharedPreferences sp = getActivity().getApplicationContext().getSharedPreferences("getSharedPreferences2", Context.MODE_PRIVATE);
 		sp.edit().putString("peter2", "12345").commit();
+	}
+
+	public void get2() {
+		SharedPreferences sp = getActivity().getApplicationContext().getSharedPreferences("getSharedPreferences2", Context.MODE_PRIVATE);
+		String str = sp.getString("peter2", "");
+		showTxt(str);
 	}
 	
 	/**
@@ -32,10 +44,22 @@ public class Sharedpreference extends Entry {
 		String name = getActivity().getLocalClassName();
 		sp.edit().putString("peter3", "6789").commit();
 	}
+
+	public void get3() {
+		SharedPreferences sp = getActivity().getPreferences(Context.MODE_PRIVATE);
+		String str = sp.getString("peter3", "");
+		showTxt(str);
+	}
 	
 	public void set4() {
 	    SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getActivity());
 	    sp.edit().putString("peter34", "0000").commit();
+	}
+
+	public void get4() {
+		SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getActivity());
+		String str = sp.getString("peter34", "");
+		showTxt(str);
 	}
 
 }

@@ -13,12 +13,12 @@
     <string name="item_string_java">%s .java</string>
     <string name="item_string_method">%s ( )</string>
     <string name="base_url"></string>
-    <string name="loading">loading...</string>
+    <string name="loading">loading&#8230;</string>
     <string name="no_code">not found source!</string>
     <string name="time_out">time exception!</string>
     <string name="io_exp">io exception!</string>
     <string name="no_owner">config git owner in config.xml at your project res !</string>
     <string name="no_repo">config git repo in config.xml at your project res !</string>
     <string name="no_dir">config git dir in config.xml at your project res !</string>
-
+    <string name="no_view">no view!</string>
 </resources>

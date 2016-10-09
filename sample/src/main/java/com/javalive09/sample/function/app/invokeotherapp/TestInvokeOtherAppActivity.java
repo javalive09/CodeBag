@@ -8,9 +8,9 @@ import com.javalive09.codebag.Entry;
 
 /**
  * 跨应用调用其他activity的两种方式: componentName, action
- * 
+ *
  * 注意：被调用组件必须，android:exported="true" 
- * 
+ *
  * @author peter
  *
  */
@@ -22,12 +22,12 @@ public class TestInvokeOtherAppActivity extends Entry {
 		intent.setComponent(component);
 		getActivity().startActivity(intent);
 	}
-	
+
 	public void runOtherActivity2() {
 		Intent intent = new Intent();
 		intent.setAction("com.peter.foo");
 		getActivity().startActivity(intent);
 	}
-	
+
 }
 

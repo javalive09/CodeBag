@@ -6,7 +6,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -25,7 +24,6 @@ import android.widget.Toast;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
@@ -42,12 +40,9 @@ import java.util.List;
  */
 public class CodeBagActivity extends AppCompatActivity implements View.OnClickListener, View.OnLongClickListener {
 
-    private static final String GIT_HUB_HOME = "https://raw.githubusercontent.com/";
-    private static final String NODE_NAME = "node";
     private static List<CodeBagActivity> mActContainer = new LinkedList<>();
     private Node mCurrentNode;
     private ListView mListView;
-    private ActivityCallback mActivityCallback;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,7 +50,7 @@ public class CodeBagActivity extends AppCompatActivity implements View.OnClickLi
         mActContainer.add(CodeBagActivity.this);
         Intent intent = getIntent();
         if (intent != null) {
-            Node node = intent.getParcelableExtra(NODE_NAME);
+            Node node = intent.getParcelableExtra(CodeBag.NODE_NAME);
             if(node == null) {//init
                 CodeBag app = (CodeBag) getApplication();
                 node = app.init();
@@ -73,11 +68,7 @@ public class CodeBagActivity extends AppCompatActivity implements View.OnClickLi
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putParcelable(NODE_NAME, mCurrentNode);
-    }
-
-    public void setmActivityCallback(ActivityCallback callback) {
-        mActivityCallback = callback;
+        outState.putParcelable(CodeBag.NODE_NAME, mCurrentNode);
     }
 
     private ArrayList<Node> getMethodNodes(Node parentNode) {
@@ -117,7 +108,7 @@ public class CodeBagActivity extends AppCompatActivity implements View.OnClickLi
             switch (node.type) {
                 case Node.DIR:
                     Intent intent = new Intent(CodeBagActivity.this, CodeBagActivity.class);
-                    intent.putExtra(NODE_NAME, node);
+                    intent.putExtra(CodeBag.NODE_NAME, node);
                     startActivity(intent);
                     break;
                 case Node.CLASS:
@@ -125,34 +116,18 @@ public class CodeBagActivity extends AppCompatActivity implements View.OnClickLi
                     if(nodeList != null && nodeList.size() > 0) {
                         node.mSubNodeList = getMethodNodes(node);
                         intent = new Intent(CodeBagActivity.this, CodeBagActivity.class);
-                        intent.putExtra(NODE_NAME, node);
+                        intent.putExtra(CodeBag.NODE_NAME, node);
                         startActivity(intent);
                     }
                     break;
                 case Node.METHOD:
-                    invokeMethod(node);
+                    intent = new Intent(CodeBagActivity.this, ShowViewActivity.class);
+                    intent.putExtra(CodeBag.NODE_NAME, node);
+                    startActivity(intent);
                     break;
                 default:
                     break;
             }
-        }
-    }
-
-    private void invokeMethod(Node node) {
-        try {
-            String methodName = node.name;
-            String className = node.className;
-            Class<?> cls = Class.forName(className);
-            Constructor<?> con = cls.getConstructor();
-            Object obj = con.newInstance();
-
-            Field mActivity = cls.getSuperclass().getDeclaredField("mActivity");
-            mActivity.setAccessible(true);
-            mActivity.set(obj, CodeBagActivity.this);
-            Method method = cls.getDeclaredMethod(methodName);
-            method.invoke(obj);
-        } catch (Exception e) {
-            e.printStackTrace();
         }
     }
 
@@ -166,7 +141,7 @@ public class CodeBagActivity extends AppCompatActivity implements View.OnClickLi
                     String owner = getString(ownerStrId);
                     String repo = getString(repoStrId);
                     String rootDir = getString(dirStrId);
-                    return GIT_HUB_HOME + owner + "/" + repo + "/master/" + rootDir + "/src/main/java/";
+                    return CodeBag.GIT_HUB_HOME + owner + "/" + repo + "/master/" + rootDir + "/src/main/java/";
                 }else {
                     Toast.makeText(CodeBagActivity.this, R.string.no_dir, Toast.LENGTH_LONG).show();
                 }
@@ -375,28 +350,6 @@ public class CodeBagActivity extends AppCompatActivity implements View.OnClickLi
         TextView contentView = (TextView) dialog.findViewById(R.id.content);
         contentView.setText(content);
         dialog.show();
-    }
-
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if(mActivityCallback != null) {
-            mActivityCallback.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        }
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if(mActivityCallback != null) {
-            mActivityCallback.onActivityResult(requestCode, resultCode, data);
-        }
-    }
-
-    public interface ActivityCallback{
-        void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults);
-        void onActivityResult(int requestCode, int resultCode, Intent data);
     }
 
 }

@@ -21,7 +21,7 @@ public class Invoker extends Entry {
     private ExampleAdapter adapter;
 	
 	public void show() {
-		View root = showView(View.inflate(getActivity(), R.layout.activity_main,null));
+		showView(View.inflate(getActivity(), R.layout.activity_main,null));
         List<GroupItem> items = new ArrayList<GroupItem>();
         
         // Populate our list with groups and it's children
@@ -44,7 +44,7 @@ public class Invoker extends Entry {
         adapter = new ExampleAdapter(getActivity());
         adapter.setData(items);
         
-        listView = (AnimatedExpandableListView) root.findViewById(R.id.listView);
+        listView = (AnimatedExpandableListView) findViewById(R.id.listView);
         listView.setAdapter(adapter);
         
         // In order to show animations, we need to use a custom click handler

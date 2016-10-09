@@ -21,6 +21,7 @@ package com.javalive09.sample.thirdlibs.wheel;
 
 import android.content.Context;
 import android.os.Handler;
+import android.os.Looper;
 import android.os.Message;
 import android.view.GestureDetector;
 import android.view.GestureDetector.SimpleOnGestureListener;
@@ -196,7 +197,7 @@ public class WheelScroller {
     }
     
     // animation handler
-    private Handler animationHandler = new Handler() {
+    private Handler animationHandler = new Handler(Looper.getMainLooper()) {
         public void handleMessage(Message msg) {
             scroller.computeScrollOffset();
             int currY = scroller.getCurrY();

@@ -15,6 +15,8 @@ import android.text.TextUtils;
  */
 public class CodeBag extends Application {
 
+    public static final String GIT_HUB_HOME = "https://raw.githubusercontent.com/";
+    public static final String NODE_NAME = "node";
     private static final boolean PRINT_NODE = false;
     private Node mRootNode;
 
