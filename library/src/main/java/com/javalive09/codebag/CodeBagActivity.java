@@ -80,7 +80,8 @@ public class CodeBagActivity extends AppCompatActivity implements View.OnClickLi
             if(superClassName.equals(Entry.class.getSimpleName())) {
                 Method[] methods = cls.getDeclaredMethods();
                 for (Method m : methods) {
-                    if (Modifier.PUBLIC == m.getModifiers()) {
+                    if (Modifier.PUBLIC == m.getModifiers()
+                            && m.getParameterTypes().length == 0) {
                         String methodName = m.getName();
                         Node node = new Node(methodName, Node.METHOD, className);
                         methodList.add(node);

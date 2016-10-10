@@ -34,7 +34,7 @@ public class SampleActivity extends Entry {
 	int currentPos = -1;
 	
 	public void invoke() {
-		showView(View.inflate(getActivity(), R.layout.xui_guide_sample, null));
+		showView(R.layout.xui_guide_sample);
 		MyAdapter adpter = new MyAdapter();
 		ColorAnimationView colorAnimationView = (ColorAnimationView) findViewById(R.id.ColorAnimationView);
 		final ViewPager viewPager = (ViewPager) findViewById(R.id.viewPager);
@@ -141,33 +141,33 @@ public class SampleActivity extends Entry {
 			SpannableString ss = new SpannableString(sp);
 			TextView tv = (TextView) view.findViewById(R.id.title);
 			view.setVisibility(View.VISIBLE);
-			switch(position){
-			case 0:
-				tv.setVisibility(View.VISIBLE);
-				tv.setShadowLayer(0, 5, 3, Color.parseColor("#083c5a"));
-				tv.setText(ss);
-				break;
-			case 1:
-				tv.setVisibility(View.INVISIBLE);
-				tv.setShadowLayer(0, 5, 3, Color.parseColor("#44680c"));
-				tv.setText(SUB_TITLE);
-				
-				TextView subTxt = (TextView) view.findViewById(R.id.title_head);
-				ss.setSpan(new AbsoluteSizeSpan(30, true), 2, 6, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-				subTxt.setText(ss);
-				subTxt.setVisibility(View.INVISIBLE);
-				subTxt.setShadowLayer(0, 5, 3, Color.parseColor("#44680c"));
-				break;
-			case 2:
-				tv.setVisibility(View.INVISIBLE);
-				ss.setSpan(new AbsoluteSizeSpan(30, true), 3, 8, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-				tv.setShadowLayer(0, 5, 3, Color.parseColor("#836411"));
-				tv.setText(ss);
-				break;
-			case 3:
-				view.setVisibility(View.GONE);
-				break;
-			}
+//			switch(position){
+//			case 0:
+//				tv.setVisibility(View.VISIBLE);
+//				tv.setShadowLayer(0, 5, 3, Color.parseColor("#083c5a"));
+//				tv.setText(ss);
+//				break;
+//			case 1:
+//				tv.setVisibility(View.INVISIBLE);
+//				tv.setShadowLayer(0, 5, 3, Color.parseColor("#44680c"));
+//				tv.setText(SUB_TITLE);
+//
+//				TextView subTxt = (TextView) view.findViewById(R.id.title_head);
+//				ss.setSpan(new AbsoluteSizeSpan(30, true), 2, 6, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+//				subTxt.setText(ss);
+//				subTxt.setVisibility(View.INVISIBLE);
+//				subTxt.setShadowLayer(0, 5, 3, Color.parseColor("#44680c"));
+//				break;
+//			case 2:
+//				tv.setVisibility(View.INVISIBLE);
+//				ss.setSpan(new AbsoluteSizeSpan(30, true), 3, 8, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+//				tv.setShadowLayer(0, 5, 3, Color.parseColor("#836411"));
+//				tv.setText(ss);
+//				break;
+//			case 3:
+//				view.setVisibility(View.GONE);
+//				break;
+//			}
 			view.setTag(position);
 			return view;
 		}

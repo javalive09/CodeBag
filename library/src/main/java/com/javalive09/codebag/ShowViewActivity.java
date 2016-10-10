@@ -15,7 +15,6 @@ public class ShowViewActivity extends Activity {
 
     private Node mNode;
     private ActivityCallback mActivityCallback;
-    private FrameLayout root;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,7 +26,6 @@ public class ShowViewActivity extends Activity {
             if (mNode == null) {
                 finish();
             }else {
-                root = (FrameLayout) findViewById(R.id.invoke_view);
                 invokeMethod(mNode);
                 if(mActivityCallback != null){
                     mActivityCallback.onCreate();
@@ -49,20 +47,23 @@ public class ShowViewActivity extends Activity {
             mActivity.set(obj, ShowViewActivity.this);
             Method method = cls.getDeclaredMethod(methodName);
             method.invoke(obj);
+            View hint = findViewById(R.id.hint);
+            if(hint != null) {
+                finish();
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
     public View showMethodView(View view) {
-        root.removeAllViews();
-        root.addView(view);
+        setContentView(view);
         return view;
     }
 
     public View showMethodView(int viewRes) {
-        root.removeAllViews();
-        return View.inflate(ShowViewActivity.this, viewRes, root);
+        setContentView(viewRes);
+        return getWindow().getDecorView();
     }
 
     @Override

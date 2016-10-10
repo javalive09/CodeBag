@@ -42,8 +42,8 @@ public class Invoke extends Entry {
 	
 	public void showAnimbyPI() {
 		showView(R.layout.searchlayout);
-		final View root = getActivity().findViewById(R.id.root);
-		final View search = root.findViewById(R.id.search);
+		final View root = findViewById(R.id.root);
+		final View search = findViewById(R.id.search);
 		root.setVisibility(View.INVISIBLE);
 		search.postDelayed(new Runnable() {
 

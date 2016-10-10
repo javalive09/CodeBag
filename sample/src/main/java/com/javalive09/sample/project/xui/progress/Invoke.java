@@ -9,16 +9,14 @@ public class Invoke extends Entry {
 
 	public void startRoteAnimation() {
 		
-		View view = View.inflate(getActivity(), R.layout.xui_circle_progressbarl, null);
-		final XuiCircularProgressBar progressBar = (XuiCircularProgressBar) view.findViewById(R.id.progress_bar);
-		showView(view);
-		view.postDelayed(new Runnable() {
+		showView(R.layout.xui_circle_progressbarl);
+		final XuiCircularProgressBar progressBar = (XuiCircularProgressBar) findViewById(R.id.progress_bar);
+		progressBar.postDelayed(new Runnable() {
 			@Override
 			public void run() {
 				progressBar.startAnimination();
 			}
 		},500);
-
 		
 	}
 
