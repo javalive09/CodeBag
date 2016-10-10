@@ -1,4 +1,4 @@
-package com.javalive09.sample;
+package com.javalive09.sample.utils;
 
 import android.content.Context;
 

@@ -12,7 +12,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.view.View;
 
-import com.javalive09.sample.DisplayUtil;
+import com.javalive09.sample.utils.DisplayUtil;
 
 /**
  * 

@@ -8,6 +8,7 @@ import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import com.javalive09.codebag.Entry;
+import com.javalive09.codebag.LogUtil;
 import com.javalive09.sample.R;
 
 /**
@@ -24,7 +25,7 @@ import com.javalive09.sample.R;
 public class Invoker extends Entry {
 
 	public void framelayoutView() {
-		FrameLayoutView f1 = new FrameLayoutView(getActivity());
+		FrameLayout f1 = new FrameLayoutView(getActivity());
 		FrameLayout f2 = getMultiView();
 		
 		View v = new View(getActivity());
@@ -40,6 +41,13 @@ public class Invoker extends Entry {
 		f1.addView(f2, params_2);
 		
 		showView(f1);
+		LogUtil.startCountTime("framelayoutView");
+		f1.post(new Runnable() {
+			@Override
+			public void run() {
+				LogUtil.endCountTime("framelayoutView");
+			}
+		});
 				
 	}
 	
@@ -61,6 +69,13 @@ public class Invoker extends Entry {
 		f1.addView(f2, params_2);
 		
 		showView(f1);
+		LogUtil.startCountTime("relativeLayoutView");
+		f1.post(new Runnable() {
+			@Override
+			public void run() {
+				LogUtil.endCountTime("relativeLayoutView");
+			}
+		});
 	}
 	
 	public void linearLayoutView() {
@@ -90,6 +105,13 @@ public class Invoker extends Entry {
 		f1.addView(f2, params_2);
 
 		showView(f1);
+		LogUtil.startCountTime("linearLayoutView");
+		f1.post(new Runnable() {
+			@Override
+			public void run() {
+				LogUtil.endCountTime("linearLayoutView");
+			}
+		});
 
 	}
 	

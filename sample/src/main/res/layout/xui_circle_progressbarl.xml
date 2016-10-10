@@ -3,7 +3,7 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent" >
 
-    <com.codebag.code.project.xui.progress.XuiCircularProgressBar
+    <com.javalive09.sample.project.xui.progress.XuiCircularProgressBar
         android:id="@+id/progress_bar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

@@ -25,15 +25,14 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:text="@string/util_alpha_title"
-                android:textColor="@android:color/black" />
+                 />
 
             <TextView
                 android:id="@+id/alpha_value"
                 android:textSize="@dimen/utils_text_size"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center"
-                android:textColor="@color/main_item_color" />
+                android:gravity="center"/>
 
         </LinearLayout>
 
@@ -49,8 +48,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:textSize="@dimen/utils_text_size"
-                android:text="@string/util_alpha_percent_title"
-                android:textColor="@android:color/black" />
+                android:text="@string/util_alpha_percent_title"/>
 
             <LinearLayout
                 android:layout_width="match_parent"

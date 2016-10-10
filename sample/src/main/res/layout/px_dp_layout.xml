@@ -18,7 +18,6 @@
 
             <RadioButton
                 android:id="@+id/px_dp"
-                android:textColor="@android:color/black"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:checked="true"
@@ -26,7 +25,6 @@
 
             <RadioButton
                 android:id="@+id/dp_px"
-                android:textColor="@android:color/black"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="dp -> px" />
@@ -51,35 +49,30 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:checked="true"
-                android:textColor="@android:color/black"
                 android:text="mdpi ~160 HVGA 480x320" />
 
             <RadioButton
                 android:id="@+id/hdpi"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@android:color/black"
                 android:text="hdpi ~240 WVGA/FWVGA/QHD 800x480/854x480/960×540" />
 
             <RadioButton
                 android:id="@+id/xhdpi"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@android:color/black"
                 android:text="xhdpi ~320 720P 1280x720" />
 
             <RadioButton
                 android:id="@+id/xxhdpi"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@android:color/black"
                 android:text="xxhdpi ~480 1080P 1920x1080" />
 
             <RadioButton
                 android:id="@+id/xxxhdpi"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@android:color/black"
                 android:text="xxxhdpi ~640 4K 3840x2160" />
 
         </RadioGroup>
@@ -90,8 +83,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/density"
             android:gravity="center"
-            android:text="200"
-            android:textColor="@android:color/holo_blue_dark" />
+            android:text="200"/>
 
         <LinearLayout
             android:layout_width="match_parent"

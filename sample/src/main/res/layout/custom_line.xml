@@ -24,7 +24,7 @@
         android:text="118.7M   "/>
     
     
-    <com.codebag.code.view.graphics.CustomLine
+    <com.javalive09.sample.view.graphics.CustomLine
         android:layout_width="fill_parent"
         android:layout_height="wrap_content" 
         android:layout_toLeftOf="@id/size"
@@ -35,7 +35,7 @@
         xui:point_line_color="#88a2d4"
         android:layout_marginLeft="9px"
         android:layout_marginRight="15px">
-    </com.codebag.code.view.graphics.CustomLine>
+    </com.javalive09.sample.view.graphics.CustomLine>
     
     
     

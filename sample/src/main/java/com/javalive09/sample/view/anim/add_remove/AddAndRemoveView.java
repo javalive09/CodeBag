@@ -17,16 +17,6 @@ import com.javalive09.codebag.Entry;
 import com.javalive09.sample.R;
 
 public class AddAndRemoveView extends Entry {
-
-	private FrameLayout container;
-	
-	public AddAndRemoveView() {
-		container = new FrameLayout(getActivity()){
-		    public void draw(Canvas canvas) {
-                super.draw(canvas);
-            }
-		};
-	}
 	
 	public void addView() {
 		final ImageView iv = new ImageView(getActivity()){
@@ -34,6 +24,13 @@ public class AddAndRemoveView extends Entry {
 		        super.draw(canvas);
 		    }
 		};
+
+		final FrameLayout container = new FrameLayout(getActivity()){
+			public void draw(Canvas canvas) {
+				super.draw(canvas);
+			}
+		};
+
 		iv.setBackgroundResource(R.drawable.ic_launcher);
 		
 		Button addView = new Button(getActivity());

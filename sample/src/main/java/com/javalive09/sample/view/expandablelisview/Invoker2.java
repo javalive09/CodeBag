@@ -201,10 +201,6 @@ public class Invoker2 extends Entry {
 
 		}
 
-		class ViewHolder {
-			TextView textView;
-		}
-
 		@Override
 		public boolean isChildSelectable(int groupPosition, int childPosition) {
 			return false;

@@ -19,7 +19,7 @@ import android.view.animation.ScaleAnimation;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 
-import com.javalive09.sample.DisplayUtil;
+import com.javalive09.sample.utils.DisplayUtil;
 import com.javalive09.sample.R;
 
 /**

@@ -66,7 +66,7 @@ public class CustomView extends View implements ValueAnimator.AnimatorUpdateList
 
     private void animacion(){
         ValueAnimator anim = ValueAnimator.ofInt( 0, angleFinal);
-        anim.setDuration(5000);
+        anim.setDuration(3000);
         anim.addUpdateListener(this);
         anim.start();
     }

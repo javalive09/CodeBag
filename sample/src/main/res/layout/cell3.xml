@@ -1,4 +1,4 @@
-<com.codebag.code.view.expandablelisview.Cell
+<com.javalive09.sample.view.expandablelisview.Cell
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="52dp"
     android:layout_height="wrap_content"
@@ -22,4 +22,4 @@
         android:text="333333333"
         android:gravity="center" />
 
-</com.codebag.code.view.expandablelisview.Cell>
+</com.javalive09.sample.view.expandablelisview.Cell>

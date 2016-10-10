@@ -24,7 +24,7 @@
             android:background="@android:color/white"
             android:text="游戏" />
 
-        <com.codebag.code.view.gridview.multigridview.MyGridView
+        <com.javalive09.sample.view.gridview.multigridview.MyGridView
             android:id="@+id/game"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
@@ -33,7 +33,7 @@
             android:horizontalSpacing="10dp"
             android:numColumns="auto_fit"
             android:verticalSpacing="10dp" >
-        </com.codebag.code.view.gridview.multigridview.MyGridView>
+        </com.javalive09.sample.view.gridview.multigridview.MyGridView>
 
         <TextView
             android:layout_width="fill_parent"
@@ -43,7 +43,7 @@
             android:background="@android:color/white"
             android:text="视频" />
 
-        <com.codebag.code.view.gridview.multigridview.MyGridView
+        <com.javalive09.sample.view.gridview.multigridview.MyGridView
             android:id="@+id/video"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
@@ -53,7 +53,7 @@
             android:horizontalSpacing="10dp"
             android:numColumns="auto_fit"
             android:verticalSpacing="10dp" >
-        </com.codebag.code.view.gridview.multigridview.MyGridView>
+        </com.javalive09.sample.view.gridview.multigridview.MyGridView>
     </LinearLayout>
 
 </ScrollView>

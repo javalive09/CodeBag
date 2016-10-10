@@ -21,7 +21,7 @@ public class Invoker extends Entry {
     private ExampleAdapter adapter;
 	
 	public void show() {
-		showView(View.inflate(getActivity(), R.layout.activity_main,null));
+		showView(R.layout.activity_main);
         List<GroupItem> items = new ArrayList<GroupItem>();
         
         // Populate our list with groups and it's children
@@ -176,6 +176,11 @@ public class Invoker extends Entry {
             }
             
             holder.title.setText(item.title);
+            if(isExpanded) {
+                holder.indicator.getBackground().setLevel(0);
+            }else {
+                holder.indicator.getBackground().setLevel(1);
+            }
             
             return convertView;
         }

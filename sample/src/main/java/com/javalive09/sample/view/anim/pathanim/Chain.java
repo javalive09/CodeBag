@@ -23,9 +23,9 @@ public class Chain extends View implements AnimatorUpdateListener{
 //	int width = 36;
 //	int height = 111;
 //	int strokeW = 10;
-	int width = 40;
-	int height = 111;
-	int strokeW = 10;
+	int width = 160;
+	int height = 500;
+	int strokeW = 30;
 	int bottom = 0;
 	
 	public Chain(Context context) {
@@ -36,7 +36,7 @@ public class Chain extends View implements AnimatorUpdateListener{
 		
 		paint.setStrokeCap(Paint.Cap.ROUND);
 		paint.setAntiAlias(true);  
-		paint.setStrokeWidth(10);
+		paint.setStrokeWidth(strokeW);
 		paint.setStyle(Paint.Style.STROKE);
 		paint.setColor(Color.WHITE);
 //		path.addArc(ovalUp, 120, 300);

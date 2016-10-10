@@ -1,4 +1,4 @@
-package com.javalive09.sample;
+package com.javalive09.sample.utils;
 
 import android.Manifest;
 import android.content.Context;
@@ -22,6 +22,7 @@ import com.fastaccess.permission.base.callback.OnPermissionCallback;
 import com.javalive09.codebag.CodeBagActivity;
 import com.javalive09.codebag.Entry;
 import com.javalive09.codebag.ShowViewActivity;
+import com.javalive09.sample.R;
 import com.javalive09.sample.thirdlibs.wheel.OnWheelScrollListener;
 import com.javalive09.sample.thirdlibs.wheel.WheelView;
 import com.javalive09.sample.thirdlibs.wheel.adapters.NumericWheelAdapter;

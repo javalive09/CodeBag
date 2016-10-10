@@ -61,7 +61,7 @@ public class LogUtil {
     public static void startCountTime(String msg) {
         if (DEBUG) {
             startTime = System.currentTimeMillis();
-            LogUtil.i("startTime=" + startTime + ">>>>>>>>>>>>>>>>>>>>>>>");
+            LogUtil.i("startTime=" + startTime + ">>>>>>>>>>>>>>>>>>>>>>> " + msg);
         }
     }
 
@@ -69,7 +69,7 @@ public class LogUtil {
         if (DEBUG) {
             long endTime = System.currentTimeMillis();
             long detaTime = endTime - startTime;
-            LogUtil.i(" cost =" + detaTime + ">>>>>>>>>>>>>>>>>>>>>>>");
+            LogUtil.i(" cost =" + detaTime + ">>>>>>>>>>>>>>>>>>>>>>> " + msg);
             return detaTime;
         }
         return 0;

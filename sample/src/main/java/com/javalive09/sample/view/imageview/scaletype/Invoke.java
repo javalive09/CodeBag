@@ -24,7 +24,7 @@ public class Invoke extends Entry {
 
 	public void show_Origin() {
 		WebView wv = new WebView(getActivity());
-		String url = "file:///android_asset/image_demo.jpg";
+		String url = "file:///android_asset/pip.jpg";
 		wv.loadUrl(url);
 		showView(wv);
 	}

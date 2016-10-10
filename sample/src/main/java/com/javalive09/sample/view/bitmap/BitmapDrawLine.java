@@ -9,30 +9,26 @@ import android.view.Gravity;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import com.javalive09.codebag.Entry;
-import com.javalive09.sample.DisplayUtil;
+import com.javalive09.sample.utils.DisplayUtil;
 import com.javalive09.sample.R;
 
 public class BitmapDrawLine extends Entry {
 
-	int width = DisplayUtil.dip2px(getActivity(), 54);
-	int height = DisplayUtil.dip2px(getActivity(), 58);
-
-	public BitmapDrawLine() {
-		width = DisplayUtil.dip2px(getActivity(), 54);
-		height = DisplayUtil.dip2px(getActivity(), 58);
-	}
-
 	public void drawScale() {
+		int width = DisplayUtil.dip2px(getActivity(), 54);
+		int height = DisplayUtil.dip2px(getActivity(), 58);
+
 		ImageView iv = new ImageView(getActivity());
 		Bitmap src = BitmapFactory.decodeResource(getActivity().getResources(), R.drawable.ic_launcher);
 		Bitmap bm = Bitmap.createScaledBitmap(src, width, width, false);
 		iv.setImageBitmap(bm);
-		FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(width, height);
 		showView(iv);
 	}
 
 	public void drawLine() {
-		
+		int width = DisplayUtil.dip2px(getActivity(), 54);
+		int height = DisplayUtil.dip2px(getActivity(), 58);
+
 		Bitmap src = BitmapFactory.decodeResource(getActivity().getResources(), R.drawable.ic_launcher);
 		Bitmap bm = Bitmap.createScaledBitmap(src, width, width, false);
 		Bitmap bitmapAltered = Bitmap.createBitmap(width, height, bm.getConfig());

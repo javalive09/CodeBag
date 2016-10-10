@@ -10,6 +10,7 @@ import android.widget.TextView;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -30,6 +31,7 @@ public class ListAdapter extends BaseAdapter {
         factory = LayoutInflater.from(context);
         mActivity = context;
         mList = list;
+        Collections.sort(mList);
     }
 
     @Override

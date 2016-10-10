@@ -23,6 +23,6 @@ android {
 
 dependencies {
     compile 'com.github.k0shk0sh:PermissionHelper:1.0.13'
-    compile 'com.javalive09.codebag:codebag:1.0.8'
+    compile 'com.javalive09.codebag:codebag:1.1.0'
 //    compile project(':library')
 }

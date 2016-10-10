@@ -17,7 +17,7 @@ import android.database.Cursor;
 import android.net.Uri;
 import com.javalive09.codebag.Entry;
 import com.javalive09.codebag.LogUtil;
-import com.javalive09.sample.ReflectUtils;
+import com.javalive09.sample.utils.ReflectUtils;
 
 /**
  * @author zhangrui-ms

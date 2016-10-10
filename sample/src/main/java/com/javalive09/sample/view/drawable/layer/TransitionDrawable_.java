@@ -27,7 +27,6 @@ public class TransitionDrawable_ extends Entry {
 			}
 		});
 		showView(v);
-		showTxt("click the image !");
 	}
 
 }

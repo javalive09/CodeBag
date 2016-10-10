@@ -16,14 +16,14 @@ public class Transfer extends Entry {
 		showView(View.inflate(getActivity(), R.layout.curve_path, null));
 		music = getActivity().findViewById(R.id.music);
 		music.setVisibility(View.INVISIBLE);
-		music.postDelayed(new Runnable() {
+		music.post(new Runnable() {
 			
 			@Override
 			public void run() {
 				music.setVisibility(View.VISIBLE);
 				anim();
 
-		}},200);
+		}});
 	}
 
 	private void anim() {
@@ -32,11 +32,11 @@ public class Transfer extends Entry {
 		int x = root.getWidth();
 		int y = root.getHeight();
 		
-		path.moveTo(0, y);
-		path.curveTo(0, y, x / 2, 0, x, y);
+		path.moveTo(0, y - music.getHeight());
+		path.curveTo(0, y - music.getHeight(),   x / 2,  0,   x - music.getWidth(), y - music.getHeight());
 
 		AnimatorSet set = new AnimatorSet();
-		set.setDuration(5000);
+		set.setDuration(2000);
 
 		ObjectAnimator anim = ObjectAnimator.ofObject(this, "MusicLoc",
 				new PathEvaluator(), path.getPoints().toArray());
@@ -44,8 +44,9 @@ public class Transfer extends Entry {
 
 		music.setPivotX(music.getWidth() / 2f);
 		music.setPivotY(music.getHeight() / 2f);
-		ObjectAnimator xa = ObjectAnimator.ofFloat(music, "scaleX", 0.2f, 1, 0.2f);
-		ObjectAnimator ya = ObjectAnimator.ofFloat(music, "scaleY", 0.2f, 1, 0.2f);
+
+		ObjectAnimator xa = ObjectAnimator.ofFloat(music, "scaleX", 0.f, 1.0f, 0.f);
+		ObjectAnimator ya = ObjectAnimator.ofFloat(music, "scaleY", 0.f, 1.0f, 0.f);
 
 		xa.setInterpolator(new LinearInterpolator());
 		ya.setInterpolator(new LinearInterpolator());

@@ -87,7 +87,6 @@ public class Invoke extends Entry {
 				+ "sin (pi/2*3) =" + (int)Math.sin(Math.PI / 2 * 3) + "\n"
 				+ "sin (2pi) =" + (int)Math.sin(Math.PI * 2) + "\n"
 				);
-		tv.setTextColor(Color.BLACK);
 		showView(tv);
 	}
 	

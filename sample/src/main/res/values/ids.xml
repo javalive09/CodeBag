@@ -4,4 +4,5 @@
     <item name="two" type="id"/>
     <item name="three" type="id"/>
     <item name="four" type="id"/>
+    <item name="tag" type="id"/>
 </resources>

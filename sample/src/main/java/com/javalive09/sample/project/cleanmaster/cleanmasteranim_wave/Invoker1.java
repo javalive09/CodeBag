@@ -4,7 +4,7 @@ package com.javalive09.sample.project.cleanmaster.cleanmasteranim_wave;
 import android.view.LayoutInflater;
 import android.view.View;
 import com.javalive09.codebag.Entry;
-import com.javalive09.sample.DisplayUtil;
+import com.javalive09.sample.utils.DisplayUtil;
 import com.javalive09.sample.R;
 
 public class Invoker1 extends Entry {

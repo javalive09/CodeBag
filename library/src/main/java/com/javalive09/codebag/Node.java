@@ -9,7 +9,7 @@ import java.util.ArrayList;
  * Created by peter on 16/9/21.
  *
  */
-class Node implements Parcelable{
+class Node implements Parcelable, Comparable<Node>{
 	static final int DIR = 0;
 	static final int CLASS = 1;
 	static final int METHOD = 2;
@@ -59,5 +59,10 @@ class Node implements Parcelable{
 		dest.writeString(name);
 		dest.writeString(className);
 		dest.writeTypedList(mSubNodeList);
+	}
+
+	@Override
+	public int compareTo(Node o) {
+		return name.compareTo(o.name);
 	}
 }

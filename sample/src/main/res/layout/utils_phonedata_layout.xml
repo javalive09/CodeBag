@@ -17,72 +17,63 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="@dimen/utils_phonedata_item_padding"
-            android:text="@string/util_phone_mode"
-            android:textColor="@android:color/black" />
+            android:text="@string/util_phone_mode"/>
 
         <TextView
             android:id="@+id/sdk_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="@dimen/utils_phonedata_item_padding"
-            android:text="@string/util_phone_sdk"
-            android:textColor="@android:color/black" />
+            android:text="@string/util_phone_sdk"/>
 
         <TextView
             android:id="@+id/firmware"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="@dimen/utils_phonedata_item_padding"
-            android:text="@string/util_phone_firmware"
-            android:textColor="@android:color/black" />
+            android:text="@string/util_phone_firmware"/>
 
         <TextView
             android:id="@+id/resolution"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="@dimen/utils_phonedata_item_padding"
-            android:text="@string/util_phone_resolution"
-            android:textColor="@android:color/black" />
+            android:text="@string/util_phone_resolution"/>
 
         <TextView
             android:id="@+id/density"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="@dimen/utils_phonedata_item_padding"
-            android:text="@string/util_phone_density"
-            android:textColor="@android:color/black" />
+            android:text="@string/util_phone_density"/>
 
         <TextView
             android:id="@+id/imei"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="@dimen/utils_phonedata_item_padding"
-            android:text="@string/util_phone_imei"
-            android:textColor="@android:color/black" />
+            android:text="@string/util_phone_imei" />
 
         <TextView
             android:id="@+id/res_dir"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="@dimen/utils_phonedata_item_padding"
-            android:text="@string/util_phone_res_dir"
-            android:textColor="@android:color/black" />
+            android:text="@string/util_phone_res_dir" />
 
         <TextView
             android:id="@+id/status_bar_h"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="@dimen/utils_phonedata_item_padding"
-            android:text="@string/util_phone_status_bar_h"
-            android:textColor="@android:color/black" />
+            android:text="@string/util_phone_status_bar_h"/>
 
         <TextView
             android:id="@+id/brand"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="@dimen/utils_phonedata_item_padding"
-            android:text="@string/util_phone_brand"
-            android:textColor="@android:color/black" />
+            android:text="@string/util_phone_brand"/>
 
 
     </LinearLayout>

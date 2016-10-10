@@ -31,8 +31,7 @@ public class Invoker extends Entry {
 		percentSign.setText("%");
 		percentSign.setTextSize(40);
 		percentSign.setTextColor(0xE624a0ff);
-		paramsP.addRule(R.id.one);
-		paramsP.addRule(RelativeLayout.ALIGN_PARENT_TOP);  
+		paramsP.addRule(RelativeLayout.ALIGN_PARENT_TOP);
 		paramsP.addRule(RelativeLayout.CENTER_HORIZONTAL, RelativeLayout.TRUE);  
 		mNum2.addView(percentSign, paramsP);
 		showView(mNum2);
