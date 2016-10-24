@@ -31,15 +31,15 @@ import com.javalive09.sample.utils.ReflectUtils;
 public class Inovker extends Entry {
 
 	public void getLauncherPackageName() {
-		String name = getLauncherPackageName(getActivity());
+		String name = getLauncherPackageName(getViewActivity());
 		LogUtil.i(  name);
 	}
 
 	public void queryLauncherProvider() {
-		ArrayList<Integer> list = readLauncherProviderWidget(getActivity());
+		ArrayList<Integer> list = readLauncherProviderWidget(getViewActivity());
 		if (list != null) {
 			Context launcherContext =  getLauncherContext();
-			Context context = getActivity();
+			Context context = getViewActivity();
 			
 			int id = (Integer) ReflectUtils.invoke(context, "getUserId");
 			int launcherId = (Integer) ReflectUtils.invoke(launcherContext, "getUserId");		
@@ -55,10 +55,10 @@ public class Inovker extends Entry {
 	}
 
 	private Context getLauncherContext() {
-		String launcherPackageName = getLauncherPackageName(getActivity());
+		String launcherPackageName = getLauncherPackageName(getViewActivity());
 		Context launcherContext = null;
 		try {
-			launcherContext = getActivity().createPackageContext(
+			launcherContext = getViewActivity().createPackageContext(
 					launcherPackageName, Context.CONTEXT_IGNORE_SECURITY);
 		} catch (NameNotFoundException e) {
 			e.printStackTrace();
@@ -67,7 +67,7 @@ public class Inovker extends Entry {
 	}
 
 	public void getProviders() {
-		AppWidgetManager manager = AppWidgetManager.getInstance(getActivity());
+		AppWidgetManager manager = AppWidgetManager.getInstance(getViewActivity());
 		List<AppWidgetProviderInfo> list = manager.getInstalledProviders();
 		for (AppWidgetProviderInfo info : list) {
 			LogUtil.i(    info.toString());
@@ -181,7 +181,7 @@ public class Inovker extends Entry {
 
 //	public void getEnableWidget() {
 //		Intent intent = new Intent(AppWidgetManager.ACTION_APPWIDGET_ENABLED);
-//		List<ResolveInfo> list = getActivity().getPackageManager()
+//		List<ResolveInfo> list = getViewActivity().getPackageManager()
 //				.queryBroadcastReceivers(intent, 64);
 //		for (ResolveInfo info : list) {
 //			String packageName = info.activityInfo.packageName;
@@ -191,7 +191,7 @@ public class Inovker extends Entry {
 
 //	public void getUpdateWidget() {
 //		Intent intent = new Intent(AppWidgetManager.ACTION_APPWIDGET_UPDATE);
-//		List<ResolveInfo> list = getActivity().getPackageManager()
+//		List<ResolveInfo> list = getViewActivity().getPackageManager()
 //				.queryBroadcastReceivers(intent, 64);
 //		for (ResolveInfo info : list) {
 //			String packageName = info.activityInfo.packageName;
@@ -201,7 +201,7 @@ public class Inovker extends Entry {
 
 //	public void getDeletedWidget() {
 //		Intent intent = new Intent(AppWidgetManager.ACTION_APPWIDGET_DELETED);
-//		List<ResolveInfo> list = getActivity().getPackageManager()
+//		List<ResolveInfo> list = getViewActivity().getPackageManager()
 //				.queryBroadcastReceivers(intent, 64);
 //		for (ResolveInfo info : list) {
 //			String packageName = info.activityInfo.packageName;
@@ -211,7 +211,7 @@ public class Inovker extends Entry {
 
 //	public void getPickWidget() {
 //		Intent intent = new Intent(AppWidgetManager.ACTION_APPWIDGET_PICK);
-//		List<ResolveInfo> list = getActivity().getPackageManager()
+//		List<ResolveInfo> list = getViewActivity().getPackageManager()
 //				.queryBroadcastReceivers(intent, 64);
 //		for (ResolveInfo info : list) {
 //			String packageName = info.activityInfo.packageName;

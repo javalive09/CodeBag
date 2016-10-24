@@ -22,7 +22,7 @@ public class HelloWorld extends Entry {
 
     //show view
     public void showView() {
-        Button button = new Button(getActivity());
+        Button button = new Button(getViewActivity());
         button.setText("hello world !");
         button.setTextColor(Color.BLUE);
         showView(button);
@@ -35,8 +35,8 @@ public class HelloWorld extends Entry {
 
     //start activity
     public void startActivity() {
-        Intent intent = new Intent(getActivity(), HelloWorldActivity.class);
-        getActivity().startActivity(intent);
+        Intent intent = new Intent(getViewActivity(), HelloWorldActivity.class);
+        getViewActivity().startActivity(intent);
     }
 
     //show log

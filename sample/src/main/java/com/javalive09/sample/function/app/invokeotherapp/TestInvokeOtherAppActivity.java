@@ -20,13 +20,13 @@ public class TestInvokeOtherAppActivity extends Entry {
 		Intent intent = new Intent();
 		ComponentName component = new ComponentName("com.peter.appmanager", "com.peter.appmanager.SettingActivity");
 		intent.setComponent(component);
-		getActivity().startActivity(intent);
+		getViewActivity().startActivity(intent);
 	}
 
 	public void runOtherActivity2() {
 		Intent intent = new Intent();
 		intent.setAction("com.peter.foo");
-		getActivity().startActivity(intent);
+		getViewActivity().startActivity(intent);
 	}
 
 }

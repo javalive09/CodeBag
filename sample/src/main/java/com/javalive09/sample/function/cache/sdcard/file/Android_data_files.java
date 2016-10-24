@@ -54,7 +54,7 @@ public class Android_data_files extends Entry {
 			return;
 		}
 		String transferFile = "file.txt";
-		File extDir = getActivity().getExternalFilesDir(null);
+		File extDir = getViewActivity().getExternalFilesDir(null);
 		File requestFile = new File(extDir, transferFile);
 		requestFile.setReadable(true, false);
 		writeToFile("filexxx", requestFile);
@@ -66,7 +66,7 @@ public class Android_data_files extends Entry {
 			return;
 		}
 		String transferFile = "file.txt";
-		File extDir = getActivity().getExternalFilesDir(null);
+		File extDir = getViewActivity().getExternalFilesDir(null);
 		File requestFile = new File(extDir, transferFile);
 		String str = readFromFile(requestFile);
 		showTxt("file str =" + str);
@@ -83,7 +83,7 @@ public class Android_data_files extends Entry {
 			return;
 		}
 		String transferFile = "cache.txt";
-		File extDir = getActivity().getExternalCacheDir();
+		File extDir = getViewActivity().getExternalCacheDir();
 		File requestFile = new File(extDir, transferFile);
 		requestFile.setReadable(true, false);
 		writeToFile("cachexxx", requestFile);
@@ -95,7 +95,7 @@ public class Android_data_files extends Entry {
 			return;
 		}
 		String transferFile = "cache.txt";
-		File extDir = getActivity().getExternalCacheDir();
+		File extDir = getViewActivity().getExternalCacheDir();
 		File requestFile = new File(extDir, transferFile);
 		String str = readFromFile(requestFile);
 		showTxt("file str =" + str);

@@ -12,7 +12,7 @@ import com.javalive09.sample.R;
 public class Invoke extends Entry {
 
 	public void showScale() {
-		View v = View.inflate(getActivity(), R.layout.drawable_scale, null);
+		View v = View.inflate(getViewActivity(), R.layout.drawable_scale, null);
 		ImageView iv = (ImageView) v.findViewById(R.id.image);
 		final ScaleDrawable sd = (ScaleDrawable) iv.getBackground();
 		sd.setLevel(10000);

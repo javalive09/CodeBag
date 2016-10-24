@@ -7,7 +7,7 @@ import com.javalive09.codebag.Entry;
 public class Invoke extends Entry {
 
 	public void showChain() {
-		Chain chain = new Chain(getActivity());
+		Chain chain = new Chain(getViewActivity());
 		chain.setBackgroundColor(Color.BLACK);
 		final ValueAnimator anim = ValueAnimator.ofInt(0, 900);
 		anim.addUpdateListener(chain);
@@ -23,7 +23,7 @@ public class Invoke extends Entry {
 	}
 
 	public void customView() {
-		showView(new CustomView(getActivity()));
+		showView(new CustomView(getViewActivity()));
 	}
 
 }

@@ -74,8 +74,8 @@ public class SampleActivity extends Entry {
                                         ObjectAnimator.ofFloat(titleHead, "translationX", 50, 0).setDuration(1000).start();
                                     }
                                     if(viewPos == 3) {
-                                        Toast.makeText(getActivity(), "end", Toast.LENGTH_SHORT).show();
-                                        getActivity().finish();
+                                        Toast.makeText(getViewActivity(), "end", Toast.LENGTH_SHORT).show();
+                                        getViewActivity().finish();
                                     }
                                 }else {
                                     title.setVisibility(View.INVISIBLE);
@@ -123,7 +123,7 @@ public class SampleActivity extends Entry {
         LayoutInflater inflater;
 
         public MyAdapter() {
-            inflater = LayoutInflater.from(getActivity());
+            inflater = LayoutInflater.from(getViewActivity());
         }
 
         @Override

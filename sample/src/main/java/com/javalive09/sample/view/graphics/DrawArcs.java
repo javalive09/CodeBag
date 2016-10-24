@@ -10,7 +10,7 @@ import com.javalive09.codebag.Entry;
 public class DrawArcs extends Entry {
 
 	public void drawArc() {
-		View v = new View(getActivity()) {
+		View v = new View(getViewActivity()) {
 
 			Paint paint = new Paint();
 			RectF rf = new RectF(0, 0, 300, 300 );
@@ -38,7 +38,7 @@ public class DrawArcs extends Entry {
 	}
 	
 	public void showArcsSample() {
-		showView(new SampleView(getActivity()));
+		showView(new SampleView(getViewActivity()));
 	}
 
 }

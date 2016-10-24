@@ -8,12 +8,12 @@ import com.javalive09.sample.R;
 public class Invoker extends Entry {
 
     public void showXfer() {
-        View view = new Xfermodes.SampleView(getActivity());
+        View view = new Xfermodes.SampleView(getViewActivity());
         showView(view);
     }
 
     public void showXferClip() {
-        View view = new Xfermodes_clip.SampleView(getActivity());
+        View view = new Xfermodes_clip.SampleView(getViewActivity());
         showView(view);
     }
 

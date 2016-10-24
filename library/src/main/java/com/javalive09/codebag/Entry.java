@@ -1,5 +1,6 @@
 package com.javalive09.codebag;
 
+import android.content.Context;
 import android.view.View;
 import android.widget.TextView;
 
@@ -12,8 +13,12 @@ public class Entry {
 
     private ShowViewActivity mActivity = null;
 
-    public ShowViewActivity getActivity() {
+    public ShowViewActivity getViewActivity() {
         return mActivity;
+    }
+
+    public Context getApplicationContext() {
+        return mActivity.getApplicationContext();
     }
 
     public void showTxt(String text) {

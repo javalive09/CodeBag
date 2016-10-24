@@ -25,29 +25,29 @@ public class FirstFace extends Entry {
 	}
 	
 	public void viewOnTouchReturnFalse() {
-		FatherView fv = new FatherView(getActivity());
+		FatherView fv = new FatherView(getViewActivity());
 		fv.setBackgroundColor(Color.BLUE);
-		SonViewOne sv = new SonViewOne(getActivity());
+		SonViewOne sv = new SonViewOne(getViewActivity());
 		sv.setBackgroundColor(Color.GREEN);
 		fv.addView(sv);
 		showView(fv);
 	}
 	
 	public void viewOnTouchReturnTrue() {
-		FatherView fv = new FatherView(getActivity());
+		FatherView fv = new FatherView(getViewActivity());
 		fv.setBackgroundColor(Color.BLUE);
-		SonViewTwo sv = new SonViewTwo(getActivity());
+		SonViewTwo sv = new SonViewTwo(getViewActivity());
 		sv.setBackgroundColor(Color.GREEN);
 		fv.addView(sv);
 		showView(fv);
 	}
 	
 	public void fatherViewOnTouchReturnFalse() {
-		GrandFatherView gv = new GrandFatherView(getActivity());
+		GrandFatherView gv = new GrandFatherView(getViewActivity());
 		gv.setBackgroundColor(Color.GRAY);
-		FatherView fv = new FatherView(getActivity());
+		FatherView fv = new FatherView(getViewActivity());
 		fv.setBackgroundColor(Color.BLUE);
-		SonViewOne sv = new SonViewOne(getActivity());
+		SonViewOne sv = new SonViewOne(getViewActivity());
 		sv.setBackgroundColor(Color.GREEN);
 		fv.addView(sv);
 		gv.addView(fv);

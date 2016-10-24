@@ -8,7 +8,7 @@ import com.javalive09.sample.R;
 public class Invoke extends Entry {
 
 	public void button() {
-		Button btn = new Button(getActivity());
+		Button btn = new Button(getViewActivity());
 		btn.setText("click me");
 		showView(btn);
 	}

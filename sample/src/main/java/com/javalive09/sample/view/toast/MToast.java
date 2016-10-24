@@ -15,8 +15,8 @@ import com.javalive09.sample.R;
 public class MToast extends Entry {
 	
 	public void showSuperToast() {
-		SuperToast toast = SuperToast.makeText(getActivity(), "", SuperToast.LENGTH_SHORT);
-		View view = View.inflate(getActivity(), R.layout.toast_force_close, null);
+		SuperToast toast = SuperToast.makeText(getViewActivity(), "", SuperToast.LENGTH_SHORT);
+		View view = View.inflate(getViewActivity(), R.layout.toast_force_close, null);
 		TextView tv = (TextView) view.findViewById(R.id.toast_text);
 		String str1 = "点击强制停止按钮完成操作";
 		SpannableString ss = new SpannableString(str1);
@@ -24,7 +24,7 @@ public class MToast extends Entry {
 		tv.setText(ss);
 		toast.setDuration(5 * 1000);
 		
-		int yOffset = DisplayUtil.dip2px(getActivity(), 50);
+		int yOffset = DisplayUtil.dip2px(getViewActivity(), 50);
 		
 		toast.setGravity(Gravity.TOP, 0, yOffset);
 		toast.setView(view);
@@ -32,7 +32,7 @@ public class MToast extends Entry {
 	}
 	
 	public void showLongTimeToast() {
-		Toast toast = Toast.makeText(getActivity(), "6666666666666!", Toast.LENGTH_SHORT);
+		Toast toast = Toast.makeText(getViewActivity(), "6666666666666!", Toast.LENGTH_SHORT);
 		LongTimeToast st3 = new LongTimeToast(toast, 5 * 1000);
 		st3.show();
 	}

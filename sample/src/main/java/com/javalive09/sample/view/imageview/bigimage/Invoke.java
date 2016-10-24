@@ -11,7 +11,7 @@ public class Invoke extends Entry {
 
 	public void showBigImage() {
 		
-		WebView wv = new WebView(getActivity());
+		WebView wv = new WebView(getViewActivity());
 //		String url = "file:///android_asset/image_demo.jpg";
 //		String url = "file:///android_asset/world_map.jpg";
 //		String url = "file:///android_asset/satelite_map.jpg";

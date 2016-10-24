@@ -21,36 +21,36 @@ import com.javalive09.sample.R;
 public class StringFormat extends Entry{
 
 	public void format_name() {
-		String nameFormat = getActivity().getResources().getString(R.string.format_test_name);
+		String nameFormat = getViewActivity().getResources().getString(R.string.format_test_name);
 		String name = String.format(nameFormat, "张瑞");
-		TextView tv = new TextView(getActivity());
+		TextView tv = new TextView(getViewActivity());
 		tv.setBackgroundColor(Color.WHITE);
 		tv.setText(name);
 		showView(tv);
 	}
 	
 	public void format_old() {
-		String nameFormat = getActivity().getResources().getString(R.string.format_test_old);
+		String nameFormat = getViewActivity().getResources().getString(R.string.format_test_old);
 		String name = String.format(nameFormat, 20);
-		TextView tv = new TextView(getActivity());
+		TextView tv = new TextView(getViewActivity());
 		tv.setBackgroundColor(Color.WHITE);
 		tv.setText(name);
 		showView(tv);
 	}
 	
 	public void format_name_place() {
-		String nameFormat = getActivity().getResources().getString(R.string.format_test_name_place);
+		String nameFormat = getViewActivity().getResources().getString(R.string.format_test_name_place);
 		String name = String.format(nameFormat, "张瑞", "辽宁");
-		TextView tv = new TextView(getActivity());
+		TextView tv = new TextView(getViewActivity());
 		tv.setBackgroundColor(Color.WHITE);
 		tv.setText(name);
 		showView(tv);
 	}
 	
 	public void format_name_place_old() {
-		String nameFormat = getActivity().getResources().getString(R.string.format_test_name_place_old);
+		String nameFormat = getViewActivity().getResources().getString(R.string.format_test_name_place_old);
 		String name = String.format(nameFormat, "张瑞", "辽宁", 20);
-		TextView tv = new TextView(getActivity());
+		TextView tv = new TextView(getViewActivity());
 		tv.setBackgroundColor(Color.WHITE);
 		tv.setText(name);
 		showView(tv);

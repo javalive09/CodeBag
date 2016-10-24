@@ -17,7 +17,7 @@ public class Invoke extends Entry {
 
 		showView(R.layout.searchlayout);
 		findViewById(R.id.root).setVisibility(View.INVISIBLE);
-		getActivity().getWindow().getDecorView().postDelayed(new Runnable() {
+		getViewActivity().getWindow().getDecorView().postDelayed(new Runnable() {
 
 			@Override
 			public void run() {
@@ -80,7 +80,7 @@ public class Invoke extends Entry {
 	}
 	
 	public void sinPi() {
-		TextView tv = new TextView(getActivity());
+		TextView tv = new TextView(getViewActivity());
 		tv.setText("sin (0) =" + (int)Math.sin(0) + "\n"
 				+ "sin (pi/2) =" + (int)Math.sin(Math.PI / 2) + "\n"
 				+ "sin (pi) =" + (int)Math.sin(Math.PI) + "\n"

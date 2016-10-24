@@ -8,7 +8,7 @@ import com.javalive09.sample.R;
 public class Invoke extends Entry {
 
 	public void animFrame() {
-		View v = View.inflate(getActivity(), R.layout.anim_list, null);
+		View v = View.inflate(getViewActivity(), R.layout.anim_list, null);
 		View iv = v.findViewById(R.id.anim);
 		AnimationDrawable ad = (AnimationDrawable) iv.getBackground();
 		ad.start();

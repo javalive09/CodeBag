@@ -25,7 +25,7 @@ public class Android_data_files extends Entry {
 
 	public void write_file() {
 		String transferFile = "file.txt";
-		File dir = getActivity().getFilesDir();
+		File dir = getViewActivity().getFilesDir();
 		File requestFile = new File(dir, transferFile);
 		requestFile.setReadable(true, false);
 		writeToFile("filexxxx", requestFile);
@@ -34,7 +34,7 @@ public class Android_data_files extends Entry {
 	
 	public void read_file() {
 		String transferFile = "file.txt";
-		File dir = getActivity().getFilesDir();
+		File dir = getViewActivity().getFilesDir();
 		File requestFile = new File(dir, transferFile);
 		String str = readFromFile(requestFile);
 		showTxt(transferFile +":"+ str);
@@ -42,7 +42,7 @@ public class Android_data_files extends Entry {
 	
 	public void write_cache() {
 		String transferFile = "cache.txt";
-		File dir = getActivity().getCacheDir();
+		File dir = getViewActivity().getCacheDir();
 		File requestFile = new File(dir, transferFile);
 		requestFile.setReadable(true, false);
 		writeToFile("cachexxxx", requestFile);
@@ -51,7 +51,7 @@ public class Android_data_files extends Entry {
 	
 	public void read_cache() {
 		String transferFile = "cache.txt";
-		File dir = getActivity().getCacheDir();
+		File dir = getViewActivity().getCacheDir();
 		File requestFile = new File(dir, transferFile);
 		String str = readFromFile(requestFile);
 		showTxt(transferFile +":"+ str);
@@ -64,7 +64,7 @@ public class Android_data_files extends Entry {
 	
 	public void read_openfile() {
 		String str = readFromFile();
-		Toast.makeText(getActivity(), str, Toast.LENGTH_LONG).show();
+		Toast.makeText(getViewActivity(), str, Toast.LENGTH_LONG).show();
 		showTxt( "file :"+ str);
 	}
 	
@@ -98,7 +98,7 @@ public class Android_data_files extends Entry {
 	
 	private void writeToFile(String data) {
 	    try {
-	        OutputStreamWriter outputStreamWriter = new OutputStreamWriter(getActivity().openFileOutput("config.txt", Context.MODE_PRIVATE));
+	        OutputStreamWriter outputStreamWriter = new OutputStreamWriter(getViewActivity().openFileOutput("config.txt", Context.MODE_PRIVATE));
 	        outputStreamWriter.write(data);
 	        outputStreamWriter.close();
 	    }
@@ -109,7 +109,7 @@ public class Android_data_files extends Entry {
 	private String readFromFile() {
 	    String ret = "";
 	    try {
-	        InputStream inputStream = getActivity().openFileInput("config.txt");
+	        InputStream inputStream = getViewActivity().openFileInput("config.txt");
 
 	        if ( inputStream != null ) {
 	            InputStreamReader inputStreamReader = new InputStreamReader(inputStream);

@@ -18,14 +18,14 @@ public class ShortCut extends Entry{
 	 */
 	public void createShortCut() {
 		Intent shortcutintent = new Intent();
-		Intent launcherIntent = new Intent(getActivity().getApplicationContext() , CodeBagActivity.class);
+		Intent launcherIntent = new Intent(getViewActivity().getApplicationContext() , CodeBagActivity.class);
 		
 		//不允许重复创建
 		shortcutintent.putExtra("duplicate", false);
 		//名称
 		shortcutintent.putExtra(Intent.EXTRA_SHORTCUT_NAME, "CodeBag");
 		//图标
-		Parcelable icon = Intent.ShortcutIconResource.fromContext(getActivity().getApplicationContext(), R.drawable.file);
+		Parcelable icon = Intent.ShortcutIconResource.fromContext(getViewActivity().getApplicationContext(), R.drawable.file);
 		shortcutintent.putExtra(Intent.EXTRA_SHORTCUT_ICON_RESOURCE, icon);
 		
 		shortcutintent.putExtra(Intent.EXTRA_SHORTCUT_INTENT, launcherIntent);
@@ -33,23 +33,23 @@ public class ShortCut extends Entry{
 		shortcutintent.setAction("com.android.launcher.action.INSTALL_SHORTCUT");
 		
 		//广播
-		getActivity().sendBroadcast(shortcutintent);
+		getViewActivity().sendBroadcast(shortcutintent);
 	}
 	
 	public void createShortCut1() {
 	    Intent intent = new Intent("com.android.launcher.action.INSTALL_SHORTCUT");
 	    intent.putExtra("duplicate", false);
 	    intent.putExtra(Intent.EXTRA_SHORTCUT_ICON, getBitmap());
-	    intent.putExtra(Intent.EXTRA_SHORTCUT_INTENT, new Intent(getActivity().getApplicationContext() , CodeBagActivity.class));
+	    intent.putExtra(Intent.EXTRA_SHORTCUT_INTENT, new Intent(getViewActivity().getApplicationContext() , CodeBagActivity.class));
 	    intent.putExtra(Intent.EXTRA_SHORTCUT_NAME, "peter");
-	    getActivity().sendBroadcast(intent);
+	    getViewActivity().sendBroadcast(intent);
 	    
 	}
 	
 	private Bitmap getBitmap() {
-	    Bitmap photo = BitmapFactory.decodeResource(getActivity().getResources(), R.drawable.folder);
+	    Bitmap photo = BitmapFactory.decodeResource(getViewActivity().getResources(), R.drawable.folder);
 	   
-	   int iconSize = (int) getActivity().getResources().getDimension(android.R.dimen.app_icon_size);
+	   int iconSize = (int) getViewActivity().getResources().getDimension(android.R.dimen.app_icon_size);
         Bitmap icon = Bitmap.createBitmap(iconSize, iconSize, Bitmap.Config.ARGB_8888);
 	    Canvas canvas = new Canvas(icon);
 	    

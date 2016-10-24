@@ -24,14 +24,18 @@ import android.widget.Toast;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 /**
  *
@@ -43,6 +47,8 @@ public class CodeBagActivity extends AppCompatActivity implements View.OnClickLi
     private static List<CodeBagActivity> mActContainer = new LinkedList<>();
     private Node mCurrentNode;
     private ListView mListView;
+    public static Map<String, Object> mObjectList = new HashMap<>();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +62,18 @@ public class CodeBagActivity extends AppCompatActivity implements View.OnClickLi
                 node = app.init();
             }
             mCurrentNode = node;
+            if(mCurrentNode.type == Node.CLASS) {
+                String className = node.className;
+                Class<?> cls;
+                try {
+                    cls = Class.forName(className);
+                    Constructor<?> con = cls.getConstructor();
+                    Object obj = con.newInstance();
+                    mObjectList.put(node.className, obj);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
             initActionBar(node);
             initStatusBar();
             setContentView(R.layout.activity_main_view);
@@ -286,6 +304,7 @@ public class CodeBagActivity extends AppCompatActivity implements View.OnClickLi
     protected void onDestroy() {
         super.onDestroy();
         mActContainer.remove(CodeBagActivity.this);
+        mObjectList.remove(mCurrentNode.className);
     }
 
     private void exit() {

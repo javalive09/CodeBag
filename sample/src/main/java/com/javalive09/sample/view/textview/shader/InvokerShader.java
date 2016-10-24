@@ -8,7 +8,7 @@ import com.javalive09.codebag.Entry;
 public class InvokerShader extends Entry {
 
 	public void showShader_r0() {
-		TextView tv = new TextView(getActivity());
+		TextView tv = new TextView(getViewActivity());
 		tv.setText("123456 张瑞");
 		tv.setTextSize(50);
 		tv.setTextColor(Color.GRAY);
@@ -19,7 +19,7 @@ public class InvokerShader extends Entry {
 	}
 	
 	public void showShader_r0_5() {
-		TextView tv = new TextView(getActivity());
+		TextView tv = new TextView(getViewActivity());
 		tv.setText("123456 张瑞");
 		tv.setTextSize(50);
 		tv.setTextColor(Color.GRAY);
@@ -30,7 +30,7 @@ public class InvokerShader extends Entry {
 	}
 	
 	public void showShader_r0_1() {
-		TextView tv = new TextView(getActivity());
+		TextView tv = new TextView(getViewActivity());
 		tv.setText("123456 张瑞");
 		tv.setTextSize(50);
 		tv.setTextColor(Color.GRAY);
@@ -41,7 +41,7 @@ public class InvokerShader extends Entry {
 	}
 	
 	public void showShader_r1() {
-		TextView tv = new TextView(getActivity());
+		TextView tv = new TextView(getViewActivity());
 		tv.setText("123456 张瑞");
 		tv.setTextSize(50);
 		tv.setTextColor(Color.GRAY);
@@ -52,7 +52,7 @@ public class InvokerShader extends Entry {
 	}
 	
 	public void showShader_r5() {
-		TextView tv = new TextView(getActivity());
+		TextView tv = new TextView(getViewActivity());
 		tv.setText("123456 张瑞");
 		tv.setTextSize(50);
 		tv.setTextColor(Color.GRAY);

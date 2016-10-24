@@ -25,10 +25,10 @@ import com.javalive09.sample.R;
 public class Invoker extends Entry {
 
 	public void framelayoutView() {
-		FrameLayout f1 = new FrameLayoutView(getActivity());
+		FrameLayout f1 = new FrameLayoutView(getViewActivity());
 		FrameLayout f2 = getMultiView();
 		
-		View v = new View(getActivity());
+		View v = new View(getViewActivity());
 		v.setBackgroundResource(R.drawable.pic);
 		
 		FrameLayout.LayoutParams params_2 = new FrameLayout.LayoutParams(300, 300);
@@ -52,11 +52,11 @@ public class Invoker extends Entry {
 	}
 	
 	public void relativeLayoutView() {
-		RelativeLayoutView f1 = new RelativeLayoutView(getActivity());
+		RelativeLayoutView f1 = new RelativeLayoutView(getViewActivity());
 		
 		FrameLayout f2 = getMultiView();
 		
-		View v = new View(getActivity());
+		View v = new View(getViewActivity());
 		v.setBackgroundResource(R.drawable.pic);
 		
 		RelativeLayout.LayoutParams params_2 = new RelativeLayout.LayoutParams(300, 300);
@@ -79,11 +79,11 @@ public class Invoker extends Entry {
 	}
 	
 	public void linearLayoutView() {
-		LinearLayoutView f1 = new LinearLayoutView(getActivity());
+		LinearLayoutView f1 = new LinearLayoutView(getViewActivity());
 
 		FrameLayout f2 = getMultiView();
 
-		View v = new View(getActivity());
+		View v = new View(getViewActivity());
 		v.setBackgroundResource(R.drawable.pic);
 
 		LinearLayout.LayoutParams params_2 = new LinearLayout.LayoutParams(300, 300);
@@ -92,7 +92,7 @@ public class Invoker extends Entry {
 		LinearLayout.LayoutParams params_v = new LinearLayout.LayoutParams(500, 500);
 		params_v.gravity = Gravity.CENTER;
 
-		WindowManager wm = (WindowManager) getActivity().getSystemService(Context.WINDOW_SERVICE);
+		WindowManager wm = (WindowManager) getViewActivity().getSystemService(Context.WINDOW_SERVICE);
 		int screenW = wm.getDefaultDisplay().getWidth();
 		int marginLeft_v = (screenW - 500) / 2;
 
@@ -117,7 +117,7 @@ public class Invoker extends Entry {
 	
 	
 	private FrameLayout getMultiView() {
-		FrameLayout f1 = new FrameLayout(getActivity());
+		FrameLayout f1 = new FrameLayout(getViewActivity());
 		f1.setBackgroundResource(R.drawable.pic);
 		return f1;
 		

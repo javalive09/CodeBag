@@ -45,7 +45,7 @@ public class Invoker extends Entry {
 	
 	public void getReceiverState() {
 		ComponentName component = new ComponentName("com.peter.appmanager", "com.peter.appmanager.BootCompletedReceiver");
-		int status = getActivity().getPackageManager().getComponentEnabledSetting(component);
+		int status = getViewActivity().getPackageManager().getComponentEnabledSetting(component);
 		switch(status) {
 		case PackageManager.COMPONENT_ENABLED_STATE_ENABLED:
 			LogUtil.i( "state = enable");

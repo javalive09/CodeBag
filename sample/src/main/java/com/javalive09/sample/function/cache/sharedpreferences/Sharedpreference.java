@@ -12,12 +12,12 @@ public class Sharedpreference extends Entry {
 	 * context定义的通用接口getSharedPreferences   （名字，权限）
 	 */
 	public void set1() {
-		SharedPreferences sp = getActivity().getSharedPreferences("getSharedPreferences1", Context.MODE_PRIVATE);
+		SharedPreferences sp = getViewActivity().getSharedPreferences("getSharedPreferences1", Context.MODE_PRIVATE);
 		sp.edit().putString("peter1", "12345").commit();
 	}
 
 	public void get1() {
-		SharedPreferences sp = getActivity().getSharedPreferences("getSharedPreferences1", Context.MODE_PRIVATE);
+		SharedPreferences sp = getViewActivity().getSharedPreferences("getSharedPreferences1", Context.MODE_PRIVATE);
 		String str = sp.getString("peter1", "");
 		showTxt(str);
 	}
@@ -26,12 +26,12 @@ public class Sharedpreference extends Entry {
 	 * context定义的通用接口getSharedPreferences	    （名字，权限）
 	 */
 	public void set2() {
-		SharedPreferences sp = getActivity().getApplicationContext().getSharedPreferences("getSharedPreferences2", Context.MODE_PRIVATE);
+		SharedPreferences sp = getViewActivity().getApplicationContext().getSharedPreferences("getSharedPreferences2", Context.MODE_PRIVATE);
 		sp.edit().putString("peter2", "12345").commit();
 	}
 
 	public void get2() {
-		SharedPreferences sp = getActivity().getApplicationContext().getSharedPreferences("getSharedPreferences2", Context.MODE_PRIVATE);
+		SharedPreferences sp = getViewActivity().getApplicationContext().getSharedPreferences("getSharedPreferences2", Context.MODE_PRIVATE);
 		String str = sp.getString("peter2", "");
 		showTxt(str);
 	}
@@ -40,24 +40,24 @@ public class Sharedpreference extends Entry {
 	 * xml 名字为activity类全路径名去掉包名
 	 */
 	public void set3() {
-		SharedPreferences sp = getActivity().getPreferences(Context.MODE_PRIVATE);
-		String name = getActivity().getLocalClassName();
+		SharedPreferences sp = getViewActivity().getPreferences(Context.MODE_PRIVATE);
+		String name = getViewActivity().getLocalClassName();
 		sp.edit().putString("peter3", "6789").commit();
 	}
 
 	public void get3() {
-		SharedPreferences sp = getActivity().getPreferences(Context.MODE_PRIVATE);
+		SharedPreferences sp = getViewActivity().getPreferences(Context.MODE_PRIVATE);
 		String str = sp.getString("peter3", "");
 		showTxt(str);
 	}
 	
 	public void set4() {
-	    SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getActivity());
+	    SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getViewActivity());
 	    sp.edit().putString("peter34", "0000").commit();
 	}
 
 	public void get4() {
-		SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getActivity());
+		SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getViewActivity());
 		String str = sp.getString("peter34", "");
 		showTxt(str);
 	}

@@ -15,7 +15,7 @@ import com.javalive09.sample.R;
 public class Layer_list extends Entry {
 
 	public void show() {
-		TextView tv = new TextView(getActivity());
+		TextView tv = new TextView(getViewActivity());
 		tv.setText("kajd;fkaj;dfkj");
 		tv.setBackgroundResource(R.drawable.layer_list);
 		showView(tv);

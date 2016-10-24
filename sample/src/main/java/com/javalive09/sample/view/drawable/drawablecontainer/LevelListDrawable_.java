@@ -31,12 +31,12 @@ public class LevelListDrawable_ extends Entry implements OnClickListener{
 	
 	public LevelListDrawable_( ) {
 
-		Bitmap bitmap0 = BitmapFactory.decodeResource(getActivity().getResources(), R.drawable.wifi0);
-		Bitmap bitmap1 = BitmapFactory.decodeResource(getActivity().getResources(), R.drawable.wifi1);
-		Bitmap bitmap2 = BitmapFactory.decodeResource(getActivity().getResources(), R.drawable.wifi2);
-		Bitmap bitmap3 = BitmapFactory.decodeResource(getActivity().getResources(), R.drawable.wifi3);
-		Bitmap bitmap4 = BitmapFactory.decodeResource(getActivity().getResources(), R.drawable.wifi4);
-		Bitmap bitmap5 = BitmapFactory.decodeResource(getActivity().getResources(), R.drawable.wifi5);
+		Bitmap bitmap0 = BitmapFactory.decodeResource(getViewActivity().getResources(), R.drawable.wifi0);
+		Bitmap bitmap1 = BitmapFactory.decodeResource(getViewActivity().getResources(), R.drawable.wifi1);
+		Bitmap bitmap2 = BitmapFactory.decodeResource(getViewActivity().getResources(), R.drawable.wifi2);
+		Bitmap bitmap3 = BitmapFactory.decodeResource(getViewActivity().getResources(), R.drawable.wifi3);
+		Bitmap bitmap4 = BitmapFactory.decodeResource(getViewActivity().getResources(), R.drawable.wifi4);
+		Bitmap bitmap5 = BitmapFactory.decodeResource(getViewActivity().getResources(), R.drawable.wifi5);
 		
 		ad.addLevel(0, 0, new BitmapDrawable(bitmap0));
 		ad.addLevel(1, 1, new BitmapDrawable(bitmap1));
@@ -48,7 +48,7 @@ public class LevelListDrawable_ extends Entry implements OnClickListener{
 	}
 	
 	public void showLevelListDrawable_xml() {
-		View v = View.inflate(getActivity(), R.layout.drawable_level_list, null);
+		View v = View.inflate(getViewActivity(), R.layout.drawable_level_list, null);
 		v.setOnClickListener(this);
 		ImageView iv = (ImageView) v.findViewById(R.id.image);
 		ad = (LevelListDrawable) iv.getBackground();
@@ -56,14 +56,14 @@ public class LevelListDrawable_ extends Entry implements OnClickListener{
 	}
 	
 	public void show() {
-		FrameLayout fl = new FrameLayout(getActivity());
-		ImageView iv = new ImageView(getActivity());
+		FrameLayout fl = new FrameLayout(getViewActivity());
+		ImageView iv = new ImageView(getViewActivity());
 		iv.setBackgroundDrawable(ad);
 		FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
 		params.gravity = Gravity.CENTER | Gravity.CENTER_HORIZONTAL;
 		fl.addView(iv, params);
 		
-		Button start = new Button(getActivity());
+		Button start = new Button(getViewActivity());
 		start.setText("next");
 		start.setId(0);
 		start.setOnClickListener(this);

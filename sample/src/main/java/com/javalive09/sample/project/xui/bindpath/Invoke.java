@@ -8,7 +8,7 @@ import com.javalive09.codebag.Entry;
 public class Invoke extends Entry {
 
 	public void showBtnc() {
-		final ButtonContainer btnc = new ButtonContainer(getActivity());
+		final ButtonContainer btnc = new ButtonContainer(getViewActivity());
 		showView(btnc);
 		btnc.setOnClickListener(new OnClickListener() {
 			
@@ -20,7 +20,7 @@ public class Invoke extends Entry {
 	}
 	
 	public void showAll() {
-		ButtonLineComponent bc = new ButtonLineComponent(getActivity());
+		ButtonLineComponent bc = new ButtonLineComponent(getViewActivity());
 		showView(bc);
 	}
 	

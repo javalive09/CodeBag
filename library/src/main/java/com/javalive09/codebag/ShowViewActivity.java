@@ -9,7 +9,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.view.View;
-import android.widget.FrameLayout;
 
 public class ShowViewActivity extends Activity {
 
@@ -39,20 +38,21 @@ public class ShowViewActivity extends Activity {
             String methodName = node.name;
             String className = node.className;
             Class<?> cls = Class.forName(className);
-            Constructor<?> con = cls.getConstructor();
-            Object obj = con.newInstance();
-
-            Field mActivity = cls.getSuperclass().getDeclaredField("mActivity");
-            mActivity.setAccessible(true);
-            mActivity.set(obj, ShowViewActivity.this);
-            Method method = cls.getDeclaredMethod(methodName);
-            method.invoke(obj);
+            Object obj = CodeBagActivity.mObjectList.get(className);
+            if(obj != null) {
+                Field mActivity = cls.getSuperclass().getDeclaredField("mActivity");
+                mActivity.setAccessible(true);
+                mActivity.set(obj, ShowViewActivity.this);
+                Method method = cls.getDeclaredMethod(methodName);
+                method.invoke(obj);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }finally {
             View hint = findViewById(R.id.hint);
             if(hint != null) {
                 finish();
             }
-        } catch (Exception e) {
-            e.printStackTrace();
         }
     }
 

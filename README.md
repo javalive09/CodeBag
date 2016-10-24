@@ -38,7 +38,7 @@ How Collect your code
             
             //show view
             public void showView() {
-                Button button = new Button(getActivity());
+                Button button = new Button(getViewActivity());
                 button.setText("hello world !");
                 button.setTextColor(Color.BLUE);
                 showView(button);
@@ -51,7 +51,7 @@ How Collect your code
             
             //start activity
             public void startActivity() {
-                Intent intent = new Intent(getActivity(), HelloWorldActivity.class);
+                Intent intent = new Intent(getViewActivity(), HelloWorldActivity.class);
                 startActivity(intent);
             }
             

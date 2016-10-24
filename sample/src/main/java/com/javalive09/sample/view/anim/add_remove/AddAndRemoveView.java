@@ -19,13 +19,13 @@ import com.javalive09.sample.R;
 public class AddAndRemoveView extends Entry {
 	
 	public void addView() {
-		final ImageView iv = new ImageView(getActivity()){
+		final ImageView iv = new ImageView(getViewActivity()){
 		    public void draw(Canvas canvas) {
 		        super.draw(canvas);
 		    }
 		};
 
-		final FrameLayout container = new FrameLayout(getActivity()){
+		final FrameLayout container = new FrameLayout(getViewActivity()){
 			public void draw(Canvas canvas) {
 				super.draw(canvas);
 			}
@@ -33,7 +33,7 @@ public class AddAndRemoveView extends Entry {
 
 		iv.setBackgroundResource(R.drawable.ic_launcher);
 		
-		Button addView = new Button(getActivity());
+		Button addView = new Button(getViewActivity());
 		addView.setText("addView");
 		addView.setOnClickListener(new OnClickListener() {
 			
@@ -46,7 +46,7 @@ public class AddAndRemoveView extends Entry {
 			}
 		});
 		
-		Button removeView = new Button(getActivity());
+		Button removeView = new Button(getViewActivity());
 		removeView.setText("removeView");
 		removeView.setOnClickListener(new OnClickListener() {
 			

@@ -15,21 +15,21 @@ import com.javalive09.sample.R;
 public class BitmapDrawLine extends Entry {
 
 	public void drawScale() {
-		int width = DisplayUtil.dip2px(getActivity(), 54);
-		int height = DisplayUtil.dip2px(getActivity(), 58);
+		int width = DisplayUtil.dip2px(getViewActivity(), 54);
+		int height = DisplayUtil.dip2px(getViewActivity(), 58);
 
-		ImageView iv = new ImageView(getActivity());
-		Bitmap src = BitmapFactory.decodeResource(getActivity().getResources(), R.drawable.ic_launcher);
+		ImageView iv = new ImageView(getViewActivity());
+		Bitmap src = BitmapFactory.decodeResource(getViewActivity().getResources(), R.drawable.ic_launcher);
 		Bitmap bm = Bitmap.createScaledBitmap(src, width, width, false);
 		iv.setImageBitmap(bm);
 		showView(iv);
 	}
 
 	public void drawLine() {
-		int width = DisplayUtil.dip2px(getActivity(), 54);
-		int height = DisplayUtil.dip2px(getActivity(), 58);
+		int width = DisplayUtil.dip2px(getViewActivity(), 54);
+		int height = DisplayUtil.dip2px(getViewActivity(), 58);
 
-		Bitmap src = BitmapFactory.decodeResource(getActivity().getResources(), R.drawable.ic_launcher);
+		Bitmap src = BitmapFactory.decodeResource(getViewActivity().getResources(), R.drawable.ic_launcher);
 		Bitmap bm = Bitmap.createScaledBitmap(src, width, width, false);
 		Bitmap bitmapAltered = Bitmap.createBitmap(width, height, bm.getConfig());
 		Canvas canvas = new Canvas(bitmapAltered);
@@ -40,7 +40,7 @@ public class BitmapDrawLine extends Entry {
 		canvas.drawColor(Color.WHITE);
 		canvas.drawBitmap(bm, 0, 0, paint);
 
-		int paintW = DisplayUtil.dip2px(getActivity(), 1);
+		int paintW = DisplayUtil.dip2px(getViewActivity(), 1);
 		paint.setStrokeWidth(paintW);
 		paint.setFilterBitmap(true);
 		canvas.drawLine(paintW, width + paintW, width - paintW, width + paintW, paint);
@@ -48,7 +48,7 @@ public class BitmapDrawLine extends Entry {
 		canvas.save(Canvas.ALL_SAVE_FLAG);
 		canvas.restore();
 
-		ImageView iv = new ImageView(getActivity());
+		ImageView iv = new ImageView(getViewActivity());
 		iv.setImageBitmap(bitmapAltered);
 		FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(width, height);
 		params.gravity = Gravity.TOP;

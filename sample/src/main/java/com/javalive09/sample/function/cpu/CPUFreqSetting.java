@@ -41,7 +41,7 @@ public class CPUFreqSetting extends Entry {
 			}
 		}
 		
-		TextView tv = new TextView(getActivity());
+		TextView tv = new TextView(getViewActivity());
 		tv.setText(result);
 		showView(tv);
 	}
@@ -74,7 +74,7 @@ public class CPUFreqSetting extends Entry {
 			}
 		}
 		
-		TextView tv = new TextView(getActivity());
+		TextView tv = new TextView(getViewActivity());
 		tv.setText(result);
 		showView(tv);
 	}
@@ -127,7 +127,7 @@ public class CPUFreqSetting extends Entry {
 			}
 		}
 		
-		TextView tv = new TextView(getActivity());
+		TextView tv = new TextView(getViewActivity());
 		tv.setText(result);
 		showView(tv);
 	}

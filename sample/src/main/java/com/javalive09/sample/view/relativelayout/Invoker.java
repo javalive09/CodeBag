@@ -13,13 +13,13 @@ import com.javalive09.sample.R;
 public class Invoker extends Entry {
 
 	public void show() {
-		RelativeLayout mNum2 = new RelativeLayout(getActivity());
+		RelativeLayout mNum2 = new RelativeLayout(getViewActivity());
 		mNum2.setBackgroundColor(Color.WHITE);
 		
 		RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(-2, -2);
 		params.addRule(RelativeLayout.CENTER_IN_PARENT);
 		
-		TextView mNum = new TextView(getActivity());
+		TextView mNum = new TextView(getViewActivity());
 		mNum.setTextSize(40);
 		mNum.setTextColor(0xE624a0ff);
 		mNum.setText("80");
@@ -27,7 +27,7 @@ public class Invoker extends Entry {
 		mNum2.addView(mNum, params);
 		
 		RelativeLayout.LayoutParams paramsP = new RelativeLayout.LayoutParams(-2, -2);
-		TextView percentSign = new TextView(getActivity());
+		TextView percentSign = new TextView(getViewActivity());
 		percentSign.setText("%");
 		percentSign.setTextSize(40);
 		percentSign.setTextColor(0xE624a0ff);
@@ -38,8 +38,8 @@ public class Invoker extends Entry {
 	}
 	
 	public void show2() {
-		RelativeLayout rl = new RelativeLayout(getActivity());  
-	    Button btn1 = new Button(getActivity());  
+		RelativeLayout rl = new RelativeLayout(getViewActivity());
+	    Button btn1 = new Button(getViewActivity());
 	    btn1.setText("btn1 ----------------------");  
 	    btn1.setId(R.id.one);
 	      
@@ -50,7 +50,7 @@ public class Invoker extends Entry {
 	    // btn1 位于父 View 的顶部，在父 View 中水平居中  
 	    rl.addView(btn1, lp1 );  
 	     
-	    Button btn2 = new Button(getActivity());  
+	    Button btn2 = new Button(getViewActivity());
 	    btn2.setText("btn2 |\n|\n|\n|\n|\n|");  
 	    btn2.setId(R.id.two);
 	     
@@ -61,7 +61,7 @@ public class Invoker extends Entry {
 	    // btn2 位于 btn1 的下方、其左边和 btn1 的左边对齐  
 	    rl.addView(btn2, lp2);  
 	     
-	    Button btn3 = new Button(getActivity());  
+	    Button btn3 = new Button(getViewActivity());
 	    btn3.setText("btn3 |\n|\n|\n|\n|\n|");  
 	    btn3.setId(R.id.three);
 	     
@@ -73,7 +73,7 @@ public class Invoker extends Entry {
 	    // btn3 位于 btn1 的下方、btn2 的右方且其右边和 btn1 的右边对齐（要扩充）  
 	    rl.addView(btn3,lp3);  
 	     
-	    Button btn4 = new Button(getActivity());  
+	    Button btn4 = new Button(getViewActivity());
 	    btn4.setText("btn4 --------------------------------------------");  
 	    btn4.setId(R.id.four);
 	     

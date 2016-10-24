@@ -13,7 +13,7 @@ import com.javalive09.sample.R;
 public class Invoker extends Entry {
 
 	public void showView() {
-		LayoutInflater factory = LayoutInflater.from(getActivity());
+		LayoutInflater factory = LayoutInflater.from(getViewActivity());
 		View view = factory.inflate(R.layout.multigridview, null);
 		
 		GridView game = (GridView) view.findViewById(R.id.game);
@@ -28,7 +28,7 @@ public class Invoker extends Entry {
         	lstImageItem.add(map);
         }
         //生成适配器的ImageItem <====> 动态数组的元素，两者一一对应
-        SimpleAdapter saImageItems = new SimpleAdapter(getActivity(), //没什么解释
+        SimpleAdapter saImageItems = new SimpleAdapter(getViewActivity(), //没什么解释
         		                                    lstImageItem,//数据来源 
         		                                    R.layout.grid_item,//night_item的XML实现
         		                                    
@@ -53,7 +53,7 @@ public class Invoker extends Entry {
 			lstImageItem2.add(map);
         }
         //生成适配器的ImageItem <====> 动态数组的元素，两者一一对应
-        SimpleAdapter saImageItems2 = new SimpleAdapter(getActivity(), //没什么解释
+        SimpleAdapter saImageItems2 = new SimpleAdapter(getViewActivity(), //没什么解释
         		                                    lstImageItem2,//数据来源 
         		                                    R.layout.grid_item,//night_item的XML实现
         		                                    

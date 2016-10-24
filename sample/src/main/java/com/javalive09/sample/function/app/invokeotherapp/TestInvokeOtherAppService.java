@@ -15,11 +15,11 @@ import com.javalive09.codebag.Entry;
 public class TestInvokeOtherAppService extends Entry {
 
 	public void runOtherService() {
-		Toast.makeText(getActivity(), "run_otherService", Toast.LENGTH_SHORT).show();
+		Toast.makeText(getViewActivity(), "run_otherService", Toast.LENGTH_SHORT).show();
 		Intent intent = new Intent();
 		ComponentName componentName = new ComponentName("com.lockscreen", "com.lockscreen.LockService");
 		intent.setComponent(componentName);
-		getActivity().startService(intent);
+		getViewActivity().startService(intent);
 	}
 
 }
