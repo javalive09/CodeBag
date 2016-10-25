@@ -13,6 +13,8 @@ public class Entry {
 
     private ShowViewActivity mActivity = null;
 
+    private Entry() {}
+
     public ShowViewActivity getViewActivity() {
         return mActivity;
     }

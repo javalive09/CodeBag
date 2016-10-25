@@ -1,6 +1,5 @@
 package com.javalive09.sample.view.drawable.drawablecontainer;
 
-import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
@@ -28,34 +27,29 @@ import com.javalive09.sample.R;
 public class LevelListDrawable_ extends Entry implements OnClickListener{
 	
 	LevelListDrawable ad = new LevelListDrawable();
-	
-	public LevelListDrawable_( ) {
 
+	public void showLevelListDrawable_xml() {
+		View v = showView(R.layout.drawable_level_list);
+		ImageView iv = (ImageView) v.findViewById(R.id.image);
+		ad = (LevelListDrawable) iv.getBackground();
+		v.findViewById(R.id.next).setOnClickListener(this);
+	}
+	
+	public void show() {
 		Bitmap bitmap0 = BitmapFactory.decodeResource(getViewActivity().getResources(), R.drawable.wifi0);
 		Bitmap bitmap1 = BitmapFactory.decodeResource(getViewActivity().getResources(), R.drawable.wifi1);
 		Bitmap bitmap2 = BitmapFactory.decodeResource(getViewActivity().getResources(), R.drawable.wifi2);
 		Bitmap bitmap3 = BitmapFactory.decodeResource(getViewActivity().getResources(), R.drawable.wifi3);
 		Bitmap bitmap4 = BitmapFactory.decodeResource(getViewActivity().getResources(), R.drawable.wifi4);
 		Bitmap bitmap5 = BitmapFactory.decodeResource(getViewActivity().getResources(), R.drawable.wifi5);
-		
+
 		ad.addLevel(0, 0, new BitmapDrawable(bitmap0));
 		ad.addLevel(1, 1, new BitmapDrawable(bitmap1));
 		ad.addLevel(2, 2, new BitmapDrawable(bitmap2));
 		ad.addLevel(3, 3, new BitmapDrawable(bitmap3));
 		ad.addLevel(4, 4, new BitmapDrawable(bitmap4));
 		ad.addLevel(5, 5, new BitmapDrawable(bitmap5));
-		
-	}
-	
-	public void showLevelListDrawable_xml() {
-		View v = View.inflate(getViewActivity(), R.layout.drawable_level_list, null);
-		v.setOnClickListener(this);
-		ImageView iv = (ImageView) v.findViewById(R.id.image);
-		ad = (LevelListDrawable) iv.getBackground();
-		showView(v);
-	}
-	
-	public void show() {
+
 		FrameLayout fl = new FrameLayout(getViewActivity());
 		ImageView iv = new ImageView(getViewActivity());
 		iv.setBackgroundDrawable(ad);
@@ -65,7 +59,6 @@ public class LevelListDrawable_ extends Entry implements OnClickListener{
 		
 		Button start = new Button(getViewActivity());
 		start.setText("next");
-		start.setId(0);
 		start.setOnClickListener(this);
 		
 		FrameLayout.LayoutParams params2 = new FrameLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
