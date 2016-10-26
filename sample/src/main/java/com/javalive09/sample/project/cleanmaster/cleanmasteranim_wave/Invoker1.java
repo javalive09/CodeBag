@@ -10,8 +10,8 @@ import com.javalive09.sample.R;
 public class Invoker1 extends Entry {
 
 	public void showViewCakeProgressBar() {
-		int mPly = DisplayUtil.dip2px(getViewActivity(), 4);
-		CakeProgressBar c = new CakeProgressBar(getViewActivity());
+		int mPly = DisplayUtil.dip2px(getActivity(), 4);
+		CakeProgressBar c = new CakeProgressBar(getActivity());
 		c.setData(500, mPly, 0);
 		c.setColor(0xE624a0ff, 0x19000000);
 		c.setProgress(40);
@@ -19,10 +19,10 @@ public class Invoker1 extends Entry {
 	}
 	
 	public void showViewCakeProgressBar_xml() {
-		LayoutInflater inflater = LayoutInflater.from(getViewActivity());
+		LayoutInflater inflater = LayoutInflater.from(getActivity());
 		View bar = inflater.inflate(R.layout.cakeprogressbar, null);
 		CakeProgressBar c = (CakeProgressBar) bar.findViewById(R.id.cakebar);
-		int mPly = DisplayUtil.dip2px(getViewActivity(), 4);
+		int mPly = DisplayUtil.dip2px(getActivity(), 4);
 		c.setData(500, mPly, 0);
 		c.setColor(0xE624a0ff, 0x19000000);
 		c.setProgress(40);
@@ -30,10 +30,10 @@ public class Invoker1 extends Entry {
 	}
 	
 	public void animCakeProgressBar() {
-		LayoutInflater inflater = LayoutInflater.from(getViewActivity());
+		LayoutInflater inflater = LayoutInflater.from(getActivity());
 		View bar = inflater.inflate(R.layout.cakeprogressbar, null);
 		CakeProgressBar c = (CakeProgressBar) bar.findViewById(R.id.cakebar);
-		int mPly = DisplayUtil.dip2px(getViewActivity(), 4);
+		int mPly = DisplayUtil.dip2px(getActivity(), 4);
 		c.setData(500, mPly, 3);
 		c.setColor(0xE624a0ff, 0x19000000);
 		c.startAnimination(40);
@@ -41,8 +41,8 @@ public class Invoker1 extends Entry {
 	}
 	
 	public void animCakeProgressBar_xml() {
-		int mPly = DisplayUtil.dip2px(getViewActivity(), 4);
-		CakeProgressBar c = new CakeProgressBar(getViewActivity());
+		int mPly = DisplayUtil.dip2px(getActivity(), 4);
+		CakeProgressBar c = new CakeProgressBar(getActivity());
 		c.setData(500, mPly, 3);
 		c.setColor(0xE624a0ff, 0x19000000);
 		c.startAnimination(40);
@@ -51,14 +51,14 @@ public class Invoker1 extends Entry {
 
 	
 	public void animWaveView() {
-		WaveView v = new WaveView(getViewActivity());
+		WaveView v = new WaveView(getActivity());
 		v.startAnim(50);
 		showView(v);
 	}
 	
 	
 	public void showWaveView() {
-		WaveView v = new WaveView(getViewActivity());
+		WaveView v = new WaveView(getActivity());
 		v.setProgress(50);
 		showView(v);
 	}

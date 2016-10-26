@@ -15,13 +15,13 @@ public class MyTextview extends Entry {
 
 
 	public void invoke_linearlayout() {
-		LinearLayout mText = new LinearLayout(getViewActivity());
+		LinearLayout mText = new LinearLayout(getActivity());
 		mText.setOrientation(LinearLayout.VERTICAL);
-		LinearLayout l = new LinearLayout(getViewActivity());
+		LinearLayout l = new LinearLayout(getActivity());
 		l.setGravity(Gravity.CENTER);
 		
 		//百分比数字
-		TextView mNum = new TextView(getViewActivity());
+		TextView mNum = new TextView(getActivity());
 		mNum.setTextSize(36);
 		mNum.setTextColor(Color.WHITE);
 		mNum.setLineSpacing(0.0f, 0.8f);
@@ -31,14 +31,14 @@ public class MyTextview extends Entry {
 		mNum.setText("88");
 		
 		//已使用文字
-		TextView used = new TextView(getViewActivity());
+		TextView used = new TextView(getActivity());
 		used.setTextSize(14);
 		used.setTextColor(Color.WHITE);
 		used.setGravity(Gravity.CENTER | Gravity.TOP);
 		used.setText("已用");
 		used.setGravity(Gravity.CENTER);
 		//百分比符号
-		TextView mPercentSign = new TextView(getViewActivity());
+		TextView mPercentSign = new TextView(getActivity());
 		mPercentSign.setText("%");
 		mPercentSign.setTextSize(12);
 		mPercentSign.setPadding(0, 13, 0, 0);
@@ -77,10 +77,10 @@ public class MyTextview extends Entry {
 	}
 	
 	public void invoke_relativelayout() {
-		RelativeLayout mText = new RelativeLayout(getViewActivity());
+		RelativeLayout mText = new RelativeLayout(getActivity());
 		
 		//百分比数字
-		TextView mNum = new TextView(getViewActivity()){
+		TextView mNum = new TextView(getActivity()){
 
 			@Override
 			protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
@@ -99,7 +99,7 @@ public class MyTextview extends Entry {
 		mNum.setLineSpacing(0.0f, 0.81f);
 		
 		//已使用文字
-		TextView used = new TextView(getViewActivity());
+		TextView used = new TextView(getActivity());
 		used.setTextSize(14);
 		used.setTextColor(Color.WHITE);
 		used.setGravity(Gravity.CENTER | Gravity.TOP);
@@ -107,7 +107,7 @@ public class MyTextview extends Entry {
 		used.setGravity(Gravity.CENTER);
 		
 		//百分比符号
-		TextView mPercentSign = new TextView(getViewActivity());
+		TextView mPercentSign = new TextView(getActivity());
 		mPercentSign.setText("%");
 		mPercentSign.setTextSize(12);
 		mPercentSign.setPadding(0, 13, 0, 0);

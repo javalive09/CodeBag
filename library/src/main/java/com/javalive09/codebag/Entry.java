@@ -9,49 +9,57 @@ import android.widget.TextView;
  * Created by peter on 16/9/21.
  *
  */
-public class Entry {
+public abstract class Entry {
 
     private ShowViewActivity mActivity = null;
 
-    private Entry() {}
+    private CodeBagActivity mBaseActivity = null;
 
-    public ShowViewActivity getViewActivity() {
-        return mActivity;
+    protected final CodeBagActivity getActivity() {
+        return mBaseActivity;
     }
 
-    public Context getApplicationContext() {
-        return mActivity.getApplicationContext();
+    protected final Context getApplicationContext() {
+        return mBaseActivity.getApplicationContext();
     }
 
-    public void showTxt(String text) {
+    protected final void showTxt(String text) {
         showTxt(text, null);
     }
 
-    public void showTxt(String text, ShowViewActivity.ActivityCallback mActivityCallback) {
+    protected final void showTxt(String text, ShowViewActivity.ActivityCallback mActivityCallback) {
         showView(R.layout.dialog_code_textview, mActivityCallback);
         TextView textView = (TextView)findViewById(R.id.code_text);
         textView.setText(text);
     }
 
-    public View showView(int resId) {
+    protected final View showView(int resId) {
         return showView(resId, null);
     }
 
-    public View showView(int resId, ShowViewActivity.ActivityCallback mActivityCallback) {
-        mActivity.setmActivityCallback(mActivityCallback);
-        return mActivity.showMethodView(resId);
+    protected final View showView(int resId, ShowViewActivity.ActivityCallback mActivityCallback) {
+        if(mActivity == null) {
+            throw new RuntimeException("can not invoke this method in constructor!");
+        }else {
+            mActivity.setmActivityCallback(mActivityCallback);
+            return mActivity.showMethodView(resId);
+        }
     }
 
-    public View showView(View view){
+    protected final View showView(View view){
         return showView(view, null);
     }
 
-    public View showView(View view, ShowViewActivity.ActivityCallback mActivityCallback) {
-        mActivity.setmActivityCallback(mActivityCallback);
-        return mActivity.showMethodView(view);
+    protected final View showView(View view, ShowViewActivity.ActivityCallback mActivityCallback) {
+        if(mActivity == null) {
+            throw new RuntimeException("can not invoke this method in constructor!");
+        }else {
+            mActivity.setmActivityCallback(mActivityCallback);
+            return mActivity.showMethodView(view);
+        }
     }
 
-    public View findViewById(int id) {
+    protected final View findViewById(int id) {
         return mActivity.findViewById(id);
     }
 

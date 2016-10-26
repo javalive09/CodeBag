@@ -21,7 +21,7 @@ public class Invoker extends Entry {
 	int requestCount;
 	
 	public void setText() {
-		view = new TextView(getViewActivity()) {
+		view = new TextView(getActivity()) {
 
 			@Override
 			protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {

@@ -26,12 +26,12 @@ public class AnimationDrawable_ extends Entry implements OnClickListener{
 	
 	public void show() {
 		ad = new AnimationDrawable();
-		Bitmap bitmap0 = BitmapFactory.decodeResource(getViewActivity().getResources(), R.drawable.wifi0);
-		Bitmap bitmap1 = BitmapFactory.decodeResource(getViewActivity().getResources(), R.drawable.wifi1);
-		Bitmap bitmap2 = BitmapFactory.decodeResource(getViewActivity().getResources(), R.drawable.wifi2);
-		Bitmap bitmap3 = BitmapFactory.decodeResource(getViewActivity().getResources(), R.drawable.wifi3);
-		Bitmap bitmap4 = BitmapFactory.decodeResource(getViewActivity().getResources(), R.drawable.wifi4);
-		Bitmap bitmap5 = BitmapFactory.decodeResource(getViewActivity().getResources(), R.drawable.wifi5);
+		Bitmap bitmap0 = BitmapFactory.decodeResource(getActivity().getResources(), R.drawable.wifi0);
+		Bitmap bitmap1 = BitmapFactory.decodeResource(getActivity().getResources(), R.drawable.wifi1);
+		Bitmap bitmap2 = BitmapFactory.decodeResource(getActivity().getResources(), R.drawable.wifi2);
+		Bitmap bitmap3 = BitmapFactory.decodeResource(getActivity().getResources(), R.drawable.wifi3);
+		Bitmap bitmap4 = BitmapFactory.decodeResource(getActivity().getResources(), R.drawable.wifi4);
+		Bitmap bitmap5 = BitmapFactory.decodeResource(getActivity().getResources(), R.drawable.wifi5);
 		
 		ad.addFrame(new BitmapDrawable(bitmap0), 200);
 		ad.addFrame(new BitmapDrawable(bitmap1), 200);
@@ -44,15 +44,15 @@ public class AnimationDrawable_ extends Entry implements OnClickListener{
 	}
 
 	public void show_xml() {
-		ad = (AnimationDrawable) getViewActivity().getResources().getDrawable(R.drawable.animation_drawable);
+		ad = (AnimationDrawable) getActivity().getResources().getDrawable(R.drawable.animation_drawable);
 		anim();
 	}
 	
 	private void anim() {
 		ad.setOneShot(false);
 		
-		FrameLayout fl = new FrameLayout(getViewActivity());
-		ImageView iv = new ImageView(getViewActivity());
+		FrameLayout fl = new FrameLayout(getActivity());
+		ImageView iv = new ImageView(getActivity());
 		iv.setBackgroundDrawable(ad);
 		
 		  FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
@@ -60,12 +60,12 @@ public class AnimationDrawable_ extends Entry implements OnClickListener{
 		
 		fl.addView(iv, params);
 		
-		Button start = new Button(getViewActivity());
+		Button start = new Button(getActivity());
 		start.setText("start");
 		start.setId(R.id.one);
 		start.setOnClickListener(this);
 		
-		Button stop = new Button(getViewActivity());
+		Button stop = new Button(getActivity());
 		stop.setText("stop");
 		stop.setId(R.id.two);
 		stop.setOnClickListener(this);

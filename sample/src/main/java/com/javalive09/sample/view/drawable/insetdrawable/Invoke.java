@@ -16,7 +16,7 @@ import com.javalive09.sample.R;
 public class Invoke extends Entry {
 
 	public void show() {
-		View v = View.inflate(getViewActivity(), R.layout.drawable_inset_drawable, null);
+		View v = View.inflate(getActivity(), R.layout.drawable_inset_drawable, null);
 		showView(v);
 	}
 

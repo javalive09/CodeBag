@@ -25,9 +25,9 @@ public class TestPatternFind extends Entry {
     		int end = mat.indexOf(" ");
     		String time = mat.substring(start, end);
     		Double d = Double.valueOf(time);
-    		Toast.makeText(getViewActivity(), d +" ", Toast.LENGTH_SHORT).show();
+    		Toast.makeText(getActivity(), d +" ", Toast.LENGTH_SHORT).show();
     	}else {
-    		Toast.makeText(getViewActivity(), "not find", Toast.LENGTH_SHORT).show();
+    		Toast.makeText(getActivity(), "not find", Toast.LENGTH_SHORT).show();
     	}
     	
 	}

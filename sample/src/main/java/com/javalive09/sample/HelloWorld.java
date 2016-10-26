@@ -15,6 +15,10 @@ import com.javalive09.codebag.LogUtil;
 
 public class HelloWorld extends Entry {
 
+    public HelloWorld() {
+
+    }
+
     //show text
     public void showText() {
         showTxt("hello world !");
@@ -22,7 +26,7 @@ public class HelloWorld extends Entry {
 
     //show view
     public void showView() {
-        Button button = new Button(getViewActivity());
+        Button button = new Button(getActivity());
         button.setText("hello world !");
         button.setTextColor(Color.BLUE);
         showView(button);
@@ -35,8 +39,8 @@ public class HelloWorld extends Entry {
 
     //start activity
     public void startActivity() {
-        Intent intent = new Intent(getViewActivity(), HelloWorldActivity.class);
-        getViewActivity().startActivity(intent);
+        Intent intent = new Intent(getActivity(), HelloWorldActivity.class);
+        getActivity().startActivity(intent);
     }
 
     //show log

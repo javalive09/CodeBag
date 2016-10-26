@@ -13,8 +13,8 @@ public class Transfer extends Entry {
 	View music;
 	
 	public void trans() {
-		showView(View.inflate(getViewActivity(), R.layout.curve_path, null));
-		music = getViewActivity().findViewById(R.id.music);
+		showView(View.inflate(getActivity(), R.layout.curve_path, null));
+		music = getActivity().findViewById(R.id.music);
 		music.setVisibility(View.INVISIBLE);
 		music.post(new Runnable() {
 			
@@ -28,7 +28,7 @@ public class Transfer extends Entry {
 
 	private void anim() {
 		AnimatorPath path = new AnimatorPath();
-		View root = getViewActivity().findViewById(R.id.rootview);
+		View root = getActivity().findViewById(R.id.rootview);
 		int x = root.getWidth();
 		int y = root.getHeight();
 		

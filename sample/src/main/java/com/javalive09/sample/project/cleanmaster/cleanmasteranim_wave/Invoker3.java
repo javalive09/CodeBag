@@ -7,7 +7,7 @@ import com.javalive09.codebag.Entry;
 public class Invoker3 extends Entry {
 
 	public void showCakeWaveView() {
-		CakeWaveView2 v = new CakeWaveView2(getViewActivity());
+		CakeWaveView2 v = new CakeWaveView2(getActivity());
 		int waveColor = Color.parseColor("#33ffffff");
 		int cirCleColor = Color.parseColor("#24a0ff");
 		v.setData(500, 11);
@@ -17,7 +17,7 @@ public class Invoker3 extends Entry {
 	}
 	
 	public void animCakeWaveView() {
-		CakeWaveView2 v = new CakeWaveView2(getViewActivity());
+		CakeWaveView2 v = new CakeWaveView2(getActivity());
 		int waveColor = Color.parseColor("#33ffffff");
 		int cirCleColor = Color.parseColor("#24a0ff");
 		v.setData(500, 20);

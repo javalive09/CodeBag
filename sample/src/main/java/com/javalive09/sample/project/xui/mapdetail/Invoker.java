@@ -41,7 +41,7 @@ public class Invoker extends Entry {
             items.add(item);
         }
         
-        adapter = new ExampleAdapter(getViewActivity());
+        adapter = new ExampleAdapter(getActivity());
         adapter.setData(items);
         
         listView = (AnimatedExpandableListView) findViewById(R.id.listView);

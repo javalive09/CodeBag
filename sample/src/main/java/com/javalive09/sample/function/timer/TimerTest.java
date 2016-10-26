@@ -19,14 +19,14 @@ public class TimerTest extends Entry {
     int count = 0;
 
     public void test() {
-        final TextView textView = new TextView(getViewActivity());
+        final TextView textView = new TextView(getActivity());
         showView(textView);
         Timer timer = new Timer();
         timer.schedule(new TimerTask() {
             @Override
             public void run() {
                 count ++;
-                getViewActivity().runOnUiThread(new Runnable() {
+                getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
                         textView.setText("start:" + count);

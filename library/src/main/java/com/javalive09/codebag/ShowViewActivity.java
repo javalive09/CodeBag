@@ -1,8 +1,8 @@
 package com.javalive09.codebag;
 
-import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
+import java.util.ArrayList;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -38,7 +38,8 @@ public class ShowViewActivity extends Activity {
             String methodName = node.name;
             String className = node.className;
             Class<?> cls = Class.forName(className);
-            Object obj = CodeBagActivity.mObjectList.get(className);
+            ArrayList<Object> objList = CodeBagActivity.mObjectMap.get(className);
+            Object obj = objList.get(0);
             if(obj != null) {
                 Field mActivity = cls.getSuperclass().getDeclaredField("mActivity");
                 mActivity.setAccessible(true);
@@ -139,12 +140,6 @@ public class ShowViewActivity extends Activity {
         if(mActivityCallback != null) {
             mActivityCallback.onStop();
         }
-    }
-
-    @Override
-    public void startActivity(Intent intent) {
-        super.startActivity(intent);
-        finish();
     }
 
     public static class ActivityCallback{

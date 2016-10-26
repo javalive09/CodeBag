@@ -8,12 +8,12 @@ import com.javalive09.sample.R;
 public class Invoke extends Entry {
 
 	public void PNG_File() {
-		View v = View.inflate(getViewActivity(), R.layout.drawable_bitmap_file, null);
+		View v = View.inflate(getActivity(), R.layout.drawable_bitmap_file, null);
 		showView(v);
 	}
 	
 	public void NINE_PATCH_PNG_File() {
-		View v = View.inflate(getViewActivity(), R.layout.drawable_nine_patch_file, null);
+		View v = View.inflate(getActivity(), R.layout.drawable_nine_patch_file, null);
 		showView(v);
 	}
 	

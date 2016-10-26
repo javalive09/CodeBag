@@ -25,7 +25,7 @@ public class Android_data_files extends Entry {
 
 
 	/* Checks if external storage is available for read and write */
-	public boolean isExternalStorageWritable() {
+	private boolean isExternalStorageWritable() {
 	    String state = Environment.getExternalStorageState();
 	    if (Environment.MEDIA_MOUNTED.equals(state)) {
 	        return true;
@@ -34,7 +34,7 @@ public class Android_data_files extends Entry {
 	}
 
 	/* Checks if external storage is available to at least read */
-	public boolean isExternalStorageReadable() {
+	private boolean isExternalStorageReadable() {
 	    String state = Environment.getExternalStorageState();
 	    if (Environment.MEDIA_MOUNTED.equals(state) ||
 	        Environment.MEDIA_MOUNTED_READ_ONLY.equals(state)) {
@@ -54,7 +54,7 @@ public class Android_data_files extends Entry {
 			return;
 		}
 		String transferFile = "file.txt";
-		File extDir = getViewActivity().getExternalFilesDir(null);
+		File extDir = getActivity().getExternalFilesDir(null);
 		File requestFile = new File(extDir, transferFile);
 		requestFile.setReadable(true, false);
 		writeToFile("filexxx", requestFile);
@@ -66,7 +66,7 @@ public class Android_data_files extends Entry {
 			return;
 		}
 		String transferFile = "file.txt";
-		File extDir = getViewActivity().getExternalFilesDir(null);
+		File extDir = getActivity().getExternalFilesDir(null);
 		File requestFile = new File(extDir, transferFile);
 		String str = readFromFile(requestFile);
 		showTxt("file str =" + str);
@@ -83,7 +83,7 @@ public class Android_data_files extends Entry {
 			return;
 		}
 		String transferFile = "cache.txt";
-		File extDir = getViewActivity().getExternalCacheDir();
+		File extDir = getActivity().getExternalCacheDir();
 		File requestFile = new File(extDir, transferFile);
 		requestFile.setReadable(true, false);
 		writeToFile("cachexxx", requestFile);
@@ -95,7 +95,7 @@ public class Android_data_files extends Entry {
 			return;
 		}
 		String transferFile = "cache.txt";
-		File extDir = getViewActivity().getExternalCacheDir();
+		File extDir = getActivity().getExternalCacheDir();
 		File requestFile = new File(extDir, transferFile);
 		String str = readFromFile(requestFile);
 		showTxt("file str =" + str);

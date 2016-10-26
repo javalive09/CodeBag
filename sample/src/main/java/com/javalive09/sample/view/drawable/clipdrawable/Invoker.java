@@ -27,11 +27,11 @@ public class Invoker extends Entry {
 	ValueAnimator va;
 	
 	public void showClipDrawable() {
-		Bitmap b = BitmapFactory.decodeResource(getViewActivity().getResources(), R.drawable.ic_launcher);
-		BitmapDrawable d = new BitmapDrawable(getViewActivity().getResources(), b);
+		Bitmap b = BitmapFactory.decodeResource(getActivity().getResources(), R.drawable.ic_launcher);
+		BitmapDrawable d = new BitmapDrawable(getActivity().getResources(), b);
 		cd = new ClipDrawable(d, Gravity.LEFT, ClipDrawable.HORIZONTAL);
 		
-		ImageView iv = new ImageView(getViewActivity());
+		ImageView iv = new ImageView(getActivity());
 		iv.post(new Runnable() {
 
 			@Override
@@ -74,8 +74,8 @@ public class Invoker extends Entry {
 	};
 	
 	public void showClipDrawable_xml() {
-		cd = (ClipDrawable) getViewActivity().getResources().getDrawable(R.drawable.clip_drawable);
-		ImageView iv = new ImageView(getViewActivity());
+		cd = (ClipDrawable) getActivity().getResources().getDrawable(R.drawable.clip_drawable);
+		ImageView iv = new ImageView(getActivity());
 		va = ValueAnimator.ofInt(0, 10000);
 		va.setDuration(1000);
 		va.addUpdateListener(new AnimatorUpdateListener() {

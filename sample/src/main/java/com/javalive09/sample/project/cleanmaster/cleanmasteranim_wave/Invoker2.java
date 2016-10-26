@@ -7,7 +7,7 @@ import com.javalive09.codebag.Entry;
 public class Invoker2 extends Entry {
 
 	public void showCardWaveBar() {
-		CardWaveBar bar = new CardWaveBar(getViewActivity());
+		CardWaveBar bar = new CardWaveBar(getActivity());
 		bar.setData(0, 500, 0);
 		int waveColor = Color.parseColor("#33ffffff");
 		int cirCleColor = Color.parseColor("#24a0ff");
@@ -17,7 +17,7 @@ public class Invoker2 extends Entry {
 	}
 	
 	public void animCardWaveBar() {
-		CardWaveBar bar = new CardWaveBar(getViewActivity());
+		CardWaveBar bar = new CardWaveBar(getActivity());
 		bar.setData(0, 500, 0);
 		int waveColor = Color.parseColor("#33ffffff");
 		int cirCleColor = Color.parseColor("#24a0ff");

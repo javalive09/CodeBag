@@ -12,7 +12,7 @@ import com.javalive09.codebag.Entry;
 public class Invoke extends Entry {
 
 	public void showCircleView() {
-		final CircleView v = new CircleView(getViewActivity());
+		final CircleView v = new CircleView(getActivity());
 		int color = Color.parseColor("#1e83d1");
 		v.setBackgroundColor(color);
 		showView(v);
@@ -27,7 +27,7 @@ public class Invoke extends Entry {
 	}
 	
 	public void showProgressView() {
-		ProgressView v = new ProgressView(getViewActivity());
+		ProgressView v = new ProgressView(getActivity());
 		int color = Color.parseColor("#1e83d1");
 		v.setBackgroundColor(color);
 		FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(-2, -2);

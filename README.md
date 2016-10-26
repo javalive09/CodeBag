@@ -8,7 +8,7 @@ Download
 
 Gradle:
 ```
-compile 'com.javalive09.codebag:codebag:1.1.2'
+compile 'com.javalive09.codebag:codebag:1.1.3'
 ```
 
 How Collect your code
@@ -38,7 +38,7 @@ How Collect your code
             
             //show view
             public void showView() {
-                Button button = new Button(getViewActivity());
+                Button button = new Button(getActivity());
                 button.setText("hello world !");
                 button.setTextColor(Color.BLUE);
                 showView(button);
@@ -51,7 +51,7 @@ How Collect your code
             
             //start activity
             public void startActivity() {
-                Intent intent = new Intent(getViewActivity(), HelloWorldActivity.class);
+                Intent intent = new Intent(getActivity(), HelloWorldActivity.class);
                 startActivity(intent);
             }
             

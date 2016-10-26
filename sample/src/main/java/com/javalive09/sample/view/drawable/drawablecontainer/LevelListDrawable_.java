@@ -36,12 +36,12 @@ public class LevelListDrawable_ extends Entry implements OnClickListener{
 	}
 	
 	public void show() {
-		Bitmap bitmap0 = BitmapFactory.decodeResource(getViewActivity().getResources(), R.drawable.wifi0);
-		Bitmap bitmap1 = BitmapFactory.decodeResource(getViewActivity().getResources(), R.drawable.wifi1);
-		Bitmap bitmap2 = BitmapFactory.decodeResource(getViewActivity().getResources(), R.drawable.wifi2);
-		Bitmap bitmap3 = BitmapFactory.decodeResource(getViewActivity().getResources(), R.drawable.wifi3);
-		Bitmap bitmap4 = BitmapFactory.decodeResource(getViewActivity().getResources(), R.drawable.wifi4);
-		Bitmap bitmap5 = BitmapFactory.decodeResource(getViewActivity().getResources(), R.drawable.wifi5);
+		Bitmap bitmap0 = BitmapFactory.decodeResource(getActivity().getResources(), R.drawable.wifi0);
+		Bitmap bitmap1 = BitmapFactory.decodeResource(getActivity().getResources(), R.drawable.wifi1);
+		Bitmap bitmap2 = BitmapFactory.decodeResource(getActivity().getResources(), R.drawable.wifi2);
+		Bitmap bitmap3 = BitmapFactory.decodeResource(getActivity().getResources(), R.drawable.wifi3);
+		Bitmap bitmap4 = BitmapFactory.decodeResource(getActivity().getResources(), R.drawable.wifi4);
+		Bitmap bitmap5 = BitmapFactory.decodeResource(getActivity().getResources(), R.drawable.wifi5);
 
 		ad.addLevel(0, 0, new BitmapDrawable(bitmap0));
 		ad.addLevel(1, 1, new BitmapDrawable(bitmap1));
@@ -50,14 +50,14 @@ public class LevelListDrawable_ extends Entry implements OnClickListener{
 		ad.addLevel(4, 4, new BitmapDrawable(bitmap4));
 		ad.addLevel(5, 5, new BitmapDrawable(bitmap5));
 
-		FrameLayout fl = new FrameLayout(getViewActivity());
-		ImageView iv = new ImageView(getViewActivity());
+		FrameLayout fl = new FrameLayout(getActivity());
+		ImageView iv = new ImageView(getActivity());
 		iv.setBackgroundDrawable(ad);
 		FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
 		params.gravity = Gravity.CENTER | Gravity.CENTER_HORIZONTAL;
 		fl.addView(iv, params);
 		
-		Button start = new Button(getViewActivity());
+		Button start = new Button(getActivity());
 		start.setText("next");
 		start.setOnClickListener(this);
 		

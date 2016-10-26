@@ -30,12 +30,12 @@ public class Invoker2 extends Entry {
 	private MyAdapter3 adapter;
 
 	public void showExpandList() {
-		LayoutInflater factory = LayoutInflater.from(getViewActivity());
+		LayoutInflater factory = LayoutInflater.from(getActivity());
 		View root = factory.inflate(R.layout.expand_list_view3, null, false);
 		listView = (ExpandableListView) root
 				.findViewById(R.id.expandableListView);
 		initData();
-		adapter = new MyAdapter3(getViewActivity(), group, child);
+		adapter = new MyAdapter3(getActivity(), group, child);
 		listView.setAdapter(adapter);
 		for (int i = 0; i < adapter.getGroupCount(); i++) {
 			listView.expandGroup(i);

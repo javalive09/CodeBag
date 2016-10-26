@@ -6,7 +6,7 @@ import com.javalive09.codebag.Entry;
 public class invoke extends Entry {
 
 	public void show() {
-		getViewActivity().startActivity(new Intent(getViewActivity(),MyActivity.class));
+		getActivity().startActivity(new Intent(getActivity(),MyActivity.class));
 	}
 
 }

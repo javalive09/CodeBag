@@ -36,19 +36,18 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 /**
  *
  * Created by peter on 16/9/21.
- *
  */
 public class CodeBagActivity extends AppCompatActivity implements View.OnClickListener, View.OnLongClickListener {
 
     private static List<CodeBagActivity> mActContainer = new LinkedList<>();
+    static Map<String, ArrayList<Object>> mObjectMap = new HashMap<>();
     private Node mCurrentNode;
     private ListView mListView;
-    public static Map<String, Object> mObjectList = new HashMap<>();
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,19 +56,29 @@ public class CodeBagActivity extends AppCompatActivity implements View.OnClickLi
         Intent intent = getIntent();
         if (intent != null) {
             Node node = intent.getParcelableExtra(CodeBag.NODE_NAME);
-            if(node == null) {//init
+            if (node == null) {//init
                 CodeBag app = (CodeBag) getApplication();
                 node = app.init();
             }
             mCurrentNode = node;
-            if(mCurrentNode.type == Node.CLASS) {
-                String className = node.className;
+            if (mCurrentNode.type == Node.CLASS) {
+                String className = mCurrentNode.className;
+                ArrayList<Object> mObjectList = mObjectMap.get(className);
+                if (mObjectList == null) {
+                    mObjectList = new ArrayList<>();
+                }
                 Class<?> cls;
                 try {
                     cls = Class.forName(className);
                     Constructor<?> con = cls.getConstructor();
                     Object obj = con.newInstance();
-                    mObjectList.put(node.className, obj);
+                    if (obj != null) {
+                        Field mActivity = cls.getSuperclass().getDeclaredField("mBaseActivity");
+                        mActivity.setAccessible(true);
+                        mActivity.set(obj, CodeBagActivity.this);
+                        mObjectList.add(obj);
+                        mObjectMap.put(className, mObjectList);
+                    }
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -95,7 +104,7 @@ public class CodeBagActivity extends AppCompatActivity implements View.OnClickLi
             String className = parentNode.className;
             Class<?> cls = Class.forName(className);
             String superClassName = cls.getSuperclass().getSimpleName();
-            if(superClassName.equals(Entry.class.getSimpleName())) {
+            if (superClassName.equals(Entry.class.getSimpleName())) {
                 Method[] methods = cls.getDeclaredMethods();
                 for (Method m : methods) {
                     if (Modifier.PUBLIC == m.getModifiers()
@@ -152,22 +161,22 @@ public class CodeBagActivity extends AppCompatActivity implements View.OnClickLi
 
     private String getRootUrl() {
         int ownerStrId = getResources().getIdentifier("git_owner", "string", getPackageName());
-        if(ownerStrId != 0) {
+        if (ownerStrId != 0) {
             int repoStrId = getResources().getIdentifier("git_repo", "string", getPackageName());
-            if(repoStrId != 0) {
+            if (repoStrId != 0) {
                 int dirStrId = getResources().getIdentifier("git_dir", "string", getPackageName());
-                if(dirStrId != 0) {
+                if (dirStrId != 0) {
                     String owner = getString(ownerStrId);
                     String repo = getString(repoStrId);
                     String rootDir = getString(dirStrId);
                     return CodeBag.GIT_HUB_HOME + owner + "/" + repo + "/master/" + rootDir + "/src/main/java/";
-                }else {
+                } else {
                     Toast.makeText(CodeBagActivity.this, R.string.no_dir, Toast.LENGTH_LONG).show();
                 }
-            }else {
+            } else {
                 Toast.makeText(CodeBagActivity.this, R.string.no_repo, Toast.LENGTH_LONG).show();
             }
-        }else {
+        } else {
             Toast.makeText(CodeBagActivity.this, R.string.no_owner, Toast.LENGTH_LONG).show();
         }
         return "";
@@ -178,11 +187,11 @@ public class CodeBagActivity extends AppCompatActivity implements View.OnClickLi
     public boolean onLongClick(View v) {
         int position = (Integer) v.getTag(R.id.main_item_pos);
         Node node = (Node) mListView.getAdapter().getItem(position);
-        if(node.type == Node.CLASS) {//get code source
+        if (node.type == Node.CLASS) {//get code source
             final AlertDialog dialog = showAlertDialog(node.name + ".java", getString(R.string.loading));
             String path = node.className.replace(".", "/") + ".java";
             String url = getRootUrl();
-            if(!TextUtils.isEmpty(url)) {
+            if (!TextUtils.isEmpty(url)) {
                 final AsyncTask loading = getGitHubCode(dialog, getRootUrl() + path);
                 dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
                     @Override
@@ -197,7 +206,7 @@ public class CodeBagActivity extends AppCompatActivity implements View.OnClickLi
     }
 
     private AsyncTask getGitHubCode(final AlertDialog dialog, final String url) {
-        return  new AsyncTask<Void, Void, String>() {
+        return new AsyncTask<Void, Void, String>() {
 
             @Override
             protected void onPreExecute() {
@@ -216,7 +225,7 @@ public class CodeBagActivity extends AppCompatActivity implements View.OnClickLi
                     c.setReadTimeout(10 * 1000);
                     c.connect();
                     int status = c.getResponseCode();
-                    if(status == 200) {
+                    if (status == 200) {
                         BufferedReader br = new BufferedReader(new InputStreamReader(c.getInputStream()));
                         String line;
                         while ((line = br.readLine()) != null) {
@@ -224,7 +233,7 @@ public class CodeBagActivity extends AppCompatActivity implements View.OnClickLi
                             sb.append("\n");
                         }
                         br.close();
-                    }else {
+                    } else {
                         showToast(R.string.no_code);
                     }
                 } catch (java.net.SocketTimeoutException e) {
@@ -248,7 +257,7 @@ public class CodeBagActivity extends AppCompatActivity implements View.OnClickLi
             @Override
             protected void onPostExecute(String s) {
                 super.onPostExecute(s);
-                if(!TextUtils.isEmpty(s)) {
+                if (!TextUtils.isEmpty(s)) {
                     updateContent(dialog, s);
                 }
             }
@@ -304,7 +313,19 @@ public class CodeBagActivity extends AppCompatActivity implements View.OnClickLi
     protected void onDestroy() {
         super.onDestroy();
         mActContainer.remove(CodeBagActivity.this);
-        mObjectList.remove(mCurrentNode.className);
+
+        ArrayList<Object> mObjectList = mObjectMap.get(mCurrentNode.className);
+        if(mObjectList != null) {
+            int len = mObjectList.size();
+            if(len > 1) {
+                mObjectList.remove(len - 1);
+            }else {
+                mObjectList.clear();
+                mObjectMap.remove(mCurrentNode.className);
+            }
+            LogUtil.e("mObjectList =" + mObjectList.toString() + ";map = " + mObjectMap.toString());
+        }
+
     }
 
     private void exit() {
@@ -334,19 +355,19 @@ public class CodeBagActivity extends AppCompatActivity implements View.OnClickLi
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
 
-        if(id == android.R.id.home) {
+        if (id == android.R.id.home) {
             finish();
-        }else if(id == R.id.action_help) {
+        } else if (id == R.id.action_help) {
             showAlertDialog(getString(R.string.action_help),
                     getString(R.string.action_help_msg));
-        }else if(id == R.id.action_about) {
+        } else if (id == R.id.action_about) {
             showAlertDialog(getString(R.string.action_about),
                     getString(R.string.action_about_msg));
-        }else if(id == R.id.action_showlog) {
+        } else if (id == R.id.action_showlog) {
             showAlertDialog("log", LogUtil.getLog());
-        }else if(id == R.id.action_clearlog) {
+        } else if (id == R.id.action_clearlog) {
             LogUtil.clearLog();
-        }else if(id == R.id.action_exit) {
+        } else if (id == R.id.action_exit) {
             exit();
         }
         return super.onOptionsItemSelected(item);

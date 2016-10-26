@@ -38,6 +38,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
+ *
  * Created by peter on 16/9/13.
  */
 public class Utils extends Entry {
@@ -152,16 +153,17 @@ public class Utils extends Entry {
 
     private final static String PHONE_STATE = Manifest.permission.READ_PHONE_STATE;
     PermissionHelper permissionHelper;
+    ShowViewActivity.ActivityCallback callback;
 
     /**
      * 手机参数工具
      */
     public void phoneData() {
 
-        permissionHelper = PermissionHelper.getInstance(getViewActivity(), new OnPermissionCallback() {
+        permissionHelper = PermissionHelper.getInstance(getActivity(), new OnPermissionCallback() {
             @Override
             public void onPermissionGranted(@NonNull String[] permissionName) {
-                realshow();
+                realshow(callback);
             }
 
             @Override
@@ -171,7 +173,7 @@ public class Utils extends Entry {
 
             @Override
             public void onPermissionPreGranted(@NonNull String permissionsName) {
-                realshow();
+                realshow(callback);
             }
 
             @Override
@@ -183,22 +185,19 @@ public class Utils extends Entry {
                         permissionHelper.openSettingsScreen();
                     }
                 });
-
             }
-
             @Override
-            public void onPermissionReallyDeclined(@NonNull String permissionName) {
-            }
-
+            public void onPermissionReallyDeclined(@NonNull String permissionName) {}
             @Override
             public void onNoPermissionNeeded() {
-                realshow();
+                realshow(callback);
             }
 
         });
 
-        getViewActivity().setmActivityCallback(new ShowViewActivity.ActivityCallback() {
+        permissionHelper.setForceAccepting(true).request(PHONE_STATE);
 
+        callback = new ShowViewActivity.ActivityCallback() {
 
             @Override
             public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
@@ -210,68 +209,60 @@ public class Utils extends Entry {
                 permissionHelper.onActivityForResult(requestCode);
             }
 
-            @Override
-            public void onDestory() {
-
-            }
-        });
-
-        permissionHelper.setForceAccepting(true).request(PHONE_STATE);
-
-
+        };
     }
 
-    private void realshow() {
+    private void realshow(ShowViewActivity.ActivityCallback callback) {
 
-        DisplayMetrics dm = getViewActivity().getResources().getDisplayMetrics();
+        DisplayMetrics dm = getActivity().getResources().getDisplayMetrics();
 
-        View view = showView(R.layout.utils_phonedata_layout, null);
-        String modeStr = String.format(getViewActivity().getString(R.string.util_phone_mode), android.os.Build.MODEL);
+        View view = showView(R.layout.utils_phonedata_layout, callback);
+        String modeStr = String.format(getActivity().getString(R.string.util_phone_mode), android.os.Build.MODEL);
         ((TextView) view.findViewById(R.id.phone_mode)).
 
                 setText(modeStr);
 
-        String sdkStr = String.format(getViewActivity().getString(R.string.util_phone_sdk), android.os.Build.VERSION.SDK_INT);
+        String sdkStr = String.format(getActivity().getString(R.string.util_phone_sdk), android.os.Build.VERSION.SDK_INT);
         ((TextView) view.findViewById(R.id.sdk_name)).
 
                 setText(sdkStr);
 
-        String firmWareStr = String.format(getViewActivity().getString(R.string.util_phone_firmware), android.os.Build.VERSION.RELEASE);
+        String firmWareStr = String.format(getActivity().getString(R.string.util_phone_firmware), android.os.Build.VERSION.RELEASE);
         ((TextView) view.findViewById(R.id.firmware)).
 
                 setText(firmWareStr);
 
 
         String resolution = dm.widthPixels + " x " + dm.heightPixels;
-        String resolutionStr = String.format(getViewActivity().getString(R.string.util_phone_resolution), resolution);
+        String resolutionStr = String.format(getActivity().getString(R.string.util_phone_resolution), resolution);
         ((TextView) view.findViewById(R.id.resolution)).
 
                 setText(resolutionStr);
 
-        String densityStr = String.format(getViewActivity().getString(R.string.util_phone_density), dm.densityDpi);
+        String densityStr = String.format(getActivity().getString(R.string.util_phone_density), dm.densityDpi);
         ((TextView) view.findViewById(R.id.density)).
 
                 setText(densityStr);
 
-        TelephonyManager tm = (TelephonyManager) getViewActivity().getSystemService(Context.TELEPHONY_SERVICE);
-        String imeiStr = String.format(getViewActivity().getString(R.string.util_phone_imei), tm.getDeviceId());
+        TelephonyManager tm = (TelephonyManager) getActivity().getSystemService(Context.TELEPHONY_SERVICE);
+        String imeiStr = String.format(getActivity().getString(R.string.util_phone_imei), tm.getDeviceId());
         ((TextView) view.findViewById(R.id.imei)).
 
                 setText(imeiStr);
 
-        String resDir = getViewActivity().getString(R.string.values_marks);
-        String resDirStr = String.format(getViewActivity().getString(R.string.util_phone_res_dir), resDir);
+        String resDir = getActivity().getString(R.string.values_marks);
+        String resDirStr = String.format(getActivity().getString(R.string.util_phone_res_dir), resDir);
         ((TextView) view.findViewById(R.id.res_dir)).
 
                 setText(resDirStr);
 
 
-        String statusBarHStr = String.format(getViewActivity().getString(R.string.util_phone_status_bar_h), getStatusBarHeight(getViewActivity()));
+        String statusBarHStr = String.format(getActivity().getString(R.string.util_phone_status_bar_h), getStatusBarHeight(getActivity()));
         ((TextView) view.findViewById(R.id.status_bar_h)).
 
                 setText(statusBarHStr);
 
-        String brandStr = String.format(getViewActivity().getString(R.string.util_phone_brand), android.os.Build.BRAND);
+        String brandStr = String.format(getActivity().getString(R.string.util_phone_brand), android.os.Build.BRAND);
         ((TextView) view.findViewById(R.id.brand)).
 
                 setText(brandStr);
@@ -329,7 +320,7 @@ public class Utils extends Entry {
     }
 
     private void initColorWheel(WheelView wheel) {
-        NumericWheelAdapter adapter = new NumericWheelAdapter(getViewActivity(), 0, 15, "%x");
+        NumericWheelAdapter adapter = new NumericWheelAdapter(getActivity(), 0, 15, "%x");
         adapter.setTextSize(45);
         wheel.setViewAdapter(adapter);
         wheel.setCurrentItem(0);
@@ -382,7 +373,7 @@ public class Utils extends Entry {
     }
 
     private void initAlphWheel(WheelView wheel) {
-        NumericWheelAdapter adapter = new NumericWheelAdapter(getViewActivity(), 0, 9);
+        NumericWheelAdapter adapter = new NumericWheelAdapter(getActivity(), 0, 9);
         adapter.setTextSize(45);
         wheel.setViewAdapter(adapter);
         wheel.setCurrentItem(0);

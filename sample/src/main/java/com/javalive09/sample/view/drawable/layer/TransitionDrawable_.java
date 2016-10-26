@@ -16,7 +16,7 @@ import com.javalive09.sample.R;
 public class TransitionDrawable_ extends Entry {
 
 	public void show() {
-		View v = View.inflate(getViewActivity(), R.layout.drawable_transition, null);
+		View v = View.inflate(getActivity(), R.layout.drawable_transition, null);
 		ImageView iv = (ImageView) v.findViewById(R.id.image);
 		final TransitionDrawable trans = (TransitionDrawable) iv.getDrawable();
 		v.setOnClickListener(new OnClickListener() {
