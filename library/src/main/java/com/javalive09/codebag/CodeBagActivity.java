@@ -328,7 +328,7 @@ public class CodeBagActivity extends AppCompatActivity implements View.OnClickLi
 
     }
 
-    private void exit() {
+    public static void exit() {
         for (CodeBagActivity act : mActContainer) {
             act.finish();
         }
