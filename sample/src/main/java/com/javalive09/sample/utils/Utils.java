@@ -410,7 +410,7 @@ public class Utils extends Entry {
     String TEST = "点击测试";
     String TESTING = "测试中";
     String PREFIX = "测试\n";
-    String SUFFIX = "Mb/s";
+    String SUFFIX = "kb/s";
     String[] URLS = {"www.baidu.com", "www.youku.com", "www.qq.com"};
     boolean cancelTest = false;
 
@@ -445,7 +445,7 @@ public class Utils extends Entry {
             commands.add("-c");
             commands.add("5");
             commands.add("-s");
-            commands.add("1000");
+            commands.add("1024");
             commands.add("-i");
             commands.add("2");
             commands.add(url);
@@ -475,7 +475,7 @@ public class Utils extends Entry {
 
                 Float averageTime = AllTimes / times.size();
 
-                speed = 1000 / averageTime / 8;
+                speed = 1024 / averageTime * 1000 / 1024;
 
             } catch (IOException e) {
                 e.printStackTrace();

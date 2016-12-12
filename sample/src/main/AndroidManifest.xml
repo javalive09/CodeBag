@@ -12,5 +12,17 @@
         <activity android:name= ".function.activity.activitylife.MyActivityB"/>
         <activity android:name= ".function.activity.openurl_browser.MyActivity"/>
         <service android:name= ".function.service.servicelife.myService"/>
+
+        <service
+            android:name=".project.raventech.VSTService"
+            android:label="@string/app_name"
+            android:permission="android.permission.BIND_ACCESSIBILITY_SERVICE">
+            <intent-filter>
+                <action android:name="android.accessibilityservice.AccessibilityService" />
+            </intent-filter>
+            <meta-data
+                android:name="android.accessibilityservice"
+                android:resource="@xml/service_config" />
+        </service>
     </application>
 </manifest>
