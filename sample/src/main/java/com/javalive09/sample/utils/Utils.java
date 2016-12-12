@@ -475,7 +475,7 @@ public class Utils extends Entry {
 
                 Float averageTime = AllTimes / times.size();
 
-                speed = 1024 / averageTime * 1000 / 1024;
+                speed = 1024 * 8 / averageTime * 1000 / 1024;
 
             } catch (IOException e) {
                 e.printStackTrace();
