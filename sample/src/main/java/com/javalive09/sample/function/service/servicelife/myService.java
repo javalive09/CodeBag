@@ -1,16 +1,10 @@
 package com.javalive09.sample.function.service.servicelife;
 
-import java.io.FileDescriptor;
-
 import com.javalive09.codebag.LogUtil;
-
 import android.app.Service;
 import android.content.Intent;
 import android.os.Binder;
 import android.os.IBinder;
-import android.os.IInterface;
-import android.os.Parcel;
-import android.os.RemoteException;
 
 public class myService extends Service{
 

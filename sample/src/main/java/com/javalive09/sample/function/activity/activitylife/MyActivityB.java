@@ -25,6 +25,7 @@ public class MyActivityB extends Activity {
 			}
 		});
 		LogUtil.i("");
+		finish();
 	}
 
 	@Override
