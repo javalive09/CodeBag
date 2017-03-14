@@ -4,14 +4,14 @@
 
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
 
-    <application
-        android:allowBackup="true">
-        <activity android:name=".HelloWorldActivity"/>
-        <activity android:name= ".function.activity.activityconfigchange.MyActivity"/>
-        <activity android:name= ".function.activity.activitylife.MyActivityA"/>
-        <activity android:name= ".function.activity.activitylife.MyActivityB"/>
-        <activity android:name= ".function.activity.openurl_browser.MyActivity"/>
-        <service android:name= ".function.service.servicelife.myService"/>
+    <application android:allowBackup="true">
+        <activity android:name=".HelloWorldActivity" />
+        <activity android:name=".function.activity.activityconfigchange.MyActivity" />
+        <activity android:name=".function.activity.activitylife.MyActivityA" />
+        <activity android:name=".function.activity.activitylife.MyActivityB" />
+        <activity android:name=".function.activity.openurl_browser.MyActivity" />
+
+        <service android:name=".function.service.servicelife.myService" />
 
         <service
             android:name=".project.raventech.VSTService"
@@ -24,5 +24,12 @@
                 android:name="android.accessibilityservice"
                 android:resource="@xml/service_config" />
         </service>
+
+        <receiver android:name="com.javalive09.sample.function.alarm.AlarmClockReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </receiver>
     </application>
 </manifest>
