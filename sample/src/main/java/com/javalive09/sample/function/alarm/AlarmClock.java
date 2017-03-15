@@ -18,7 +18,6 @@ public class AlarmClock extends Entry {
     private static final int INTERVAL = 1000 * 60 * 60 * 24;// 24h
 
     public void setClock() {
-
         Intent intent = new Intent(getActivity(), AlarmClockReceiver.class);
         intent.setAction("abc");
         PendingIntent sender = PendingIntent.getBroadcast(getActivity(),
@@ -36,6 +35,5 @@ public class AlarmClock extends Entry {
         long t = System.currentTimeMillis();
         am.setRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP, time, INTERVAL, sender);
     }
-
 
 }
