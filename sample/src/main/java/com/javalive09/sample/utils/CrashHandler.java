@@ -16,7 +16,7 @@ import android.text.format.Formatter;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.javalive09.codebag.CodeBagActivity;
+import com.javalive09.codebag.MainActivity;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -81,7 +81,7 @@ public class CrashHandler implements Thread.UncaughtExceptionHandler {
                 if (mContext != null)
                 if(current - lastTime > 10000) {//两次崩溃间隔10s之内再次崩溃不用重启(崩溃后一次重启需要6s左右,所以相当于重启后4s内不能再次崩溃)
                     // 退出重启
-                    Intent intent = new Intent(mContext, CodeBagActivity.class);
+                    Intent intent = new Intent(mContext, MainActivity.class);
                     PendingIntent restartIntent = PendingIntent.getActivity(mContext.getApplicationContext(), 0, intent, PendingIntent.FLAG_ONE_SHOT);
                     AlarmManager mgr = (AlarmManager) mContext.getSystemService(Context.ALARM_SERVICE);
                     mgr.set(AlarmManager.ELAPSED_REALTIME, 0, restartIntent); // 重启应用

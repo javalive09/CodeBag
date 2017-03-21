@@ -11,13 +11,13 @@
         android:label="@string/codebag_name"
         android:theme="@style/CodeBagTheme"
         tools:replace="android:label">
-        <activity android:name="com.javalive09.codebag.CodeBagActivity">
+        <activity android:name="com.javalive09.codebag.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ShowViewActivity" />
+        <activity android:name=".DetailActivity" />
 
     </application>
 

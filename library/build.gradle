@@ -21,6 +21,8 @@ android {
 
 dependencies {
     compile 'com.android.support:appcompat-v7:25.2.0'
+    compile 'com.github.bmelnychuk:atv:1.2.+'
+    compile 'com.github.johnkil.print:print:1.2.2'
 }
 
 publish {

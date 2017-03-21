@@ -23,7 +23,7 @@ How Collect your code
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.javalive09.sample">
     <application>
-        <activity android:name="com.javalive09.sample.HelloWorldActivity"/>
+        <activity android:name="com.javalive09.sample.helloworld.HelloWorldActivity"/>
         ... your others components
     </application>
 </manifest>

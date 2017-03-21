@@ -7,7 +7,6 @@ import android.content.ServiceConnection;
 import android.os.IBinder;
 import com.javalive09.codebag.Entry;
 import com.javalive09.codebag.LogUtil;
-import com.javalive09.codebag.ShowViewActivity;
 
 /**
  * service生命周期

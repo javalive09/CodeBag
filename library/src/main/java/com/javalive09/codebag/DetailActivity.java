@@ -1,18 +1,21 @@
 package com.javalive09.codebag;
 
-import java.lang.reflect.Field;
-import java.lang.reflect.Method;
-import java.util.ArrayList;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.view.View;
 
-public class ShowViewActivity extends Activity {
+import com.javalive09.codebag.node.NodeItem;
 
-    private Node mNode;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
+import java.util.ArrayList;
+
+public class DetailActivity extends Activity {
+
+    private NodeItem mNode;
     private ActivityCallback mActivityCallback;
 
     @Override
@@ -33,17 +36,17 @@ public class ShowViewActivity extends Activity {
         }
     }
 
-    private void invokeMethod(Node node) {
+    private void invokeMethod(NodeItem node) {
         try {
-            String methodName = node.name;
+            String methodName = node.text;
             String className = node.className;
             Class<?> cls = Class.forName(className);
-            ArrayList<Object> objList = CodeBagActivity.mObjectMap.get(className);
-            Object obj = objList.get(0);
+            Constructor<?> con = cls.getConstructor();
+            Object obj = con.newInstance();
             if(obj != null) {
                 Field mActivity = cls.getSuperclass().getDeclaredField("mActivity");
                 mActivity.setAccessible(true);
-                mActivity.set(obj, ShowViewActivity.this);
+                mActivity.set(obj, DetailActivity.this);
                 Method method = cls.getDeclaredMethod(methodName);
                 method.invoke(obj);
             }

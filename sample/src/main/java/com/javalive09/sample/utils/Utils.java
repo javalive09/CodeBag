@@ -2,7 +2,6 @@ package com.javalive09.sample.utils;
 
 import android.Manifest;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.AsyncTask;
@@ -19,9 +18,8 @@ import android.widget.TextView;
 
 import com.fastaccess.permission.base.PermissionHelper;
 import com.fastaccess.permission.base.callback.OnPermissionCallback;
-import com.javalive09.codebag.CodeBagActivity;
 import com.javalive09.codebag.Entry;
-import com.javalive09.codebag.ShowViewActivity;
+import com.javalive09.codebag.DetailActivity;
 import com.javalive09.sample.R;
 import com.javalive09.sample.thirdlibs.wheel.OnWheelScrollListener;
 import com.javalive09.sample.thirdlibs.wheel.WheelView;
@@ -153,7 +151,7 @@ public class Utils extends Entry {
 
     private final static String PHONE_STATE = Manifest.permission.READ_PHONE_STATE;
     PermissionHelper permissionHelper;
-    ShowViewActivity.ActivityCallback callback;
+    DetailActivity.ActivityCallback callback;
 
     /**
      * 手机参数工具
@@ -178,7 +176,7 @@ public class Utils extends Entry {
 
             @Override
             public void onPermissionNeedExplanation(@NonNull String permissionName) {
-                showTxt("need " + permissionName, new ShowViewActivity.ActivityCallback() {
+                showTxt("need " + permissionName, new DetailActivity.ActivityCallback() {
 
                     @Override
                     public void onDestory() {
@@ -197,7 +195,7 @@ public class Utils extends Entry {
 
         permissionHelper.setForceAccepting(true).request(PHONE_STATE);
 
-        callback = new ShowViewActivity.ActivityCallback() {
+        callback = new DetailActivity.ActivityCallback() {
 
             @Override
             public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
@@ -212,7 +210,7 @@ public class Utils extends Entry {
         };
     }
 
-    private void realshow(ShowViewActivity.ActivityCallback callback) {
+    private void realshow(DetailActivity.ActivityCallback callback) {
 
         DisplayMetrics dm = getActivity().getResources().getDisplayMetrics();
 
@@ -418,7 +416,7 @@ public class Utils extends Entry {
      * 网速测试
      */
     public void networkspeed() {
-        View view = showView(R.layout.utils_networkspeed, new ShowViewActivity.ActivityCallback() {
+        View view = showView(R.layout.utils_networkspeed, new DetailActivity.ActivityCallback() {
             @Override
             public void onDestory() {
                 cancelTest();

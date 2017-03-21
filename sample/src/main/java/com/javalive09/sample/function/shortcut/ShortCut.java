@@ -7,7 +7,7 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.os.Parcelable;
-import com.javalive09.codebag.CodeBagActivity;
+import com.javalive09.codebag.DetailActivity;
 import com.javalive09.codebag.Entry;
 import com.javalive09.sample.R;
 
@@ -18,7 +18,7 @@ public class ShortCut extends Entry{
 	 */
 	public void createShortCut() {
 		Intent shortcutintent = new Intent();
-		Intent launcherIntent = new Intent(getActivity().getApplicationContext() , CodeBagActivity.class);
+		Intent launcherIntent = new Intent(getActivity().getApplicationContext() , DetailActivity.class);
 		
 		//不允许重复创建
 		shortcutintent.putExtra("duplicate", false);
@@ -40,7 +40,7 @@ public class ShortCut extends Entry{
 	    Intent intent = new Intent("com.android.launcher.action.INSTALL_SHORTCUT");
 	    intent.putExtra("duplicate", false);
 	    intent.putExtra(Intent.EXTRA_SHORTCUT_ICON, getBitmap());
-	    intent.putExtra(Intent.EXTRA_SHORTCUT_INTENT, new Intent(getActivity().getApplicationContext() , CodeBagActivity.class));
+	    intent.putExtra(Intent.EXTRA_SHORTCUT_INTENT, new Intent(getActivity().getApplicationContext() , DetailActivity.class));
 	    intent.putExtra(Intent.EXTRA_SHORTCUT_NAME, "peter");
 	    getActivity().sendBroadcast(intent);
 	    

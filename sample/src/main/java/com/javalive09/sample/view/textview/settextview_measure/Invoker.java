@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 import com.javalive09.codebag.Entry;
 import com.javalive09.codebag.LogUtil;
-import com.javalive09.codebag.ShowViewActivity;
+import com.javalive09.codebag.DetailActivity;
 
 public class Invoker extends Entry {
 
@@ -57,7 +57,7 @@ public class Invoker extends Entry {
 			}
 		});
 
-		showView(view, new ShowViewActivity.ActivityCallback() {
+		showView(view, new DetailActivity.ActivityCallback() {
 			@Override
 			public void onDetachedFromWindow() {
 				super.onDetachedFromWindow();

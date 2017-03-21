@@ -11,23 +11,21 @@ import android.widget.TextView;
  */
 public abstract class Entry {
 
-    private ShowViewActivity mActivity = null;
+    private DetailActivity mActivity = null;
 
-    private CodeBagActivity mBaseActivity = null;
-
-    protected final CodeBagActivity getActivity() {
-        return mBaseActivity;
+    protected final DetailActivity getActivity() {
+        return mActivity;
     }
 
     protected final Context getApplicationContext() {
-        return mBaseActivity.getApplicationContext();
+        return mActivity.getApplicationContext();
     }
 
     protected final void showTxt(String text) {
         showTxt(text, null);
     }
 
-    protected final void showTxt(String text, ShowViewActivity.ActivityCallback mActivityCallback) {
+    protected final void showTxt(String text, DetailActivity.ActivityCallback mActivityCallback) {
         showView(R.layout.dialog_code_textview, mActivityCallback);
         TextView textView = (TextView)findViewById(R.id.code_text);
         textView.setText(text);
@@ -37,7 +35,7 @@ public abstract class Entry {
         return showView(resId, null);
     }
 
-    protected final View showView(int resId, ShowViewActivity.ActivityCallback mActivityCallback) {
+    protected final View showView(int resId, DetailActivity.ActivityCallback mActivityCallback) {
         if(mActivity == null) {
             throw new RuntimeException("can not invoke this method in constructor!");
         }else {
@@ -50,7 +48,7 @@ public abstract class Entry {
         return showView(view, null);
     }
 
-    protected final View showView(View view, ShowViewActivity.ActivityCallback mActivityCallback) {
+    protected final View showView(View view, DetailActivity.ActivityCallback mActivityCallback) {
         if(mActivity == null) {
             throw new RuntimeException("can not invoke this method in constructor!");
         }else {

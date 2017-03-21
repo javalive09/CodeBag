@@ -11,7 +11,7 @@ public class LogUtil {
 
     private static String PACKAGE_NAME = "com.javalive09.codebag";
     private static String CLASS_NAME = LogUtil.class.getSimpleName();
-    private static final boolean DEBUG = true;
+    private static final boolean DEBUG = false;
     private static StringBuffer mLog = new StringBuffer();
     private static long startTime = 0;
 

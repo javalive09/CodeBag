@@ -1,7 +1,9 @@
-package com.javalive09.sample;
+package com.javalive09.sample.helloworld;
 
 import android.app.Activity;
 import android.os.Bundle;
+
+import com.javalive09.sample.R;
 
 /**
  * Created by peter on 16/9/22.
