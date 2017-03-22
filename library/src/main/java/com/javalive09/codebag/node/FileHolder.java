@@ -10,9 +10,7 @@ import com.javalive09.codebag.R;
 import com.unnamed.b.atv.model.TreeNode;
 
 /**
- *
  * Created by peter
- *
  */
 public class FileHolder extends TreeNode.BaseNodeViewHolder<NodeItem> {
 
@@ -29,9 +27,9 @@ public class FileHolder extends TreeNode.BaseNodeViewHolder<NodeItem> {
         View view = inflater.inflate(R.layout.layout_node, null, false);
 
         String text = value.text;
-        if(value.icon == NodeItem.CLASS) {
+        if (value.icon == NodeItem.CLASS) {
             text = text + ".java";
-        }else if(value.icon == NodeItem.METHOD) {
+        } else if (value.icon == NodeItem.METHOD) {
             text = text + "( )";
         }
 
@@ -43,7 +41,7 @@ public class FileHolder extends TreeNode.BaseNodeViewHolder<NodeItem> {
 
         arrowView = (PrintView) view.findViewById(R.id.arrow_icon);
         if (node.isLeaf()) {
-            arrowView.setVisibility(View.GONE);
+            arrowView.setVisibility(View.INVISIBLE);
         }
 
         return view;
