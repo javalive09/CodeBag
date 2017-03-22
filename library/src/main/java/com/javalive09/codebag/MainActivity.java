@@ -2,12 +2,11 @@ package com.javalive09.codebag;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
-import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
-import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -19,31 +18,21 @@ import android.view.View;
 import android.view.ViewConfiguration;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.FrameLayout;
-import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.javalive09.codebag.logger.Log;
+import com.javalive09.codebag.logger.LogFragment;
+import com.javalive09.codebag.logger.LogWrapper;
+import com.javalive09.codebag.logger.MessageOnlyLogFilter;
 import com.javalive09.codebag.node.FileHolder;
 import com.javalive09.codebag.node.NodeItem;
 import com.unnamed.b.atv.model.TreeNode;
-import com.unnamed.b.atv.view.AndroidTreeView;
-
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.util.ArrayList;
 import java.util.Enumeration;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
 
 import dalvik.system.DexFile;
 
@@ -54,31 +43,60 @@ import dalvik.system.DexFile;
  */
 public class MainActivity extends AppCompatActivity {
 
-    private TreeNode treeNode;
-    private AndroidTreeView tView;
+    TreeFragment treeFragment = new TreeFragment();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        treeNode = getCodeNode();
+        setContentView(R.layout.main);
         initActionBar();
         initStatusBar();
-        tView = new AndroidTreeView(getApplicationContext(), treeNode);
-        tView.setDefaultContainerStyle(R.style.TreeNodeStyleCustom);
-        tView.setUse2dScroll(false);
-        View contentView = tView.getView();
-        contentView.setBackgroundColor(Color.WHITE);
-        setContentView(contentView);
-        if (savedInstanceState != null) {
-            String state = savedInstanceState.getString("tState");
-            if (!TextUtils.isEmpty(state)) {
-                tView.restoreState(state);
-            }
+        initTreeFragment();
+        initLogFragment();
+    }
+
+    private void initTreeFragment() {
+        getSupportFragmentManager().beginTransaction().replace(R.id.content, treeFragment).commit();
+    }
+
+    public void startDetailFragment(NodeItem item) {
+        DetailFragment detailFragment = new DetailFragment();
+        Bundle bundle = new Bundle();
+        bundle.putParcelable(CodeBag.NODE_NAME, item);
+        detailFragment.setArguments(bundle);
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        ft.addToBackStack(null);
+        ft.hide(treeFragment).add(R.id.content, detailFragment).commit();
+    }
+
+    @Override
+    public void onBackPressed(){
+        FragmentManager fm = getSupportFragmentManager();
+        if (fm.getBackStackEntryCount() > 0) {
+            fm.popBackStack();
+        } else {
+            super.onBackPressed();
         }
     }
 
-    private TreeNode getCodeNode() {
+    private void initLogFragment() {
+        // Wraps Android's native log framework.
+        LogWrapper logWrapper = new LogWrapper();
+        // Using Log, front-end to the logging chain, emulates android.util.log method signatures.
+        Log.setLogNode(logWrapper);
+
+        // Filter strips out everything except the message text.
+        MessageOnlyLogFilter msgFilter = new MessageOnlyLogFilter();
+        logWrapper.setNext(msgFilter);
+
+        LogFragment logFragment = (LogFragment) getSupportFragmentManager()
+                .findFragmentById(R.id.log_fragment);
+        msgFilter.setNext(logFragment.getLogView());
+        logFragment.getLogView().setTextAppearance(this, R.style.Log);
+        logFragment.getLogView().setBackgroundColor(Color.WHITE);
+    }
+
+    public TreeNode getCodeNode() {
         String pkgName = getPackageName();
         TreeNode rootNode = TreeNode.root();
         String apkDir = null;
@@ -204,9 +222,7 @@ public class MainActivity extends AppCompatActivity {
         public void onClick(TreeNode node, Object value) {
             NodeItem item = (NodeItem) value;
             if (item.icon == NodeItem.METHOD) {
-                Intent intent = new Intent(MainActivity.this, DetailActivity.class);
-                intent.putExtra(CodeBag.NODE_NAME, item);
-                startActivity(intent);
+                startDetailFragment(item);
             }
         }
     };
@@ -218,12 +234,6 @@ public class MainActivity extends AppCompatActivity {
             return true;
         }
     };
-
-    @Override
-    public void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        outState.putString("tState", tView.getSaveState());
-    }
 
     @Override
     protected void onDestroy() {

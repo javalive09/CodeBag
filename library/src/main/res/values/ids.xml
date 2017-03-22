@@ -2,5 +2,8 @@
 <resources>
 
 	<item type="id"  name="main_item_pos">folder_item_pos</item>
-	
+
+	<item name="node_header" type="id" />
+	<item name="node_items" type="id" />
+	<item name="tree_items" type="id" />
 </resources>

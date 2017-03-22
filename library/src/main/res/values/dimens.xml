@@ -10,4 +10,6 @@
     <dimen name="dialog_padding">15dp</dimen>
     <dimen name="alertdialog_scrollbar_size">4dp</dimen>
     <dimen name="max_over_scroll_y">50dp</dimen>
+
+    <dimen name="margin_medium">16dp</dimen>
 </resources>

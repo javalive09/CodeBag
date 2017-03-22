@@ -1,0 +1,5 @@
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <solid android:color="@color/alertdialog_scrollbar" />
+    <size android:width="4dp" />
+</shape>

@@ -8,6 +8,7 @@ import android.os.Message;
 import android.view.animation.LinearInterpolator;
 import android.widget.TextView;
 
+import com.javalive09.codebag.DetailFragment;
 import com.javalive09.codebag.Entry;
 import com.javalive09.codebag.LogUtil;
 import com.javalive09.codebag.DetailActivity;
@@ -21,7 +22,7 @@ public class Invoker extends Entry {
 	int requestCount;
 	
 	public void setText() {
-		view = new TextView(getActivity()) {
+		view = new android.support.v7.widget.AppCompatTextView(getActivity()) {
 
 			@Override
 			protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
@@ -57,10 +58,9 @@ public class Invoker extends Entry {
 			}
 		});
 
-		showView(view, new DetailActivity.ActivityCallback() {
+		showView(view, new DetailFragment.FragmentCallback() {
 			@Override
-			public void onDetachedFromWindow() {
-				super.onDetachedFromWindow();
+			public void onDestroy() {
 				mAnimator.cancel();
 			}
 		});

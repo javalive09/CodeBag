@@ -18,6 +18,7 @@ import android.widget.TextView;
 
 import com.fastaccess.permission.base.PermissionHelper;
 import com.fastaccess.permission.base.callback.OnPermissionCallback;
+import com.javalive09.codebag.DetailFragment;
 import com.javalive09.codebag.Entry;
 import com.javalive09.codebag.DetailActivity;
 import com.javalive09.sample.R;
@@ -151,7 +152,7 @@ public class Utils extends Entry {
 
     private final static String PHONE_STATE = Manifest.permission.READ_PHONE_STATE;
     PermissionHelper permissionHelper;
-    DetailActivity.ActivityCallback callback;
+    DetailFragment.FragmentCallback callback;
 
     /**
      * 手机参数工具
@@ -176,10 +177,10 @@ public class Utils extends Entry {
 
             @Override
             public void onPermissionNeedExplanation(@NonNull String permissionName) {
-                showTxt("need " + permissionName, new DetailActivity.ActivityCallback() {
+                showTxt("need " + permissionName, new DetailFragment.FragmentCallback() {
 
                     @Override
-                    public void onDestory() {
+                    public void onDestroy() {
                         permissionHelper.openSettingsScreen();
                     }
                 });
@@ -195,22 +196,17 @@ public class Utils extends Entry {
 
         permissionHelper.setForceAccepting(true).request(PHONE_STATE);
 
-        callback = new DetailActivity.ActivityCallback() {
+        callback = new DetailFragment.FragmentCallback() {
 
             @Override
             public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
                 permissionHelper.onRequestPermissionsResult(requestCode, permissions, grantResults);
             }
 
-            @Override
-            public void onActivityResult(int requestCode, int resultCode, Intent data) {
-                permissionHelper.onActivityForResult(requestCode);
-            }
-
         };
     }
 
-    private void realshow(DetailActivity.ActivityCallback callback) {
+    private void realshow(DetailFragment.FragmentCallback callback) {
 
         DisplayMetrics dm = getActivity().getResources().getDisplayMetrics();
 
@@ -416,9 +412,9 @@ public class Utils extends Entry {
      * 网速测试
      */
     public void networkspeed() {
-        View view = showView(R.layout.utils_networkspeed, new DetailActivity.ActivityCallback() {
+        View view = showView(R.layout.utils_networkspeed, new DetailFragment.FragmentCallback() {
             @Override
-            public void onDestory() {
+            public void onDestroy() {
                 cancelTest();
             }
         });

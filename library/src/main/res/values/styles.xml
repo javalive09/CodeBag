@@ -4,11 +4,11 @@
 
     <style name="AppBaseTheme" parent="Theme.AppCompat">
         <item name="android:windowAnimationStyle">@style/activityAnimation</item>
-        
+
         <item name="colorPrimary">@color/titlebar</item>
         <item name="colorPrimaryDark">@color/titlebar</item>
         <item name="colorAccent">@color/titlebar</item>
-        
+
         <item name="android:dropDownListViewStyle">@style/PopupMenuListView</item>
         <item name="dropDownListViewStyle">@style/PopupMenuListView</item>
     </style>
@@ -35,22 +35,41 @@
         <item name="android:activityCloseExitAnimation">@anim/slide_right_out</item>
     </style>
 
-   <!-- OverFlow menu Styles -->
-		<style name="PopupMenuListView" parent="@style/Widget.AppCompat.Light.ListView.DropDown">
+    <!-- OverFlow menu Styles -->
+    <style name="PopupMenuListView" parent="@style/Widget.AppCompat.Light.ListView.DropDown">
         <item name="android:divider">#000000</item>
         <item name="android:dividerHeight">1px</item>
         <item name="android:background">@color/titlebar</item>
-	</style>
-	
-	<style name="AppCompatAlertDialogStyle" parent="Theme.AppCompat.Light.Dialog.Alert">
-    	<item name="colorAccent">#FFCC00</item>
-   		<item name="android:textColorPrimary">#FFFFFF</item>
-    	<item name="android:background">@color/titlebar</item>
-	</style>
+    </style>
+
+    <style name="AppCompatAlertDialogStyle" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <item name="colorAccent">#FFCC00</item>
+        <item name="android:textColorPrimary">#FFFFFF</item>
+        <item name="android:background">@color/titlebar</item>
+    </style>
 
     <style name="TreeNodeStyleCustom">
         <item name="android:paddingLeft">20dp</item>
         <!--<item name="android:showDividers">middle</item>-->
         <!--<item name="android:divider">@android:drawable/divider_horizontal_bright</item>-->
+    </style>
+
+
+    <!-- ============================== log style ================================= -->
+
+    <style name="Widget" />
+
+    <style name="Widget.SampleOutput">
+        <item name="android:padding">@dimen/margin_medium</item>
+        <item name="android:textAppearance">?android:textAppearanceMedium</item>
+        <item name="android:lineSpacingMultiplier">1.1</item>
+    </style>
+
+    <style name="Log" parent="Widget.SampleOutput">
+        <item name="android:typeface">monospace</item>
+    </style>
+
+    <style name="TreeNodeStyle">
+        <item name="android:paddingLeft">20dp</item>
     </style>
 </resources>

@@ -1,23 +1,22 @@
-package com.javalive09.codebag.log;
+package com.javalive09.codebag.logger;
 
 import android.app.Activity;
 import android.content.Context;
-import android.support.v7.widget.AppCompatTextView;
 import android.util.AttributeSet;
 
 /** Simple TextView which is used to output log data received through the LogNode interface.
 */
-public class LoggerView extends AppCompatTextView implements Logger {
+public class LogView extends android.support.v7.widget.AppCompatTextView implements LogNode {
 
-    public LoggerView(Context context) {
+    public LogView(Context context) {
         super(context);
     }
 
-    public LoggerView(Context context, AttributeSet attrs) {
+    public LogView(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
 
-    public LoggerView(Context context, AttributeSet attrs, int defStyle) {
+    public LogView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
     }
 
@@ -85,6 +84,17 @@ public class LoggerView extends AppCompatTextView implements Logger {
             }
         })));
 
+        if (mNext != null) {
+            mNext.println(priority, tag, msg, tr);
+        }
+    }
+
+    public LogNode getNext() {
+        return mNext;
+    }
+
+    public void setNext(LogNode node) {
+        mNext = node;
     }
 
     /** Takes a string and adds to it, with a separator, if the bit to be added isn't null. Since
@@ -106,6 +116,9 @@ public class LoggerView extends AppCompatTextView implements Logger {
         }
         return source;
     }
+
+    // The next LogNode in the chain.
+    LogNode mNext;
 
     /** Outputs the string as a new line of log data in the LogView. */
     public void appendToLog(String s) {
