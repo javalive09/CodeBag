@@ -3,5 +3,6 @@
     android:id="@+id/code_text"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
+    android:textColor="@android:color/darker_gray"
     android:gravity="center">
 </TextView>

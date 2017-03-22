@@ -110,4 +110,11 @@ public class DetailFragment extends Fragment {
         public void onDestroy() {}
     }
 
+    public View findViewById(int resId) {
+        if(rootView != null) {
+            return rootView.findViewById(resId);
+        }
+        return null;
+    }
+
 }

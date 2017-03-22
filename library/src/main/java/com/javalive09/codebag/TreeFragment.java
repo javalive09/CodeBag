@@ -7,6 +7,7 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 
 import com.unnamed.b.atv.model.TreeNode;
 import com.unnamed.b.atv.view.AndroidTreeView;
@@ -25,6 +26,7 @@ public class TreeFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
+        FrameLayout result = (FrameLayout) inflater.inflate(R.layout.fragment_treeview, container, false);
         treeNode = ((MainActivity) getActivity()).getCodeNode();
         tView = new AndroidTreeView(getActivity(), treeNode);
         tView.setDefaultContainerStyle(R.style.TreeNodeStyleCustom);
@@ -35,7 +37,8 @@ public class TreeFragment extends Fragment {
                 tView.restoreState(state);
             }
         }
-        return tView.getView();
+        result.addView(tView.getView());
+        return result;
     }
 
     @Override

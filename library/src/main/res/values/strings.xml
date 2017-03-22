@@ -7,6 +7,7 @@
     <string name="action_about">about</string>
     <string name="action_about_msg">This a simple app for collect your own code.</string>
     <string name="action_showlog">show log</string>
+    <string name="action_hidelog">hide log</string>
     <string name="action_clearlog">clear log</string>
     <string name="action_exit">exit</string>
 

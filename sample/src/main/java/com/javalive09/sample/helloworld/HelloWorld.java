@@ -6,6 +6,7 @@ import android.widget.Button;
 
 import com.javalive09.codebag.Entry;
 import com.javalive09.codebag.LogUtil;
+import com.javalive09.codebag.logger.Log;
 import com.javalive09.sample.R;
 
 /**
@@ -46,9 +47,7 @@ public class HelloWorld extends Entry {
 
     //show log
     public void printLog() {
-        LogUtil.i("hello world !");
-        LogUtil.w("hello world !");
-        LogUtil.e("hello world !");
+        Log.i("hello world", "print log!");
     }
 
 }

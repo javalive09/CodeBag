@@ -2,6 +2,7 @@ package com.javalive09.codebag;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -28,6 +29,7 @@ import com.javalive09.codebag.logger.MessageOnlyLogFilter;
 import com.javalive09.codebag.node.FileHolder;
 import com.javalive09.codebag.node.NodeItem;
 import com.unnamed.b.atv.model.TreeNode;
+
 import java.io.IOException;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
@@ -39,11 +41,11 @@ import dalvik.system.DexFile;
 /**
  *
  * Created by peter on 16/9/21.
- *
  */
 public class MainActivity extends AppCompatActivity {
 
     TreeFragment treeFragment = new TreeFragment();
+    LogFragment logFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,12 +67,13 @@ public class MainActivity extends AppCompatActivity {
         bundle.putParcelable(CodeBag.NODE_NAME, item);
         detailFragment.setArguments(bundle);
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        ft.setCustomAnimations(R.anim.slide_right_in, 0, 0, R.anim.slide_right_out);
         ft.addToBackStack(null);
         ft.hide(treeFragment).add(R.id.content, detailFragment).commit();
     }
 
     @Override
-    public void onBackPressed(){
+    public void onBackPressed() {
         FragmentManager fm = getSupportFragmentManager();
         if (fm.getBackStackEntryCount() > 0) {
             fm.popBackStack();
@@ -89,11 +92,25 @@ public class MainActivity extends AppCompatActivity {
         MessageOnlyLogFilter msgFilter = new MessageOnlyLogFilter();
         logWrapper.setNext(msgFilter);
 
-        LogFragment logFragment = (LogFragment) getSupportFragmentManager()
+        logFragment = (LogFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.log_fragment);
         msgFilter.setNext(logFragment.getLogView());
         logFragment.getLogView().setTextAppearance(this, R.style.Log);
         logFragment.getLogView().setBackgroundColor(Color.WHITE);
+
+        boolean show = getLogFragmentStatus();
+        logFragment.show(show);
+    }
+
+    private void saveLogFragmentShow(boolean show) {
+        SharedPreferences sp = getSharedPreferences("config", MODE_PRIVATE);
+        sp.edit().putBoolean("show", show).apply();
+    }
+
+    private boolean getLogFragmentStatus() {
+        SharedPreferences sp = getSharedPreferences("config", MODE_PRIVATE);
+        boolean show =sp.getBoolean("show",true);
+        return show;
     }
 
     public TreeNode getCodeNode() {
@@ -317,7 +334,7 @@ public class MainActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         if (id == android.R.id.home) {
-            finish();
+            onBackPressed();
         } else if (id == R.id.action_help) {
             showAlertDialog(getString(R.string.action_help),
                     getString(R.string.action_help_msg));
@@ -325,11 +342,21 @@ public class MainActivity extends AppCompatActivity {
             showAlertDialog(getString(R.string.action_about),
                     getString(R.string.action_about_msg));
         } else if (id == R.id.action_showlog) {
-            showAlertDialog("log", LogUtil.getLog());
+            if (logFragment != null) {
+                saveLogFragmentShow(true);
+                logFragment.show(true);
+            }
         } else if (id == R.id.action_clearlog) {
-            LogUtil.clearLog();
+            if(logFragment != null) {
+                logFragment.clear();
+            }
         } else if (id == R.id.action_exit) {
             finish();
+        } else if (id == R.id.action_hidelog) {
+            if (logFragment != null) {
+                saveLogFragmentShow(false);
+                logFragment.show(false);
+            }
         }
         return super.onOptionsItemSelected(item);
     }

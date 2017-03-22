@@ -32,8 +32,8 @@ public abstract class Entry {
     }
 
     protected final void showTxt(String text, DetailFragment.FragmentCallback callback) {
-        showView(R.layout.dialog_code_textview, callback);
-        TextView textView = (TextView)findViewById(R.id.code_text);
+        View rootView = showView(R.layout.dialog_code_textview, callback);
+        TextView textView = (TextView)rootView.findViewById(R.id.code_text);
         textView.setText(text);
     }
 
@@ -64,7 +64,7 @@ public abstract class Entry {
     }
 
     protected final View findViewById(int id) {
-        return fragment.getActivity().findViewById(id);
+        return fragment.findViewById(id);
     }
 
 
