@@ -1,5 +1,6 @@
 package com.javalive09.codebag;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -15,9 +16,7 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 
 /**
- *
  * Created by peter on 2017/3/22.
- *
  */
 
 public class DetailFragment extends Fragment {
@@ -51,6 +50,7 @@ public class DetailFragment extends Fragment {
         this.fragmentCallback = fragmentCallback;
     }
 
+
     private void invokeMethod(NodeItem node) {
         try {
             String methodName = node.text;
@@ -59,21 +59,23 @@ public class DetailFragment extends Fragment {
             Constructor<?> con = cls.getConstructor();
             Object obj = con.newInstance();
             if (obj != null) {
-                Field mActivity = cls.getSuperclass().getDeclaredField("fragment");
-                mActivity.setAccessible(true);
-                mActivity.set(obj, DetailFragment.this);
+                Activity activity = DetailFragment.this.getActivity();
+                Field f = cls.getSuperclass().getDeclaredField("fragment");
+                f.setAccessible(true);
+                f.set(obj, DetailFragment.this);
+                if (activity != null) {
+                    Field mActivity = cls.getSuperclass().getDeclaredField("activity");
+                    mActivity.setAccessible(true);
+                    mActivity.set(obj, activity);
+                }
                 Method method = cls.getDeclaredMethod(methodName);
                 method.invoke(obj);
             }
         } catch (Exception e) {
             e.printStackTrace();
-        } finally {
-            View hint = rootView.findViewById(R.id.hint);
-            if (hint != null) {
-                getActivity().onBackPressed();
-            }
         }
     }
+
 
     public View showMethodView(View view) {
         rootView.removeAllViews();
@@ -105,13 +107,18 @@ public class DetailFragment extends Fragment {
     }
 
     public static class FragmentCallback {
-        public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {}
-        public void onCreate() {}
-        public void onDestroy() {}
+        public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        }
+
+        public void onCreate() {
+        }
+
+        public void onDestroy() {
+        }
     }
 
     public View findViewById(int resId) {
-        if(rootView != null) {
+        if (rootView != null) {
             return rootView.findViewById(resId);
         }
         return null;

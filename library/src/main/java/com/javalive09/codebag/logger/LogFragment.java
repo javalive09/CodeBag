@@ -52,8 +52,6 @@ public class LogFragment extends Fragment {
         mLogView.setGravity(Gravity.BOTTOM);
 
         mLogView.setTextAppearance(getActivity(), android.R.style.TextAppearance_Holo_Small);
-        mLogView.setTextColor(Color.GRAY);
-
         mScrollView.addView(mLogView);
         return mScrollView;
     }
@@ -63,7 +61,7 @@ public class LogFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         mScrollView = (ScrollView) inflater.inflate(R.layout.scroll_view, container, false);
-
+        mScrollView.setBackgroundResource(R.color.log_bg_color);
         View result = inflateViews();
 
         mLogView.addTextChangedListener(new TextWatcher() {

@@ -5,6 +5,7 @@
     android:layout_height="wrap_content"
     android:scrollbars="vertical"
     android:scrollbarSize="@dimen/scrollbar_size"
+    android:background="@color/title_bar_color"
     android:scrollbarThumbVertical="@color/scrollbar">
 
     <RelativeLayout

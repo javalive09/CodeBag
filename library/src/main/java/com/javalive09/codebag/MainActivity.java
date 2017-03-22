@@ -31,6 +31,7 @@ import com.javalive09.codebag.node.NodeItem;
 import com.unnamed.b.atv.model.TreeNode;
 
 import java.io.IOException;
+import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
@@ -67,7 +68,7 @@ public class MainActivity extends AppCompatActivity {
         bundle.putParcelable(CodeBag.NODE_NAME, item);
         detailFragment.setArguments(bundle);
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-        ft.setCustomAnimations(R.anim.slide_right_in, 0, 0, R.anim.slide_right_out);
+        ft.setCustomAnimations(R.anim.slide_right_in, R.anim.slide_left_out, R.anim.slide_left_in, R.anim.slide_right_out);
         ft.addToBackStack(null);
         ft.hide(treeFragment).add(R.id.content, detailFragment).commit();
     }
@@ -79,6 +80,27 @@ public class MainActivity extends AppCompatActivity {
             fm.popBackStack();
         } else {
             super.onBackPressed();
+        }
+    }
+
+    private void invokeMethod(NodeItem node, Activity activity) {
+        try {
+            String methodName = node.text;
+            String className = node.className;
+            Class<?> cls = Class.forName(className);
+            Constructor<?> con = cls.getConstructor();
+            Object obj = con.newInstance();
+            if (obj != null) {
+                if(activity != null) {
+                    Field mActivity = cls.getSuperclass().getDeclaredField("activity");
+                    mActivity.setAccessible(true);
+                    mActivity.set(obj, activity);
+                }
+                Method method = cls.getDeclaredMethod(methodName);
+                method.invoke(obj);
+            }
+        } catch (Exception e) {
+            startDetailFragment(node);
         }
     }
 
@@ -96,8 +118,6 @@ public class MainActivity extends AppCompatActivity {
                 .findFragmentById(R.id.log_fragment);
         msgFilter.setNext(logFragment.getLogView());
         logFragment.getLogView().setTextAppearance(this, R.style.Log);
-        logFragment.getLogView().setBackgroundColor(Color.WHITE);
-
         boolean show = getLogFragmentStatus();
         logFragment.show(show);
     }
@@ -239,7 +259,7 @@ public class MainActivity extends AppCompatActivity {
         public void onClick(TreeNode node, Object value) {
             NodeItem item = (NodeItem) value;
             if (item.icon == NodeItem.METHOD) {
-                startDetailFragment(item);
+                invokeMethod(item, MainActivity.this);
             }
         }
     };

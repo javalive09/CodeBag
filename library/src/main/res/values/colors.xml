@@ -2,10 +2,14 @@
 <resources>
 
     <color name="main_item_color">#aa6ea3e5</color>
-    <color name="titlebar">#34495e</color>
+    <!--<color name="titlebar">#34495e</color>-->
+    <color name="titlebar">#434e5e</color>
     <color name="statusbar">#455a6f</color>
     <color name="alertdialog_scrollbar">#b8b8b8</color>
     <color name="listview_scrollbar">#a7a7a7</color>
     <color name="blue">#03A9F4</color>
+    <color name="tree_bg">#3c3f41</color>
+    <color name="icon_color">#bc9566</color>
+    <color name="log_bg_color">#2b2b2b</color>
 
 </resources>
