@@ -2,16 +2,12 @@ package com.javalive09.sample.view.textview.settextview_measure;
 
 import android.animation.ValueAnimator;
 import android.graphics.Color;
-import android.os.Handler;
-import android.os.Looper;
-import android.os.Message;
 import android.view.animation.LinearInterpolator;
 import android.widget.TextView;
 
-import com.javalive09.codebag.DetailFragment;
+import com.javalive09.codebag.PlayFragment;
 import com.javalive09.codebag.Entry;
 import com.javalive09.codebag.LogUtil;
-import com.javalive09.codebag.DetailActivity;
 
 public class Invoker extends Entry {
 
@@ -58,7 +54,7 @@ public class Invoker extends Entry {
 			}
 		});
 
-		showView(view, new DetailFragment.FragmentCallback() {
+		showView(view, new PlayFragment.FragmentCallback() {
 			@Override
 			public void onDestroy() {
 				mAnimator.cancel();

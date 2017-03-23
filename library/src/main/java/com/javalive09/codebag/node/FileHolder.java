@@ -27,11 +27,6 @@ public class FileHolder extends TreeNode.BaseNodeViewHolder<NodeItem> {
         View view = inflater.inflate(R.layout.layout_node, null, false);
 
         String text = value.text;
-        if (value.icon == NodeItem.CLASS) {
-            text = text + ".java";
-        } else if (value.icon == NodeItem.METHOD) {
-            text = text + "( )";
-        }
 
         tvValue = (TextView) view.findViewById(R.id.node_value);
         tvValue.setText(text);

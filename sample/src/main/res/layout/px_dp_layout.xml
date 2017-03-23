@@ -93,22 +93,22 @@
             android:gravity="center"
             android:orientation="horizontal">
 
-            <com.javalive09.sample.thirdlibs.wheel.WheelView
+            <com.javalive09.sample.thirdlib.wheel.WheelView
                 android:id="@+id/th"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
-            <com.javalive09.sample.thirdlibs.wheel.WheelView
+            <com.javalive09.sample.thirdlib.wheel.WheelView
                 android:id="@+id/h"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
-            <com.javalive09.sample.thirdlibs.wheel.WheelView
+            <com.javalive09.sample.thirdlib.wheel.WheelView
                 android:id="@+id/ten"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
-            <com.javalive09.sample.thirdlibs.wheel.WheelView
+            <com.javalive09.sample.thirdlib.wheel.WheelView
                 android:id="@+id/one"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />

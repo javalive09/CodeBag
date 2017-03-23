@@ -9,10 +9,10 @@ import android.widget.TextView;
  */
 public abstract class Entry {
 
-    private DetailFragment fragment = null;
-    private MainActivity activity = null;
+    private PlayFragment fragment = null;
+    private EntryTreeActivity activity = null;
 
-    protected final DetailFragment getFragment() {
+    protected final PlayFragment getFragment() {
         return fragment;
     }
 
@@ -20,7 +20,7 @@ public abstract class Entry {
         return activity.getApplicationContext();
     }
 
-    protected final MainActivity getActivity() {
+    protected final EntryTreeActivity getActivity() {
         return activity;
     }
 
@@ -28,7 +28,7 @@ public abstract class Entry {
         showTxt(text, null);
     }
 
-    protected final void showTxt(String text, DetailFragment.FragmentCallback callback) {
+    protected final void showTxt(String text, PlayFragment.FragmentCallback callback) {
         if (fragment == null) {
             throw new RuntimeException("can not invoke this method in constructor!");
         } else {
@@ -42,7 +42,7 @@ public abstract class Entry {
         return showView(resId, null);
     }
 
-    protected final View showView(int resId, DetailFragment.FragmentCallback callback) {
+    protected final View showView(int resId, PlayFragment.FragmentCallback callback) {
         if (fragment == null) {
             throw new RuntimeException("can not invoke this method in constructor!");
         } else {
@@ -55,7 +55,7 @@ public abstract class Entry {
         return showView(view, null);
     }
 
-    protected final View showView(View view, DetailFragment.FragmentCallback callback) {
+    protected final View showView(View view, PlayFragment.FragmentCallback callback) {
         if (fragment == null) {
             throw new RuntimeException("can not invoke this method in constructor!");
         } else {

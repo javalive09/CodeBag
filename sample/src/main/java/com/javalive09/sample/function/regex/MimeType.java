@@ -1,6 +1,5 @@
 package com.javalive09.sample.function.regex;
 
-import com.javalive09.codebag.CodeBag;
 import com.javalive09.codebag.Entry;
 
 import java.util.regex.Matcher;

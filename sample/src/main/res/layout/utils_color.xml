@@ -35,42 +35,42 @@
             android:gravity="center"
             android:orientation="horizontal">
 
-            <com.javalive09.sample.thirdlibs.wheel.WheelView
+            <com.javalive09.sample.thirdlib.wheel.WheelView
                 android:id="@+id/alpha1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
-            <com.javalive09.sample.thirdlibs.wheel.WheelView
+            <com.javalive09.sample.thirdlib.wheel.WheelView
                 android:id="@+id/alpha2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
-            <com.javalive09.sample.thirdlibs.wheel.WheelView
+            <com.javalive09.sample.thirdlib.wheel.WheelView
                 android:id="@+id/red1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
-            <com.javalive09.sample.thirdlibs.wheel.WheelView
+            <com.javalive09.sample.thirdlib.wheel.WheelView
                 android:id="@+id/red2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
-            <com.javalive09.sample.thirdlibs.wheel.WheelView
+            <com.javalive09.sample.thirdlib.wheel.WheelView
                 android:id="@+id/green1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
-            <com.javalive09.sample.thirdlibs.wheel.WheelView
+            <com.javalive09.sample.thirdlib.wheel.WheelView
                 android:id="@+id/green2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
-            <com.javalive09.sample.thirdlibs.wheel.WheelView
+            <com.javalive09.sample.thirdlib.wheel.WheelView
                 android:id="@+id/blue1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
-            <com.javalive09.sample.thirdlibs.wheel.WheelView
+            <com.javalive09.sample.thirdlib.wheel.WheelView
                 android:id="@+id/blue2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />

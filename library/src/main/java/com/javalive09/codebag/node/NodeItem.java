@@ -14,7 +14,6 @@ public class NodeItem implements Parcelable {
     public int icon;
     public String text;
     public String className;
-    public int type;
 
     public NodeItem(int icon, String text, String className) {
         this.icon = icon;
@@ -22,11 +21,11 @@ public class NodeItem implements Parcelable {
         this.className = className;
     }
 
+
     protected NodeItem(Parcel in) {
         icon = in.readInt();
         text = in.readString();
         className = in.readString();
-        type = in.readInt();
     }
 
     @Override
@@ -34,7 +33,6 @@ public class NodeItem implements Parcelable {
         dest.writeInt(icon);
         dest.writeString(text);
         dest.writeString(className);
-        dest.writeInt(type);
     }
 
     @Override

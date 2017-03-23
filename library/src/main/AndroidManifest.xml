@@ -1,23 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     package="com.javalive09.codebag">
 
     <uses-permission android:name="android.permission.INTERNET" />
 
-    <application
-        android:name="com.javalive09.codebag.CodeBag"
-        android:icon="@drawable/codebag_icon"
-        android:label="@string/codebag_name"
-        android:theme="@style/CodeBagTheme"
-        tools:replace="android:label">
-        <activity android:name="com.javalive09.codebag.MainActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        <activity android:name=".DetailActivity" />
+    <application>
+
+        <activity
+            android:name="com.javalive09.codebag.EntryTreeActivity"
+            android:theme="@style/CodeBagTheme" />
 
     </application>
 

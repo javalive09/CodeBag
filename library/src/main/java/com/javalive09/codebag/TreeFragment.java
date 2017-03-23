@@ -27,7 +27,7 @@ public class TreeFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         FrameLayout result = (FrameLayout) inflater.inflate(R.layout.fragment_treeview, container, false);
-        treeNode = ((MainActivity) getActivity()).getCodeNode();
+        treeNode = ((EntryTreeActivity) getActivity()).getCodeNode();
         tView = new AndroidTreeView(getActivity(), treeNode);
         tView.setDefaultContainerStyle(R.style.TreeNodeStyleCustom);
         tView.setUse2dScroll(false);

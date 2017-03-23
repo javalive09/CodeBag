@@ -131,6 +131,18 @@ public class Log {
         i(tag, msg, null);
     }
 
+    public static void i(String msg) {
+        i("", msg, null);
+    }
+
+    public static void w(String msg) {
+        w("", msg, null);
+    }
+
+    public static void e(String msg) {
+        e("", msg, null);
+    }
+
     /**
      * Prints a message at WARN priority.
      *
