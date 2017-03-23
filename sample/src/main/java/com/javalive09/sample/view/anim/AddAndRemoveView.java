@@ -19,7 +19,7 @@ import com.javalive09.sample.R;
 public class AddAndRemoveView extends Entry {
 	
 	public void addView() {
-		final ImageView iv = new ImageView(getActivity()){
+		final ImageView iv = new android.support.v7.widget.AppCompatImageView(getActivity()){
 		    public void draw(Canvas canvas) {
 		        super.draw(canvas);
 		    }

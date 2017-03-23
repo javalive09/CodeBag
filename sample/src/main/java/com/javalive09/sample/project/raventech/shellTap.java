@@ -1,5 +1,6 @@
 package com.javalive09.sample.project.raventech;
 
+import android.os.Environment;
 import android.util.Log;
 
 import com.javalive09.codebag.Entry;
@@ -71,7 +72,7 @@ public class shellTap extends Entry {
         ArrayList<String> commands = new ArrayList<>();
         commands.add("du");
         commands.add("-s");
-        commands.add("/sdcard/VST");
+        commands.add(Environment.getExternalStorageDirectory().getPath() + "/VST");
         String log = exeCMD(commands);
         Log.i("du", log);
     }

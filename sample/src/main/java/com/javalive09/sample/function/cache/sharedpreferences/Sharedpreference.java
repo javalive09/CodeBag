@@ -13,7 +13,7 @@ public class Sharedpreference extends Entry {
 	 */
 	public void set1() {
 		SharedPreferences sp = getActivity().getSharedPreferences("getSharedPreferences1", Context.MODE_PRIVATE);
-		sp.edit().putString("peter1", "12345").commit();
+		sp.edit().putString("peter1", "12345").apply();
 	}
 
 	public void get1() {
@@ -27,7 +27,7 @@ public class Sharedpreference extends Entry {
 	 */
 	public void set2() {
 		SharedPreferences sp = getActivity().getApplicationContext().getSharedPreferences("getSharedPreferences2", Context.MODE_PRIVATE);
-		sp.edit().putString("peter2", "12345").commit();
+		sp.edit().putString("peter2", "12345").apply();
 	}
 
 	public void get2() {
@@ -42,7 +42,7 @@ public class Sharedpreference extends Entry {
 	public void set3() {
 		SharedPreferences sp = getActivity().getPreferences(Context.MODE_PRIVATE);
 		String name = getActivity().getLocalClassName();
-		sp.edit().putString("peter3", "6789").commit();
+		sp.edit().putString("peter3", "6789").apply();
 	}
 
 	public void get3() {
@@ -53,7 +53,7 @@ public class Sharedpreference extends Entry {
 	
 	public void set4() {
 	    SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getActivity());
-	    sp.edit().putString("peter34", "0000").commit();
+	    sp.edit().putString("peter34", "0000").apply();
 	}
 
 	public void get4() {
