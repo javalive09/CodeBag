@@ -363,7 +363,6 @@ public class EntryTreeActivity extends AppCompatActivity {
         ActionBar bar = getSupportActionBar();
         if (bar != null) {
             bar.setDisplayHomeAsUpEnabled(true);
-            getSupportActionBar().setTitle(R.string.codebag_name);
         }
     }
 
