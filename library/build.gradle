@@ -3,13 +3,13 @@ apply plugin: 'com.novoda.bintray-release'//添加
 
 android {
     compileSdkVersion 25
-    buildToolsVersion "25.0.1"
+    buildToolsVersion "25.0.2"
 
     defaultConfig {
         minSdkVersion 11
         targetSdkVersion 25
-        versionCode 14
-        versionName "1.1.5"
+        versionCode 17
+        versionName "1.1.7"
     }
     buildTypes {
         release {
@@ -28,7 +28,7 @@ publish {
     userOrg = 'javalive09'//bintray.com用户名
     groupId = 'com.javalive09.codebag'//包名
     artifactId = 'codebag'//项目名称
-    publishVersion = '1.1.5'//版本号
+    publishVersion = '1.1.7'//版本号
     desc = 'simple library for programmer collect code(demo, unit test ...)'//描述
     website = 'https://github.com/javalive09/CodeBag'//网站
 }

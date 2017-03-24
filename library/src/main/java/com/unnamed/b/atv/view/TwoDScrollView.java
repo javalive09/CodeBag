@@ -28,7 +28,7 @@ import java.util.List;
  * manager with a complex hierarchy of objects.  A child that is often used
  * is a {@link LinearLayout} in a vertical orientation, presenting a vertical
  * array of top-level items that the user can scroll through.
- * <p/>
+ *
  * <p>The {@link TextView} class also
  * takes care of its own scrolling, so does not require a TwoDScrollView, but
  * using the two together is possible to achieve the effect of a text view
@@ -944,7 +944,7 @@ public class TwoDScrollView extends FrameLayout {
     /**
      * When looking for focus in children of a scroll view, need to be a little
      * more careful not to give focus to something that is scrolled off screen.
-     * <p/>
+     *
      * This is more expensive than the default {@link ViewGroup}
      * implementation, otherwise this behavior might have been made the default.
      */
@@ -1063,7 +1063,7 @@ public class TwoDScrollView extends FrameLayout {
 
     /**
      * {@inheritDoc}
-     * <p/>
+     *
      * <p>This version also clamps the scrolling to the bounds of our child.
      */
     public void scrollTo(int x, int y) {

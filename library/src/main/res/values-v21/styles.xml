@@ -4,7 +4,7 @@
     <style name="CodeBagTheme" parent="@style/AppBaseTheme">
         
 	<item name="android:navigationBarColor">@color/titlebar</item>
-	<item name="android:statusBarColor">@color/titlebar</item>
+	<item name="android:statusBarColor">@color/statusbar</item>
     </style>
 
     <style name="MyProgressBar" parent="Base.Widget.AppCompat.ProgressBar">
