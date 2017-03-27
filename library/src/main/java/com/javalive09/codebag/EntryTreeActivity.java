@@ -49,6 +49,7 @@ public class EntryTreeActivity extends AppCompatActivity {
     public static final String GIT_HUB_HOME = "https://raw.githubusercontent.com/";
     public static final String NODE_NAME = "node";
     TreeFragment treeFragment = new TreeFragment();
+    static List<Activity> list = new ArrayList<>();
     LogFragment logFragment;
     boolean showAllFile;
 
@@ -58,8 +59,22 @@ public class EntryTreeActivity extends AppCompatActivity {
         setContentView(R.layout.main);
         initActionBar();
         initStatusBar();
-        initTreeFragment();
-        initLogFragment();
+        list.add(this);
+
+        if(showEntryTree()) {
+            initTreeFragment();
+            initLogFragment();
+        }
+    }
+
+    protected void exit() {
+        for(Activity act: list) {
+            act.finish();
+        }
+    }
+
+    protected boolean showEntryTree() {
+        return true;
     }
 
     protected boolean showAllFile() {
@@ -310,6 +325,7 @@ public class EntryTreeActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        list.remove(this);
     }
 
     private void initStatusBar() {
@@ -389,18 +405,12 @@ public class EntryTreeActivity extends AppCompatActivity {
 
         if (id == android.R.id.home) {
             onBackPressed();
-        } else if (id == R.id.action_help) {
-            showAlertDialog(getString(R.string.action_help),
-                    getString(R.string.action_help_msg));
-        } else if (id == R.id.action_about) {
-            showAlertDialog(getString(R.string.action_about),
-                    getString(R.string.action_about_msg));
         } else if (id == R.id.action_showlog) {
             showLogView(true);
         } else if (id == R.id.action_clearlog) {
             clearLog();
         } else if (id == R.id.action_exit) {
-            finish();
+            exit();
         } else if (id == R.id.action_hidelog) {
             showLogView(false);
         }

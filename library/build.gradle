@@ -8,8 +8,8 @@ android {
     defaultConfig {
         minSdkVersion 11
         targetSdkVersion 25
-        versionCode 18
-        versionName "1.1.8"
+        versionCode 20
+        versionName "1.2.0"
     }
     buildTypes {
         release {
@@ -28,7 +28,7 @@ publish {
     userOrg = 'javalive09'//bintray.com用户名
     groupId = 'com.javalive09.codebag'//包名
     artifactId = 'codebag'//项目名称
-    publishVersion = '1.1.8'//版本号
+    publishVersion = '1.2.0'//版本号
     desc = 'simple library for programmer collect code(demo, unit test ...)'//描述
     website = 'https://github.com/javalive09/CodeBag'//网站
 }
