@@ -167,9 +167,9 @@ public class EntryTreeActivity extends AppCompatActivity {
                             && !className.contains("BuildConfig")) {
                         String fileName = className.substring(startLen);
                         String[] strings = fileName.split("\\.");
-                        if(showAllFile) {
+                        if (showAllFile) {
                             loadCodeBagNode(className, strings, 0, rootNode);
-                        }else {
+                        } else {
                             if (isEntry(className)) {
                                 loadCodeBagNode(className, strings, 0, rootNode);
                             }
@@ -396,23 +396,28 @@ public class EntryTreeActivity extends AppCompatActivity {
             showAlertDialog(getString(R.string.action_about),
                     getString(R.string.action_about_msg));
         } else if (id == R.id.action_showlog) {
-            if (logFragment != null) {
-                saveLogFragmentShow(true);
-                logFragment.show(true);
-            }
+            showLogView(true);
         } else if (id == R.id.action_clearlog) {
-            if (logFragment != null) {
-                logFragment.clear();
-            }
+            clearLog();
         } else if (id == R.id.action_exit) {
             finish();
         } else if (id == R.id.action_hidelog) {
-            if (logFragment != null) {
-                saveLogFragmentShow(false);
-                logFragment.show(false);
-            }
+            showLogView(false);
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    protected void showLogView(boolean show) {
+        if (logFragment != null) {
+            saveLogFragmentShow(show);
+            logFragment.show(show);
+        }
+    }
+
+    protected void clearLog() {
+        if (logFragment != null) {
+            logFragment.clear();
+        }
     }
 
     public AlertDialog showAlertDialog(String title, String content) {
