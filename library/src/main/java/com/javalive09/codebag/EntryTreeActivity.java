@@ -413,6 +413,8 @@ public class EntryTreeActivity extends AppCompatActivity {
             exit();
         } else if (id == R.id.action_hidelog) {
             showLogView(false);
+        } else if(id == R.id.action_autoscroll_log) {
+            logFragment.setAutoScroll(true);
         }
         return super.onOptionsItemSelected(item);
     }

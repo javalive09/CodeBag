@@ -25,16 +25,24 @@
         android:orderInCategory="7"
         android:title="@string/action_showlog" />
     <item
-        android:id="@+id/action_hidelog"
+        android:id="@+id/action_autoscroll_log"
         android:orderInCategory="8"
+        android:title="@string/action_autoscroll_log" />
+    <item
+        android:id="@+id/action_stop_autoscroll_log"
+        android:orderInCategory="9"
+        android:title="@string/action_stop_autoscroll_log" />
+    <item
+        android:id="@+id/action_hidelog"
+        android:orderInCategory="10"
         android:title="@string/action_hidelog" />
     <item
         android:id="@+id/action_clearlog"
-        android:orderInCategory="9"
+        android:orderInCategory="11"
         android:title="@string/action_clearlog" />
     <item
         android:id="@+id/action_exit"
-        android:orderInCategory="10"
+        android:orderInCategory="12"
         android:title="@string/action_exit" />
 
 </menu>

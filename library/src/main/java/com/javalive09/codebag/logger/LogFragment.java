@@ -23,6 +23,7 @@ public class LogFragment extends Fragment {
 
     private LogView mLogView;
     private ScrollView mScrollView;
+    private boolean autoScroll;
 
     public LogFragment() {
     }
@@ -75,7 +76,9 @@ public class LogFragment extends Fragment {
 
             @Override
             public void afterTextChanged(Editable s) {
-                mScrollView.post(scrollToBottom);
+                if(autoScroll) {
+                    mScrollView.post(scrollToBottom);
+                }
             }
         });
         return result;
@@ -88,14 +91,18 @@ public class LogFragment extends Fragment {
         }
     };
 
+    public void setAutoScroll(boolean autoScroll) {
+        this.autoScroll = autoScroll;
+    }
+
     public LogView getLogView() {
         return mLogView;
     }
 
     public void show(boolean show) {
-        if(show) {
+        if (show) {
             getView().setVisibility(View.VISIBLE);
-        }else {
+        } else {
             getView().setVisibility(View.GONE);
         }
     }
