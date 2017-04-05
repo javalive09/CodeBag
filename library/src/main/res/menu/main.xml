@@ -29,8 +29,12 @@
         android:orderInCategory="11"
         android:title="@string/action_clearlog" />
     <item
-        android:id="@+id/action_exit"
+        android:id="@+id/action_sharelog"
         android:orderInCategory="12"
+        android:title="@string/action_sharelog" />
+    <item
+        android:id="@+id/action_exit"
+        android:orderInCategory="13"
         android:title="@string/action_exit" />
 
 </menu>

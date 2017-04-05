@@ -1,6 +1,5 @@
 package com.javalive09.codebag.logger;
 
-import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -10,9 +9,9 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 import android.widget.ScrollView;
 
+import com.javalive09.codebag.EntryTreeActivity;
 import com.javalive09.codebag.R;
 
 /**
@@ -24,6 +23,7 @@ public class LogFragment extends Fragment {
     private LogView mLogView;
     private ScrollView mScrollView;
     private boolean autoScroll;
+    private static final long MAX = 20; //M
 
     public LogFragment() {
     }
@@ -79,6 +79,15 @@ public class LogFragment extends Fragment {
                 if(autoScroll) {
                     mScrollView.post(scrollToBottom);
                 }
+
+
+                int len = mLogView.getText().toString().getBytes().length;
+                int currentLen = len /1024 / 1024; //M
+
+                if(currentLen > ((EntryTreeActivity)getActivity()).getMaxLog()) {
+                    clear();
+                }
+
             }
         });
         return result;

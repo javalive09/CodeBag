@@ -2,6 +2,7 @@ package com.javalive09.codebag;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
@@ -79,6 +80,13 @@ public class EntryTreeActivity extends AppCompatActivity {
 
     protected boolean showAllFile() {
         return false;
+    }
+
+    /**
+     * @return log max limit , M unit
+     */
+    public int getMaxLog() {
+        return 20;
     }
 
     private void initTreeFragment() {
@@ -417,6 +425,12 @@ public class EntryTreeActivity extends AppCompatActivity {
             logFragment.setAutoScroll(true);
         } else if(id == R.id.action_stop_autoscroll_log) {
             logFragment.setAutoScroll(false);
+        } else if(id == R.id.action_sharelog) {
+            Intent sendIntent = new Intent();
+            sendIntent.setAction(Intent.ACTION_SEND);
+            sendIntent.putExtra(Intent.EXTRA_TEXT, logFragment.getLogView().getText());
+            sendIntent.setType("text/plain");
+            startActivity(Intent.createChooser(sendIntent, getString(R.string.action_sharelog)));
         }
         return super.onOptionsItemSelected(item);
     }

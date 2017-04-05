@@ -11,6 +11,7 @@
     <string name="action_autoscroll_log">auto scroll log</string>
     <string name="action_stop_autoscroll_log">stop auto scroll log</string>
     <string name="action_clearlog">clear log</string>
+    <string name="action_sharelog">share log</string>
     <string name="action_exit">exit</string>
 
     <string name="item_string_java">%s .java</string>
