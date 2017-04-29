@@ -62,14 +62,14 @@ public class EntryTreeActivity extends AppCompatActivity {
         initStatusBar();
         list.add(this);
 
-        if(showEntryTree()) {
+        if (showEntryTree()) {
             initTreeFragment();
             initLogFragment();
         }
     }
 
     protected void exit() {
-        for(Activity act: list) {
+        for (Activity act : list) {
             act.finish();
         }
     }
@@ -115,7 +115,7 @@ public class EntryTreeActivity extends AppCompatActivity {
         }
     }
 
-    private void invokeMethod(NodeItem node, Activity activity) {
+    private void invokeMethod(NodeItem node) {
         try {
             String methodName = node.text;
             String className = node.className;
@@ -123,11 +123,14 @@ public class EntryTreeActivity extends AppCompatActivity {
             Constructor<?> con = cls.getConstructor();
             Object obj = con.newInstance();
             if (obj != null) {
-                if (activity != null) {
-                    Field mActivity = cls.getSuperclass().getDeclaredField("activity");
-                    mActivity.setAccessible(true);
-                    mActivity.set(obj, activity);
-                }
+                Field mActivity = cls.getSuperclass().getDeclaredField("activity");
+                mActivity.setAccessible(true);
+                mActivity.set(obj,  EntryTreeActivity.this);
+
+                Field fragment = cls.getSuperclass().getDeclaredField("treeFragment");
+                fragment.setAccessible(true);
+                fragment.set(obj,  treeFragment);
+
                 Method method = cls.getDeclaredMethod(methodName);
                 method.invoke(obj);
             }
@@ -317,7 +320,7 @@ public class EntryTreeActivity extends AppCompatActivity {
         public void onClick(TreeNode node, Object value) {
             NodeItem item = (NodeItem) value;
             if (item.icon == NodeItem.METHOD) {
-                invokeMethod(item, EntryTreeActivity.this);
+                invokeMethod(item);
             }
         }
     };
@@ -421,11 +424,11 @@ public class EntryTreeActivity extends AppCompatActivity {
             exit();
         } else if (id == R.id.action_hidelog) {
             showLogView(false);
-        } else if(id == R.id.action_autoscroll_log) {
+        } else if (id == R.id.action_autoscroll_log) {
             logFragment.setAutoScroll(true);
-        } else if(id == R.id.action_stop_autoscroll_log) {
+        } else if (id == R.id.action_stop_autoscroll_log) {
             logFragment.setAutoScroll(false);
-        } else if(id == R.id.action_sharelog) {
+        } else if (id == R.id.action_sharelog) {
             Intent sendIntent = new Intent();
             sendIntent.setAction(Intent.ACTION_SEND);
             sendIntent.putExtra(Intent.EXTRA_TEXT, logFragment.getLogView().getText());
