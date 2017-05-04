@@ -8,7 +8,7 @@ Download
 
 Gradle:
 ```
-compile 'com.javalive09.codebag:codebag:1.1.3'
+compile 'com.javalive09.codebag:codebag:1.1.7'
 ```
 
 How Collect your code
