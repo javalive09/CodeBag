@@ -2,6 +2,7 @@ CodeBag
 ======
 
 A simple util for programmer collect demos.
+[sample](https://github.com/javalive09/Sample)
 
 Download
 --------
@@ -64,23 +65,6 @@ How Collect your code
         }
 
 ![file list][1] 
-
-Show your source code on phone
----------------------------------------
-  - push your project to github
-  - config *git_owner, git_repo, git_dir* in your project strings.xml
-  - run project and long click your java file item.
-```xml
-<resources>
-    <string name="git_owner">javalive09</string>  <!-- your github user name -->
-    <string name="git_repo">CodeBag</string> <!--your repository name-->
-    <string name="git_dir">sample</string> <!--your root dir name-->
-
-    <string name="app_name">sample</string>
-</resources>
-```
-
-![source dialog][3]
 
 License
 -------
