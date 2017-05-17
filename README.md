@@ -22,7 +22,6 @@ compile 'com.javalive09.codebag:codebag:1.2.8'
 Usage
 ---------------------
 -  Use com.javalive09.codebag.EntryTreeActivity or its subclass with the theme CodeBagTheme as launcher activity
--  Create a file extends Entry class with public method as your code entrance (There is no limited for your file and folder’s name and the hierarchy)
 
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
@@ -42,6 +41,8 @@ Usage
     </application>
 </manifest>
 ```
+
+-  Create a file extends Entry class with public method as your code entrance (There is no limited for your file and folder’s name and the hierarchy)
 
         public class HelloWorld extends Entry {
             
