@@ -2,13 +2,14 @@ CodeBag
 ======
 
 A simple util for programmer collect demos.
+[sample](https://github.com/javalive09/Sample)
 
 Download
 --------
 
 Gradle:
 ```
-compile 'com.javalive09.codebag:codebag:1.1.3'
+compile 'com.javalive09.codebag:codebag:1.1.7'
 ```
 
 How Collect your code
@@ -16,7 +17,7 @@ How Collect your code
 
 -  Keep Your Project AndroidManifest.xml application Tag with no Attribute
 -  Keep Your Project AndroidManifest.xml have no launcher activity
-- Create a file extends Entry class with public method as your code entrance (There is no limited for your file and folder’s name and the hierarchy)
+-  Create a file extends Entry class with public method as your code entrance (There is no limited for your file and folder’s name and the hierarchy)
 
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
@@ -63,25 +64,6 @@ How Collect your code
             }
         }
 
-![file list][1] 
-
-Show your source code on phone
----------------------------------------
-  - push your project to github
-  - config *git_owner, git_repo, git_dir* in your project strings.xml
-  - run project and long click your java file item.
-```xml
-<resources>
-    <string name="git_owner">javalive09</string>  <!-- your github user name -->
-    <string name="git_repo">CodeBag</string> <!--your repository name-->
-    <string name="git_dir">sample</string> <!--your root dir name-->
-
-    <string name="app_name">sample</string>
-</resources>
-```
-
-![source dialog][3]
-
 License
 -------
 
@@ -97,7 +79,3 @@ License
     See the License for the specific language governing permissions and
     limitations under the License.
     
-
-
-  [1]: http://7xoxmg.com1.z0.glb.clouddn.com/collect_code_small.jpg
-  [3]: http://7xoxmg.com1.z0.glb.clouddn.com/collect_source_code_small.jpg
