@@ -9,12 +9,12 @@ Download
 
 Gradle:
 ```
-compile 'com.javalive09.codebag:codebag:1.1.7'
+compile 'com.javalive09.codebag:codebag:1.2.8'
 ```
 
 How Collect your code
 ---------------------
--  use com.javalive09.codebag.EntryTreeActivity or its subclass as launcher activity with the theme CodeBagTheme.
+-  Use com.javalive09.codebag.EntryTreeActivity or its subclass with the theme CodeBagTheme as launcher activity.
 -  Create a file extends Entry class with public method as your code entrance (There is no limited for your file and folder’s name and the hierarchy)
 
 ```xml
