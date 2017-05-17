@@ -1,10 +1,17 @@
 CodeBag
 ======
 
-A simple util for programmer collect demos.
-[sample](https://github.com/javalive09/Sample)
+A simple util for accumulate your codes.
 
-Download
+[Demo](https://github.com/javalive09/Sample)
+
+Feature
+--------
+- verify api or third library feature faster with less code
+- collect your own demo code
+- show log
+
+Import Library
 --------
 
 Gradle:
@@ -12,9 +19,9 @@ Gradle:
 compile 'com.javalive09.codebag:codebag:1.2.8'
 ```
 
-How Collect your code
+Usage
 ---------------------
--  Use com.javalive09.codebag.EntryTreeActivity or its subclass with the theme CodeBagTheme as launcher activity.
+-  Use com.javalive09.codebag.EntryTreeActivity or its subclass with the theme CodeBagTheme as launcher activity
 -  Create a file extends Entry class with public method as your code entrance (There is no limited for your file and folder’s name and the hierarchy)
 
 ```xml
