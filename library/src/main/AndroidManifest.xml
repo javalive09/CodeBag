@@ -1,17 +1,2 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.javalive09.codebag">
-
-    <uses-permission android:name="android.permission.INTERNET" />
-
-    <application
-        android:theme="@style/CodeBagTheme"
-        >
-
-        <activity
-            android:name="com.javalive09.codebag.EntryTreeActivity"
-            android:theme="@style/CodeBagTheme" />
-
-    </application>
-
-</manifest>
+<manifest package="com.javalive09.codebag" />
