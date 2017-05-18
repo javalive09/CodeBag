@@ -1,0 +1,33 @@
+<resources>
+    <string name="git_owner">javalive09</string>  <!-- your github user name -->
+    <string name="git_repo">CodeBag</string> <!--your repository name-->
+    <string name="git_dir">sample</string> <!--your root dir name-->
+
+    <string name="app_name">sample</string>
+    <string name="util_phone_mode">phone mode:  %s</string>
+    <string name="util_phone_sdk">sdk version:  %d</string>
+    <string name="util_phone_firmware">firmware version:  %s</string>
+    <string name="util_phone_resolution">resolution:  %s</string>
+    <string name="util_phone_density">density:  %d</string>
+    <string name="util_phone_imei">imei:  %s</string>
+    <string name="util_phone_res_dir">current res dir:  %s</string>
+    <string name="util_phone_status_bar_h">status bar height:  %d</string>
+    <string name="util_phone_brand">brand:  %s</string>
+
+    <string name="util_color">current color</string>
+    <string name="util_color_title">input color (alpha, red, green, blue)</string>
+    <string name="util_alpha_title">alpha value</string>
+    <string name="util_alpha_percent_title">alpha percent</string>
+    <string name="values_marks">values</string>
+
+    <!-- format TEST  参考：http://examples.javacodegeeks.com/core-java/lang/string/java-string-format-example/-->
+    <string name="format_test_name">my name is %s</string>
+    <string name="format_test_old"> i am %1$d years old</string>
+    <string name="format_test_name_place">my name is %1$11s, i am from %2$s</string>
+    <string name="format_test_name_place_old">my name is %1$11Vs, i am from %2$s, i am %3$d years old</string>
+
+    <string name="accessibility_description">auto play vst</string>
+
+    <string name="v">✔️</string>
+    <string name="x">✖️️</string>
+</resources>

@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:fadeScrollbars="false"
+    android:scrollbarSize="@dimen/scrollbar_size"
+    android:background="@color/title_bar_color"
+    android:scrollbarThumbVertical="@color/scrollbar">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/phone_mode"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/utils_phonedata_item_padding"
+            android:text="@string/util_phone_mode"/>
+
+        <TextView
+            android:id="@+id/sdk_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/utils_phonedata_item_padding"
+            android:text="@string/util_phone_sdk"/>
+
+        <TextView
+            android:id="@+id/firmware"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/utils_phonedata_item_padding"
+            android:text="@string/util_phone_firmware"/>
+
+        <TextView
+            android:id="@+id/resolution"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/utils_phonedata_item_padding"
+            android:text="@string/util_phone_resolution"/>
+
+        <TextView
+            android:id="@+id/density"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/utils_phonedata_item_padding"
+            android:text="@string/util_phone_density"/>
+
+        <TextView
+            android:id="@+id/imei"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/utils_phonedata_item_padding"
+            android:text="@string/util_phone_imei" />
+
+        <TextView
+            android:id="@+id/res_dir"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/utils_phonedata_item_padding"
+            android:text="@string/util_phone_res_dir" />
+
+        <TextView
+            android:id="@+id/status_bar_h"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/utils_phonedata_item_padding"
+            android:text="@string/util_phone_status_bar_h"/>
+
+        <TextView
+            android:id="@+id/brand"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/utils_phonedata_item_padding"
+            android:text="@string/util_phone_brand"/>
+
+
+    </LinearLayout>
+
+</ScrollView>
