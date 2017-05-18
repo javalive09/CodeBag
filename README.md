@@ -3,7 +3,6 @@ CodeBag
 
 A simple util for accumulate your codes.
 
-[Demo](https://github.com/javalive09/Sample)
 
 Feature
 --------
