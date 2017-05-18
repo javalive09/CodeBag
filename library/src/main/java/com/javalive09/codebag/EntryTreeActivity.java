@@ -434,6 +434,10 @@ public class EntryTreeActivity extends AppCompatActivity {
             sendIntent.putExtra(Intent.EXTRA_TEXT, logFragment.getLogView().getText());
             sendIntent.setType("text/plain");
             startActivity(Intent.createChooser(sendIntent, getString(R.string.action_sharelog)));
+        } else if(id == R.id.action_help) {
+            showAlertDialog(getString(R.string.action_help), getString(R.string.action_help_msg));
+        } else if(id == R.id.action_about) {
+            showAlertDialog(getString(R.string.action_about), getString(R.string.action_about_msg));
         }
         return super.onOptionsItemSelected(item);
     }
