@@ -1,34 +1,48 @@
 CodeBag
 ======
 
-A simple util for programmer collect demos.
-[sample](https://github.com/javalive09/Sample)
+A simple util for accumulate your codes.
 
-Download
+[Demo](https://github.com/javalive09/Sample)
+
+Feature
+--------
+- verify api or third library feature faster with less code
+- collect your own demo code
+- show log
+
+Import Library
 --------
 
 Gradle:
 ```
-compile 'com.javalive09.codebag:codebag:1.1.7'
+compile 'com.javalive09.codebag:codebag:1.3.1'
 ```
 
-How Collect your code
+Usage
 ---------------------
-
--  Keep Your Project AndroidManifest.xml application Tag with no Attribute
--  Keep Your Project AndroidManifest.xml have no launcher activity
--  Create a file extends Entry class with public method as your code entrance (There is no limited for your file and folder’s name and the hierarchy)
+-  Use com.javalive09.codebag.EntryTreeActivity or its subclass with the theme CodeBagTheme as launcher activity
 
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.javalive09.sample">
-    <application>
-        <activity android:name="com.javalive09.sample.helloworld.HelloWorldActivity"/>
-        ... your others components
+    <application
+        android:icon="@drawable/codebag_icon"
+        android:label="@string/app_name">
+        <activity 
+            android:name="com.javalive09.codebag.EntryTreeActivity"
+            android:theme="@style/CodeBagTheme">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
     </application>
 </manifest>
 ```
+
+-  Create a file extends Entry class with public method as your code entrance (There is no limited for your file and folder’s name and the hierarchy)
 
         public class HelloWorld extends Entry {
             
