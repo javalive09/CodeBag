@@ -9,11 +9,12 @@ import android.graphics.Path;
 import android.graphics.RectF;
 import android.graphics.Region;
 import android.os.Build;
+import android.support.v7.widget.AppCompatImageView;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.ImageView;
 
-public class CakeWaveView extends ImageView {
+public class CakeWaveView extends AppCompatImageView {
 
 	private static final float FLOAT_SPEED = 1.28f;
 	private static final int DEFAULT_SPEED = 11;

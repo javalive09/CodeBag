@@ -26,7 +26,7 @@ public class FileExist extends Entry {
 		
 		try {
 			
-			File file = new File("/sdcard/peter_test.jpg");
+			File file = new File(Environment.getExternalStorageDirectory().getPath() + "/peter_test.jpg");
 			
 			FileInputStream fi = new FileInputStream(file);
 			

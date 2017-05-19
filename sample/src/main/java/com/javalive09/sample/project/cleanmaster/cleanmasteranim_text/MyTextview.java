@@ -1,6 +1,7 @@
 package com.javalive09.sample.project.cleanmaster.cleanmasteranim_text;
 
 import android.graphics.Color;
+import android.support.v7.widget.AppCompatTextView;
 import android.view.Gravity;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
@@ -80,7 +81,7 @@ public class MyTextview extends Entry {
 		RelativeLayout mText = new RelativeLayout(getActivity());
 		
 		//百分比数字
-		TextView mNum = new TextView(getActivity()){
+		TextView mNum = new AppCompatTextView(getActivity()){
 
 			@Override
 			protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {

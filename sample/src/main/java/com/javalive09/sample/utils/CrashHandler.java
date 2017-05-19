@@ -312,6 +312,7 @@ public class CrashHandler implements Thread.UncaughtExceptionHandler {
             localBufferedReader.close();
 
         } catch (IOException e) {
+            e.printStackTrace();
         }
         return Formatter.formatFileSize(context, initial_memory);// Byte转换为KB或者MB，内存大小规格化
     }

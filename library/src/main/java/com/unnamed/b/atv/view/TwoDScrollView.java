@@ -610,7 +610,7 @@ public class TwoDScrollView extends FrameLayout {
      * to a component visible in this area. If no component can be focused in
      * the new visible area, the focus is reclaimed by this scrollview.</p>
      *
-     * @param direction the scroll direction: {@link View#FOCUS_UP}
+     * @param directionY the scroll direction: {@link View#FOCUS_UP}
      *                  to go upward
      *                  {@link View#FOCUS_DOWN} to downward
      * @param top       the top offset of the new area to be made visible
@@ -717,7 +717,7 @@ public class TwoDScrollView extends FrameLayout {
     /**
      * Smooth scroll by a Y delta
      *
-     * @param delta the number of pixels to scroll by on the Y axis
+     * @param deltaY the number of pixels to scroll by on the Y axis
      */
     private void doScroll(int deltaX, int deltaY) {
         if (deltaX != 0 || deltaY != 0) {

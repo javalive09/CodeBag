@@ -106,7 +106,9 @@ public class Android_data_files extends Entry {
 	        OutputStreamWriter outputStreamWriter = new OutputStreamWriter(new FileOutputStream(extDir));
 	        outputStreamWriter.write(data);
 	        outputStreamWriter.close();
-	    }catch (IOException e) {} 
+	    }catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	private String readFromFile(File extDir) {
@@ -124,7 +126,10 @@ public class Android_data_files extends Entry {
 	    }
 	    
 	    catch (FileNotFoundException e) {
-	    }catch (IOException e) {}
+			e.printStackTrace();
+	    }catch (IOException e) {
+			e.printStackTrace();
+		}
 
 	    return ret;
 	} 

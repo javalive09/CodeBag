@@ -11,7 +11,7 @@
         android:layout_alignParentLeft="true"
         android:layout_centerVertical="true"
         android:maxWidth="200dp"
-        android:singleLine="true"
+        android:maxLines="1"
         android:ellipsize="end"
         android:text="小苹果1111111111dddssssssssssss11111111111ddddddddddddddddddd"/>
 

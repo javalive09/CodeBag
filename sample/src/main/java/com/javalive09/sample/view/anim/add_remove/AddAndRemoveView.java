@@ -1,6 +1,7 @@
 package com.javalive09.sample.view.anim.add_remove;
 
 import android.graphics.Canvas;
+import android.support.v7.widget.AppCompatImageView;
 import android.view.Gravity;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -19,7 +20,7 @@ import com.javalive09.sample.R;
 public class AddAndRemoveView extends Entry {
 	
 	public void addView() {
-		final ImageView iv = new ImageView(getActivity()){
+		final ImageView iv = new AppCompatImageView(getActivity()){
 		    public void draw(Canvas canvas) {
 		        super.draw(canvas);
 		    }

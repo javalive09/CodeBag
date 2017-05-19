@@ -8,6 +8,7 @@ import android.graphics.Paint.Style;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
+import android.support.v7.widget.AppCompatImageView;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.widget.ImageView;
@@ -16,7 +17,7 @@ import android.widget.ImageView;
  * @author zhangrui-ms
  *
  */
-public class CakeProgressBar extends ImageView {
+public class CakeProgressBar extends AppCompatImageView {
 
 	public static final int DEFAUTL_SPEED = 1;
 	public static final int DELAY = 20;
