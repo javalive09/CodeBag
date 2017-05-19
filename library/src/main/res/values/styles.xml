@@ -2,7 +2,7 @@
 
     <style name="CodeBagTheme" parent="@style/AppBaseTheme" />
 
-    <style name="AppBaseTheme" parent="Theme.AppCompat">
+    <style name="AppBaseTheme" parent="Theme.AppCompat.DayNight">
         <item name="android:windowAnimationStyle">@style/activityAnimation</item>
 
         <item name="colorPrimary">@color/titlebar</item>

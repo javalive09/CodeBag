@@ -9,7 +9,7 @@
         android:label="@string/app_name">
         <activity
             android:name="com.javalive09.codebag.EntryTreeActivity"
-            android:theme="@style/CodeBagTheme">
+            android:theme="@style/Theme.AppCompat.Light">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />

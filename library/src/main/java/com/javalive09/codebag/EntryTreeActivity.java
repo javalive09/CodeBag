@@ -1,6 +1,5 @@
 package com.javalive09.codebag;
 
-import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -17,11 +16,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewConfiguration;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.TextView;
-import android.widget.Toast;
-
 import com.javalive09.codebag.logger.Log;
 import com.javalive09.codebag.logger.LogFragment;
 import com.javalive09.codebag.logger.LogWrapper;
@@ -36,7 +31,6 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Enumeration;
 import java.util.List;
 
@@ -47,7 +41,6 @@ import dalvik.system.DexFile;
  */
 public class EntryTreeActivity extends AppCompatActivity {
 
-    public static final String GIT_HUB_HOME = "https://raw.githubusercontent.com/";
     public static final String NODE_NAME = "node";
     TreeFragment treeFragment = new TreeFragment();
     static List<Activity> list = new ArrayList<>();
@@ -59,7 +52,6 @@ public class EntryTreeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
         initActionBar();
-        initStatusBar();
         list.add(this);
 
         if (showEntryTree()) {
@@ -164,7 +156,7 @@ public class EntryTreeActivity extends AppCompatActivity {
 
     private boolean getLogFragmentStatus() {
         SharedPreferences sp = getSharedPreferences("config", MODE_PRIVATE);
-        boolean show = sp.getBoolean("show", true);
+        boolean show = sp.getBoolean("show", false);
         return show;
     }
 
@@ -339,52 +331,6 @@ public class EntryTreeActivity extends AppCompatActivity {
         list.remove(this);
     }
 
-    private void initStatusBar() {
-        int ver = android.os.Build.VERSION.SDK_INT;
-        if (ver >= 21) {
-            new StatusBarApiInvoke(this).invoke();
-        }
-    }
-
-    private String getRootUrl() {
-        int ownerStrId = getResources().getIdentifier("git_owner", "string", getPackageName());
-        if (ownerStrId != 0) {
-            int repoStrId = getResources().getIdentifier("git_repo", "string", getPackageName());
-            if (repoStrId != 0) {
-                int dirStrId = getResources().getIdentifier("git_dir", "string", getPackageName());
-                if (dirStrId != 0) {
-                    String owner = getString(ownerStrId);
-                    String repo = getString(repoStrId);
-                    String rootDir = getString(dirStrId);
-                    return GIT_HUB_HOME + owner + "/" + repo + "/master/" + rootDir + "/src/main/java/";
-                } else {
-                    Toast.makeText(EntryTreeActivity.this, R.string.no_dir, Toast.LENGTH_LONG).show();
-                }
-            } else {
-                Toast.makeText(EntryTreeActivity.this, R.string.no_repo, Toast.LENGTH_LONG).show();
-            }
-        } else {
-            Toast.makeText(EntryTreeActivity.this, R.string.no_owner, Toast.LENGTH_LONG).show();
-        }
-        return "";
-    }
-
-    private static class StatusBarApiInvoke {
-        Activity mAct;
-
-        StatusBarApiInvoke(Activity act) {
-            mAct = act;
-        }
-
-        @TargetApi(21)
-        void invoke() {
-            Window window = mAct.getWindow();
-            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-            window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-            window.setStatusBarColor(mAct.getResources().getColor(R.color.statusbar));
-        }
-    }
-
     private void initActionBar() {
         setOverflowShowingAlways();
         ActionBar bar = getSupportActionBar();
@@ -405,6 +351,20 @@ public class EntryTreeActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        boolean showLogView = getLogFragmentStatus();
+        if(showLogView) {
+            menu.findItem(R.id.action_showlog).setChecked(true);
+            menu.findItem(R.id.action_autoscroll_log).setVisible(true);
+            menu.findItem(R.id.action_autoscroll_log).setChecked(logFragment.isAutoScroll());
+        }else {
+            menu.findItem(R.id.action_showlog).setChecked(false);
+            menu.findItem(R.id.action_autoscroll_log).setVisible(false);
+        }
+        return super.onPrepareOptionsMenu(menu);
+    }
+
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater menuInflater = getMenuInflater();
         menuInflater.inflate(R.menu.main, menu);
@@ -417,23 +377,21 @@ public class EntryTreeActivity extends AppCompatActivity {
         if (id == android.R.id.home) {
             onBackPressed();
         } else if (id == R.id.action_showlog) {
-            showLogView(true);
+            if(item.isChecked()) {
+                showLogView(false);
+            }else {
+                showLogView(true);
+            }
         } else if (id == R.id.action_clearlog) {
             clearLog();
         } else if (id == R.id.action_exit) {
             exit();
-        } else if (id == R.id.action_hidelog) {
-            showLogView(false);
         } else if (id == R.id.action_autoscroll_log) {
-            logFragment.setAutoScroll(true);
-        } else if (id == R.id.action_stop_autoscroll_log) {
-            logFragment.setAutoScroll(false);
-        } else if (id == R.id.action_sharelog) {
-            Intent sendIntent = new Intent();
-            sendIntent.setAction(Intent.ACTION_SEND);
-            sendIntent.putExtra(Intent.EXTRA_TEXT, logFragment.getLogView().getText());
-            sendIntent.setType("text/plain");
-            startActivity(Intent.createChooser(sendIntent, getString(R.string.action_sharelog)));
+            if(item.isChecked()) {
+                logFragment.setAutoScroll(false);
+            }else {
+                logFragment.setAutoScroll(true);
+            }
         } else if(id == R.id.action_help) {
             showAlertDialog(getString(R.string.action_help), getString(R.string.action_help_msg));
         } else if(id == R.id.action_about) {
@@ -456,8 +414,7 @@ public class EntryTreeActivity extends AppCompatActivity {
     }
 
     public AlertDialog showAlertDialog(String title, String content) {
-        AlertDialog dialog = new AlertDialog.Builder(EntryTreeActivity.this,
-                R.style.AppCompatAlertDialogStyle).create();
+        AlertDialog dialog = new AlertDialog.Builder(EntryTreeActivity.this).create();
         dialog.setCanceledOnTouchOutside(true);
         View dialogView = View.inflate(EntryTreeActivity.this, R.layout.alertdialog_view, null);
         dialog.setView(dialogView);

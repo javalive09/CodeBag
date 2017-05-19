@@ -49,10 +49,7 @@ public class LogFragment extends Fragment {
         int paddingPixels = (int) ((paddingDips * (scale)) + .5);
         mLogView.setPadding(paddingPixels, paddingPixels, paddingPixels, paddingPixels);
         mLogView.setCompoundDrawablePadding(paddingPixels);
-
         mLogView.setGravity(Gravity.BOTTOM);
-
-        mLogView.setTextAppearance(getActivity(), android.R.style.TextAppearance_Holo_Small);
         mScrollView.addView(mLogView);
         return mScrollView;
     }
@@ -62,7 +59,6 @@ public class LogFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         mScrollView = (ScrollView) inflater.inflate(R.layout.scroll_view, container, false);
-        mScrollView.setBackgroundResource(R.color.log_bg_color);
         View result = inflateViews();
 
         mLogView.addTextChangedListener(new TextWatcher() {
@@ -102,6 +98,10 @@ public class LogFragment extends Fragment {
 
     public void setAutoScroll(boolean autoScroll) {
         this.autoScroll = autoScroll;
+    }
+
+    public boolean isAutoScroll() {
+        return autoScroll;
     }
 
     public LogView getLogView() {
