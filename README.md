@@ -8,19 +8,19 @@ Feature
 --------
 - verify api or third library feature faster with less code
 - collect your own demo code
-- show log
+- show log on runtime
 
 Import Library
 --------
 
 Gradle:
 ```
-compile 'com.javalive09.codebag:codebag:1.3.1'
+compile 'com.javalive09.codebag:codebag:1.3.2'
 ```
 
 Usage
 ---------------------
--  Use com.javalive09.codebag.EntryTreeActivity or its subclass with the theme CodeBagTheme as launcher activity
+-  Use EntryTreeActivity or its subclass as launcher activity
 
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
@@ -31,7 +31,7 @@ Usage
         android:label="@string/app_name">
         <activity 
             android:name="com.javalive09.codebag.EntryTreeActivity"
-            android:theme="@style/CodeBagTheme">
+            android:theme="@style/Theme.AppCompat.Light">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
