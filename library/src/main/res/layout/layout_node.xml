@@ -42,5 +42,6 @@
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:layout_toRightOf="@+id/icon"
+        android:textColor="@android:color/darker_gray"
         android:textSize="16sp" />
 </RelativeLayout>

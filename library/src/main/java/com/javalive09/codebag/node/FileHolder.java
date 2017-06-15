@@ -33,10 +33,8 @@ public class FileHolder extends TreeNode.BaseNodeViewHolder<NodeItem> {
 
         final PrintView iconView = (PrintView) view.findViewById(R.id.icon);
         iconView.setIconText(context.getResources().getString(value.icon));
-        iconView.setIconColor(R.color.blue);
 
         arrowView = (PrintView) view.findViewById(R.id.arrow_icon);
-        arrowView.setIconColor(R.color.blue);
         if (node.isLeaf()) {
             arrowView.setVisibility(View.INVISIBLE);
         }
