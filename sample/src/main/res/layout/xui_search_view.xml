@@ -9,6 +9,6 @@
         android:layout_height="wrap_content"
         xui:search_radius="50dp"
         xui:rearch_res="@drawable/setting_icon"
-        ></com.codebag.code.project.xui.search.SearchView>
+        />
 
 </LinearLayout>

@@ -10,6 +10,7 @@
         android:layout_height="@dimen/dialog_title_h"
         android:gravity="center"
         android:textSize="@dimen/dialog_title_size"
+        android:textColor="@android:color/black"
         android:text="abc"/>
 
     <ScrollView
@@ -24,6 +25,7 @@
             android:id="@+id/content"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textColor="@android:color/black"
             android:padding="@dimen/dialog_padding" />
 
     </ScrollView>

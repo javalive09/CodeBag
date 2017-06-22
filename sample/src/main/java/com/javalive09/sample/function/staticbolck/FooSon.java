@@ -4,7 +4,7 @@ import com.javalive09.codebag.logger.Log;
 
 public class FooSon extends Foo{
 	static {
-		Log.i("fooson static block");
+//		Log.i("fooson static block");
 	}
 	
 	{

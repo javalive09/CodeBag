@@ -15,7 +15,7 @@
         android:layout_alignWithParentIfMissing="true"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
-        app:iconColor="#12558C"
+        app:iconColor="@color/icon_color"
         app:iconFont="fonts/material-icon-font.ttf"
         app:iconSize="20dp"
         app:iconText="@string/ic_keyboard_arrow_right" />
@@ -29,7 +29,7 @@
         android:layout_centerVertical="true"
         android:layout_marginLeft="5dp"
         android:layout_toRightOf="@id/arrow_icon"
-        app:iconColor="#12558C"
+        app:iconColor="@color/icon_color"
         app:iconFont="fonts/material-icon-font.ttf"
         app:iconSize="24dp"
         app:iconText="@string/ic_email" />
@@ -42,6 +42,6 @@
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:layout_toRightOf="@+id/icon"
-        android:textColor="@android:color/darker_gray"
+        android:textColor="@android:color/black"
         android:textSize="16sp" />
 </RelativeLayout>

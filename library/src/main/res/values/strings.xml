@@ -14,7 +14,6 @@
 
     <string name="item_string_java">%s .java</string>
     <string name="item_string_method">%s ( )</string>
-    <string name="base_url"></string>
     <string name="loading">loading&#8230;</string>
     <string name="no_code">not found source!</string>
     <string name="time_out">time exception!</string>
