@@ -41,5 +41,7 @@ dependencies {
     compile 'io.reactivex:rxandroid:1.0.1'
     compile project(':library')
 
+
     compile 'com.google.protobuf:protobuf-java:3.3.0'
+    compile 'com.googlecode.protobuf-java-format:protobuf-java-format:1.4'
 }

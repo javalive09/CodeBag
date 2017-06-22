@@ -1,0 +1,25 @@
+syntax = "proto2";
+package sample;
+
+option java_package = "com.javalive09.sample.protoc";
+option java_outer_classname = "VideoItem";
+
+message VideoBean {
+    required string vid = 1;
+    optional string title = 2;
+    optional string pic = 3;
+    optional int32 pay_type = 4;
+
+    extensions 100 to 200;
+}
+
+// Video，加上一个info
+message ExtendInfo {
+    extend VideoBean {
+        optional ExtendInfo info = 100;
+    }
+
+    optional string subTitle = 1;
+    optional string des  = 2;
+    optional string other = 3;
+}

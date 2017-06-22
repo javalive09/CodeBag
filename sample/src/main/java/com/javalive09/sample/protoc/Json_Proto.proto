@@ -1,0 +1,12 @@
+syntax = "proto3";
+package sample;
+
+option java_package = "com.javalive09.sample.protoc";
+option java_outer_classname = "JsonToProto";
+
+message VideoBean {
+    string vid = 1;
+    string title = 2;
+    string pic = 3;
+    int32 pay_type = 4;
+}
