@@ -1,11 +1,14 @@
 apply plugin: 'com.android.application'
 apply plugin: 'me.tatarka.retrolambda'
+apply plugin: 'com.squareup.wire'
+
 
 android {
     compileSdkVersion 25
     buildToolsVersion "25.0.3"
     defaultConfig {
         applicationId "com.javalive09.sample"
+        multiDexEnabled true
         minSdkVersion 14
         targetSdkVersion 25
         versionCode 1
@@ -44,4 +47,6 @@ dependencies {
 
     compile 'com.google.protobuf:protobuf-java:3.3.0'
     compile 'com.googlecode.protobuf-java-format:protobuf-java-format:1.4'
+
 }
+

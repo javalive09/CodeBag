@@ -1,7 +1,7 @@
 syntax = "proto2";
 package sample;
 
-option java_package = "com.javalive09.sample.protoc";
+option java_package = "com.javalive09.sample.protoc.file";
 option java_outer_classname = "VideoItem";
 
 message VideoBean {
