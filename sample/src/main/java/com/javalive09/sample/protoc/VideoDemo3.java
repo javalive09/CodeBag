@@ -40,11 +40,13 @@ public class VideoDemo3 extends Entry {
         //maps
         Project p1 = Project.newBuilder().setName("dddd").build();
         Project p2 = Project.newBuilder().setName("eeee").build();
-
         extInfo.putProjects("a", p1);
         extInfo.putProjects("a", p2);
 
         videoBuilder.setDetails(Any.pack(extInfo.build()));
+
+        Log.i("getTypeUrl=" + Any.pack(extInfo.build()).getTypeUrl());
+        Log.i("getDescriptorForType=" + extInfo.build().getDescriptorForType().getFullName());
 
         FileOutputStream output = new FileOutputStream(getFile(fileName));
         videoBuilder.build().writeTo(output);

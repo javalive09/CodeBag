@@ -98,7 +98,7 @@ public final class VideoItem3 {
 
     /**
      * <pre>
-     *Any test
+     *Any test   pack,unpack
      * </pre>
      *
      * <code>.google.protobuf.Any details = 6;</code>
@@ -106,7 +106,7 @@ public final class VideoItem3 {
     boolean hasDetails();
     /**
      * <pre>
-     *Any test
+     *Any test   pack,unpack
      * </pre>
      *
      * <code>.google.protobuf.Any details = 6;</code>
@@ -114,7 +114,7 @@ public final class VideoItem3 {
     com.google.protobuf.Any getDetails();
     /**
      * <pre>
-     *Any test
+     *Any test   pack,unpack
      * </pre>
      *
      * <code>.google.protobuf.Any details = 6;</code>
@@ -405,7 +405,7 @@ public final class VideoItem3 {
     private com.google.protobuf.Any details_;
     /**
      * <pre>
-     *Any test
+     *Any test   pack,unpack
      * </pre>
      *
      * <code>.google.protobuf.Any details = 6;</code>
@@ -415,7 +415,7 @@ public final class VideoItem3 {
     }
     /**
      * <pre>
-     *Any test
+     *Any test   pack,unpack
      * </pre>
      *
      * <code>.google.protobuf.Any details = 6;</code>
@@ -425,7 +425,7 @@ public final class VideoItem3 {
     }
     /**
      * <pre>
-     *Any test
+     *Any test   pack,unpack
      * </pre>
      *
      * <code>.google.protobuf.Any details = 6;</code>
@@ -1221,7 +1221,7 @@ public final class VideoItem3 {
           com.google.protobuf.Any, com.google.protobuf.Any.Builder, com.google.protobuf.AnyOrBuilder> detailsBuilder_;
       /**
        * <pre>
-       *Any test
+       *Any test   pack,unpack
        * </pre>
        *
        * <code>.google.protobuf.Any details = 6;</code>
@@ -1231,7 +1231,7 @@ public final class VideoItem3 {
       }
       /**
        * <pre>
-       *Any test
+       *Any test   pack,unpack
        * </pre>
        *
        * <code>.google.protobuf.Any details = 6;</code>
@@ -1245,7 +1245,7 @@ public final class VideoItem3 {
       }
       /**
        * <pre>
-       *Any test
+       *Any test   pack,unpack
        * </pre>
        *
        * <code>.google.protobuf.Any details = 6;</code>
@@ -1265,7 +1265,7 @@ public final class VideoItem3 {
       }
       /**
        * <pre>
-       *Any test
+       *Any test   pack,unpack
        * </pre>
        *
        * <code>.google.protobuf.Any details = 6;</code>
@@ -1283,7 +1283,7 @@ public final class VideoItem3 {
       }
       /**
        * <pre>
-       *Any test
+       *Any test   pack,unpack
        * </pre>
        *
        * <code>.google.protobuf.Any details = 6;</code>
@@ -1305,7 +1305,7 @@ public final class VideoItem3 {
       }
       /**
        * <pre>
-       *Any test
+       *Any test   pack,unpack
        * </pre>
        *
        * <code>.google.protobuf.Any details = 6;</code>
@@ -1323,7 +1323,7 @@ public final class VideoItem3 {
       }
       /**
        * <pre>
-       *Any test
+       *Any test   pack,unpack
        * </pre>
        *
        * <code>.google.protobuf.Any details = 6;</code>
@@ -1335,7 +1335,7 @@ public final class VideoItem3 {
       }
       /**
        * <pre>
-       *Any test
+       *Any test   pack,unpack
        * </pre>
        *
        * <code>.google.protobuf.Any details = 6;</code>
@@ -1350,7 +1350,7 @@ public final class VideoItem3 {
       }
       /**
        * <pre>
-       *Any test
+       *Any test   pack,unpack
        * </pre>
        *
        * <code>.google.protobuf.Any details = 6;</code>

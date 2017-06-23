@@ -16,7 +16,7 @@ message VideoBean3 {
 
     repeated string episode = 5; //repeated test
 
-    google.protobuf.Any details = 6; //Any test
+    google.protobuf.Any details = 6; //Any test   pack,unpack
 }
 
 // Video，加上一个info
