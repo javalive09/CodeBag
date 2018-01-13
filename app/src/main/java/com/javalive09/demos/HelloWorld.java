@@ -13,17 +13,16 @@ import com.javalive09.codebag.Player;
  * Created by peter on 16/9/21.
  */
 
-@Player(name = "HelloWorld 示例")
 public class HelloWorld {
 
-    @Play(name = "显示view")
+    @Play
     public void showView() {
         TextView textView = new TextView(PlayerActivity.context());
         textView.setText("hello world!!");
         PlayerActivity.context().showView(textView);
     }
 
-    @Play(name = "显示文字")
+    @Play
     public void showText() {
         PlayerActivity.context().showText("hello world!!");
     }

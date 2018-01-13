@@ -22,11 +22,13 @@ compile 'com.javalive09.codebag:codebag:1.3.7'
 
 Usage
 ---------------------
--  Use PlayerActivity.java as launcher activity or start PlayerActivity
-
-```xml
+-  Use PlayerActivity as launcher activity or use code Start PlayerActivity as the entrance
+```
+<?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.javalive09.demos">
+
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -34,7 +36,7 @@ Usage
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/DemoAppTheme">
+        android:theme="@style/Theme.AppCompat.Light.DarkActionBar">
         <activity android:name="com.javalive09.codebag.PlayerActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -46,21 +48,20 @@ Usage
     </application>
 
 </manifest>
+
 ```
+-  Create a file class with annotation of @play method as the entrance(you can custom class name  @Player(name = "HelloWorld 示例") and custom method name as below)
 
--  Create a file class with annotation of @play method as your code entrance (There is no limited for your file and folder’s name and the hierarchy)
-
-        @Player(name = "HelloWorld 示例")
         public class HelloWorld {
         
-            @Play(name = "显示view")
+            @Play
             public void showView() {
                 TextView textView = new TextView(PlayerActivity.context());
                 textView.setText("hello world!!");
                 PlayerActivity.context().showView(textView);
             }
         
-            @Play(name = "显示文字")
+            @Play
             public void showText() {
                 PlayerActivity.context().showText("hello world!!");
             }
@@ -81,7 +82,7 @@ Usage
                 PlayerActivity.context().startActivity(intent);
             }
 
-![](http://peter-1254131086.file.myqcloud.com/code-helloworld-20180113.jpg)
+![](http://peter-1254131086.file.myqcloud.com/code-helloword-2018-01132130.jpg)
 
 License
 -------
