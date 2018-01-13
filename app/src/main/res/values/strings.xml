@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">CodeBag</string>
+
+    <string name="format_test_name">my name is %s</string>
+    <string name="format_test_old"> i am %1$d years old</string>
+    <string name="format_test_name_place">my name is %1$11s, i am from %2$s</string>
+    <string name="format_test_name_place_old">my name is %1$11s, i am from %2$s, i am %3$d years old</string>
+
+    <string name="v">✔️</string>
+    <string name="x">✖️️</string>
+</resources>
