@@ -1,0 +1,37 @@
+// Top-level build file where you can add configuration options common to all sub-projects/modules.
+
+buildscript {
+
+    repositories {
+        google()
+        jcenter()
+
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:3.5.0' // novoda 这个版本不会报错
+
+        classpath 'com.novoda:bintray-release:0.9.1'//添加
+
+        // NOTE: Do not place your application dependencies here; they belong
+        // in the individual module build.gradle files
+    }
+}
+
+allprojects {
+    repositories {
+        google()
+        jcenter()
+        maven { url "https://jitpack.io" }
+    }
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}
+
+task startApp(type: Exec) {
+    println("startApp=========")
+    def adb = "$System.env.ANDROID_HOME/platform-tools/adb"
+    println("adb=" + adb)
+    commandLine adb, "shell", "am", "start", "-n", "com.javalive09.demos/.MainActivity"
+}

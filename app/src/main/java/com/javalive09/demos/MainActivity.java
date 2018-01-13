@@ -1,0 +1,23 @@
+package com.javalive09.demos;
+
+
+import com.javalive09.codebag.CodeActivity;
+
+import android.app.Activity;
+import android.os.Bundle;
+
+/**
+ * main activity
+ *
+ * Created by peter on 2018/3/4.
+ */
+
+public class MainActivity extends Activity {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        CodeActivity.launch(MainActivity.this);
+        finish();
+    }
+}

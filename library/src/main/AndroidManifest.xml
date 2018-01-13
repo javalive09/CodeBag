@@ -1,0 +1,10 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="com.javalive09.codebag">
+    <application>
+        <activity android:name="com.javalive09.codebag.CodeActivity">
+        <intent-filter>
+            <action android:name="com.javalive09.ACTION_CODEBAG"/>
+            <category android:name="android.intent.category.DEFAULT"/>
+        </intent-filter>
+        </activity>
+    </application>
+</manifest>
