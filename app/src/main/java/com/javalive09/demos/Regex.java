@@ -5,7 +5,7 @@ import android.util.Patterns;
 
 import com.javalive09.codebag.Play;
 import com.javalive09.codebag.Player;
-import com.javalive09.codebag.PlayerActivity;
+import com.javalive09.codebag.CaseActivity;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -25,9 +25,9 @@ public class Regex {
             int end = mat.indexOf(" ");
             String time = mat.substring(start, end);
             Double d = Double.valueOf(time);
-            PlayerActivity.context().showText(d + " ");
+            CaseActivity.showText(d + " ");
         } else {
-            PlayerActivity.context().showText("not find");
+            CaseActivity.showText("not find");
         }
     }
 
@@ -43,9 +43,9 @@ public class Regex {
         String str2 = "127.0.0.1";
         boolean str1Result = pattern.matcher(str1).matches();
         boolean str2Result = pattern.matcher(str2).matches();
-        PlayerActivity.context().addText(str1 + "match ip =" + str1Result);
-        PlayerActivity.context().addText(str2 + "match ip =" + str2Result);
-        PlayerActivity.context().showAddedText();
+        CaseActivity.addText(str1 + "match ip =" + str1Result);
+        CaseActivity.addText(str2 + "match ip =" + str2Result);
+        CaseActivity.showAddedText();
     }
 
     @Play(name = "number验证")
@@ -55,9 +55,9 @@ public class Regex {
         String str2 = "A";
         boolean str1Result = pattern.matcher(str1).matches();
         boolean str2Result = pattern.matcher(str2).matches();
-        PlayerActivity.context().addText(str1 + "match number =" + str1Result);
-        PlayerActivity.context().addText(str2 + "match number =" + str2Result);
-        PlayerActivity.context().showAddedText();
+        CaseActivity.addText(str1 + "match number =" + str1Result);
+        CaseActivity.addText(str2 + "match number =" + str2Result);
+        CaseActivity.showAddedText();
     }
 
     @Play(name = "Patterns.IP_ADDRESS 验证ip地址")
@@ -65,9 +65,9 @@ public class Regex {
         Matcher matcher1 = Patterns.IP_ADDRESS.matcher("localhost");
         Matcher matcher2 = Patterns.IP_ADDRESS.matcher(null);
         Matcher matcher3 = Patterns.IP_ADDRESS.matcher("192.168.0.1");
-        PlayerActivity.context().showText("localhost match =" + matcher1.matches());
-        PlayerActivity.context().showText("null match =" + matcher2.matches());
-        PlayerActivity.context().showText("192.168.0.1 match =" + matcher3.matches());
+        CaseActivity.showText("localhost match =" + matcher1.matches());
+        CaseActivity.showText("null match =" + matcher2.matches());
+        CaseActivity.showText("192.168.0.1 match =" + matcher3.matches());
     }
 
 }

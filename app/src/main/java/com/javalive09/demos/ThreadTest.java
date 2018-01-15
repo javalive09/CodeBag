@@ -1,11 +1,13 @@
 package com.javalive09.demos;
 
+import android.os.Handler;
+import android.os.Looper;
 import android.util.Log;
 import android.widget.TextView;
 
+import com.javalive09.codebag.CaseActivity;
 import com.javalive09.codebag.Play;
 import com.javalive09.codebag.Player;
-import com.javalive09.codebag.PlayerActivity;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -121,19 +123,19 @@ public class ThreadTest {
 
     int count = 0;
 
+
     @Play
     public void timer() {
-        TextView textView = new TextView(PlayerActivity.context());
-        PlayerActivity.context().showView(textView);
-
+        TextView textView = new TextView(CaseActivity.context());
+        CaseActivity.showView(textView);
+        Handler handler = new Handler(Looper.getMainLooper());
         Timer timer = new Timer();
         timer.schedule(new TimerTask() {
             @Override
             public void run() {
                 count++;
-                PlayerActivity playerActivity = PlayerActivity.context();
-                if (playerActivity != null) {
-                    playerActivity.runOnUiThread(() -> textView.setText("start:" + count));
+                if (CaseActivity.context() != null) {
+                    handler.post(() -> textView.setText("start:" + count));
                 } else {
                     timer.cancel();
                 }

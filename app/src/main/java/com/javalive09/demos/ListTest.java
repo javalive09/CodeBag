@@ -1,7 +1,7 @@
 package com.javalive09.demos;
 
 import com.javalive09.codebag.Player;
-import com.javalive09.codebag.PlayerActivity;
+import com.javalive09.codebag.CaseActivity;
 import com.javalive09.codebag.Play;
 
 import java.util.ArrayList;
@@ -24,7 +24,7 @@ public class ListTest {
         arrayList.addAll(arrayList2);
 
         int index = arrayList.indexOf(o);
-        PlayerActivity.context().showText(index + "");
+        CaseActivity.showText(index + "");
     }
 
     @Play(name = "add不同元素在0位置上")
@@ -35,7 +35,7 @@ public class ListTest {
         a.add("c");
         a.add("d");
         a.add(0, "e");
-        PlayerActivity.context().showText(a.toString());
+        CaseActivity.showText(a.toString());
     }
 
     @Play(name = "add相同元素在0位置上")
@@ -46,7 +46,7 @@ public class ListTest {
         a.add("c");
         a.add("d");
         a.add(0, "a");
-        PlayerActivity.context().showText(a.toString());
+        CaseActivity.showText(a.toString());
     }
 
 }

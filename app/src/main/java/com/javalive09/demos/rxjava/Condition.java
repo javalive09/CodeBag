@@ -2,7 +2,7 @@ package com.javalive09.demos.rxjava;
 
 import android.util.Log;
 
-import com.javalive09.codebag.PlayerActivity;
+import com.javalive09.codebag.CaseActivity;
 import com.javalive09.codebag.Play;
 
 import java.util.Arrays;
@@ -21,7 +21,7 @@ public class Condition {
     public void all() {
         Observable.just(1, 2, 3)
                 .all(integer -> {
-                    PlayerActivity.context().addText(integer + "");
+                    CaseActivity.context().addText(integer + "");
                     return integer < 4;    //判断是不是发射的所有数据都小于3
                 }).subscribe(aBoolean -> Log.i("condition", "boolean = " + aBoolean));
 

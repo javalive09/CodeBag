@@ -26,23 +26,24 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.lang.ref.WeakReference;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.Enumeration;
-import java.util.LinkedHashMap;
+import java.util.HashMap;
 import java.util.Set;
 
 import dalvik.system.DexFile;
 
 /**
- * PlayerActivity 核心逻辑类
+ * CaseActivity 核心逻辑类
  */
-public class PlayerActivity extends AppCompatActivity {
+public class CaseActivity extends AppCompatActivity {
 
     private static final String CURRENT_NODE = "current_node";
-    private static final LinkedHashMap<Class, PlayerActivity> SAMPLES = new LinkedHashMap<>();
-    private StringBuilder stringBuilder = new StringBuilder();
+    private static HashMap<Class, CaseActivity> CASES = new HashMap<>();
+    private StringBuilder stringBuilder;
     private static String PACKAGE_NAME;
     private static Node rootNode;
     private ViewGroup contentView;
@@ -51,13 +52,15 @@ public class PlayerActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(contentView = new FrameLayout(PlayerActivity.this));
+        setContentView(contentView = new FrameLayout(CaseActivity.this));
         initData(getApplicationContext());
         PACKAGE_NAME = getPackageName();
         try {
             if (currentNode != null && !TextUtils.isEmpty(currentNode.className)) {
-                Class clazz = Class.forName(currentNode.className);
-                SAMPLES.put(clazz, this);
+                if (currentNode.mSubNodeList == null) {//method
+                    Class clazz = Class.forName(currentNode.className);
+                    CASES.put(clazz, CaseActivity.this);
+                }
             }
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
@@ -69,57 +72,82 @@ public class PlayerActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        Set<Class> classSet = SAMPLES.keySet();
-        for (Class clazz : classSet) {
-            if (SAMPLES.get(clazz) == this) {
-                SAMPLES.remove(clazz);
-                break;
+        if (currentNode.mSubNodeList == null) {//method
+            Set<Class> classSet = CASES.keySet();
+            for (Class clazz : classSet) {
+                if (CASES.get(clazz) == this) {
+                    CASES.remove(clazz);
+                    break;
+                }
             }
         }
     }
 
-    public View showView(@LayoutRes int resId) {
-        return getLayoutInflater().inflate(resId, contentView);
+    public static View showView(@LayoutRes int resId) {
+        CaseActivity caseActivity = context();
+        if (caseActivity != null) {
+            return caseActivity.getLayoutInflater().inflate(resId, caseActivity.contentView);
+        } else {
+            return null;
+        }
     }
 
-    public void showView(@NonNull final View view) {
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                contentView.addView(view);
+    public static void showView(@NonNull final View view) {
+        CaseActivity caseActivity = context();
+        if (caseActivity != null) {
+            caseActivity.contentView.removeAllViews();
+            caseActivity.contentView.addView(view);
+        }
+    }
+
+    public static void showText(@NonNull final String text) {
+        CaseActivity caseActivity = context();
+        if (caseActivity != null) {
+            TextView textView = new TextView(caseActivity);
+            textView.setText(text);
+            showView(textView);
+        }
+    }
+
+    public static void showText(@StringRes int resId) {
+        CaseActivity caseActivity = context();
+        if (caseActivity != null) {
+            showText(caseActivity.getString(resId));
+        }
+    }
+
+    public static void addText(@NonNull String text) {
+        CaseActivity caseActivity = context();
+        if (caseActivity != null) {
+            if (caseActivity.stringBuilder == null) {
+                caseActivity.stringBuilder = new StringBuilder();
             }
-        });
+            caseActivity.stringBuilder.append(text).append("\n");
+        }
     }
 
-    public void showText(@NonNull final String text) {
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                TextView textView = new TextView(PlayerActivity.this);
-                textView.setText(text);
-                showView(textView);
+    public static void showAddedText() {
+        CaseActivity caseActivity = context();
+        if (caseActivity != null) {
+            if (caseActivity.stringBuilder == null) {
+                caseActivity.stringBuilder = new StringBuilder();
             }
-        });
+            showText(caseActivity.stringBuilder.toString());
+        }
     }
 
-    public void showText(@StringRes int resId) {
-        showText(getString(resId));
+    public static void toastLong(@NonNull String text) {
+        CaseActivity caseActivity = context();
+        if (caseActivity != null) {
+            Toast.makeText(caseActivity, text, Toast.LENGTH_LONG).show();
+        }
     }
 
-    public void addText(@NonNull String text) {
-        stringBuilder.append(text).append("\n");
-    }
-
-    public void showAddedText() {
-        showText(stringBuilder.toString());
-    }
-
-    public void toastLong(@NonNull String text) {
-        Toast.makeText(this, text, Toast.LENGTH_LONG).show();
-    }
-
-    public void toastShort(@NonNull String text) {
-        Toast.makeText(this, text, Toast.LENGTH_SHORT).show();
+    public static void toastShort(@NonNull String text) {
+        CaseActivity caseActivity = context();
+        if (caseActivity != null) {
+            Toast.makeText(caseActivity, text, Toast.LENGTH_SHORT).show();
+        }
     }
 
     private void initData(Context context) {
@@ -174,9 +202,9 @@ public class PlayerActivity extends AppCompatActivity {
             case Node.DIR:
             case Node.CLASS:
                 if (currentNode.mSubNodeList != null) {
-                    ArrayAdapter<Node> arrayAdapter = new ArrayAdapter<>(PlayerActivity.this,
+                    ArrayAdapter<Node> arrayAdapter = new ArrayAdapter<>(CaseActivity.this,
                             android.R.layout.simple_list_item_1, currentNode.mSubNodeList);
-                    ListView listView = new ListView(PlayerActivity.this);
+                    ListView listView = new ListView(CaseActivity.this);
                     listView.setAdapter(arrayAdapter);
                     listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                         @Override
@@ -245,7 +273,7 @@ public class PlayerActivity extends AppCompatActivity {
                                             runOnUiThread(new Runnable() {
                                                 @Override
                                                 public void run() {
-                                                    new AlertDialog.Builder(PlayerActivity.this).setTitle(title).
+                                                    new AlertDialog.Builder(CaseActivity.this).setTitle(title).
                                                             setMessage(result).setPositiveButton("OK", new DialogInterface.OnClickListener() {
                                                         @Override
                                                         public void onClick(DialogInterface dialog, int which) {
@@ -264,7 +292,8 @@ public class PlayerActivity extends AppCompatActivity {
                             return false;
                         }
                     });
-                    showView(listView);
+
+                    contentView.addView(listView);
                 }
                 break;
             case Node.METHOD:
@@ -283,7 +312,7 @@ public class PlayerActivity extends AppCompatActivity {
     }
 
     private void startActivity(Node node) {
-        Intent intent = new Intent(PlayerActivity.this, PlayerActivity.class);
+        Intent intent = new Intent(CaseActivity.this, CaseActivity.class);
         intent.putExtra(CURRENT_NODE, node);
         startActivity(intent);
     }
@@ -342,19 +371,7 @@ public class PlayerActivity extends AppCompatActivity {
         return node;
     }
 
-//    public static PlayerActivity context() {
-//        Iterator<Map.Entry<Class, PlayerActivity>> iterator = SAMPLES.entrySet().iterator();
-//        Map.Entry<Class, PlayerActivity> tail = null;
-//        while (iterator.hasNext()) {
-//            tail = iterator.next();
-//        }
-//        if (tail == null) {
-//            return new PlayerActivity();
-//        }
-//        return tail.getValue();
-//    }
-
-    public static PlayerActivity context() {
+    public static synchronized CaseActivity context() {
         try {
             throw new Exception("get sample");
         } catch (Exception e) {
@@ -365,7 +382,7 @@ public class PlayerActivity extends AppCompatActivity {
             String[] lines = sStackTrace.split("\n");
             String name = "";
             for (String message : lines) {
-                String playerActivityClassName = PlayerActivity.class.getName();
+                String playerActivityClassName = CaseActivity.class.getName();
                 if (message.contains(PACKAGE_NAME) &&
                         !message.contains(playerActivityClassName)) {
                     Log.e("message >>>>> ", message);
@@ -386,7 +403,7 @@ public class PlayerActivity extends AppCompatActivity {
                 e1.printStackTrace();
             }
             if (clazz != null) {
-                PlayerActivity playerActivity = SAMPLES.get(clazz);
+                CaseActivity playerActivity = CASES.get(clazz);
                 if (playerActivity != null) {
                     return playerActivity;
                 }
@@ -394,4 +411,5 @@ public class PlayerActivity extends AppCompatActivity {
         }
         return null;
     }
+
 }

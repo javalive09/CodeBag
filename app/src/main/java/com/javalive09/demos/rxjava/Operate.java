@@ -3,7 +3,7 @@ package com.javalive09.demos.rxjava;
 import android.text.TextUtils;
 import android.util.Log;
 
-import com.javalive09.codebag.PlayerActivity;
+import com.javalive09.codebag.CaseActivity;
 import com.javalive09.codebag.Play;
 
 import io.reactivex.Observable;
@@ -81,7 +81,7 @@ public class Operate {
         Observable.just("emit").map(s -> "map:" + s)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(s -> PlayerActivity.context().showText(s));
+                .subscribe(s -> CaseActivity.showText(s));
     }
 
     @Play

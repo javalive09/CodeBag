@@ -1,7 +1,7 @@
 package com.javalive09.demos;
 
+import com.javalive09.codebag.CaseActivity;
 import com.javalive09.codebag.Player;
-import com.javalive09.codebag.PlayerActivity;
 import com.javalive09.codebag.Play;
 
 import java.util.Arrays;
@@ -29,7 +29,7 @@ public class GrammarTest {
         try {
             int i = getValue("12");
             String j = getValue("456");
-            PlayerActivity.context().showText(i + "" + j);
+            CaseActivity.showText(i + "" + j);
         } catch (Exception e) {
             e.printStackTrace();
         }

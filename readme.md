@@ -37,7 +37,7 @@ Usage
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.DarkActionBar">
-        <activity android:name="com.javalive09.codebag.PlayerActivity">
+        <activity android:name="com.javalive09.codebag.CaseActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

@@ -1,8 +1,8 @@
 package com.javalive09.demos;
 
+import com.javalive09.codebag.CaseActivity;
 import com.javalive09.codebag.Play;
 import com.javalive09.codebag.Player;
-import com.javalive09.codebag.PlayerActivity;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
@@ -13,13 +13,13 @@ public class Reflection {
     @Play(name = "反射构造器无参的对象")
     public void newInstance_noParams() throws Exception {
         ReflectionClass reflection = ReflectionClass.class.newInstance();
-        PlayerActivity.context().showText("reflection object =" + reflection);
+        CaseActivity.showText("reflection object =" + reflection);
     }
 
     @Play(name = "反射有参构造器的对象")
     public void newInstance_haveParams() throws Exception {
         ReflectionClass reflection = ReflectionClass.class.getConstructor(String.class).newInstance("123");
-        PlayerActivity.context().showText("reflection object =" + reflection);
+        CaseActivity.showText("reflection object =" + reflection);
     }
 
     @Play(name = "获取私有属性值")
@@ -28,7 +28,7 @@ public class Reflection {
             Field field = ReflectionClass.class.getDeclaredField("name");
             field.setAccessible(true);
             Object obj = field.get(new ReflectionClass());
-            PlayerActivity.context().showText("obj=" + obj);
+            CaseActivity.showText("obj=" + obj);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -44,7 +44,7 @@ public class Reflection {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        PlayerActivity.context().showText("setFiled = " + reflection.getAge());
+        CaseActivity.showText("setFiled = " + reflection.getAge());
     }
 
     @Play(name = "调用无参数的私有方法")
@@ -101,7 +101,7 @@ public class Reflection {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        PlayerActivity.context().showText("returnObj=" + returnObj);
+        CaseActivity.showText("returnObj=" + returnObj);
     }
 
 
@@ -123,15 +123,15 @@ public class Reflection {
         }
 
         private void show(int a) {
-            PlayerActivity.context().showText("show(" + a + ")");
+            CaseActivity.showText("show(" + a + ")");
         }
 
         private void show(Test test) {
-            PlayerActivity.context().showText("show(" + test.toString() + ")");
+            CaseActivity.showText("show(" + test.toString() + ")");
         }
 
         private void show(int a, String str) {
-            PlayerActivity.context().showText("show(" + a + "," + str + ")");
+            CaseActivity.showText("show(" + a + "," + str + ")");
         }
 
         public int getAge() {

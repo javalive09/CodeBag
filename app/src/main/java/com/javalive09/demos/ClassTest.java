@@ -1,7 +1,7 @@
 package com.javalive09.demos;
 
+import com.javalive09.codebag.CaseActivity;
 import com.javalive09.codebag.Player;
-import com.javalive09.codebag.PlayerActivity;
 import com.javalive09.codebag.Play;
 
 /**
@@ -17,6 +17,6 @@ public class ClassTest {
     @Play(name = "判断Class相等")
     public void equalClass() {
         boolean result = Object.class.isAssignableFrom(ClassTest.class);
-        PlayerActivity.context().showText(result + "");
+        CaseActivity.showText(result + "");
     }
 }

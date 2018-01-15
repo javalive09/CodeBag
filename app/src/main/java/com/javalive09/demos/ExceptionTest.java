@@ -4,7 +4,7 @@ import android.os.Handler;
 import android.os.Looper;
 
 import com.javalive09.codebag.Player;
-import com.javalive09.codebag.PlayerActivity;
+import com.javalive09.codebag.CaseActivity;
 import com.javalive09.codebag.Play;
 
 /**
@@ -26,10 +26,10 @@ public class ExceptionTest {
             Looper looper = handler.getLooper();
             Looper looper1 = handler1.getLooper();
             Looper mainLooper = Looper.getMainLooper();
-            PlayerActivity.context().addText("looper" + looper.toString());
-            PlayerActivity.context().addText("looper1" + looper1.toString());
-            PlayerActivity.context().addText("mainLooper" + mainLooper.toString());
-            PlayerActivity.context().showAddedText();
+            CaseActivity.context().addText("looper" + looper.toString());
+            CaseActivity.context().addText("looper1" + looper1.toString());
+            CaseActivity.context().addText("mainLooper" + mainLooper.toString());
+            CaseActivity.context().showAddedText();
         }).start();
     }
 
