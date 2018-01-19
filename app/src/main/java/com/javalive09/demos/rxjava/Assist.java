@@ -2,26 +2,20 @@ package com.javalive09.demos.rxjava;
 
 import android.util.Log;
 
-import com.javalive09.codebag.CaseActivity;
 import com.javalive09.codebag.Play;
+import com.javalive09.codebag.Player;
 
 import java.util.concurrent.TimeUnit;
 
 import io.reactivex.Observable;
 import io.reactivex.schedulers.Schedulers;
 
-
-/**
- * 辅助操作
- * <p>
- * 文档：https://mcxiaoke.gitbooks.io/rxdocs/content/Subject.html
- */
-
+@Player(name = "Assist 辅助操作")
 public class Assist {
 
     @Play(name = "delay 延迟执行")
     public void delay() {
-        Observable.just(1, 2, 3, 4, 5).delay(1000, TimeUnit.MILLISECONDS).subscribe(s -> Log.i("Assist", s + ""));
+        Observable.just(1, 2, 3, 4, 5).timestamp().delay(1000, TimeUnit.MILLISECONDS).subscribe(s -> Log.i("Assist", s + ""));
     }
 
     @Play(name = "切换线程（切换接收事件线程）")
@@ -65,6 +59,69 @@ public class Assist {
     @Play(name = "timestamp 给Observable发射的数据项附加一个时间戳")
     public void timestamp() {
         Observable.just(1, 2, 3, 4, 5).timestamp().subscribe(s -> Log.i("Assist", s + ""));
+    }
+
+    @Play(name = "doOnEach \n让你可以注册一个回调，它产生的Observable每发射一项数据就会调用它一次")
+    public void doOnEach() {
+        Observable.just(1, 2, 3, 4, 5).doOnEach(integerNotification -> Log.i("Assist", integerNotification + "")).subscribe();
+    }
+
+    @Play(name = "doOnNext \n类似于doOnEach(Action1)，但是它的Action不是接受一个Notification参数，而是接受发射的数据项")
+    public void doOnNext() {
+        Observable.just(1, 2, 3, 4, 5).doOnNext(integer -> Log.i("Assist", integer + "")).subscribe();
+    }
+
+    @Play(name = "doOnSubscribe \n 注册一个动作，当观察者订阅它生成的Observable它就会被调用")
+    public void doOnSubscribe() {
+        Observable.just(1, 2, 3, 4, 5).
+                doOnSubscribe(disposable -> Log.i("Assist", disposable + "")).
+                subscribe(integer -> Log.i("Assist", integer + ""));
+    }
+
+    @Play(name = "doOnDispose \n注册一个动作，当观察者取消订阅它生成的Observable它就会被调用")
+    public void doOnDispose() {
+        Observable.just(1, 2, 3, 4, 5).
+                doOnDispose(() -> Log.i("Assist", "disposable")).
+                subscribe(integer -> {
+                    Log.i("Assist", integer + "");
+                });
+    }
+
+    @Play(name = "doOnCompleted \n 注册一个动作，当它产生的Observable正常终止调用onCompleted时会被调用")
+    public void doOnCompleted() {
+        Observable.just(1, 2, 3, 4, 5).
+                doOnComplete(() -> Log.i("Assist", "doOnComplete"));
+    }
+
+    @Play(name = "doOnError \n")
+    public void doOnError() {
+        Observable.just(1, 2, 3, 4, 5).
+                doOnNext(integer -> {
+                    if (integer > 3) {
+                        throw new Exception("integer > 3 exception!!!");
+                    }
+                }).
+                doOnError(throwable -> Log.i("Assist", "doOnComplete"));
+    }
+
+    @Play(name = "doOnTerminate \n注册一个动作，当它产生的Observable终止之前会被调用，无论是正常还是异常终止。")
+    public void doOnTerminate() {
+        Observable.just(1, 2, 3, 4, 5).
+                doOnTerminate(() -> Log.i("Assist", "doOnTerminate"));
+    }
+
+    @Play(name = "doFinally \n注册一个动作，当它产生的Observable终止之后会被调用，无论是正常还是异常终止。")
+    public void doFinally() {
+        Observable.just(1, 2, 3, 4, 5).
+                doFinally(() -> Log.i("Assist", "doOnTerminate"));
+    }
+
+    @Play(name = "toList \n Observable将多项数据组合成一个List")
+    public void toList() {
+        Observable.just(1, 2, 3, 4, 5).
+                toList().subscribe(integers -> {
+            Log.i("Assist", integers + "");
+        });
     }
 
 }
