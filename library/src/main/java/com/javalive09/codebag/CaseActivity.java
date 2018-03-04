@@ -1,5 +1,6 @@
 package com.javalive09.codebag;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -39,7 +40,7 @@ import dalvik.system.DexFile;
 /**
  * CaseActivity 核心逻辑类
  */
-public class CaseActivity extends AppCompatActivity {
+public class CaseActivity extends Activity {
 
     private static final String CURRENT_NODE = "current_node";
     private static HashMap<Class, CaseActivity> CASES = new HashMap<>();
@@ -195,9 +196,8 @@ public class CaseActivity extends AppCompatActivity {
     }
 
     private void initView() {
-        if (getSupportActionBar() != null) {
-            getSupportActionBar().setTitle(currentNode.toString());
-        }
+        setTitle(currentNode.toString());
+
         switch (currentNode.type) {
             case Node.DIR:
             case Node.CLASS:
@@ -315,6 +315,12 @@ public class CaseActivity extends AppCompatActivity {
         Intent intent = new Intent(CaseActivity.this, CaseActivity.class);
         intent.putExtra(CURRENT_NODE, node);
         startActivity(intent);
+    }
+
+    public static void Launch(Activity activity) {
+        if(activity != null) {
+            activity.startActivity(new Intent(activity, CaseActivity.class));
+        }
     }
 
     /**

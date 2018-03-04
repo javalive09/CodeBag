@@ -17,38 +17,14 @@ Import Library
 
 Gradle:
 ```
-compile 'com.javalive09.codebag:codebag:1.3.7'
+compile 'com.javalive09.codebag:codebag:1.4.1'
 ```
 
 Usage
 ---------------------
--  Use PlayerActivity as launcher activity or use code Start PlayerActivity as the entrance
+-  Launch
 ```
-<?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.javalive09.demos">
-
-    <uses-permission android:name="android.permission.INTERNET" />
-
-    <application
-        android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
-        android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
-        android:supportsRtl="true"
-        android:theme="@style/Theme.AppCompat.Light.DarkActionBar">
-        <activity android:name="com.javalive09.codebag.CaseActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-
-    </application>
-
-</manifest>
-
+CaseActivity.Launch(this);
 ```
 -  Create a file class with annotation of @play method as the entrance(you can custom class name  @Player(name = "HelloWorld 示例") and custom method name as below)
 
