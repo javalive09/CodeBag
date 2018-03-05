@@ -17,7 +17,7 @@ Import Library
 
 Gradle:
 ```
-compile 'com.javalive09.codebag:codebag:1.4.1'
+compile 'com.javalive09.codebag:codebag:1.4.2'
 ```
 
 Usage
