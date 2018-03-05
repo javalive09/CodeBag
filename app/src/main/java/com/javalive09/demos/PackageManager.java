@@ -3,7 +3,7 @@ package com.javalive09.demos;
 import android.content.pm.PackageInfo;
 
 import com.javalive09.codebag.CodeBag;
-import com.javalive09.codebag.Test;
+import com.javalive09.codebag.annotation.Test;
 
 public class PackageManager {
 

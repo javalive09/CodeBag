@@ -33,6 +33,9 @@ import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Set;
 
+import com.javalive09.codebag.annotation.Test;
+import com.javalive09.codebag.annotation.Tester;
+
 import dalvik.system.DexFile;
 
 /**
@@ -153,22 +156,7 @@ public class CodeBag extends Activity {
         if (rootNode == null) {
             String pkgName = context.getPackageName();
             rootNode = new TesterNode(pkgName, TesterNode.DIR);
-            try {
-                String apkDir = context.getPackageManager().getApplicationInfo(pkgName, 0).sourceDir;
-                DexFile dexFile = new DexFile(apkDir);
-                Enumeration<String> apkClassNames = dexFile.entries();
-                while (apkClassNames.hasMoreElements()) {
-                    String className = apkClassNames.nextElement();
-                    if (className.startsWith(pkgName) && isPlayClass(className) & !className.contains("$") &
-                            !className.endsWith(".R") & !className.contains("BuildConfig")) {
-                        String fileName = className.substring(pkgName.length() + 1);
-                        String[] fileNames = fileName.split("\\.");
-                        loadCodeBagNode(className, fileNames, 0, rootNode);
-                    }
-                }
-            } catch (PackageManager.NameNotFoundException | IOException e) {
-                e.printStackTrace();
-            }
+            TesterNodeLoader.getInstance().load(rootNode, getApplicationContext());
         } else {
             if (getIntent() != null) {
                 currentNode = getIntent().getParcelableExtra(CURRENT_NODE);
@@ -179,23 +167,22 @@ public class CodeBag extends Activity {
         }
     }
 
-    private boolean isPlayClass(String className) {
-        try {
-            Class clazz = Class.forName(className);
-            for (Method method : clazz.getDeclaredMethods()) {
-                if (method.isAnnotationPresent(Test.class)) {
-                    return true;
-                }
-            }
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
-        return false;
-    }
+//    private boolean isPlayClass(String className) {
+//        try {
+//            Class clazz = Class.forName(className);
+//            for (Method method : clazz.getDeclaredMethods()) {
+//                if (method.isAnnotationPresent(Test.class)) {
+//                    return true;
+//                }
+//            }
+//        } catch (ClassNotFoundException e) {
+//            e.printStackTrace();
+//        }
+//        return false;
+//    }
 
     private void initView() {
         setTitle(currentNode.toString());
-
         switch (currentNode.type) {
             case TesterNode.DIR:
             case TesterNode.CLASS:
@@ -228,7 +215,9 @@ public class CodeBag extends Activity {
                                                     Modifier.PUBLIC == m.getModifiers() &&
                                                     m.getParameterTypes().length == 0) {
                                                 String methodName = m.getName();
-                                                TesterNode methodNode = createAndAddSubNode(node.className, methodName, TesterNode.METHOD, node);
+                                                TesterNode methodNode = TesterNodeLoader.getInstance()
+                                                        .createAndAddSubNode(node.className, methodName,
+                                                                TesterNode.METHOD, node);
                                                 addSuc = true;
                                                 if (TextUtils.equals(methodName, classPointMethodName)) {
                                                     startActivity(methodNode);
@@ -272,12 +261,13 @@ public class CodeBag extends Activity {
                                                 @Override
                                                 public void run() {
                                                     new AlertDialog.Builder(CodeBag.this).setTitle(title).
-                                                            setMessage(result).setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                                                        @Override
-                                                        public void onClick(DialogInterface dialog, int which) {
-                                                            dialog.dismiss();
-                                                        }
-                                                    }).show();
+                                                            setMessage(result).setPositiveButton("OK",
+                                                            new DialogInterface.OnClickListener() {
+                                                                @Override
+                                                                public void onClick(DialogInterface dialog, int which) {
+                                                                    dialog.dismiss();
+                                                                }
+                                                            }).show();
                                                 }
                                             });
                                         } catch (IOException e) {
@@ -304,7 +294,9 @@ public class CodeBag extends Activity {
                     e.printStackTrace();
                 }
                 //no view - finish
-                if (contentView.getChildCount() == 0) finish();
+                if (contentView.getChildCount() == 0) {
+                    finish();
+                }
                 break;
         }
     }
@@ -316,63 +308,9 @@ public class CodeBag extends Activity {
     }
 
     public static void Launch(Activity activity) {
-        if(activity != null) {
+        if (activity != null) {
             activity.startActivity(new Intent(activity, CodeBag.class));
         }
-    }
-
-    /**
-     * @param className   class全路径名
-     * @param fileNames   class全路径名除去根路径，剩下的字符以“.”为划分记号，划分成的数组
-     * @param index       游标在fileNames数组中的位置
-     * @param currentNode 当前节点（作为父节点）
-     */
-    private void loadCodeBagNode(String className, String[] fileNames, int index, TesterNode currentNode) {
-        if (index > fileNames.length - 1) {
-            return;
-        }
-        String nodeName = fileNames[index];
-        if (index == fileNames.length - 1) {//数组的最后一个元素为class
-            createAndAddSubNode(className, nodeName, TesterNode.CLASS, currentNode);
-        } else {//数组中其他元素为目录
-            TesterNode subNode = createAndAddSubNode(className, nodeName, TesterNode.DIR, currentNode);
-            index++;
-            loadCodeBagNode(className, fileNames, index, subNode);
-        }
-
-    }
-
-    /**
-     * @param className   class全路径名
-     * @param nodeName    子节点名字（游标所在数组的元素名字）--- 是区分各个子节点的关键字
-     * @param type        子节点类型（目录/类）
-     * @param currentNode 父节点
-     * @return TesterNode
-     */
-    private TesterNode createAndAddSubNode(String className, String nodeName, int type, TesterNode currentNode) {
-        if (currentNode.mSubNodeList == null) {//创建子节点列表
-            currentNode.mSubNodeList = new ArrayList<>();
-        } else {
-            for (TesterNode n : currentNode.mSubNodeList) {//父节点有子节点列表，则遍历一下
-                if (n.name.equals(nodeName)) {
-                    return n;
-                }
-            }
-        }
-        return createSubNode(className, nodeName, type, currentNode);
-    }
-
-    /**
-     * @param className   class全路径名
-     * @param nodeName    新建的节点Name
-     * @param type        新建的节点类型
-     * @param currentNode 当前节点
-     * @return 节点
-     */
-    private TesterNode createSubNode(String className, String nodeName, int type, TesterNode currentNode) {
-        TesterNode node = new TesterNode(nodeName, type, className);
-        currentNode.mSubNodeList.add(node);
-        return node;
     }
 
     public static synchronized CodeBag context() {

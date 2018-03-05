@@ -8,8 +8,8 @@ import android.net.Uri;
 import android.provider.Settings;
 
 import com.javalive09.codebag.CodeBag;
-import com.javalive09.codebag.Tester;
-import com.javalive09.codebag.Test;
+import com.javalive09.codebag.annotation.Tester;
+import com.javalive09.codebag.annotation.Test;
 
 /**
  * Intent action 相关测试

@@ -4,7 +4,7 @@ import android.content.Intent;
 import android.widget.TextView;
 
 import com.javalive09.codebag.CodeBag;
-import com.javalive09.codebag.Test;
+import com.javalive09.codebag.annotation.Test;
 
 /**
  * a sample for entry

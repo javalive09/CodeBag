@@ -6,8 +6,8 @@ import android.view.View;
 import android.view.animation.LinearInterpolator;
 
 import com.javalive09.codebag.CodeBag;
-import com.javalive09.codebag.Tester;
-import com.javalive09.codebag.Test;
+import com.javalive09.codebag.annotation.Tester;
+import com.javalive09.codebag.annotation.Test;
 import com.javalive09.demos.anim.ChainView;
 import com.javalive09.demos.anim.CircleView;
 

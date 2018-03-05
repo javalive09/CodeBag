@@ -1,7 +1,7 @@
 package com.javalive09.demos;
 
-import com.javalive09.codebag.Test;
-import com.javalive09.codebag.Tester;
+import com.javalive09.codebag.annotation.Test;
+import com.javalive09.codebag.annotation.Tester;
 
 import java.io.BufferedReader;
 import java.io.IOException;

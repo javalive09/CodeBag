@@ -3,9 +3,9 @@ package com.javalive09.demos;
 import android.os.Handler;
 import android.os.Looper;
 
-import com.javalive09.codebag.Tester;
+import com.javalive09.codebag.annotation.Tester;
 import com.javalive09.codebag.CodeBag;
-import com.javalive09.codebag.Test;
+import com.javalive09.codebag.annotation.Test;
 
 /**
  * Created by peter on 2018/1/10.

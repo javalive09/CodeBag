@@ -31,8 +31,12 @@ dependencies {
     implementation 'com.android.support:appcompat-v7:26.1.0'
     implementation 'io.reactivex.rxjava2:rxandroid:2.0.1'
     implementation 'io.reactivex.rxjava2:rxjava:2.1.7'
-    implementation 'com.javalive09.codebag:codebag:1.4.2'
-//    implementation project(':library')
+//    implementation 'com.javalive09.codebag:codebag:1.4.2'
+    implementation project(':library')
+
+    implementation project(':annotation')
+    annotationProcessor project(":processor")
+
 }
 
 //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>添加长按查看源码功能

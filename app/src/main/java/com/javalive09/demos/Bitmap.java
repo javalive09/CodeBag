@@ -9,7 +9,7 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 
 import com.javalive09.codebag.CodeBag;
-import com.javalive09.codebag.Test;
+import com.javalive09.codebag.annotation.Test;
 
 /**
  * Bitmap 测试
