@@ -1,18 +1,18 @@
 package com.javalive09.demos;
 
-import com.javalive09.codebag.CaseActivity;
-import com.javalive09.codebag.Player;
-import com.javalive09.codebag.Play;
+import com.javalive09.codebag.CodeBag;
+import com.javalive09.codebag.Tester;
+import com.javalive09.codebag.Test;
 
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
 
-@Player(name = "语法")
+@Tester(name = "语法")
 public class GrammarTest {
 
-    @Play(name = "可变参数String... str")
+    @Test(name = "可变参数String... str")
     public void varyParam() {
         String[] strings = new String[]{"1", "2", "3"};
         varyParamMethod(1, strings);
@@ -22,14 +22,14 @@ public class GrammarTest {
         List<String> strings = Arrays.asList(str);
     }
 
-    @Play(name = "泛型返回值<T>T")
+    @Test(name = "泛型返回值<T>T")
     public void genericityMethod() {
         set("123", 1);
         set("456", "abc");
         try {
             int i = getValue("12");
             String j = getValue("456");
-            CaseActivity.showText(i + "" + j);
+            CodeBag.showText(i + "" + j);
         } catch (Exception e) {
             e.printStackTrace();
         }

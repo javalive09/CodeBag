@@ -10,7 +10,6 @@ import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.StringRes;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -27,7 +26,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
 import java.io.StringWriter;
-import java.lang.ref.WeakReference;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
@@ -38,29 +36,29 @@ import java.util.Set;
 import dalvik.system.DexFile;
 
 /**
- * CaseActivity 核心逻辑类
+ * CodeBag 核心逻辑类
  */
-public class CaseActivity extends Activity {
+public class CodeBag extends Activity {
 
     private static final String CURRENT_NODE = "current_node";
-    private static HashMap<Class, CaseActivity> CASES = new HashMap<>();
+    private static HashMap<Class, CodeBag> CASES = new HashMap<>();
     private StringBuilder stringBuilder;
     private static String PACKAGE_NAME;
-    private static Node rootNode;
+    private static TesterNode rootNode;
     private ViewGroup contentView;
-    private Node currentNode;
+    private TesterNode currentNode;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(contentView = new FrameLayout(CaseActivity.this));
+        setContentView(contentView = new FrameLayout(CodeBag.this));
         initData(getApplicationContext());
         PACKAGE_NAME = getPackageName();
         try {
             if (currentNode != null && !TextUtils.isEmpty(currentNode.className)) {
                 if (currentNode.mSubNodeList == null) {//method
                     Class clazz = Class.forName(currentNode.className);
-                    CASES.put(clazz, CaseActivity.this);
+                    CASES.put(clazz, CodeBag.this);
                 }
             }
         } catch (ClassNotFoundException e) {
@@ -85,7 +83,7 @@ public class CaseActivity extends Activity {
     }
 
     public static View showView(@LayoutRes int resId) {
-        CaseActivity caseActivity = context();
+        CodeBag caseActivity = context();
         if (caseActivity != null) {
             return caseActivity.getLayoutInflater().inflate(resId, caseActivity.contentView);
         } else {
@@ -94,7 +92,7 @@ public class CaseActivity extends Activity {
     }
 
     public static void showView(@NonNull final View view) {
-        CaseActivity caseActivity = context();
+        CodeBag caseActivity = context();
         if (caseActivity != null) {
             caseActivity.contentView.removeAllViews();
             caseActivity.contentView.addView(view);
@@ -102,7 +100,7 @@ public class CaseActivity extends Activity {
     }
 
     public static void showText(@NonNull final String text) {
-        CaseActivity caseActivity = context();
+        CodeBag caseActivity = context();
         if (caseActivity != null) {
             TextView textView = new TextView(caseActivity);
             textView.setText(text);
@@ -111,14 +109,14 @@ public class CaseActivity extends Activity {
     }
 
     public static void showText(@StringRes int resId) {
-        CaseActivity caseActivity = context();
+        CodeBag caseActivity = context();
         if (caseActivity != null) {
             showText(caseActivity.getString(resId));
         }
     }
 
     public static void addText(@NonNull String text) {
-        CaseActivity caseActivity = context();
+        CodeBag caseActivity = context();
         if (caseActivity != null) {
             if (caseActivity.stringBuilder == null) {
                 caseActivity.stringBuilder = new StringBuilder();
@@ -128,7 +126,7 @@ public class CaseActivity extends Activity {
     }
 
     public static void showAddedText() {
-        CaseActivity caseActivity = context();
+        CodeBag caseActivity = context();
         if (caseActivity != null) {
             if (caseActivity.stringBuilder == null) {
                 caseActivity.stringBuilder = new StringBuilder();
@@ -138,14 +136,14 @@ public class CaseActivity extends Activity {
     }
 
     public static void toastLong(@NonNull String text) {
-        CaseActivity caseActivity = context();
+        CodeBag caseActivity = context();
         if (caseActivity != null) {
             Toast.makeText(caseActivity, text, Toast.LENGTH_LONG).show();
         }
     }
 
     public static void toastShort(@NonNull String text) {
-        CaseActivity caseActivity = context();
+        CodeBag caseActivity = context();
         if (caseActivity != null) {
             Toast.makeText(caseActivity, text, Toast.LENGTH_SHORT).show();
         }
@@ -154,7 +152,7 @@ public class CaseActivity extends Activity {
     private void initData(Context context) {
         if (rootNode == null) {
             String pkgName = context.getPackageName();
-            rootNode = new Node(pkgName, Node.DIR);
+            rootNode = new TesterNode(pkgName, TesterNode.DIR);
             try {
                 String apkDir = context.getPackageManager().getApplicationInfo(pkgName, 0).sourceDir;
                 DexFile dexFile = new DexFile(apkDir);
@@ -173,7 +171,7 @@ public class CaseActivity extends Activity {
             }
         } else {
             if (getIntent() != null) {
-                currentNode = (Node) getIntent().getSerializableExtra(CURRENT_NODE);
+                currentNode = getIntent().getParcelableExtra(CURRENT_NODE);
             }
         }
         if (currentNode == null) {
@@ -185,7 +183,7 @@ public class CaseActivity extends Activity {
         try {
             Class clazz = Class.forName(className);
             for (Method method : clazz.getDeclaredMethods()) {
-                if (method.isAnnotationPresent(Play.class)) {
+                if (method.isAnnotationPresent(Test.class)) {
                     return true;
                 }
             }
@@ -199,38 +197,38 @@ public class CaseActivity extends Activity {
         setTitle(currentNode.toString());
 
         switch (currentNode.type) {
-            case Node.DIR:
-            case Node.CLASS:
+            case TesterNode.DIR:
+            case TesterNode.CLASS:
                 if (currentNode.mSubNodeList != null) {
-                    ArrayAdapter<Node> arrayAdapter = new ArrayAdapter<>(CaseActivity.this,
+                    ArrayAdapter<TesterNode> arrayAdapter = new ArrayAdapter<>(CodeBag.this,
                             android.R.layout.simple_list_item_1, currentNode.mSubNodeList);
-                    ListView listView = new ListView(CaseActivity.this);
+                    ListView listView = new ListView(CodeBag.this);
                     listView.setAdapter(arrayAdapter);
                     listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                         @Override
                         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                            Node node = currentNode.mSubNodeList.get(position);
+                            TesterNode node = currentNode.mSubNodeList.get(position);
                             switch (node.type) {
-                                case Node.DIR:
-                                case Node.METHOD:
+                                case TesterNode.DIR:
+                                case TesterNode.METHOD:
                                     startActivity(node);
                                     break;
-                                case Node.CLASS:
+                                case TesterNode.CLASS:
                                     boolean addSuc = false;
                                     String classPointMethodName = null;
                                     try {
                                         Class cls = Class.forName(node.className);
-                                        if (cls.isAnnotationPresent(Player.class)) {
-                                            Player player = (Player) cls.getAnnotation(Player.class);
+                                        if (cls.isAnnotationPresent(Tester.class)) {
+                                            Tester player = (Tester) cls.getAnnotation(Tester.class);
                                             classPointMethodName = player.point();
                                         }
 
                                         for (Method m : cls.getDeclaredMethods()) {
-                                            if (m.isAnnotationPresent(Play.class) &&
+                                            if (m.isAnnotationPresent(Test.class) &&
                                                     Modifier.PUBLIC == m.getModifiers() &&
                                                     m.getParameterTypes().length == 0) {
                                                 String methodName = m.getName();
-                                                Node methodNode = createAndAddSubNode(node.className, methodName, Node.METHOD, node);
+                                                TesterNode methodNode = createAndAddSubNode(node.className, methodName, TesterNode.METHOD, node);
                                                 addSuc = true;
                                                 if (TextUtils.equals(methodName, classPointMethodName)) {
                                                     startActivity(methodNode);
@@ -254,8 +252,8 @@ public class CaseActivity extends Activity {
                     listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
                         @Override
                         public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                            Node node = currentNode.mSubNodeList.get(position);
-                            if (node.type == Node.CLASS) {
+                            TesterNode node = currentNode.mSubNodeList.get(position);
+                            if (node.type == TesterNode.CLASS) {
                                 final String path = node.className.replace(".", "/") + ".source";
                                 final String title = node.className.replace(".", "/") + ".java";
                                 new Thread(new Runnable() {
@@ -273,7 +271,7 @@ public class CaseActivity extends Activity {
                                             runOnUiThread(new Runnable() {
                                                 @Override
                                                 public void run() {
-                                                    new AlertDialog.Builder(CaseActivity.this).setTitle(title).
+                                                    new AlertDialog.Builder(CodeBag.this).setTitle(title).
                                                             setMessage(result).setPositiveButton("OK", new DialogInterface.OnClickListener() {
                                                         @Override
                                                         public void onClick(DialogInterface dialog, int which) {
@@ -296,7 +294,7 @@ public class CaseActivity extends Activity {
                     contentView.addView(listView);
                 }
                 break;
-            case Node.METHOD:
+            case TesterNode.METHOD:
                 try {
                     Class<?> cls = Class.forName(currentNode.className);
                     Object obj = getClassLoader().loadClass(currentNode.className).newInstance();
@@ -311,15 +309,15 @@ public class CaseActivity extends Activity {
         }
     }
 
-    private void startActivity(Node node) {
-        Intent intent = new Intent(CaseActivity.this, CaseActivity.class);
+    private void startActivity(TesterNode node) {
+        Intent intent = new Intent(CodeBag.this, CodeBag.class);
         intent.putExtra(CURRENT_NODE, node);
         startActivity(intent);
     }
 
     public static void Launch(Activity activity) {
         if(activity != null) {
-            activity.startActivity(new Intent(activity, CaseActivity.class));
+            activity.startActivity(new Intent(activity, CodeBag.class));
         }
     }
 
@@ -329,15 +327,15 @@ public class CaseActivity extends Activity {
      * @param index       游标在fileNames数组中的位置
      * @param currentNode 当前节点（作为父节点）
      */
-    private void loadCodeBagNode(String className, String[] fileNames, int index, Node currentNode) {
+    private void loadCodeBagNode(String className, String[] fileNames, int index, TesterNode currentNode) {
         if (index > fileNames.length - 1) {
             return;
         }
         String nodeName = fileNames[index];
         if (index == fileNames.length - 1) {//数组的最后一个元素为class
-            createAndAddSubNode(className, nodeName, Node.CLASS, currentNode);
+            createAndAddSubNode(className, nodeName, TesterNode.CLASS, currentNode);
         } else {//数组中其他元素为目录
-            Node subNode = createAndAddSubNode(className, nodeName, Node.DIR, currentNode);
+            TesterNode subNode = createAndAddSubNode(className, nodeName, TesterNode.DIR, currentNode);
             index++;
             loadCodeBagNode(className, fileNames, index, subNode);
         }
@@ -349,13 +347,13 @@ public class CaseActivity extends Activity {
      * @param nodeName    子节点名字（游标所在数组的元素名字）--- 是区分各个子节点的关键字
      * @param type        子节点类型（目录/类）
      * @param currentNode 父节点
-     * @return Node
+     * @return TesterNode
      */
-    private Node createAndAddSubNode(String className, String nodeName, int type, Node currentNode) {
+    private TesterNode createAndAddSubNode(String className, String nodeName, int type, TesterNode currentNode) {
         if (currentNode.mSubNodeList == null) {//创建子节点列表
             currentNode.mSubNodeList = new ArrayList<>();
         } else {
-            for (Node n : currentNode.mSubNodeList) {//父节点有子节点列表，则遍历一下
+            for (TesterNode n : currentNode.mSubNodeList) {//父节点有子节点列表，则遍历一下
                 if (n.name.equals(nodeName)) {
                     return n;
                 }
@@ -371,13 +369,13 @@ public class CaseActivity extends Activity {
      * @param currentNode 当前节点
      * @return 节点
      */
-    private Node createSubNode(String className, String nodeName, int type, Node currentNode) {
-        Node node = new Node(nodeName, type, className);
+    private TesterNode createSubNode(String className, String nodeName, int type, TesterNode currentNode) {
+        TesterNode node = new TesterNode(nodeName, type, className);
         currentNode.mSubNodeList.add(node);
         return node;
     }
 
-    public static synchronized CaseActivity context() {
+    public static synchronized CodeBag context() {
         try {
             throw new Exception("get sample");
         } catch (Exception e) {
@@ -388,7 +386,7 @@ public class CaseActivity extends Activity {
             String[] lines = sStackTrace.split("\n");
             String name = "";
             for (String message : lines) {
-                String playerActivityClassName = CaseActivity.class.getName();
+                String playerActivityClassName = CodeBag.class.getName();
                 if (message.contains(PACKAGE_NAME) &&
                         !message.contains(playerActivityClassName)) {
                     Log.e("message >>>>> ", message);
@@ -409,7 +407,7 @@ public class CaseActivity extends Activity {
                 e1.printStackTrace();
             }
             if (clazz != null) {
-                CaseActivity playerActivity = CASES.get(clazz);
+                CodeBag playerActivity = CASES.get(clazz);
                 if (playerActivity != null) {
                     return playerActivity;
                 }

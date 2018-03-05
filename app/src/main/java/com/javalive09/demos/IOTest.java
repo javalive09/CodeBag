@@ -5,9 +5,9 @@ import android.content.SharedPreferences;
 import android.os.Environment;
 import android.preference.PreferenceManager;
 
-import com.javalive09.codebag.CaseActivity;
-import com.javalive09.codebag.Player;
-import com.javalive09.codebag.Play;
+import com.javalive09.codebag.CodeBag;
+import com.javalive09.codebag.Tester;
+import com.javalive09.codebag.Test;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -19,55 +19,55 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 
 
-@Player(name = "IO读写")
+@Tester(name = "IO读写")
 public class IOTest {
 
-    @Play(name = "context.getFilesDir()写文件 \n 目录:/data/data/<package name>/files")
+    @Test(name = "context.getFilesDir()写文件 \n 目录:/data/data/<package name>/files")
     public void app_file_write() {
         String transferFile = "file.txt";
-        File dir = CaseActivity.context().getFilesDir();
+        File dir = CodeBag.context().getFilesDir();
         File requestFile = new File(dir, transferFile);
         writeToFile("filexxxx", requestFile);
-        CaseActivity.showText("dir =" + requestFile.getAbsolutePath());
+        CodeBag.showText("dir =" + requestFile.getAbsolutePath());
     }
 
-    @Play(name = "context.getFilesDir()读文件 \n 目录:/data/data/<package name>/files")
+    @Test(name = "context.getFilesDir()读文件 \n 目录:/data/data/<package name>/files")
     public void app_read_file() {
         String transferFile = "file.txt";
-        File dir = CaseActivity.context().getFilesDir();
+        File dir = CodeBag.context().getFilesDir();
         File requestFile = new File(dir, transferFile);
         String str = readFromFile(requestFile);
-        CaseActivity.showText(transferFile + ":" + str);
+        CodeBag.showText(transferFile + ":" + str);
     }
 
-    @Play(name = "context.getCacheDir()写文件\n 目录:/data/data/<package name>/cache")
+    @Test(name = "context.getCacheDir()写文件\n 目录:/data/data/<package name>/cache")
     public void app_write_cache() {
         String transferFile = "cache.txt";
-        File dir = CaseActivity.context().getCacheDir();
+        File dir = CodeBag.context().getCacheDir();
         File requestFile = new File(dir, transferFile);
         writeToFile("cachexxxx", requestFile);
-        CaseActivity.showText("dir =" + requestFile.getAbsolutePath());
+        CodeBag.showText("dir =" + requestFile.getAbsolutePath());
     }
 
-    @Play(name = "context.getCacheDir()读文件\n 目录:/data/data/<package name>/cache")
+    @Test(name = "context.getCacheDir()读文件\n 目录:/data/data/<package name>/cache")
     public void app_read_cache() {
         String transferFile = "cache.txt";
-        File dir = CaseActivity.context().getCacheDir();
+        File dir = CodeBag.context().getCacheDir();
         File requestFile = new File(dir, transferFile);
         String str = readFromFile(requestFile);
-        CaseActivity.showText(transferFile + ":" + str);
+        CodeBag.showText(transferFile + ":" + str);
     }
 
-    @Play(name = "context.openFileOutput()写文件 \n目录:/data/data/<package name>/files")
+    @Test(name = "context.openFileOutput()写文件 \n目录:/data/data/<package name>/files")
     public void app_write_openfile() {
         writeToFile("write_openfilexxxx");
-        CaseActivity.showText("str :" + "write_openfilexxxx");
+        CodeBag.showText("str :" + "write_openfilexxxx");
     }
 
-    @Play(name = "context.openFileOutput()读文件 \n目录:/data/data/<package name>/files")
+    @Test(name = "context.openFileOutput()读文件 \n目录:/data/data/<package name>/files")
     public void read_openfile() {
         String str = readFromFile();
-        CaseActivity.showText("file :" + str);
+        CodeBag.showText("file :" + str);
     }
 
     private void writeToFile(String data, File extDir) {
@@ -101,7 +101,8 @@ public class IOTest {
 
     private void writeToFile(String data) {
         try {
-            OutputStreamWriter outputStreamWriter = new OutputStreamWriter(CaseActivity.context().openFileOutput("config.txt", Context.MODE_PRIVATE));
+            OutputStreamWriter outputStreamWriter = new OutputStreamWriter(
+                    CodeBag.context().openFileOutput("config.txt", Context.MODE_PRIVATE));
             outputStreamWriter.write(data);
             outputStreamWriter.close();
         } catch (IOException e) {
@@ -112,7 +113,7 @@ public class IOTest {
     private String readFromFile() {
         String ret = "";
         try {
-            InputStream inputStream = CaseActivity.context().openFileInput("config.txt");
+            InputStream inputStream = CodeBag.context().openFileInput("config.txt");
 
             if (inputStream != null) {
                 InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
@@ -133,54 +134,54 @@ public class IOTest {
         return ret;
     }
 
-    @Play(name = "context.getExternalFilesDir()写文件\n 目录:SDCard/Android/data/<package name>/files")
+    @Test(name = "context.getExternalFilesDir()写文件\n 目录:SDCard/Android/data/<package name>/files")
     public void sdcard_write_file() {
         if (!isExternalStorageWritable()) {
             return;
         }
         String transferFile = "file.txt";
-        File extDir = CaseActivity.context().getExternalFilesDir(null);
+        File extDir = CodeBag.context().getExternalFilesDir(null);
         File requestFile = new File(extDir, transferFile);
         requestFile.setReadable(true, false);
         writeToFile("filexxx", requestFile);
-        CaseActivity.showText("dir=" + requestFile.getAbsolutePath());
+        CodeBag.showText("dir=" + requestFile.getAbsolutePath());
     }
 
-    @Play(name = "context.getExternalFilesDir()读文件\n 目录:SDCard/Android/data/<package name>/files")
+    @Test(name = "context.getExternalFilesDir()读文件\n 目录:SDCard/Android/data/<package name>/files")
     public void sdcard_read_file_str() {
         if (!isExternalStorageReadable()) {
             return;
         }
         String transferFile = "file.txt";
-        File extDir = CaseActivity.context().getExternalFilesDir(null);
+        File extDir = CodeBag.context().getExternalFilesDir(null);
         File requestFile = new File(extDir, transferFile);
         String str = readFromFile(requestFile);
-        CaseActivity.showText("file str =" + str);
+        CodeBag.showText("file str =" + str);
     }
 
-    @Play(name = "context.getExternalCacheDir()写文件\n 目录:SDCard/Android/data/<package name>/cache")
+    @Test(name = "context.getExternalCacheDir()写文件\n 目录:SDCard/Android/data/<package name>/cache")
     public void sdcard_write_cache() {
         if (!isExternalStorageWritable()) {
             return;
         }
         String transferFile = "cache.txt";
-        File extDir = CaseActivity.context().getExternalCacheDir();
+        File extDir = CodeBag.context().getExternalCacheDir();
         File requestFile = new File(extDir, transferFile);
         requestFile.setReadable(true, false);
         writeToFile("cachexxx", requestFile);
-        CaseActivity.showText("dir=" + requestFile.getAbsolutePath());
+        CodeBag.showText("dir=" + requestFile.getAbsolutePath());
     }
 
-    @Play(name = "context.getExternalCacheDir()读文件 \n目录:SDCard/Android/data/<package name>/cache")
+    @Test(name = "context.getExternalCacheDir()读文件 \n目录:SDCard/Android/data/<package name>/cache")
     public void sdcard_read_cache_str() {
         if (!isExternalStorageReadable()) {
             return;
         }
         String transferFile = "cache.txt";
-        File extDir = CaseActivity.context().getExternalCacheDir();
+        File extDir = CodeBag.context().getExternalCacheDir();
         File requestFile = new File(extDir, transferFile);
         String str = readFromFile(requestFile);
-        CaseActivity.showText("file str =" + str);
+        CodeBag.showText("file str =" + str);
     }
 
     /* Checks if external storage is available for read and write */
@@ -202,57 +203,59 @@ public class IOTest {
         return false;
     }
 
-    @Play(name = "activity.getSharedPreferences(name)写xml \n目录:/data/data/<package name>/shared_prefs/name.xml")
+    @Test(name = "activity.getSharedPreferences(name)写xml \n目录:/data/data/<package name>/shared_prefs/name.xml")
     public void sp_activity_set() {
-        SharedPreferences sp = CaseActivity.context().getSharedPreferences("getSharedPreferences1", Context.MODE_PRIVATE);
+        SharedPreferences sp = CodeBag.context().getSharedPreferences("getSharedPreferences1", Context.MODE_PRIVATE);
         sp.edit().putString("peter1", "12345").apply();
     }
 
-    @Play(name = "activity.getSharedPreferences(name)读xml \n目录:/data/data/<package name>/shared_prefs/name.xml")
+    @Test(name = "activity.getSharedPreferences(name)读xml \n目录:/data/data/<package name>/shared_prefs/name.xml")
     public void sp_activity_get() {
-        SharedPreferences sp = CaseActivity.context().getSharedPreferences("getSharedPreferences1", Context.MODE_PRIVATE);
+        SharedPreferences sp = CodeBag.context().getSharedPreferences("getSharedPreferences1", Context.MODE_PRIVATE);
         String str = sp.getString("peter1", "");
-        CaseActivity.showText(str);
+        CodeBag.showText(str);
     }
 
-    @Play(name = "applicationContext.getSharedPreferences(name)写xml \n目录:/data/data/<package name>/shared_prefs/name.xml")
+    @Test(name = "applicationContext.getSharedPreferences(name)写xml \n目录:/data/data/<package name>/shared_prefs/name.xml")
     public void sp_application_set() {
-        SharedPreferences sp = CaseActivity.context().getApplicationContext().getSharedPreferences("getSharedPreferences2", Context.MODE_PRIVATE);
+        SharedPreferences sp = CodeBag
+                .context().getApplicationContext().getSharedPreferences("getSharedPreferences2", Context.MODE_PRIVATE);
         sp.edit().putString("peter2", "12345").apply();
     }
 
-    @Play(name = "applicationContext.getSharedPreferences(name)读xml\n 目录:/data/data/<package name>/shared_prefs/name.xml")
+    @Test(name = "applicationContext.getSharedPreferences(name)读xml\n 目录:/data/data/<package name>/shared_prefs/name.xml")
     public void sp_activity_get2() {
-        SharedPreferences sp = CaseActivity.context().getApplicationContext().getSharedPreferences("getSharedPreferences2", Context.MODE_PRIVATE);
+        SharedPreferences sp = CodeBag
+                .context().getApplicationContext().getSharedPreferences("getSharedPreferences2", Context.MODE_PRIVATE);
         String str = sp.getString("peter2", "");
-        CaseActivity.showText(str);
+        CodeBag.showText(str);
     }
 
-    @Play(name = "context.getPreferences()写xml \n目录:/data/data/<package name>/shared_prefs/名字为activity类全路径名去掉包名")
+    @Test(name = "context.getPreferences()写xml \n目录:/data/data/<package name>/shared_prefs/名字为activity类全路径名去掉包名")
     public void sp_activity_innermethod_set() {
-        SharedPreferences sp = CaseActivity.context().getPreferences(Context.MODE_PRIVATE);
-        String name = CaseActivity.context().getLocalClassName();
+        SharedPreferences sp = CodeBag.context().getPreferences(Context.MODE_PRIVATE);
+        String name = CodeBag.context().getLocalClassName();
         sp.edit().putString("peter3", "6789").apply();
     }
 
-    @Play(name = "context.getPreferences()读xml \n目录:/data/data/<package name>/shared_prefs/名字为activity类全路径名去掉包名")
+    @Test(name = "context.getPreferences()读xml \n目录:/data/data/<package name>/shared_prefs/名字为activity类全路径名去掉包名")
     public void sp_activity_innermethod_get() {
-        SharedPreferences sp = CaseActivity.context().getPreferences(Context.MODE_PRIVATE);
+        SharedPreferences sp = CodeBag.context().getPreferences(Context.MODE_PRIVATE);
         String str = sp.getString("peter3", "");
-        CaseActivity.showText(str);
+        CodeBag.showText(str);
     }
 
-    @Play(name = "PreferenceManager.getDefaultSharedPreferences写xml \n/data/data/com.package.name/shared_prefs/com.package.name_preferences.xml")
+    @Test(name = "PreferenceManager.getDefaultSharedPreferences写xml \n/data/data/com.package.name/shared_prefs/com.package.name_preferences.xml")
     public void sp_manager_set() {
-        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(CaseActivity.context());
+        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(CodeBag.context());
         sp.edit().putString("peter34", "0000").apply();
     }
 
-    @Play(name = "PreferenceManager.getDefaultSharedPreferences读xml\n /data/data/com.package.name/shared_prefs/com.package.name_preferences.xml")
+    @Test(name = "PreferenceManager.getDefaultSharedPreferences读xml\n /data/data/com.package.name/shared_prefs/com.package.name_preferences.xml")
     public void sp_manager_get() {
-        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(CaseActivity.context());
+        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(CodeBag.context());
         String str = sp.getString("peter34", "");
-        CaseActivity.showText(str);
+        CodeBag.showText(str);
     }
 
 }

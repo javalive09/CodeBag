@@ -1,16 +1,16 @@
 package com.javalive09.demos;
 
-import com.javalive09.codebag.CaseActivity;
-import com.javalive09.codebag.Play;
-import com.javalive09.codebag.Player;
+import com.javalive09.codebag.CodeBag;
+import com.javalive09.codebag.Test;
+import com.javalive09.codebag.Tester;
 
-@Player(name = "递归模型")
+@Tester(name = "递归模型")
 public class Recursion {
 
-    @Play(name = "阶乘")
+    @Test(name = "阶乘")
     public void factorial() {
         int result = factorial(5);
-        CaseActivity.showText("result = " + result);
+        CodeBag.showText("result = " + result);
     }
 
     private int factorial(int n) {

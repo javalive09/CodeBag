@@ -1,7 +1,7 @@
 package com.javalive09.demos;
 
-import com.javalive09.codebag.Play;
-import com.javalive09.codebag.Player;
+import com.javalive09.codebag.Test;
+import com.javalive09.codebag.Tester;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -16,65 +16,65 @@ import io.reactivex.schedulers.Schedulers;
  * Created by peter on 2018/1/10.
  */
 
-@Player(name = "shell 调用")
+@Tester(name = "shell 调用")
 public class ShellInvoke {
 
-    @Play(name = "Home键")
+    @Test(name = "Home键")
     public void home() {
         key(3);
     }
 
-    @Play(name = "back返回键")
+    @Test(name = "back返回键")
     public void back() {
         key(4);
     }
 
-    @Play(name = "加音量键")
+    @Test(name = "加音量键")
     public void volumeUp() {
         key(24);
     }
 
-    @Play(name = "减音量键")
+    @Test(name = "减音量键")
     public void volumeDown() {
         key(25);
     }
 
-    @Play(name = "菜单键")
+    @Test(name = "菜单键")
     public void menu() {
         key(82);
     }
 
-    @Play(name = "电话键")
+    @Test(name = "电话键")
     public void call() {
         key(5);
     }
 
-    @Play(name = "照相机键")
+    @Test(name = "照相机键")
     public void camera() {
         key(27);
     }
 
-    @Play(name = "关机键")
+    @Test(name = "关机键")
     public void power() {
         key(26);
     }
 
-    @Play(name = "静音键")
+    @Test(name = "静音键")
     public void mute() {
         key(91);
     }
 
-    @Play(name = "水平滑动屏幕")
+    @Test(name = "水平滑动屏幕")
     public void swip() {
         swip(600, 600, 1000, 600);
     }
 
-    @Play(name = "点击屏幕")
+    @Test(name = "点击屏幕")
     public void tap() {
         tap(600, 600);
     }
 
-    @Play(name = "滚动屏幕")
+    @Test(name = "滚动屏幕")
     public void roll() {
         roll(0, 900);
     }

@@ -2,17 +2,17 @@ package com.javalive09.demos;
 
 import android.util.Log;
 
-import com.javalive09.codebag.Play;
-import com.javalive09.codebag.Player;
+import com.javalive09.codebag.Test;
+import com.javalive09.codebag.Tester;
 
 import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Random;
 
-@Player(point = "startRun")
+@Tester(point = "startRun")
 public class Product_Consumer {
 
-    @Play(name = "生产者消费者模型")
+    @Test(name = "生产者消费者模型")
     public void startRun() {
         LinkedList<Integer> queue = new LinkedList<Integer>();
         Thread producer = new Thread(new Producer(queue, 2, "producer"));

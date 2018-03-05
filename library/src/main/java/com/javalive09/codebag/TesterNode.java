@@ -1,30 +1,48 @@
 package com.javalive09.codebag;
 
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.text.TextUtils;
-
-import java.io.Serializable;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 
-class Node implements Serializable {
-    private static final long serialVersionUID = 8820603100632668533L;
+class TesterNode implements Parcelable {
     static final int DIR = 0;
     static final int CLASS = 1;
     static final int METHOD = 2;
     int type;
     String name;
     String className;
-    ArrayList<Node> mSubNodeList;
+    ArrayList<TesterNode> mSubNodeList;
 
-    Node(String name, int type) {
+    TesterNode(String name, int type) {
         this.name = name;
         this.type = type;
     }
 
-    Node(String name, int type, String className) {
+    TesterNode(String name, int type, String className) {
         this(name, type);
         this.className = className;
     }
+
+    protected TesterNode(Parcel in) {
+        type = in.readInt();
+        name = in.readString();
+        className = in.readString();
+        mSubNodeList = in.createTypedArrayList(TesterNode.CREATOR);
+    }
+
+    public static final Creator<TesterNode> CREATOR = new Creator<TesterNode>() {
+        @Override
+        public TesterNode createFromParcel(Parcel in) {
+            return new TesterNode(in);
+        }
+
+        @Override
+        public TesterNode[] newArray(int size) {
+            return new TesterNode[size];
+        }
+    };
 
     @Override
     public String toString() {
@@ -36,20 +54,20 @@ class Node implements Serializable {
             case CLASS:
                 String classAnnotationName = "";
                 try {
-                    Class clazz = Class.forName(className);
-                    if (clazz.isAnnotationPresent(Player.class)) {
-                        Player player = (Player) clazz.getAnnotation(Player.class);
+                    Class<?> clazz = Class.forName(className);
+                    if (clazz.isAnnotationPresent(Tester.class)) {
+                        Tester player = clazz.getAnnotation(Tester.class);
 
                         String pointMethodAnnotationName = player.point();
                         if (TextUtils.isEmpty(pointMethodAnnotationName)) {
                             classAnnotationName = player.name();
                         } else {
                             Method method = clazz.getDeclaredMethod(pointMethodAnnotationName);
-                            Play play = method.getAnnotation(Play.class);
+                            Test play = method.getAnnotation(Test.class);
                             String methodPlayName = play.name();
-                            if(TextUtils.isEmpty(methodPlayName)) {
+                            if (TextUtils.isEmpty(methodPlayName)) {
                                 classAnnotationName = method.getName();
-                            }else {
+                            } else {
                                 classAnnotationName = methodPlayName;
                             }
                         }
@@ -71,8 +89,8 @@ class Node implements Serializable {
                     Class clazz = Class.forName(className);
                     for (Method method : clazz.getDeclaredMethods()) {
                         if (TextUtils.equals(method.getName(), name)) {
-                            if (method.isAnnotationPresent(Play.class)) {
-                                Play play = method.getAnnotation(Play.class);
+                            if (method.isAnnotationPresent(Test.class)) {
+                                Test play = method.getAnnotation(Test.class);
                                 methodAnnotationName = play.name();
                             }
                         }
@@ -88,5 +106,18 @@ class Node implements Serializable {
                 break;
         }
         return nodeName;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(type);
+        dest.writeString(name);
+        dest.writeString(className);
+        dest.writeTypedList(mSubNodeList);
     }
 }

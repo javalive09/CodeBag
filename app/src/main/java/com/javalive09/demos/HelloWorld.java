@@ -3,8 +3,8 @@ package com.javalive09.demos;
 import android.content.Intent;
 import android.widget.TextView;
 
-import com.javalive09.codebag.CaseActivity;
-import com.javalive09.codebag.Play;
+import com.javalive09.codebag.CodeBag;
+import com.javalive09.codebag.Test;
 
 /**
  * a sample for entry
@@ -14,32 +14,32 @@ import com.javalive09.codebag.Play;
 
 public class HelloWorld {
 
-    @Play
+    @Test
     public void showView() {
-        TextView textView = new TextView(CaseActivity.context());
+        TextView textView = new TextView(CodeBag.context());
         textView.setText("hello world!!");
-        CaseActivity.showView(textView);
+        CodeBag.showView(textView);
     }
 
-    @Play
+    @Test
     public void showText() {
-        CaseActivity.showText("hello world!!");
+        CodeBag.showText("hello world!!");
     }
 
-    @Play(name = "显示3.5秒toast")
+    @Test(name = "显示3.5秒toast")
     public void showToastLong() {
-        CaseActivity.context().toastLong("hello world !!");
+        CodeBag.context().toastLong("hello world !!");
     }
 
-    @Play(name = "显示2秒toast")
+    @Test(name = "显示2秒toast")
     public void showToastShort() {
-        CaseActivity.context().toastShort("hello world !!");
+        CodeBag.context().toastShort("hello world !!");
     }
 
-    @Play(name = "启动其他activity")
+    @Test(name = "启动其他activity")
     public void startActivity() {
-        Intent intent = new Intent(CaseActivity.context(), CaseActivity.class);
-        CaseActivity.context().startActivity(intent);
+        Intent intent = new Intent(CodeBag.context(), CodeBag.class);
+        CodeBag.context().startActivity(intent);
     }
 
 }

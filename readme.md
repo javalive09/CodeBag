@@ -24,35 +24,36 @@ Usage
 ---------------------
 -  Launch
 ```
-CaseActivity.Launch(this);
+CodeBag.Launch(MainActivity);
 ```
--  Create a file class with annotation of @play method as the entrance(you can custom class name  @Player(name = "HelloWorld 示例") and custom method name as below)
+-  Create a file class with annotation of @Test method as the entrance(you can custom class name  @Tester(name = 
+"HelloWorld 示例") and custom method name as below)
 
         public class HelloWorld {
         
-            @Play
+            @Test
             public void showView() {
                 TextView textView = new TextView(PlayerActivity.context());
                 textView.setText("hello world!!");
                 PlayerActivity.context().showView(textView);
             }
         
-            @Play
+            @Test
             public void showText() {
                 PlayerActivity.context().showText("hello world!!");
             }
         
-            @Play(name = "显示3.5秒toast")
+            @Test(name = "显示3.5秒toast")
             public void showToastLong() {
                 PlayerActivity.context().toastLong("hello world !!");
             }
         
-            @Play(name = "显示2秒toast")
+            @Test(name = "显示2秒toast")
             public void showToastShort() {
                 PlayerActivity.context().toastShort("hello world !!");
             }
         
-            @Play(name = "启动其他activity")
+            @Test(name = "启动其他activity")
             public void startActivity() {
                 Intent intent = new Intent(PlayerActivity.context(), PlayerActivity.class);
                 PlayerActivity.context().startActivity(intent);

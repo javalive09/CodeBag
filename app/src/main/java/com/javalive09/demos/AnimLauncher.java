@@ -5,9 +5,9 @@ import android.graphics.*;
 import android.view.View;
 import android.view.animation.LinearInterpolator;
 
-import com.javalive09.codebag.Player;
-import com.javalive09.codebag.CaseActivity;
-import com.javalive09.codebag.Play;
+import com.javalive09.codebag.CodeBag;
+import com.javalive09.codebag.Tester;
+import com.javalive09.codebag.Test;
 import com.javalive09.demos.anim.ChainView;
 import com.javalive09.demos.anim.CircleView;
 
@@ -15,28 +15,28 @@ import com.javalive09.demos.anim.CircleView;
  * Created by peter on 2018/1/11.
  */
 
-@Player(name = " Animation")
+@Tester(name = " Animation")
 public class AnimLauncher {
 
-    @Play(name = "锁链动画")
+    @Test(name = "锁链动画")
     public void launchAnimChain() {
-        ChainView chain = new ChainView(CaseActivity.context());
+        ChainView chain = new ChainView(CodeBag.context());
         chain.setBackgroundColor(Color.BLACK);
         ValueAnimator anim = ValueAnimator.ofInt(0, 900);
         anim.addUpdateListener(chain);
         anim.setDuration(3000);
         chain.postDelayed(anim::start, 1000);
-        CaseActivity.showView(chain);
+        CodeBag.showView(chain);
     }
 
-    @Play(name = "圆形动画")
+    @Test(name = "圆形动画")
     public void launchAnimCircle() {
-        CaseActivity.showView(new CircleView(CaseActivity.context()));
+        CodeBag.showView(new CircleView(CodeBag.context()));
     }
 
-    @Play(name = "放大镜搜索动画")
+    @Test(name = "放大镜搜索动画")
     public void showSearchView() {
-        View view = CaseActivity.showView(R.layout.searchlayout);
+        View view = CodeBag.showView(R.layout.searchlayout);
         final View root = view.findViewById(R.id.root);
         final View search = view.findViewById(R.id.search);
         root.setVisibility(View.INVISIBLE);

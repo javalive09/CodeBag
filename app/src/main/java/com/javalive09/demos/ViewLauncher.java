@@ -9,9 +9,9 @@ import android.widget.ImageView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
 
-import com.javalive09.codebag.CaseActivity;
-import com.javalive09.codebag.Play;
-import com.javalive09.codebag.Player;
+import com.javalive09.codebag.CodeBag;
+import com.javalive09.codebag.Test;
+import com.javalive09.codebag.Tester;
 import com.javalive09.demos.view.ArcView;
 import com.javalive09.demos.view.SampleView;
 import com.javalive09.demos.view.Xfermodes;
@@ -23,46 +23,46 @@ import java.util.HashMap;
 /**
  * View launcher
  */
-@Player(name = "View")
+@Tester(name = "View")
 public class ViewLauncher {
 
-    @Play
+    @Test
     public void showXferView() {
-        View view = new Xfermodes.SampleView(CaseActivity.context());
-        CaseActivity.showView(view);
+        View view = new Xfermodes.SampleView(CodeBag.context());
+        CodeBag.showView(view);
     }
 
-    @Play
+    @Test
     public void showXferClipView() {
-        View view = new Xfermodes_clip.SampleView(CaseActivity.context());
-        CaseActivity.showView(view);
+        View view = new Xfermodes_clip.SampleView(CodeBag.context());
+        CodeBag.showView(view);
     }
 
-    @Play(name = "可自动缩放的连接线")
+    @Test(name = "可自动缩放的连接线")
     public void showCustomLine() {
-        CaseActivity.showView(R.layout.custom_line);
+        CodeBag.showView(R.layout.custom_line);
     }
 
-    @Play
+    @Test
     public void showArcView() {
-        CaseActivity.showView(new ArcView(CaseActivity.context()));
+        CodeBag.showView(new ArcView(CodeBag.context()));
     }
 
-    @Play
+    @Test
     public void showArcSampleView() {
-        CaseActivity.showView(new SampleView(CaseActivity.context()));
+        CodeBag.showView(new SampleView(CodeBag.context()));
     }
 
-    @Play(name = "显示超大地图")
+    @Test(name = "显示超大地图")
     public void showSuperBigImage() {
-        WebView wv = new WebView(CaseActivity.context());
+        WebView wv = new WebView(CodeBag.context());
         wv.loadUrl("file:///android_asset/world.jpg");
-        CaseActivity.showView(wv);
+        CodeBag.showView(wv);
     }
 
-    @Play(name = "多个GrideView嵌套")
+    @Test(name = "多个GrideView嵌套")
     public void showMultiGrideView() {
-        View view = CaseActivity.showView(R.layout.multigridview);
+        View view = CodeBag.showView(R.layout.multigridview);
         GridView game = view.findViewById(R.id.game);
 
         //生成动态数组，并且转入数据
@@ -74,7 +74,7 @@ public class ViewLauncher {
             lstImageItem.add(map);
         }
         //生成适配器的ImageItem <====> 动态数组的元素，两者一一对应
-        SimpleAdapter saImageItems = new SimpleAdapter(CaseActivity.context(), //没什么解释
+        SimpleAdapter saImageItems = new SimpleAdapter(CodeBag.context(), //没什么解释
                 lstImageItem,//数据来源
                 R.layout.grid_item,//night_item的XML实现
 
@@ -98,7 +98,7 @@ public class ViewLauncher {
             lstImageItem2.add(map);
         }
         //生成适配器的ImageItem <====> 动态数组的元素，两者一一对应
-        SimpleAdapter saImageItems2 = new SimpleAdapter(CaseActivity.context(), //没什么解释
+        SimpleAdapter saImageItems2 = new SimpleAdapter(CodeBag.context(), //没什么解释
                 lstImageItem2,//数据来源
                 R.layout.grid_item,//night_item的XML实现
 
@@ -112,218 +112,218 @@ public class ViewLauncher {
 
     }
 
-    @Play(name = "ScaleType.CENTER\n按图片的原来size居中显示(不进行压缩，放大处理)，当图片长/宽超过View的长/宽，则截取图片的居中部分显示， 原图剪切效果")
+    @Test(name = "ScaleType.CENTER\n按图片的原来size居中显示(不进行压缩，放大处理)，当图片长/宽超过View的长/宽，则截取图片的居中部分显示， 原图剪切效果")
     public void show_Big__ScaleType_CENTER() {
-        ImageView iv = new ImageView(CaseActivity.context());
+        ImageView iv = new ImageView(CodeBag.context());
         iv.setImageResource(R.drawable.image_demo);
         iv.setScaleType(ImageView.ScaleType.CENTER);
         iv.setBackgroundColor(Color.WHITE);
-        CaseActivity.showView(iv);
+        CodeBag.showView(iv);
     }
 
-    @Play
+    @Test
     public void show_small__ScaleType_CENTER() {
-        ImageView iv = new ImageView(CaseActivity.context());
+        ImageView iv = new ImageView(CodeBag.context());
         iv.setImageResource(R.drawable.vimeo_button);
         iv.setScaleType(ImageView.ScaleType.CENTER);
         iv.setBackgroundColor(Color.WHITE);
-        CaseActivity.showView(iv);
+        CodeBag.showView(iv);
     }
 
-    @Play(name = "ScaleType.CENTER_CROP\n按比例扩大图片的size居中显示(放大处理)，使得图片长 (宽)等于或大于View的长(宽), 原图放大填充效果")
+    @Test(name = "ScaleType.CENTER_CROP\n按比例扩大图片的size居中显示(放大处理)，使得图片长 (宽)等于或大于View的长(宽), 原图放大填充效果")
     public void show_Big__ScaleType_CENTER_CROP() {
-        ImageView iv = new ImageView(CaseActivity.context());
+        ImageView iv = new ImageView(CodeBag.context());
         iv.setImageResource(R.drawable.image_demo);
         iv.setScaleType(ImageView.ScaleType.CENTER_CROP);
         iv.setBackgroundColor(Color.WHITE);
-        CaseActivity.showView(iv);
+        CodeBag.showView(iv);
     }
 
-    @Play
+    @Test
     public void show_small__ScaleType_CENTER_CROP() {
-        ImageView iv = new ImageView(CaseActivity.context());
+        ImageView iv = new ImageView(CodeBag.context());
         iv.setImageResource(R.drawable.vimeo_button);
         iv.setScaleType(ImageView.ScaleType.CENTER_CROP);
         iv.setBackgroundColor(Color.WHITE);
-        CaseActivity.showView(iv);
+        CodeBag.showView(iv);
     }
 
-    @Play(name = "ScaleType.CENTER_INSIDE\n将图片的内容完整居中显示，通过按比例缩小或原来的size使得图片长(宽)等于或小于View的长(宽)， 原图压缩效果")
+    @Test(name = "ScaleType.CENTER_INSIDE\n将图片的内容完整居中显示，通过按比例缩小或原来的size使得图片长(宽)等于或小于View的长(宽)， 原图压缩效果")
     public void show_Big__ScaleType_CENTER_INSIDE() {
-        ImageView iv = new ImageView(CaseActivity.context());
+        ImageView iv = new ImageView(CodeBag.context());
         iv.setImageResource(R.drawable.image_demo);
         iv.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
         iv.setBackgroundColor(Color.WHITE);
-        CaseActivity.showView(iv);
+        CodeBag.showView(iv);
     }
 
-    @Play
+    @Test
     public void show_small__ScaleType_CENTER_INSIDE() {
-        ImageView iv = new ImageView(CaseActivity.context());
+        ImageView iv = new ImageView(CodeBag.context());
         iv.setImageResource(R.drawable.vimeo_button);
         iv.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
         iv.setBackgroundColor(Color.WHITE);
-        CaseActivity.showView(iv);
+        CodeBag.showView(iv);
     }
 
-    @Play(name = "ScaleType.FIT_CENTER 把图片按比例扩大(缩小)到View的宽度，居中显示， 原图安比例缩放，显示全部内容（不丢失内容信息）")
+    @Test(name = "ScaleType.FIT_CENTER 把图片按比例扩大(缩小)到View的宽度，居中显示， 原图安比例缩放，显示全部内容（不丢失内容信息）")
     public void show_Big__ScaleType_FIT_CENTER() {
-        ImageView iv = new ImageView(CaseActivity.context());
+        ImageView iv = new ImageView(CodeBag.context());
         iv.setImageResource(R.drawable.image_demo);
         iv.setScaleType(ImageView.ScaleType.FIT_CENTER);
         iv.setBackgroundColor(Color.WHITE);
-        CaseActivity.showView(iv);
+        CodeBag.showView(iv);
     }
 
-    @Play
+    @Test
     public void show_small__ScaleType_FIT_CENTER() {
-        ImageView iv = new ImageView(CaseActivity.context());
+        ImageView iv = new ImageView(CodeBag.context());
         iv.setImageResource(R.drawable.vimeo_button);
         iv.setScaleType(ImageView.ScaleType.FIT_CENTER);
         iv.setBackgroundColor(Color.WHITE);
-        CaseActivity.showView(iv);
+        CodeBag.showView(iv);
     }
 
-    @Play(name = "ScaleType.FIT_START\n把图片按比例扩大(缩小)到View的宽度，显示在View的上／左部分位置，原图安比例缩放，显示全部内容（不丢失内容信息）")
+    @Test(name = "ScaleType.FIT_START\n把图片按比例扩大(缩小)到View的宽度，显示在View的上／左部分位置，原图安比例缩放，显示全部内容（不丢失内容信息）")
     public void show_Big__ScaleType_FIT_START() {
-        ImageView iv = new ImageView(CaseActivity.context());
+        ImageView iv = new ImageView(CodeBag.context());
         iv.setImageResource(R.drawable.image_demo);
         iv.setScaleType(ImageView.ScaleType.FIT_START);
         iv.setBackgroundColor(Color.WHITE);
-        CaseActivity.showView(iv);
+        CodeBag.showView(iv);
     }
 
-    @Play
+    @Test
     public void show_small__ScaleType_FIT_START() {
-        ImageView iv = new ImageView(CaseActivity.context());
+        ImageView iv = new ImageView(CodeBag.context());
         iv.setImageResource(R.drawable.vimeo_button);
         iv.setScaleType(ImageView.ScaleType.FIT_START);
         iv.setBackgroundColor(Color.WHITE);
-        CaseActivity.showView(iv);
+        CodeBag.showView(iv);
     }
 
-    @Play(name = "ScaleType.FIT_END\n把图片按比例扩大(缩小)到View的宽度，显示在View的下／右部分位置，原图安比例（填充view最小边）缩放，显示全部内容（不丢失内容信息)")
+    @Test(name = "ScaleType.FIT_END\n把图片按比例扩大(缩小)到View的宽度，显示在View的下／右部分位置，原图安比例（填充view最小边）缩放，显示全部内容（不丢失内容信息)")
     public void show_Big__ScaleType_FIT_END() {
-        ImageView iv = new ImageView(CaseActivity.context());
+        ImageView iv = new ImageView(CodeBag.context());
         iv.setImageResource(R.drawable.image_demo);
         iv.setBackgroundColor(Color.WHITE);
         iv.setScaleType(ImageView.ScaleType.FIT_END);
-        CaseActivity.showView(iv);
+        CodeBag.showView(iv);
     }
 
-    @Play
+    @Test
     public void show_small__ScaleType_FIT_END() {
-        ImageView iv = new ImageView(CaseActivity.context());
+        ImageView iv = new ImageView(CodeBag.context());
         iv.setImageResource(R.drawable.vimeo_button);
         iv.setScaleType(ImageView.ScaleType.FIT_END);
         iv.setBackgroundColor(Color.WHITE);
-        CaseActivity.showView(iv);
+        CodeBag.showView(iv);
     }
 
-    @Play(name = "ScaleType.FIT_XY\n把图片按照指定的大小在View中显示，原图填充放大 ")
+    @Test(name = "ScaleType.FIT_XY\n把图片按照指定的大小在View中显示，原图填充放大 ")
     public void show_Big__ScaleType_FIT_XY() {
-        ImageView iv = new ImageView(CaseActivity.context());
+        ImageView iv = new ImageView(CodeBag.context());
         iv.setImageResource(R.drawable.image_demo);
         iv.setBackgroundColor(Color.WHITE);
         iv.setScaleType(ImageView.ScaleType.FIT_XY);
-        CaseActivity.showView(iv);
+        CodeBag.showView(iv);
     }
 
-    @Play
+    @Test
     public void show_small__ScaleType_FIT_XY() {
-        ImageView iv = new ImageView(CaseActivity.context());
+        ImageView iv = new ImageView(CodeBag.context());
         iv.setImageResource(R.drawable.vimeo_button);
         iv.setBackgroundColor(Color.WHITE);
         iv.setScaleType(ImageView.ScaleType.FIT_XY);
-        CaseActivity.showView(iv);
+        CodeBag.showView(iv);
     }
 
-    @Play(name = "ScaleType.MATRIX 用matrix来绘制")
+    @Test(name = "ScaleType.MATRIX 用matrix来绘制")
     public void show_Big__ScaleType_MATRIX() {
-        ImageView iv = new ImageView(CaseActivity.context());
+        ImageView iv = new ImageView(CodeBag.context());
         iv.setImageResource(R.drawable.image_demo);
         iv.setScaleType(ImageView.ScaleType.MATRIX);
         iv.setBackgroundColor(Color.WHITE);
-        CaseActivity.showView(iv);
+        CodeBag.showView(iv);
     }
 
-    @Play
+    @Test
     public void show_small__ScaleType_MATRIX() {
-        ImageView iv = new ImageView(CaseActivity.context());
+        ImageView iv = new ImageView(CodeBag.context());
         iv.setImageResource(R.drawable.vimeo_button);
         iv.setBackgroundColor(Color.WHITE);
         iv.setScaleType(ImageView.ScaleType.MATRIX);
-        CaseActivity.showView(iv);
+        CodeBag.showView(iv);
     }
 
-    @Play
+    @Test
     public void showEmojiX() {
-        CaseActivity.showText(R.string.x);
+        CodeBag.showText(R.string.x);
     }
 
-    @Play
+    @Test
     public void showEmojiY() {
-        CaseActivity.showText(R.string.v);
+        CodeBag.showText(R.string.v);
     }
 
-    @Play
+    @Test
     public void showShader_r0() {
-        TextView tv = new TextView(CaseActivity.context());
+        TextView tv = new TextView(CodeBag.context());
         tv.setText("123456 张瑞");
         tv.setTextSize(50);
         tv.setTextColor(Color.GRAY);
         tv.setBackgroundColor(Color.WHITE);
         tv.setShadowLayer(0f, 10, 10, Color.BLUE);//radius 是羽化半径
         tv.setGravity(Gravity.CENTER);
-        CaseActivity.showView(tv);
+        CodeBag.showView(tv);
     }
 
-    @Play
+    @Test
     public void showShader_r0_5() {
-        TextView tv = new TextView(CaseActivity.context());
+        TextView tv = new TextView(CodeBag.context());
         tv.setText("123456 张瑞");
         tv.setTextSize(50);
         tv.setTextColor(Color.GRAY);
         tv.setBackgroundColor(Color.WHITE);
         tv.setShadowLayer(0.5f, 0, 10, Color.BLUE);
         tv.setGravity(Gravity.CENTER);
-        CaseActivity.showView(tv);
+        CodeBag.showView(tv);
     }
 
-    @Play
+    @Test
     public void showShader_r0_1() {
-        TextView tv = new TextView(CaseActivity.context());
+        TextView tv = new TextView(CodeBag.context());
         tv.setText("123456 张瑞");
         tv.setTextSize(50);
         tv.setTextColor(Color.GRAY);
         tv.setBackgroundColor(Color.WHITE);
         tv.setShadowLayer(0.1f, 10, 0, Color.BLUE);
         tv.setGravity(Gravity.CENTER);
-        CaseActivity.showView(tv);
+        CodeBag.showView(tv);
     }
 
-    @Play
+    @Test
     public void showShader_r1() {
-        TextView tv = new TextView(CaseActivity.context());
+        TextView tv = new TextView(CodeBag.context());
         tv.setText("123456 张瑞");
         tv.setTextSize(50);
         tv.setTextColor(Color.GRAY);
         tv.setBackgroundColor(Color.WHITE);
         tv.setShadowLayer(1, 10, 10, Color.BLUE);
         tv.setGravity(Gravity.CENTER);
-        CaseActivity.showView(tv);
+        CodeBag.showView(tv);
     }
 
-    @Play
+    @Test
     public void showShader_r5() {
-        TextView tv = new TextView(CaseActivity.context());
+        TextView tv = new TextView(CodeBag.context());
         tv.setText("123456 张瑞");
         tv.setTextSize(50);
         tv.setTextColor(Color.GRAY);
         tv.setBackgroundColor(Color.WHITE);
         tv.setShadowLayer(5, 10, 10, Color.BLUE);
         tv.setGravity(Gravity.CENTER);
-        CaseActivity.showView(tv);
+        CodeBag.showView(tv);
     }
 
 }
