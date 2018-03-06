@@ -4,7 +4,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 
-import com.javalive09.codebag.annotation.Constant;
+import com.javalive09.annotation.Constant;
 
 import android.content.Context;
 

@@ -6,8 +6,8 @@ import android.text.TextUtils;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 
-import com.javalive09.codebag.annotation.Test;
-import com.javalive09.codebag.annotation.Tester;
+import com.javalive09.annotation.Test;
+import com.javalive09.annotation.Tester;
 
 class TesterNode implements Parcelable {
     static final int DIR = 0;

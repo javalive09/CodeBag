@@ -10,8 +10,8 @@ import android.widget.SimpleAdapter;
 import android.widget.TextView;
 
 import com.javalive09.codebag.CodeBag;
-import com.javalive09.codebag.annotation.Test;
-import com.javalive09.codebag.annotation.Tester;
+import com.javalive09.annotation.Test;
+import com.javalive09.annotation.Tester;
 import com.javalive09.demos.view.ArcView;
 import com.javalive09.demos.view.SampleView;
 import com.javalive09.demos.view.Xfermodes;

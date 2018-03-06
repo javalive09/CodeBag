@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
@@ -28,15 +27,11 @@ import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
-import java.util.ArrayList;
-import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Set;
 
-import com.javalive09.codebag.annotation.Test;
-import com.javalive09.codebag.annotation.Tester;
-
-import dalvik.system.DexFile;
+import com.javalive09.annotation.Test;
+import com.javalive09.annotation.Tester;
 
 /**
  * CodeBag 核心逻辑类

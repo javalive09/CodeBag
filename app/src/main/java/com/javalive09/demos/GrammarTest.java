@@ -1,8 +1,8 @@
 package com.javalive09.demos;
 
 import com.javalive09.codebag.CodeBag;
-import com.javalive09.codebag.annotation.Tester;
-import com.javalive09.codebag.annotation.Test;
+import com.javalive09.annotation.Tester;
+import com.javalive09.annotation.Test;
 
 import java.util.Arrays;
 import java.util.HashMap;

@@ -1,7 +1,8 @@
 package com.javalive09.demos;
 
 import com.javalive09.codebag.CodeBag;
-import com.javalive09.codebag.annotation.Tester;
+import com.javalive09.annotation.Tester;
+import com.javalive09.annotation.Test;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
@@ -9,19 +10,19 @@ import java.lang.reflect.Method;
 @Tester(name = "反射调用")
 public class Reflection {
 
-    @com.javalive09.codebag.annotation.Test(name = "反射构造器无参的对象")
+    @Test(name = "反射构造器无参的对象")
     public void newInstance_noParams() throws Exception {
         ReflectionClass reflection = ReflectionClass.class.newInstance();
         CodeBag.showText("reflection object =" + reflection);
     }
 
-    @com.javalive09.codebag.annotation.Test(name = "反射有参构造器的对象")
+    @Test(name = "反射有参构造器的对象")
     public void newInstance_haveParams() throws Exception {
         ReflectionClass reflection = ReflectionClass.class.getConstructor(String.class).newInstance("123");
         CodeBag.showText("reflection object =" + reflection);
     }
 
-    @com.javalive09.codebag.annotation.Test(name = "获取私有属性值")
+    @Test(name = "获取私有属性值")
     public void getPrivateField() {
         try {
             Field field = ReflectionClass.class.getDeclaredField("name");
@@ -33,7 +34,7 @@ public class Reflection {
         }
     }
 
-    @com.javalive09.codebag.annotation.Test(name = "设置私有属性值")
+    @Test(name = "设置私有属性值")
     public void setPrivateFiele() {
         ReflectionClass reflection = new ReflectionClass();
         try {
@@ -46,7 +47,7 @@ public class Reflection {
         CodeBag.showText("setFiled = " + reflection.getAge());
     }
 
-    @com.javalive09.codebag.annotation.Test(name = "调用无参数的私有方法")
+    @Test(name = "调用无参数的私有方法")
     public void invokePrivateMethod_no_param() {
         try {
             Method method = ReflectionClass.class.getDeclaredMethod("show", int.class);
@@ -57,7 +58,7 @@ public class Reflection {
         }
     }
 
-    @com.javalive09.codebag.annotation.Test(name = "调用含有基本类型参数的私有方法")
+    @Test(name = "调用含有基本类型参数的私有方法")
     public void invokePrivateMethod_rawType_param() {
         try {
             Method method = ReflectionClass.class.getDeclaredMethod("show", int.class);
@@ -68,18 +69,18 @@ public class Reflection {
         }
     }
 
-    @com.javalive09.codebag.annotation.Test(name = "调用含有对象类型参数的私有方法")
+    @Test(name = "调用含有对象类型参数的私有方法")
     public void invokePrivateMethod_objectType_param() {
         try {
             Method method = ReflectionClass.class.getDeclaredMethod("show", Test.class);
             method.setAccessible(true);
-            method.invoke(new ReflectionClass(), new Test());
+            method.invoke(new ReflectionClass(), new TestIt());
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    @com.javalive09.codebag.annotation.Test(name = "调用含有基本类型参, 对象类型参数的私有方法")
+    @Test(name = "调用含有基本类型参, 对象类型参数的私有方法")
     public void invokePrivateMethod_multiType_param() {
         try {
             Method method = ReflectionClass.class.getDeclaredMethod("show", int.class, String.class);
@@ -90,7 +91,7 @@ public class Reflection {
         }
     }
 
-    @com.javalive09.codebag.annotation.Test(name = "获取私有方法的返回值")
+    @Test(name = "获取私有方法的返回值")
     public void invokePrivateMethod_returnValue() {
         Object returnObj = "null";
         try {
@@ -142,7 +143,7 @@ public class Reflection {
         }
     }
 
-    class Test {
+    class TestIt {
         @Override
         public String toString() {
             return "custom class Test";

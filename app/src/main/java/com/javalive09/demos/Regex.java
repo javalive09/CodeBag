@@ -4,8 +4,8 @@ package com.javalive09.demos;
 import android.util.Patterns;
 
 import com.javalive09.codebag.CodeBag;
-import com.javalive09.codebag.annotation.Test;
-import com.javalive09.codebag.annotation.Tester;
+import com.javalive09.annotation.Test;
+import com.javalive09.annotation.Tester;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;

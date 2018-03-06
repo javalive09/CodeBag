@@ -3,8 +3,8 @@ package com.javalive09.demos.rxjava;
 
 import android.util.Log;
 
-import com.javalive09.codebag.annotation.Test;
-import com.javalive09.codebag.annotation.Tester;
+import com.javalive09.annotation.Test;
+import com.javalive09.annotation.Tester;
 
 import io.reactivex.Observable;
 
