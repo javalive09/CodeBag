@@ -2,13 +2,17 @@ package com.javalive09.demos;
 
 import com.javalive09.annotation.Test;
 import com.javalive09.annotation.Tester;
+import com.javalive09.codebag.CodeBag;
 
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 
+import android.util.Log;
 import io.reactivex.Observable;
 import io.reactivex.schedulers.Schedulers;
 
@@ -18,6 +22,34 @@ import io.reactivex.schedulers.Schedulers;
 
 @Tester(name = "shell 调用")
 public class ShellInvoke {
+
+    @Test(name = "保存log到file")
+    public void log() {
+        String logFileStr = "codebag.log";
+        CodeBag context = CodeBag.context();
+        if(context != null) {
+            File extDir = context.getExternalCacheDir();
+            File logFile = new File(extDir, logFileStr);
+            if (logFile.exists()) {
+                boolean suc = logFile.delete();
+                Log.i("ShellInvoke-log", "suc=" + suc);
+            }
+            String path = logFile.getAbsolutePath();
+            logFile(path);
+        }
+    }
+
+    @Test(name = "读取保存到file的log")
+    public void readLogFile() {
+        String logFileStr = "codebag.log";
+        CodeBag context = CodeBag.context();
+        if(context != null) {
+            File extDir = context.getExternalCacheDir();
+            File logFile = new File(extDir, logFileStr);
+            String logStr = readFromFile(logFile);
+            CodeBag.showText(logStr);
+        }
+    }
 
     @Test(name = "Home键")
     public void home() {
@@ -124,6 +156,26 @@ public class ShellInvoke {
         });
     }
 
+    private void logFile(String path) {
+        Observable.just(1).observeOn(Schedulers.io()).subscribe(integer -> {
+            ArrayList<String> commands = new ArrayList<String>();
+            commands.add("logcat");
+            commands.add("-v");
+            commands.add("threadtime");
+            commands.add("--pid");
+            commands.add(String.valueOf(android.os.Process.myPid()));
+            commands.add("-f");
+            commands.add(path);
+            commands.add("-r");
+            commands.add("10240");//kbytes
+            commands.add("-n");
+            commands.add("1");
+            commands.add("-s");
+            commands.add("*:I");
+            cmd(commands);
+        });
+    }
+
     /**
      * ArrayList<String> commands = new ArrayList<String>();
      * commands.add("cxdish");
@@ -157,5 +209,25 @@ public class ShellInvoke {
         }
         return stringBuffer.toString();
     }
+
+    private String readFromFile(File extDir) {
+        String ret = "";
+        try {
+            InputStreamReader inputStreamReader = new InputStreamReader(new FileInputStream(extDir));
+            BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+            String receiveString = "";
+            StringBuilder stringBuilder = new StringBuilder();
+            while ((receiveString = bufferedReader.readLine()) != null) {
+                stringBuilder.append(receiveString);
+            }
+            bufferedReader.close();
+            ret = stringBuilder.toString();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return ret;
+    }
+
 
 }

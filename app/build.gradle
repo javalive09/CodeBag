@@ -33,7 +33,7 @@ dependencies {
     implementation 'io.reactivex.rxjava2:rxjava:2.1.7'
 //    implementation project(':library')
 
-    implementation 'com.javalive09.codebag:codebag:1.4.3'
+    implementation 'com.javalive09.codebag:codebag:1.4.4'
     implementation 'com.javalive09.annotation:annotation:1.0.2'
     annotationProcessor 'com.javalive09.processor:processor:1.0'
 
