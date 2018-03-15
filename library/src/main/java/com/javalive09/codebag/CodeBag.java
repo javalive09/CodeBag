@@ -1,10 +1,10 @@
 package com.javalive09.codebag;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
@@ -13,6 +13,7 @@ import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
 import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -41,7 +42,7 @@ import com.javalive09.annotation.Tester;
 public class CodeBag extends Activity {
 
     private static final String CURRENT_NODE = "current_node";
-    private static HashMap<Class, CodeBag> CASES = new HashMap<>();
+    private static final HashMap<Class, CodeBag> CASES = new HashMap<>();
     private StringBuilder stringBuilder;
     private static String PACKAGE_NAME;
     private static TesterNode rootNode;
@@ -166,21 +167,21 @@ public class CodeBag extends Activity {
         }
     }
 
-//    private boolean isPlayClass(String className) {
-//        try {
-//            Class clazz = Class.forName(className);
-//            for (Method method : clazz.getDeclaredMethods()) {
-//                if (method.isAnnotationPresent(Test.class)) {
-//                    return true;
-//                }
-//            }
-//        } catch (ClassNotFoundException e) {
-//            e.printStackTrace();
-//        }
-//        return false;
-//    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                finish();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
 
     private void initView() {
+        ActionBar actionBar = getActionBar();
+        if(actionBar != null) {
+            actionBar.setDisplayHomeAsUpEnabled(true);
+        }
         setTitle(currentNode.toString());
         switch (currentNode.type) {
             case TesterNode.DIR:

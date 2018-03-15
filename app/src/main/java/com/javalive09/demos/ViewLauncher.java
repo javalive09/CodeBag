@@ -1,24 +1,31 @@
 package com.javalive09.demos;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.view.Gravity;
 import android.view.View;
 import android.webkit.WebView;
+import android.widget.AbsListView;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
 
+import com.aigestudio.wheelpicker.WheelPicker;
 import com.javalive09.codebag.CodeBag;
 import com.javalive09.annotation.Test;
 import com.javalive09.annotation.Tester;
 import com.javalive09.demos.view.ArcView;
+import com.javalive09.demos.view.NumPicker;
 import com.javalive09.demos.view.SampleView;
 import com.javalive09.demos.view.Xfermodes;
 import com.javalive09.demos.view.Xfermodes_clip;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Locale;
 
 /**
  * View launcher
@@ -79,13 +86,12 @@ public class ViewLauncher {
                 R.layout.grid_item,//night_item的XML实现
 
                 //动态数组与ImageItem对应的子项
-                new String[]{"ItemImage", "ItemText"},
+                new String[] {"ItemImage", "ItemText"},
 
                 //ImageItem的XML文件里面的一个ImageView,两个TextView ID
-                new int[]{R.id.ItemImage, R.id.ItemText});
+                new int[] {R.id.ItemImage, R.id.ItemText});
 
         game.setAdapter(saImageItems);
-
 
         GridView video = view.findViewById(R.id.video);
 
@@ -103,10 +109,10 @@ public class ViewLauncher {
                 R.layout.grid_item,//night_item的XML实现
 
                 //动态数组与ImageItem对应的子项
-                new String[]{"ItemImage", "ItemText"},
+                new String[] {"ItemImage", "ItemText"},
 
                 //ImageItem的XML文件里面的一个ImageView,两个TextView ID
-                new int[]{R.id.ItemImage, R.id.ItemText});
+                new int[] {R.id.ItemImage, R.id.ItemText});
 
         video.setAdapter(saImageItems2);
 
@@ -324,6 +330,55 @@ public class ViewLauncher {
         tv.setShadowLayer(5, 10, 10, Color.BLUE);
         tv.setGravity(Gravity.CENTER);
         CodeBag.showView(tv);
+    }
+
+    @Test(name = "时间选择器")
+    public void showNumPicker() {
+        View root = CodeBag.showView(R.layout.time_picker_layout);
+        NumPicker picker = root.findViewById(R.id.picker);
+        NumPicker.Adapter adapter = new NumPicker.Adapter(CodeBag.context());
+        picker.setAdapter(adapter);
+
+        picker.setOnScrollListener(new AbsListView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(AbsListView view, int scrollState) {
+                if (scrollState == AbsListView.OnScrollListener.SCROLL_STATE_IDLE) {
+                    int value = adapter.getValue();
+                    CodeBag.toastShort(value + "");
+                }
+            }
+
+            @Override
+            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+
+            }
+        });
+
+    }
+
+    @Test(name = "轮子时间选择器")
+    public void showWheelPicker() {
+        View root = CodeBag.showView(R.layout.wheelpicker);
+        WheelPicker wheelPicker = root.findViewById(R.id.main_wheel_left);
+
+        List<String> data = new ArrayList<>();
+        for(int i =0; i< 61; i++) {
+            data.add(String.format(Locale.getDefault() ,"%02d", i));
+        }
+        wheelPicker.setData(data);
+        wheelPicker.setOnItemSelectedListener(new WheelPicker.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(WheelPicker picker, Object data, int position) {
+//                CodeBag.toastShort(String.valueOf(data));
+                CodeBag.toastShort(Integer.valueOf(String.valueOf(data)) + "");
+            }
+        });
+    }
+
+    @Test(name = "使用action打开activity")
+    public void startActivity() {
+        final Intent intent = new Intent("duershow.settings.OTA");
+        CodeBag.context().startActivity(intent);
     }
 
 }

@@ -13,8 +13,8 @@ class TesterNode implements Parcelable {
     static final int DIR = 0;
     static final int CLASS = 1;
     static final int METHOD = 2;
-    int type;
-    String name;
+    final int type;
+    final String name;
     String className;
     ArrayList<TesterNode> mSubNodeList;
 
