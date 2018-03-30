@@ -38,28 +38,28 @@ CodeBag.Launch(MainActivity);
             public void showView() {
                 TextView textView = new TextView(PlayerActivity.context());
                 textView.setText("hello world!!");
-                CodeBag.context().showView(textView);
+                CodeBag.showView(textView);
             }
         
             @Test
             public void showText() {
-                CodeBag.context().showText("hello world!!");
+                CodeBag.showText("hello world!!");
             }
         
             @Test(name = "显示3.5秒toast")
             public void showToastLong() {
-                CodeBag.context().toastLong("hello world !!");
+                CodeBag.toastLong("hello world !!");
             }
         
             @Test(name = "显示2秒toast")
             public void showToastShort() {
-                CodeBag.context().toastShort("hello world !!");
+                CodeBag.toastShort("hello world !!");
             }
         
             @Test(name = "启动其他activity")
             public void startActivity() {
                 Intent intent = new Intent(PlayerActivity.context(), PlayerActivity.class);
-                CodeBag.context().startActivity(intent);
+                CodeBag.startActivity(intent);
             }
 
 ![](http://peter-1254131086.file.myqcloud.com/code-helloword-2018-01132130.jpg)

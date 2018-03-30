@@ -8,4 +8,7 @@
 
     <string name="v">✔️</string>
     <string name="x">✖️️</string>
+
+    <string name="who_are_you">default</string>
+
 </resources>

@@ -2,6 +2,7 @@ package com.javalive09.demos;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.media.Image;
 import android.view.Gravity;
 import android.view.View;
 import android.webkit.WebView;
@@ -378,7 +379,38 @@ public class ViewLauncher {
     @Test(name = "使用action打开activity")
     public void startActivity() {
         final Intent intent = new Intent("duershow.settings.OTA");
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         CodeBag.context().startActivity(intent);
     }
+
+    @Test(name = "从哪个文件包取资源")
+    public void getFolderName() {
+        CodeBag.showText(CodeBag.context().getResources().getString(R.string.who_are_you));
+    }
+
+    @Test(name = "启动setting")
+    public void launchSetting() {
+//        Intent intent = new Intent("com.android.duershow.settings.action.SETTINGS");
+        Intent intent = new Intent("duershow.settings.BLUETOOTH_SETTINGS");
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        CodeBag.context().startActivity(intent);
+
+    }
+
+    @Test(name = "启动setting2")
+    public void launchSetting2() {
+        Intent intent = new Intent("com.android.duershow.settings.action.dnd");
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        CodeBag.context().startActivity(intent);
+
+    }
+
+    @Test(name = "显示矢量图")
+    public void showVector() {
+        ImageView imageView = new ImageView(CodeBag.context());
+        imageView.setImageResource(R.drawable.ic_dnd);
+        CodeBag.showView(imageView);
+    }
+
 
 }
