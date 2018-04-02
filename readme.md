@@ -31,7 +31,7 @@ CodeBag.Launch(MainActivity);
 ```
 -  Create a file class with annotation of @Test method as the entrance(you can custom class name  @Tester(name = 
 "HelloWorld 示例") and custom method name as below)
-
+        @Tester
         public class HelloWorld {
         
             @Test
