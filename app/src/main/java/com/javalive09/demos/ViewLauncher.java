@@ -3,6 +3,7 @@ package com.javalive09.demos;
 import android.content.Intent;
 import android.graphics.Color;
 import android.media.Image;
+import android.provider.Settings;
 import android.view.Gravity;
 import android.view.View;
 import android.webkit.WebView;
@@ -408,9 +409,17 @@ public class ViewLauncher {
     @Test(name = "显示矢量图")
     public void showVector() {
         ImageView imageView = new ImageView(CodeBag.context());
-        imageView.setImageResource(R.drawable.ic_dnd);
+        imageView.setImageResource(R.drawable.ic_light);
         CodeBag.showView(imageView);
     }
 
+    @Test(name = "获取勿扰模式")
+    public void showZenMode() {
+        String ZEN_MODE = "zen_mode";
+//        Settings.Global.getInt(mContext.getContentResolver(), Settings.Global.ZEN_MODE, 0);
+        int result = Settings.Global.getInt(CodeBag.context().getContentResolver(), ZEN_MODE, 0);
+        CodeBag.showText("result =" + result);
+
+    }
 
 }
