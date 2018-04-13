@@ -364,14 +364,14 @@ public class ViewLauncher {
         WheelPicker wheelPicker = root.findViewById(R.id.main_wheel_left);
 
         List<String> data = new ArrayList<>();
-        for(int i =0; i< 61; i++) {
-            data.add(String.format(Locale.getDefault() ,"%02d", i));
+        for (int i = 0; i < 61; i++) {
+            data.add(String.format(Locale.getDefault(), "%02d", i));
         }
         wheelPicker.setData(data);
         wheelPicker.setOnItemSelectedListener(new WheelPicker.OnItemSelectedListener() {
             @Override
             public void onItemSelected(WheelPicker picker, Object data, int position) {
-//                CodeBag.toastShort(String.valueOf(data));
+                //                CodeBag.toastShort(String.valueOf(data));
                 CodeBag.toastShort(Integer.valueOf(String.valueOf(data)) + "");
             }
         });
@@ -389,18 +389,24 @@ public class ViewLauncher {
         CodeBag.showText(CodeBag.context().getResources().getString(R.string.who_are_you));
     }
 
-    @Test(name = "启动setting")
+    @Test(name = "action启动setting bluetooth")
     public void launchSetting() {
-//        Intent intent = new Intent("com.android.duershow.settings.action.SETTINGS");
         Intent intent = new Intent("duershow.settings.BLUETOOTH_SETTINGS");
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         CodeBag.context().startActivity(intent);
 
     }
 
-    @Test(name = "启动setting2")
+    @Test(name = "启动setting主页")
     public void launchSetting2() {
-        Intent intent = new Intent("com.android.duershow.settings.action.dnd");
+        Intent intent = new Intent(Settings.ACTION_SETTINGS);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        CodeBag.context().startActivity(intent);
+    }
+
+    @Test(name = "启动duer os setting主页")
+    public void launchSetting3() {
+        Intent intent = new Intent("duershow.settings.SETTINGS");
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         CodeBag.context().startActivity(intent);
 
@@ -416,10 +422,18 @@ public class ViewLauncher {
     @Test(name = "获取勿扰模式")
     public void showZenMode() {
         String ZEN_MODE = "zen_mode";
-//        Settings.Global.getInt(mContext.getContentResolver(), Settings.Global.ZEN_MODE, 0);
+        //        Settings.Global.getInt(mContext.getContentResolver(), Settings.Global.ZEN_MODE, 0);
         int result = Settings.Global.getInt(CodeBag.context().getContentResolver(), ZEN_MODE, 0);
         CodeBag.showText("result =" + result);
 
+    }
+
+    @Test(name = "显示阴影")
+    public void showElevation() {
+        //        ImageView imageView = new ImageView(CodeBag.context());
+        //        imageView.setImageResource(R.drawable.ic_stop_carmea);
+        //        imageView.setElevation(6.0f);
+        CodeBag.showView(R.layout.elevator);
     }
 
 }
