@@ -18,7 +18,7 @@ Import Library
 Gradle:
 add dependencies as follow
 ```
-compile 'com.javalive09.codebag:codebag:1.4.5'
+compile 'com.javalive09.codebag:codebag:1.4.7'
 implementation 'com.javalive09.annotation:annotation:1.0.2'
 annotationProcessor 'com.javalive09.processor:processor:1.0'
 ```
@@ -63,7 +63,7 @@ CodeBag.Launch(MainActivity);
                 CodeBag.startActivity(intent);
             }
 
-![](http://peter-1254131086.file.myqcloud.com/code-helloword-2018-01132130.jpg)
+![](http://peter-1254131086.costj.myqcloud.com/codebag.png)
 
 License
 -------

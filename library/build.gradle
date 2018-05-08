@@ -7,8 +7,8 @@ android {
     defaultConfig {
         minSdkVersion 14
         targetSdkVersion 26
-        versionCode 45
-        versionName "1.4.5"
+        versionCode 47
+        versionName "1.4.7"
     }
 
     buildTypes {
@@ -45,7 +45,8 @@ task('uploadJcenter') doLast {
     def bintray_key = properties.getProperty('bintray_key')
     println "bintray_user >> " + bintray_user
     println "bintray_key >> " + bintray_key
-    def uploadJcenterCMD = './gradlew clean build bintrayUpload -PbintrayUser=' + bintray_user + ' -PbintrayKey=' + bintray_key + ' -PdryRun=false'
+    def uploadJcenterCMD = '.././gradlew clean build bintrayUpload -PbintrayUser=' + bintray_user + ' -PbintrayKey=' +
+            bintray_key + ' -PdryRun=false'
     println "uploadJcenterCMD >> " + uploadJcenterCMD
     def uploadAPKResult = uploadJcenterCMD.execute().text.trim()
     println "uploadAPKResult >>>>>>>>>>>> " + uploadAPKResult

@@ -52,6 +52,7 @@ public class CodeBag extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setTheme(android.R.style.Theme_Holo);
         setContentView(contentView = new FrameLayout(CodeBag.this));
         initData(getApplicationContext());
         PACKAGE_NAME = getPackageName();
@@ -327,7 +328,7 @@ public class CodeBag extends Activity {
                 String playerActivityClassName = CodeBag.class.getName();
                 if (message.contains(PACKAGE_NAME) &&
                         !message.contains(playerActivityClassName)) {
-                    Log.e("message >>>>> ", message);
+                    Log.w("context message >>>>> ", message);
                     int simpleClassNameStartIndex = message.indexOf("(") + 1;
                     int simpleClassNameEndIndex = message.indexOf(".java:");
                     String simpleClassName = message.substring(simpleClassNameStartIndex, simpleClassNameEndIndex);
@@ -337,7 +338,7 @@ public class CodeBag extends Activity {
                     break;
                 }
             }
-            Log.e("name", name);
+            Log.w("context name", name);
             Class clazz = null;
             try {
                 clazz = Class.forName(name);
