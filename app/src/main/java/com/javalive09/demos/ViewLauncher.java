@@ -3,6 +3,8 @@ package com.javalive09.demos;
 import android.content.Intent;
 import android.graphics.Color;
 import android.media.Image;
+import android.net.Uri;
+import android.os.Bundle;
 import android.provider.Settings;
 import android.view.Gravity;
 import android.view.View;
@@ -434,6 +436,18 @@ public class ViewLauncher {
         //        imageView.setImageResource(R.drawable.ic_stop_carmea);
         //        imageView.setElevation(6.0f);
         CodeBag.showView(R.layout.elevator);
+    }
+
+    @Test(name = "============")
+    public void showContentProviderCall() {
+        String SETTINGS_URI = "content://com.baidu.duer.duershowsettings.provider";
+        String RESET = "reset";
+        String RESULT = "result";
+        Bundle bundle = CodeBag.context().getContentResolver().call(
+                Uri.parse(SETTINGS_URI), RESET, null, null);
+        boolean result = bundle.getBoolean(RESULT);
+        CodeBag.showText("result = " + result);
+
     }
 
 }
