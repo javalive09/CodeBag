@@ -1,8 +1,8 @@
 package com.javalive09.demos;
 
-import com.javalive09.annotation.Test;
-import com.javalive09.annotation.Tester;
-import com.javalive09.codebag.CodeBag;
+import com.javalive09.annotation.Run;
+import com.javalive09.annotation.Code;
+import com.javalive09.codebag.CodeActivity;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -20,93 +20,87 @@ import io.reactivex.schedulers.Schedulers;
  * Created by peter on 2018/1/10.
  */
 
-@Tester(name = "shell 调用")
+@Code(name = "shell 调用")
 public class ShellInvoke {
 
-    @Test(name = "保存log到file")
-    public void log() {
+    @Run(name = "保存log到file")
+    public void log(CodeActivity activity) {
         String logFileStr = "codebag.log";
-        CodeBag context = CodeBag.context();
-        if(context != null) {
-            File extDir = context.getExternalCacheDir();
-            File logFile = new File(extDir, logFileStr);
-            if (logFile.exists()) {
-                boolean suc = logFile.delete();
-                Log.i("ShellInvoke-log", "suc=" + suc);
-            }
-            String path = logFile.getAbsolutePath();
-            logFile(path);
+        File extDir = activity.getExternalCacheDir();
+        File logFile = new File(extDir, logFileStr);
+        if (logFile.exists()) {
+            boolean suc = logFile.delete();
+            Log.i("ShellInvoke-log", "suc=" + suc);
         }
+        String path = logFile.getAbsolutePath();
+        logFile(path);
     }
 
-    @Test(name = "读取保存到file的log")
-    public void readLogFile() {
+    @Run(name = "读取保存到file的log")
+    public void readLogFile(CodeActivity activity) {
         String logFileStr = "codebag.log";
-        CodeBag context = CodeBag.context();
-        if(context != null) {
-            File extDir = context.getExternalCacheDir();
-            File logFile = new File(extDir, logFileStr);
-            String logStr = readFromFile(logFile);
-            CodeBag.showText(logStr);
-        }
+        File extDir = activity.getExternalCacheDir();
+        File logFile = new File(extDir, logFileStr);
+        String logStr = readFromFile(logFile);
+        activity.showText(logStr);
     }
 
-    @Test(name = "Home键")
+    @Run(name = "Home键")
     public void home() {
         key(3);
     }
 
-    @Test(name = "back返回键")
+    @Run(name = "back返回键")
     public void back() {
         key(4);
     }
 
-    @Test(name = "加音量键")
+    @Run(name = "加音量键")
     public void volumeUp() {
         key(24);
     }
 
-    @Test(name = "减音量键")
+    @Run(name = "减音量键")
     public void volumeDown() {
         key(25);
     }
 
-    @Test(name = "菜单键")
+    @Run(name = "菜单键")
     public void menu() {
         key(82);
     }
 
-    @Test(name = "电话键")
+    @Run(name = "电话键")
     public void call() {
         key(5);
     }
 
-    @Test(name = "照相机键")
+    @Run(name = "照相机键")
     public void camera() {
         key(27);
     }
 
-    @Test(name = "关机键")
+    @Run(name = "关机键")
     public void power() {
         key(26);
     }
 
-    @Test(name = "静音键")
+    @Run(name = "静音键")
     public void mute() {
         key(91);
     }
 
-    @Test(name = "水平滑动屏幕")
+    @Run(name = "水平滑动屏幕")
     public void swip() {
         swip(600, 600, 1000, 600);
     }
 
-    @Test(name = "点击屏幕")
+    @Run(name = "点击屏幕")
     public void tap() {
         tap(600, 600);
     }
 
-    @Test(name = "滚动屏幕")
+    @Run(name = "滚动屏幕")
     public void roll() {
         roll(0, 900);
     }
@@ -185,6 +179,7 @@ public class ShellInvoke {
      * commands.add("0x0");
      *
      * @param commands
+     *
      * @return
      */
     public static String cmd(ArrayList<String> commands) {
@@ -228,6 +223,5 @@ public class ShellInvoke {
 
         return ret;
     }
-
 
 }

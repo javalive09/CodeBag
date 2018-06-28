@@ -2,8 +2,8 @@ package com.javalive09.demos.rxjava;
 
 import android.util.Log;
 
-import com.javalive09.annotation.Test;
-import com.javalive09.annotation.Tester;
+import com.javalive09.annotation.Run;
+import com.javalive09.annotation.Code;
 
 import java.util.concurrent.TimeUnit;
 
@@ -15,10 +15,10 @@ import io.reactivex.internal.operators.observable.ObservableCreate;
  * 创建
  */
 
-@Tester(name = "Create 创建")
+@Code(name = "Create 创建")
 public class Create {
 
-    @Test
+    @Run
     public void create() {
         new ObservableCreate<>(e -> {
             e.onNext("a");
@@ -41,34 +41,34 @@ public class Create {
         });
     }
 
-    @Test(name = "Just \n将单个数据转换为发射那个数据的Observable")
+    @Run(name = "Just \n将单个数据转换为发射那个数据的Observable")
     public void just() {
         Observable.just("a").subscribe(s -> Log.i("create", s + ""));
     }
 
-    @Test(name = "defer\n 直到有观察者订阅时才创建Observable，并且为每个观察者创建一个新的Observable")
+    @Run(name = "defer\n 直到有观察者订阅时才创建Observable，并且为每个观察者创建一个新的Observable")
     public void defer() {
         Observable.defer(() -> Observable.just(System.currentTimeMillis())).subscribe(s -> Log.i("Create", "defer = " + s));
     }
 
-    @Test(name = "fromArray \n 将数组数据类型转换为Observable")
+    @Run(name = "fromArray \n 将数组数据类型转换为Observable")
     public void fromArray() {
         Observable.fromArray("a", "b", "c", "d", "e").subscribe(s -> Log.i("Create", "from = " + s));
     }
 
-    @Test(name = "interval \n 创建一个按固定时间间隔发射整数序列的Observable")
+    @Run(name = "interval \n 创建一个按固定时间间隔发射整数序列的Observable")
     public void interval() {
         Disposable disposable = Observable.interval(1, TimeUnit.SECONDS)
                 .subscribe(aLong -> Log.i("Create", "interval = " + aLong));
         Observable.just("").delay(10, TimeUnit.SECONDS).subscribe(s -> disposable.dispose());
     }
 
-    @Test(name = "range \n 创建一个发射特定整数序列的Observable")
+    @Run(name = "range \n 创建一个发射特定整数序列的Observable")
     public void range() {
         Observable.range(3, 5).subscribe(integer -> Log.i("Create", "range = " + integer));
     }
 
-    @Test(name = "timer \n 创建一个Observable，它在一个给定的延迟后发射一个特殊的值")
+    @Run(name = "timer \n 创建一个Observable，它在一个给定的延迟后发射一个特殊的值")
     public void timer() {
         Observable.timer(2, TimeUnit.SECONDS).subscribe(aLong -> Log.i("Create", "start = " + aLong));
     }

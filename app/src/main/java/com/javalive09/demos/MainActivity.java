@@ -1,6 +1,6 @@
 package com.javalive09.demos;
 
-import com.javalive09.codebag.CodeBag;
+import com.javalive09.codebag.CodeActivity;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -18,7 +18,7 @@ public class MainActivity extends Activity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        CodeBag.Launch(this);
+        CodeActivity.Launch(this);
 
         finish();
 

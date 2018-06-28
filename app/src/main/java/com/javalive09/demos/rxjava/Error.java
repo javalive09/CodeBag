@@ -3,15 +3,15 @@ package com.javalive09.demos.rxjava;
 
 import android.util.Log;
 
-import com.javalive09.annotation.Test;
-import com.javalive09.annotation.Tester;
+import com.javalive09.annotation.Run;
+import com.javalive09.annotation.Code;
 
 import io.reactivex.Observable;
 
-@Tester(name = "错误处理")
+@Code(name = "错误处理")
 public class Error {
 
-    @Test
+    @Run
     public void retry() {
         Observable.create(subscriber -> {
             subscriber.onNext("a");
@@ -25,7 +25,7 @@ public class Error {
                 throwable -> Log.i("Error", "throwable=" + throwable.getMessage()));
     }
 
-    @Test(name = "retryWhen \n和retry类似，区别是，retryWhen将onError中的Throwable传递给一个函数，这个函数产生另一个Observable，retryWhen观察它的结果再决定是不是要重新订阅原始的Observable")
+    @Run(name = "retryWhen \n和retry类似，区别是，retryWhen将onError中的Throwable传递给一个函数，这个函数产生另一个Observable，retryWhen观察它的结果再决定是不是要重新订阅原始的Observable")
     public void retryWhen() {
         Observable.create(subscriber -> {
             subscriber.onNext("a");
@@ -41,7 +41,7 @@ public class Error {
     }
 
 
-    @Test(name = "onErrorReturn \n让Observable遇到错误时发射一个特殊的项并且正常终止")
+    @Run(name = "onErrorReturn \n让Observable遇到错误时发射一个特殊的项并且正常终止")
     public void onErrorReturn() {
         Observable.create(subscriber -> {
             subscriber.onNext("a");
@@ -55,7 +55,7 @@ public class Error {
                 throwable -> Log.i("Error", "throwable=" + throwable.getMessage()));
     }
 
-    @Test(name = "onErrorResumeNext \n让Observable在遇到错误时开始发射第二个Observable的数据序列")
+    @Run(name = "onErrorResumeNext \n让Observable在遇到错误时开始发射第二个Observable的数据序列")
     public void onErrorResumeNext() {
         Observable.create(subscriber -> {
             subscriber.onNext("a");
@@ -71,7 +71,7 @@ public class Error {
                 throwable -> Log.i("Error", "throwable=" + throwable.getMessage()));
     }
 
-    @Test(name = "onExceptionResumeNext \n让Observable在遇到错误时继续发射后面的数据项?")
+    @Run(name = "onExceptionResumeNext \n让Observable在遇到错误时继续发射后面的数据项?")
     public void onExceptionResumeNext() {
         Observable.create(subscriber -> {
             subscriber.onNext("a");

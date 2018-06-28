@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android" package="com.javalive09.codebag">
     <application>
-        <activity android:name="com.javalive09.codebag.CodeBag"/>
+        <activity android:name="com.javalive09.codebag.CodeActivity"/>
     </application>
 </manifest>

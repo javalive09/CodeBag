@@ -7,8 +7,8 @@ android {
     defaultConfig {
         minSdkVersion 14
         targetSdkVersion 26
-        versionCode 47
-        versionName "1.4.7"
+        versionCode 48
+        versionName "1.4.8"
     }
 
     buildTypes {
@@ -22,7 +22,7 @@ android {
 
 dependencies {
     implementation 'com.android.support:appcompat-v7:26.1.0'
-    implementation 'com.javalive09.annotation:annotation:1.0.2'
+    implementation 'com.javalive09.annotation:annotation:1.0.3'
 //    implementation project(':annotation')
 }
 
@@ -32,7 +32,7 @@ publish {
     artifactId = 'codebag'//项目名称
     publishVersion = android.defaultConfig.versionName//版本号
     desc = 'simple library for programmer collect code(demo, unit test ...)'//描述
-    website = 'https://github.com/javalive09/CodeBag'//网站
+    website = 'https://github.com/javalive09/CodeActivity'//网站
 }
 
 task('uploadJcenter') doLast {

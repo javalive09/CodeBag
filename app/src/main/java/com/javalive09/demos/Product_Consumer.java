@@ -2,17 +2,17 @@ package com.javalive09.demos;
 
 import android.util.Log;
 
-import com.javalive09.annotation.Test;
-import com.javalive09.annotation.Tester;
+import com.javalive09.annotation.Run;
+import com.javalive09.annotation.Code;
 
 import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Random;
 
-@Tester(point = "startRun")
+@Code(point = "startRun")
 public class Product_Consumer {
 
-    @Test(name = "生产者消费者模型")
+    @Run(name = "生产者消费者模型")
     public void startRun() {
         LinkedList<Integer> queue = new LinkedList<Integer>();
         Thread producer = new Thread(new Producer(queue, 2, "producer"));

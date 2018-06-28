@@ -1,41 +1,43 @@
 package com.javalive09.demos;
 
-import com.javalive09.codebag.CodeBag;
-import com.javalive09.annotation.Tester;
-import com.javalive09.annotation.Test;
+import com.javalive09.codebag.CodeActivity;
+import com.javalive09.annotation.Code;
+import com.javalive09.annotation.Run;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 
-@Tester(name = "反射调用")
+import android.util.Log;
+
+@Code(name = "反射调用")
 public class Reflection {
 
-    @Test(name = "反射构造器无参的对象")
-    public void newInstance_noParams() throws Exception {
+    @Run(name = "反射构造器无参的对象")
+    public void newInstance_noParams(CodeActivity activity) throws Exception {
         ReflectionClass reflection = ReflectionClass.class.newInstance();
-        CodeBag.showText("reflection object =" + reflection);
+        activity.showText("reflection object =" + reflection);
     }
 
-    @Test(name = "反射有参构造器的对象")
-    public void newInstance_haveParams() throws Exception {
+    @Run(name = "反射有参构造器的对象")
+    public void newInstance_haveParams(CodeActivity activity) throws Exception {
         ReflectionClass reflection = ReflectionClass.class.getConstructor(String.class).newInstance("123");
-        CodeBag.showText("reflection object =" + reflection);
+        activity.showText("reflection object =" + reflection);
     }
 
-    @Test(name = "获取私有属性值")
-    public void getPrivateField() {
+    @Run(name = "获取私有属性值")
+    public void getPrivateField(CodeActivity activity) {
         try {
             Field field = ReflectionClass.class.getDeclaredField("name");
             field.setAccessible(true);
             Object obj = field.get(new ReflectionClass());
-            CodeBag.showText("obj=" + obj);
+            activity.showText("obj=" + obj);
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    @Test(name = "设置私有属性值")
-    public void setPrivateFiele() {
+    @Run(name = "设置私有属性值")
+    public void setPrivateFiele(CodeActivity activity) {
         ReflectionClass reflection = new ReflectionClass();
         try {
             Field field = ReflectionClass.class.getDeclaredField("age");
@@ -44,10 +46,10 @@ public class Reflection {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        CodeBag.showText("setFiled = " + reflection.getAge());
+        activity.showText("setFiled = " + reflection.getAge());
     }
 
-    @Test(name = "调用无参数的私有方法")
+    @Run(name = "调用无参数的私有方法")
     public void invokePrivateMethod_no_param() {
         try {
             Method method = ReflectionClass.class.getDeclaredMethod("show", int.class);
@@ -58,7 +60,7 @@ public class Reflection {
         }
     }
 
-    @Test(name = "调用含有基本类型参数的私有方法")
+    @Run(name = "调用含有基本类型参数的私有方法")
     public void invokePrivateMethod_rawType_param() {
         try {
             Method method = ReflectionClass.class.getDeclaredMethod("show", int.class);
@@ -69,10 +71,10 @@ public class Reflection {
         }
     }
 
-    @Test(name = "调用含有对象类型参数的私有方法")
+    @Run(name = "调用含有对象类型参数的私有方法")
     public void invokePrivateMethod_objectType_param() {
         try {
-            Method method = ReflectionClass.class.getDeclaredMethod("show", Test.class);
+            Method method = ReflectionClass.class.getDeclaredMethod("show", TestIt.class);
             method.setAccessible(true);
             method.invoke(new ReflectionClass(), new TestIt());
         } catch (Exception e) {
@@ -80,7 +82,7 @@ public class Reflection {
         }
     }
 
-    @Test(name = "调用含有基本类型参, 对象类型参数的私有方法")
+    @Run(name = "调用含有基本类型参, 对象类型参数的私有方法")
     public void invokePrivateMethod_multiType_param() {
         try {
             Method method = ReflectionClass.class.getDeclaredMethod("show", int.class, String.class);
@@ -91,8 +93,8 @@ public class Reflection {
         }
     }
 
-    @Test(name = "获取私有方法的返回值")
-    public void invokePrivateMethod_returnValue() {
+    @Run(name = "获取私有方法的返回值")
+    public void invokePrivateMethod_returnValue(CodeActivity activity) {
         Object returnObj = "null";
         try {
             Method method = ReflectionClass.class.getDeclaredMethod("show");
@@ -101,7 +103,7 @@ public class Reflection {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        CodeBag.showText("returnObj=" + returnObj);
+        activity.showText("returnObj=" + returnObj);
     }
 
 
@@ -123,15 +125,15 @@ public class Reflection {
         }
 
         private void show(int a) {
-            CodeBag.showText("show(" + a + ")");
+            Log.i("ReflectionClass","show(" + a + ")");
         }
 
-        private void show(Test test) {
-            CodeBag.showText("show(" + test.toString() + ")");
+        private void show(TestIt test) {
+            Log.i("ReflectionClass","show(" + test.toString() + ")");
         }
 
         private void show(int a, String str) {
-            CodeBag.showText("show(" + a + "," + str + ")");
+            Log.i("ReflectionClass","show(" + a + "," + str + ")");
         }
 
         public int getAge() {

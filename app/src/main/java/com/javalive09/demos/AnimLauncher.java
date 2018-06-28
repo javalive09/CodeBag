@@ -5,9 +5,9 @@ import android.graphics.*;
 import android.view.View;
 import android.view.animation.LinearInterpolator;
 
-import com.javalive09.codebag.CodeBag;
-import com.javalive09.annotation.Tester;
-import com.javalive09.annotation.Test;
+import com.javalive09.codebag.CodeActivity;
+import com.javalive09.annotation.Code;
+import com.javalive09.annotation.Run;
 import com.javalive09.demos.anim.ChainView;
 import com.javalive09.demos.anim.CircleView;
 
@@ -15,30 +15,30 @@ import com.javalive09.demos.anim.CircleView;
  * Created by peter on 2018/1/11.
  */
 
-@Tester(name = " Animation")
+@Code(name = " Animation")
 public class AnimLauncher {
 
-    @Test(name = "锁链动画")
-    public void launchAnimChain() {
-        ChainView chain = new ChainView(CodeBag.context());
+    @Run(name = "锁链动画")
+    public void launchAnimChain(CodeActivity activity) {
+        ChainView chain = new ChainView(activity);
         chain.setBackgroundColor(Color.BLACK);
         ValueAnimator anim = ValueAnimator.ofInt(0, 900);
         anim.addUpdateListener(chain);
         anim.setDuration(3000);
         chain.postDelayed(anim::start, 1000);
-        CodeBag.showView(chain);
+        activity.setContentView(chain);
     }
 
-    @Test(name = "圆形动画")
-    public void launchAnimCircle() {
-        CodeBag.showView(new CircleView(CodeBag.context()));
+    @Run(name = "圆形动画")
+    public void launchAnimCircle(CodeActivity activity) {
+        activity.setContentView(new CircleView(activity));
     }
 
-    @Test(name = "放大镜搜索动画")
-    public void showSearchView() {
-        View view = CodeBag.showView(R.layout.searchlayout);
-        final View root = view.findViewById(R.id.root);
-        final View search = view.findViewById(R.id.search);
+    @Run(name = "放大镜搜索动画")
+    public void showSearchView(CodeActivity activity) {
+        activity.setContentView(R.layout.searchlayout);
+        final View root = activity.findViewById(R.id.root);
+        final View search = activity.findViewById(R.id.search);
         root.setVisibility(View.INVISIBLE);
         search.postDelayed(() -> {
             final int width = search.getWidth();

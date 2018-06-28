@@ -8,8 +8,8 @@ import android.view.Gravity;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 
-import com.javalive09.codebag.CodeBag;
-import com.javalive09.annotation.Test;
+import com.javalive09.codebag.CodeActivity;
+import com.javalive09.annotation.Run;
 
 /**
  * Bitmap 测试
@@ -17,60 +17,60 @@ import com.javalive09.annotation.Test;
 
 public class Bitmap {
 
-    @Test(name = "Bitmap.Config.ALPHA_8")
-    public void alpha_8() {
-        android.graphics.Bitmap mBitmap = BitmapFactory.decodeResource(CodeBag.context().getResources(), R.drawable.bitmap);
+    @Run(name = "Bitmap.Config.ALPHA_8")
+    public void alpha_8(CodeActivity activity) {
+        android.graphics.Bitmap mBitmap = BitmapFactory.decodeResource(activity.getResources(), R.drawable.bitmap);
         mBitmap = mBitmap.copy(android.graphics.Bitmap.Config.ALPHA_8, false);
-        ImageView view = new ImageView(CodeBag.context());
+        ImageView view = new ImageView(activity);
         view.setImageBitmap(mBitmap);
-        CodeBag.showView(view);
+        activity.setContentView(view);
     }
 
-    @Test(name = "Bitmap.Config.RGB_565")
-    public void rgb_565() {
-        android.graphics.Bitmap mBitmap = BitmapFactory.decodeResource(CodeBag.context().getResources(), R.drawable.bitmap);
+    @Run(name = "Bitmap.Config.RGB_565")
+    public void rgb_565(CodeActivity activity) {
+        android.graphics.Bitmap mBitmap = BitmapFactory.decodeResource(activity.getResources(), R.drawable.bitmap);
         mBitmap = mBitmap.copy(android.graphics.Bitmap.Config.RGB_565, false);
-        ImageView view = new ImageView(CodeBag.context());
+        ImageView view = new ImageView(activity);
         view.setImageBitmap(mBitmap);
-        CodeBag.showView(view);
+        activity.setContentView(view);
     }
 
-    @Test(name = "Bitmap.Config.ARGB_4444")
-    public void argb_4444() {
-        android.graphics.Bitmap mBitmap = BitmapFactory.decodeResource(CodeBag.context().getResources(), R.drawable.bitmap);
+    @Run(name = "Bitmap.Config.ARGB_4444")
+    public void argb_4444(CodeActivity activity) {
+        android.graphics.Bitmap mBitmap = BitmapFactory.decodeResource(activity.getResources(), R.drawable.bitmap);
         mBitmap = mBitmap.copy(android.graphics.Bitmap.Config.ARGB_4444, false);
-        ImageView view = new ImageView(CodeBag.context());
+        ImageView view = new ImageView(activity);
         view.setImageBitmap(mBitmap);
-        CodeBag.showView(view);
+        activity.setContentView(view);
     }
 
-    @Test(name = "Bitmap.Config.ARGB_8888")
-    public void argb_8888() {
-        android.graphics.Bitmap mBitmap = BitmapFactory.decodeResource(CodeBag.context().getResources(), R.drawable.bitmap);
+    @Run(name = "Bitmap.Config.ARGB_8888")
+    public void argb_8888(CodeActivity activity) {
+        android.graphics.Bitmap mBitmap = BitmapFactory.decodeResource(activity.getResources(), R.drawable.bitmap);
         mBitmap = mBitmap.copy(android.graphics.Bitmap.Config.ARGB_8888, false);
-        ImageView view = new ImageView(CodeBag.context());
+        ImageView view = new ImageView(activity);
         view.setImageBitmap(mBitmap);
-        CodeBag.showView(view);
+        activity.setContentView(view);
     }
 
-    @Test(name = "按比例缩放Bitmap")
-    public void drawScale() {
-        int width = DisplayUtil.dip2px(CodeBag.context(), 5);
-        int height = DisplayUtil.dip2px(CodeBag.context(), 5);
+    @Run(name = "按比例缩放Bitmap")
+    public void drawScale(CodeActivity activity) {
+        int width = DisplayUtil.dip2px(activity, 5);
+        int height = DisplayUtil.dip2px(activity, 5);
 
-        ImageView iv = new ImageView(CodeBag.context());
-        android.graphics.Bitmap src = BitmapFactory.decodeResource(CodeBag.context().getResources(), R.mipmap.ic_launcher);
+        ImageView iv = new ImageView(activity);
+        android.graphics.Bitmap src = BitmapFactory.decodeResource(activity.getResources(), R.mipmap.ic_launcher);
         android.graphics.Bitmap bm = android.graphics.Bitmap.createScaledBitmap(src, width, height, false);
         iv.setImageBitmap(bm);
-        CodeBag.showView(iv);
+        activity.setContentView(iv);
     }
 
-    @Test(name = "在Bitmap上绘线")
-    public void drawLine() {
-        int width = DisplayUtil.dip2px(CodeBag.context(), 54);
-        int height = DisplayUtil.dip2px(CodeBag.context(), 58);
+    @Run(name = "在Bitmap上绘线")
+    public void drawLine(CodeActivity activity) {
+        int width = DisplayUtil.dip2px(activity, 54);
+        int height = DisplayUtil.dip2px(activity, 58);
 
-        android.graphics.Bitmap src = BitmapFactory.decodeResource(CodeBag.context().getResources(), R.mipmap.ic_launcher);
+        android.graphics.Bitmap src = BitmapFactory.decodeResource(activity.getResources(), R.mipmap.ic_launcher);
         android.graphics.Bitmap bm = android.graphics.Bitmap.createScaledBitmap(src, width, height, false);
         android.graphics.Bitmap bitmapAltered = android.graphics.Bitmap.createBitmap(width, height, bm.getConfig());
         Canvas canvas = new Canvas(bitmapAltered);
@@ -81,7 +81,7 @@ public class Bitmap {
         canvas.drawColor(Color.WHITE);
         canvas.drawBitmap(bm, 0, 0, paint);
 
-        int paintW = DisplayUtil.dip2px(CodeBag.context(), 1);
+        int paintW = DisplayUtil.dip2px(activity, 1);
         paint.setStrokeWidth(paintW);
         paint.setFilterBitmap(true);
         canvas.drawLine(paintW, width + paintW, width - paintW, width + paintW, paint);
@@ -89,11 +89,11 @@ public class Bitmap {
         canvas.save(Canvas.ALL_SAVE_FLAG);
         canvas.restore();
 
-        ImageView iv = new ImageView(CodeBag.context());
+        ImageView iv = new ImageView(activity);
         iv.setImageBitmap(bitmapAltered);
         FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(width, height);
         params.gravity = Gravity.TOP;
-        CodeBag.showView(iv);
+        activity.setContentView(iv);
     }
 
 }

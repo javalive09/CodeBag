@@ -14,19 +14,19 @@ import android.content.Context;
  * Created by peter on 2018/3/5.
  */
 
-public class TesterNodeLoader {
+public class CodeNodeLoader {
 
-    private TesterNodeLoader() {}
+    private CodeNodeLoader() {}
 
     private static class SingletonInstance {
-        private static final TesterNodeLoader INSTANCE = new TesterNodeLoader();
+        private static final CodeNodeLoader INSTANCE = new CodeNodeLoader();
     }
 
-    static TesterNodeLoader getInstance() {
-        return TesterNodeLoader.SingletonInstance.INSTANCE;
+    static CodeNodeLoader getInstance() {
+        return CodeNodeLoader.SingletonInstance.INSTANCE;
     }
 
-    void load(TesterNode rootNode, Context context) {
+    void load(CodeNode rootNode, Context context) {
         String pkgName = context.getPackageName();
         try {
             Class<?> clazz = context.getClassLoader().loadClass(Constant.PACKAGE_NAME + "." + Constant.CLASS_NAME);
@@ -59,15 +59,15 @@ public class TesterNodeLoader {
      * @param index       游标在fileNames数组中的位置
      * @param currentNode 当前节点（作为父节点）
      */
-    void loadCodeBagNode(String className, String[] fileNames, int index, TesterNode currentNode) {
+    void loadCodeBagNode(String className, String[] fileNames, int index, CodeNode currentNode) {
         if (index > fileNames.length - 1) {
             return;
         }
         String nodeName = fileNames[index];
         if (index == fileNames.length - 1) {//数组的最后一个元素为class
-            createAndAddSubNode(className, nodeName, TesterNode.CLASS, currentNode);
+            createAndAddSubNode(className, nodeName, CodeNode.CLASS, currentNode);
         } else {//数组中其他元素为目录
-            TesterNode subNode = createAndAddSubNode(className, nodeName, TesterNode.DIR, currentNode);
+            CodeNode subNode = createAndAddSubNode(className, nodeName, CodeNode.DIR, currentNode);
             index++;
             loadCodeBagNode(className, fileNames, index, subNode);
         }
@@ -80,13 +80,13 @@ public class TesterNodeLoader {
      * @param type        子节点类型（目录/类）
      * @param currentNode 父节点
      *
-     * @return TesterNode
+     * @return CodeNode
      */
-    TesterNode createAndAddSubNode(String className, String nodeName, int type, TesterNode currentNode) {
+    CodeNode createAndAddSubNode(String className, String nodeName, int type, CodeNode currentNode) {
         if (currentNode.mSubNodeList == null) {//创建子节点列表
             currentNode.mSubNodeList = new ArrayList<>();
         } else {
-            for (TesterNode n : currentNode.mSubNodeList) {//父节点有子节点列表，则遍历一下
+            for (CodeNode n : currentNode.mSubNodeList) {//父节点有子节点列表，则遍历一下
                 if (n.name.equals(nodeName)) {
                     return n;
                 }
@@ -103,8 +103,8 @@ public class TesterNodeLoader {
      *
      * @return 节点
      */
-    private TesterNode createSubNode(String className, String nodeName, int type, TesterNode currentNode) {
-        TesterNode node = new TesterNode(nodeName, type, className);
+    private CodeNode createSubNode(String className, String nodeName, int type, CodeNode currentNode) {
+        CodeNode node = new CodeNode(nodeName, type, className);
         currentNode.mSubNodeList.add(node);
         return node;
     }

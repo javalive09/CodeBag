@@ -3,47 +3,48 @@ package com.javalive09.codebag;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.text.TextUtils;
+
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 
-import com.javalive09.annotation.Test;
-import com.javalive09.annotation.Tester;
+import com.javalive09.annotation.Run;
+import com.javalive09.annotation.Code;
 
-class TesterNode implements Parcelable {
+class CodeNode implements Parcelable {
     static final int DIR = 0;
     static final int CLASS = 1;
     static final int METHOD = 2;
     final int type;
     final String name;
     String className;
-    ArrayList<TesterNode> mSubNodeList;
+    ArrayList<CodeNode> mSubNodeList;
 
-    TesterNode(String name, int type) {
+    CodeNode(String name, int type) {
         this.name = name;
         this.type = type;
     }
 
-    TesterNode(String name, int type, String className) {
+    CodeNode(String name, int type, String className) {
         this(name, type);
         this.className = className;
     }
 
-    protected TesterNode(Parcel in) {
+    private CodeNode(Parcel in) {
         type = in.readInt();
         name = in.readString();
         className = in.readString();
-        mSubNodeList = in.createTypedArrayList(TesterNode.CREATOR);
+        mSubNodeList = in.createTypedArrayList(CodeNode.CREATOR);
     }
 
-    public static final Creator<TesterNode> CREATOR = new Creator<TesterNode>() {
+    public static final Creator<CodeNode> CREATOR = new Creator<CodeNode>() {
         @Override
-        public TesterNode createFromParcel(Parcel in) {
-            return new TesterNode(in);
+        public CodeNode createFromParcel(Parcel in) {
+            return new CodeNode(in);
         }
 
         @Override
-        public TesterNode[] newArray(int size) {
-            return new TesterNode[size];
+        public CodeNode[] newArray(int size) {
+            return new CodeNode[size];
         }
     };
 
@@ -58,16 +59,16 @@ class TesterNode implements Parcelable {
                 String classAnnotationName = "";
                 try {
                     Class<?> clazz = Class.forName(className);
-                    if (clazz.isAnnotationPresent(Tester.class)) {
-                        Tester player = clazz.getAnnotation(Tester.class);
+                    if (clazz.isAnnotationPresent(Code.class)) {
+                        Code code = clazz.getAnnotation(Code.class);
 
-                        String pointMethodAnnotationName = player.point();
+                        String pointMethodAnnotationName = code.point();
                         if (TextUtils.isEmpty(pointMethodAnnotationName)) {
-                            classAnnotationName = player.name();
+                            classAnnotationName = code.name();
                         } else {
                             Method method = clazz.getDeclaredMethod(pointMethodAnnotationName);
-                            Test play = method.getAnnotation(Test.class);
-                            String methodPlayName = play.name();
+                            Run run = method.getAnnotation(Run.class);
+                            String methodPlayName = run.name();
                             if (TextUtils.isEmpty(methodPlayName)) {
                                 classAnnotationName = method.getName();
                             } else {
@@ -92,9 +93,9 @@ class TesterNode implements Parcelable {
                     Class clazz = Class.forName(className);
                     for (Method method : clazz.getDeclaredMethods()) {
                         if (TextUtils.equals(method.getName(), name)) {
-                            if (method.isAnnotationPresent(Test.class)) {
-                                Test play = method.getAnnotation(Test.class);
-                                methodAnnotationName = play.name();
+                            if (method.isAnnotationPresent(Run.class)) {
+                                Run run = method.getAnnotation(Run.class);
+                                methodAnnotationName = run.name();
                             }
                         }
                     }

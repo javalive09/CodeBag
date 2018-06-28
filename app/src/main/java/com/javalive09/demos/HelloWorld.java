@@ -3,8 +3,8 @@ package com.javalive09.demos;
 import android.content.Intent;
 import android.widget.TextView;
 
-import com.javalive09.codebag.CodeBag;
-import com.javalive09.annotation.Test;
+import com.javalive09.codebag.CodeActivity;
+import com.javalive09.annotation.Run;
 
 /**
  * a sample for entry
@@ -14,32 +14,32 @@ import com.javalive09.annotation.Test;
 
 public class HelloWorld {
 
-    @Test
-    public void showView() {
-        TextView textView = new TextView(CodeBag.context());
+    @Run
+    public void showView(CodeActivity activity) {
+        TextView textView = new TextView(activity);
         textView.setText("hello world!!");
-        CodeBag.showView(textView);
+        activity.setContentView(textView);
     }
 
-    @Test
-    public void showText() {
-        CodeBag.showText("hello world!!");
+    @Run
+    public void showText(CodeActivity activity) {
+        activity.showText("hello world!!");
     }
 
-    @Test(name = "显示3.5秒toast")
-    public void showToastLong() {
-        CodeBag.context().toastLong("hello world !!");
+    @Run(name = "显示3.5秒toast")
+    public void showToastLong(CodeActivity activity) {
+        activity.toastLong("hello world !!");
     }
 
-    @Test(name = "显示2秒toast")
-    public void showToastShort() {
-        CodeBag.context().toastShort("hello world !!");
+    @Run(name = "显示2秒toast")
+    public void showToastShort(CodeActivity activity) {
+        activity.toastShort("hello world !!");
     }
 
-    @Test(name = "启动其他activity")
-    public void startActivity() {
-        Intent intent = new Intent(CodeBag.context(), CodeBag.class);
-        CodeBag.context().startActivity(intent);
+    @Run(name = "启动其他activity")
+    public void startActivity(CodeActivity activity) {
+        Intent intent = new Intent(activity, CodeActivity.class);
+        activity.startActivity(intent);
     }
 
 }

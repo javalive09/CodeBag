@@ -1,16 +1,16 @@
 package com.javalive09.demos;
 
-import com.javalive09.codebag.CodeBag;
-import com.javalive09.annotation.Test;
-import com.javalive09.annotation.Tester;
+import com.javalive09.codebag.CodeActivity;
+import com.javalive09.annotation.Run;
+import com.javalive09.annotation.Code;
 
-@Tester(name = "递归模型")
+@Code(name = "递归模型")
 public class Recursion {
 
-    @Test(name = "阶乘")
-    public void factorial() {
+    @Run(name = "阶乘")
+    public void factorial(CodeActivity activity) {
         int result = factorial(5);
-        CodeBag.showText("result = " + result);
+        activity.showText("result = " + result);
     }
 
     private int factorial(int n) {

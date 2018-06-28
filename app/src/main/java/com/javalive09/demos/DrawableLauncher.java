@@ -18,23 +18,23 @@ import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
-import com.javalive09.codebag.CodeBag;
-import com.javalive09.annotation.Test;
-import com.javalive09.annotation.Tester;
+import com.javalive09.codebag.CodeActivity;
+import com.javalive09.annotation.Run;
+import com.javalive09.annotation.Code;
 import com.javalive09.demos.drawable.TextDrawable;
 
 import java.util.Random;
 
-@Tester(name = "Drawable")
+@Code(name = "Drawable")
 public class DrawableLauncher {
 
-    @Test(name = "clipDrawable 剪切类drawable")
-    public void showClipDrawable() {
-        android.graphics.Bitmap b = BitmapFactory.decodeResource(CodeBag.context().getResources(), R.drawable.bitmap);
-        BitmapDrawable d = new BitmapDrawable(CodeBag.context().getResources(), b);
+    @Run(name = "clipDrawable 剪切类drawable")
+    public void showClipDrawable(CodeActivity activity) {
+        android.graphics.Bitmap b = BitmapFactory.decodeResource(activity.getResources(), R.drawable.bitmap);
+        BitmapDrawable d = new BitmapDrawable(activity.getResources(), b);
         ClipDrawable cd = new ClipDrawable(d, Gravity.LEFT, ClipDrawable.HORIZONTAL);
 
-        ImageView iv = new ImageView(CodeBag.context());
+        ImageView iv = new ImageView(activity);
         iv.setBackgroundDrawable(cd);
         cd.setLevel(0);
 
@@ -44,14 +44,14 @@ public class DrawableLauncher {
             int level = (Integer) animation.getAnimatedValue();
             cd.setLevel(level);
         });
-        CodeBag.showView(iv);
+        activity.setContentView(iv);
         iv.post(va::start);
     }
 
-    @Test(name = "clipDrawable xml 剪切类drawable")
-    public void showClipDrawable_xml() {
-        ClipDrawable cd = (ClipDrawable) CodeBag.context().getResources().getDrawable(R.drawable.clip_drawable);
-        ImageView iv = new ImageView(CodeBag.context());
+    @Run(name = "clipDrawable xml 剪切类drawable")
+    public void showClipDrawable_xml(CodeActivity activity) {
+        ClipDrawable cd = (ClipDrawable) activity.getResources().getDrawable(R.drawable.clip_drawable);
+        ImageView iv = new ImageView(activity);
         ValueAnimator va = ValueAnimator.ofInt(0, 10000);
         va.setDuration(1000);
         va.addUpdateListener(animation -> {
@@ -59,29 +59,29 @@ public class DrawableLauncher {
             cd.setLevel(level);
         });
         iv.setBackgroundDrawable(cd);
-        CodeBag.showView(iv);
+        activity.setContentView(iv);
         iv.post(va::start);
     }
 
-    @Test(name = "TextDrawable 显示text的Drawable")
-    public void showTextDrawable() {
-        TextDrawable drawable = new TextDrawable(CodeBag.context());
+    @Run(name = "TextDrawable 显示text的Drawable")
+    public void showTextDrawable(CodeActivity activity) {
+        TextDrawable drawable = new TextDrawable(activity);
         drawable.setText(1, 20);
-        ImageView imageView = new ImageView(CodeBag.context());
+        ImageView imageView = new ImageView(activity);
         imageView.setBackgroundDrawable(drawable);
-        CodeBag.showView(imageView);
+        activity.setContentView(imageView);
         Random r = new Random();
         imageView.setOnClickListener((v) -> drawable.setText(r.nextInt(100), 20));
     }
 
-    public void showAnimationDrawable() {
+    public void showAnimationDrawable(CodeActivity activity) {
         AnimationDrawable ad = new AnimationDrawable();
-        android.graphics.Bitmap bitmap0 = BitmapFactory.decodeResource(CodeBag.context().getResources(), R.drawable.wifi0);
-        android.graphics.Bitmap bitmap1 = BitmapFactory.decodeResource(CodeBag.context().getResources(), R.drawable.wifi1);
-        android.graphics.Bitmap bitmap2 = BitmapFactory.decodeResource(CodeBag.context().getResources(), R.drawable.wifi2);
-        android.graphics.Bitmap bitmap3 = BitmapFactory.decodeResource(CodeBag.context().getResources(), R.drawable.wifi3);
-        android.graphics.Bitmap bitmap4 = BitmapFactory.decodeResource(CodeBag.context().getResources(), R.drawable.wifi4);
-        android.graphics.Bitmap bitmap5 = BitmapFactory.decodeResource(CodeBag.context().getResources(), R.drawable.wifi5);
+        android.graphics.Bitmap bitmap0 = BitmapFactory.decodeResource(activity.getResources(), R.drawable.wifi0);
+        android.graphics.Bitmap bitmap1 = BitmapFactory.decodeResource(activity.getResources(), R.drawable.wifi1);
+        android.graphics.Bitmap bitmap2 = BitmapFactory.decodeResource(activity.getResources(), R.drawable.wifi2);
+        android.graphics.Bitmap bitmap3 = BitmapFactory.decodeResource(activity.getResources(), R.drawable.wifi3);
+        android.graphics.Bitmap bitmap4 = BitmapFactory.decodeResource(activity.getResources(), R.drawable.wifi4);
+        android.graphics.Bitmap bitmap5 = BitmapFactory.decodeResource(activity.getResources(), R.drawable.wifi5);
 
         ad.addFrame(new BitmapDrawable(bitmap0), 200);
         ad.addFrame(new BitmapDrawable(bitmap1), 200);
@@ -91,39 +91,39 @@ public class DrawableLauncher {
         ad.addFrame(new BitmapDrawable(bitmap5), 200);
 
         ad.setOneShot(false);
-        FrameLayout fl = new FrameLayout(CodeBag.context());
-        ImageView iv = new ImageView(CodeBag.context());
+        FrameLayout fl = new FrameLayout(activity);
+        ImageView iv = new ImageView(activity);
         iv.setBackgroundDrawable(ad);
         FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         params.gravity = Gravity.CENTER | Gravity.CENTER_HORIZONTAL;
         fl.addView(iv, params);
         fl.setBackgroundColor(Color.WHITE);
-        CodeBag.showView(fl);
+        activity.setContentView(fl);
         ad.start();
     }
 
-    @Test
-    public void showAnimationDrawable_xml() {
-        AnimationDrawable ad = (AnimationDrawable) CodeBag.context().getResources().getDrawable(R.drawable.animation_drawable);
+    @Run
+    public void showAnimationDrawable_xml(CodeActivity activity) {
+        AnimationDrawable ad = (AnimationDrawable) activity.getResources().getDrawable(R.drawable.animation_drawable);
 
         ad.setOneShot(false);
-        FrameLayout fl = new FrameLayout(CodeBag.context());
-        ImageView iv = new ImageView(CodeBag.context());
+        FrameLayout fl = new FrameLayout(activity);
+        ImageView iv = new ImageView(activity);
         iv.setBackgroundDrawable(ad);
         FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         params.gravity = Gravity.CENTER | Gravity.CENTER_HORIZONTAL;
         fl.addView(iv, params);
         fl.setBackgroundColor(Color.WHITE);
-        CodeBag.showView(fl);
+        activity.setContentView(fl);
         ad.start();
     }
 
-    @Test
-    public void showLevelListDrawable_xml() {
-        View v = CodeBag.showView(R.layout.drawable_level_list);
-        ImageView iv = v.findViewById(R.id.image);
+    @Run
+    public void showLevelListDrawable_xml(CodeActivity activity) {
+        activity.setContentView(R.layout.drawable_level_list);
+        ImageView iv = activity.findViewById(R.id.image);
         LevelListDrawable ad = (LevelListDrawable) iv.getBackground();
-        v.findViewById(R.id.next).setOnClickListener(v1 -> {
+        activity.findViewById(R.id.next).setOnClickListener(v1 -> {
             int level = ad.getLevel();
             level++;
             if (level < 6) {
@@ -134,14 +134,14 @@ public class DrawableLauncher {
         });
     }
 
-    @Test
-    public void showLevelListDrawable() {
-        android.graphics.Bitmap bitmap0 = BitmapFactory.decodeResource(CodeBag.context().getResources(), R.drawable.wifi0);
-        android.graphics.Bitmap bitmap1 = BitmapFactory.decodeResource(CodeBag.context().getResources(), R.drawable.wifi1);
-        android.graphics.Bitmap bitmap2 = BitmapFactory.decodeResource(CodeBag.context().getResources(), R.drawable.wifi2);
-        android.graphics.Bitmap bitmap3 = BitmapFactory.decodeResource(CodeBag.context().getResources(), R.drawable.wifi3);
-        android.graphics.Bitmap bitmap4 = BitmapFactory.decodeResource(CodeBag.context().getResources(), R.drawable.wifi4);
-        android.graphics.Bitmap bitmap5 = BitmapFactory.decodeResource(CodeBag.context().getResources(), R.drawable.wifi5);
+    @Run
+    public void showLevelListDrawable(CodeActivity activity) {
+        android.graphics.Bitmap bitmap0 = BitmapFactory.decodeResource(activity.getResources(), R.drawable.wifi0);
+        android.graphics.Bitmap bitmap1 = BitmapFactory.decodeResource(activity.getResources(), R.drawable.wifi1);
+        android.graphics.Bitmap bitmap2 = BitmapFactory.decodeResource(activity.getResources(), R.drawable.wifi2);
+        android.graphics.Bitmap bitmap3 = BitmapFactory.decodeResource(activity.getResources(), R.drawable.wifi3);
+        android.graphics.Bitmap bitmap4 = BitmapFactory.decodeResource(activity.getResources(), R.drawable.wifi4);
+        android.graphics.Bitmap bitmap5 = BitmapFactory.decodeResource(activity.getResources(), R.drawable.wifi5);
 
         LevelListDrawable ad = new LevelListDrawable();
         ad.addLevel(0, 0, new BitmapDrawable(bitmap0));
@@ -151,14 +151,14 @@ public class DrawableLauncher {
         ad.addLevel(4, 4, new BitmapDrawable(bitmap4));
         ad.addLevel(5, 5, new BitmapDrawable(bitmap5));
 
-        FrameLayout fl = new FrameLayout(CodeBag.context());
-        ImageView iv = new ImageView(CodeBag.context());
+        FrameLayout fl = new FrameLayout(activity);
+        ImageView iv = new ImageView(activity);
         iv.setBackgroundDrawable(ad);
         FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         params.gravity = Gravity.CENTER | Gravity.CENTER_HORIZONTAL;
         fl.addView(iv, params);
 
-        Button start = new Button(CodeBag.context());
+        Button start = new Button(activity);
         start.setText("next");
         start.setOnClickListener(v -> {
             int level = ad.getLevel();
@@ -175,36 +175,36 @@ public class DrawableLauncher {
         fl.addView(start, params2);
         fl.setBackgroundColor(Color.WHITE);
 
-        CodeBag.showView(fl);
+        activity.setContentView(fl);
     }
 
-    @Test(name = "InsetDrawable 嵌入Drawable")
-    public void showInsetDrawable() {
-        ImageView imageView = new ImageView(CodeBag.context());
+    @Run(name = "InsetDrawable 嵌入Drawable")
+    public void showInsetDrawable(CodeActivity activity) {
+        ImageView imageView = new ImageView(activity);
         imageView.setBackgroundResource(R.drawable.insetdrawable);
-        CodeBag.showView(imageView);
+        activity.setContentView(imageView);
     }
 
-    @Test(name = "LayerList 图片累加")
-    public void showLayerlist() {
-        TextView tv = new TextView(CodeBag.context());
+    @Run(name = "LayerList 图片累加")
+    public void showLayerlist(CodeActivity activity) {
+        TextView tv = new TextView(activity);
         tv.setText("kajd;fkaj;dfkj");
         tv.setBackgroundResource(R.drawable.layer_list);
-        CodeBag.showView(tv);
+        activity.setContentView(tv);
     }
 
-    @Test(name = "TransitionDrawable 过渡drawable")
-    public void showTransitionDrawable() {
-        View v = View.inflate(CodeBag.context(), R.layout.drawable_transition, null);
+    @Run(name = "TransitionDrawable 过渡drawable")
+    public void showTransitionDrawable(CodeActivity activity) {
+        View v = View.inflate(activity, R.layout.drawable_transition, null);
         ImageView iv = v.findViewById(R.id.image);
         final TransitionDrawable trans = (TransitionDrawable) iv.getDrawable();
         v.setOnClickListener(v1 -> trans.reverseTransition(2000));
-        CodeBag.showView(v);
+        activity.setContentView(v);
     }
 
-    @Test(name = "ScaleDrawable 缩放drawable")
-    public void showScaleDrawable() {
-        View v = View.inflate(CodeBag.context(), R.layout.drawable_scale, null);
+    @Run(name = "ScaleDrawable 缩放drawable")
+    public void showScaleDrawable(CodeActivity activity) {
+        View v = View.inflate(activity, R.layout.drawable_scale, null);
         ImageView iv = v.findViewById(R.id.image);
         final ScaleDrawable sd = (ScaleDrawable) iv.getBackground();
         sd.setLevel(10000);
@@ -226,24 +226,24 @@ public class DrawableLauncher {
             }
         });
 
-        CodeBag.showView(v);
+        activity.setContentView(v);
     }
 
-    @Test(name = "综合类Shape图形 shape使用必须关闭硬件加速")
-    public void showNormalShape() {
-        CodeBag.showView(R.layout.shape);//shape使用必须关闭硬件加速
+    @Run(name = "综合类Shape图形 shape使用必须关闭硬件加速")
+    public void showNormalShape(CodeActivity activity) {
+        activity.setContentView(R.layout.shape);//shape使用必须关闭硬件加速
     }
 
-    @Test(name = "stroke 线图 shape使用必须关闭硬件加速")
-    public void showLineShape() {
-        CodeBag.showView(R.layout.line);//shape使用必须关闭硬件加速
+    @Run(name = "stroke 线图 shape使用必须关闭硬件加速")
+    public void showLineShape(CodeActivity activity) {
+        activity.setContentView(R.layout.line);//shape使用必须关闭硬件加速
     }
 
-    @Test(name = "GradientShape 渐变图形 shape使用必须关闭硬件加速")
-    public void showGradientShape() {
-        FrameLayout fl = new FrameLayout(CodeBag.context());
+    @Run(name = "GradientShape 渐变图形 shape使用必须关闭硬件加速")
+    public void showGradientShape(CodeActivity activity) {
+        FrameLayout fl = new FrameLayout(activity);
         fl.setBackgroundResource(R.drawable.gradient);
-        CodeBag.showView(fl);
+        activity.setContentView(fl);
     }
 
 

@@ -2,17 +2,17 @@ package com.javalive09.demos;
 
 import android.content.pm.PackageInfo;
 
-import com.javalive09.codebag.CodeBag;
-import com.javalive09.annotation.Test;
+import com.javalive09.codebag.CodeActivity;
+import com.javalive09.annotation.Run;
 
 public class PackageManager {
 
-    @Test(name = "应用版本versionName")
-    public void appVersionName() {
-        android.content.pm.PackageManager manager = CodeBag.context().getPackageManager();
+    @Run(name = "应用版本versionName")
+    public void appVersionName(CodeActivity activity) {
+        android.content.pm.PackageManager manager = activity.getPackageManager();
         try {
-            PackageInfo info = manager.getPackageInfo(CodeBag.context().getPackageName(), 0);
-            CodeBag.showText(info.versionName);
+            PackageInfo info = manager.getPackageInfo(activity.getPackageName(), 0);
+            activity.showText(info.versionName);
         } catch (android.content.pm.PackageManager.NameNotFoundException e) {
             e.printStackTrace();
         }

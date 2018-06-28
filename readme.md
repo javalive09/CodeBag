@@ -18,9 +18,9 @@ Import Library
 Gradle:
 add dependencies as follow
 ```
-compile 'com.javalive09.codebag:codebag:1.4.7'
-implementation 'com.javalive09.annotation:annotation:1.0.2'
-annotationProcessor 'com.javalive09.processor:processor:1.0'
+compile 'com.javalive09.codebag:codebag:1.4.8'
+implementation 'com.javalive09.annotation:annotation:1.0.3'
+annotationProcessor 'com.javalive09.processor:processor:1.2'
 ```
 
 Usage
@@ -29,39 +29,42 @@ Usage
 ```
 CodeBag.Launch(MainActivity);
 ```
--  Create a file class with annotation of @Test method as the entrance(you can custom class name  @Tester(name = 
-"HelloWorld 示例") and custom method name as below)
+-  Create a file class with annotation of @Run method(method parameters must be CodeActivity) as the entrance(you can 
+custom class name  @Code(name = "HelloWorld 示例") and custom method name as below)
         
-        @Tester
+        
         public class HelloWorld {
         
-            @Test
-            public void showView() {
-                TextView textView = new TextView(PlayerActivity.context());
+            @Run
+            public void showView(CodeActivity activity) {
+                TextView textView = new TextView(activity);
                 textView.setText("hello world!!");
-                CodeBag.showView(textView);
+                activity.setContentView(textView);
             }
         
-            @Test
-            public void showText() {
-                CodeBag.showText("hello world!!");
+            @Run
+            public void showText(CodeActivity activity) {
+                activity.showText("hello world!!");
             }
         
-            @Test(name = "显示3.5秒toast")
-            public void showToastLong() {
-                CodeBag.toastLong("hello world !!");
+            @Run(name = "显示3.5秒toast")
+            public void showToastLong(CodeActivity activity) {
+                activity.toastLong("hello world !!");
             }
         
-            @Test(name = "显示2秒toast")
-            public void showToastShort() {
-                CodeBag.toastShort("hello world !!");
+            @Run(name = "显示2秒toast")
+            public void showToastShort(CodeActivity activity) {
+                activity.toastShort("hello world !!");
             }
         
-            @Test(name = "启动其他activity")
-            public void startActivity() {
-                Intent intent = new Intent(PlayerActivity.context(), PlayerActivity.class);
-                CodeBag.startActivity(intent);
+            @Run(name = "启动其他activity")
+            public void startActivity(CodeActivity activity) {
+                Intent intent = new Intent(activity, CodeActivity.class);
+                activity.startActivity(intent);
             }
+        
+        }
+        
 
 ![](http://peter-1254131086.costj.myqcloud.com/codebag.png)
 

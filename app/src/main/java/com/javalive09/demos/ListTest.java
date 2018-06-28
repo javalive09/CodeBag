@@ -1,19 +1,19 @@
 package com.javalive09.demos;
 
-import com.javalive09.codebag.CodeBag;
-import com.javalive09.annotation.Tester;
-import com.javalive09.annotation.Test;
+import com.javalive09.codebag.CodeActivity;
+import com.javalive09.annotation.Code;
+import com.javalive09.annotation.Run;
 
 import java.util.ArrayList;
 
 /**
  * List的一些特性测试
  */
-@Tester(name = "List特性")
+@Code(name = "List特性")
 public class ListTest {
 
-    @Test(name = "addAll之后原来元素的index")
-    public void addAllIndex() {
+    @Run(name = "addAll之后原来元素的index")
+    public void addAllIndex(CodeActivity activity) {
         ArrayList arrayList = new ArrayList();
         Object o = new Object();
         arrayList.add(o);
@@ -24,29 +24,29 @@ public class ListTest {
         arrayList.addAll(arrayList2);
 
         int index = arrayList.indexOf(o);
-        CodeBag.showText(index + "");
+        activity.showText(index + "");
     }
 
-    @Test(name = "add不同元素在0位置上")
-    public void AddDifferentObject() {
+    @Run(name = "add不同元素在0位置上")
+    public void AddDifferentObject(CodeActivity activity) {
         ArrayList a = new ArrayList();
         a.add("a");
         a.add("b");
         a.add("c");
         a.add("d");
         a.add(0, "e");
-        CodeBag.showText(a.toString());
+        activity.showText(a.toString());
     }
 
-    @Test(name = "add相同元素在0位置上")
-    public void AddSameObject() {
+    @Run(name = "add相同元素在0位置上")
+    public void AddSameObject(CodeActivity activity) {
         ArrayList a = new ArrayList();
         a.add("a");
         a.add("b");
         a.add("c");
         a.add("d");
         a.add(0, "a");
-        CodeBag.showText(a.toString());
+        activity.showText(a.toString());
     }
 
 }

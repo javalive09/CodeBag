@@ -4,9 +4,9 @@ import android.graphics.Color;
 import android.net.Uri;
 import android.widget.TextView;
 
-import com.javalive09.codebag.CodeBag;
-import com.javalive09.annotation.Test;
-import com.javalive09.annotation.Tester;
+import com.javalive09.codebag.CodeActivity;
+import com.javalive09.annotation.Run;
+import com.javalive09.annotation.Code;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
@@ -16,40 +16,44 @@ import java.util.Date;
 import java.util.Locale;
 import java.util.StringTokenizer;
 
-@Tester(name = "字符串")
+@Code(name = "字符串")
 public class StringTest {
 
-    @Test(name = "空格分隔字符串 33 19 * * *")
-    public void splitSpace() {
+    @Run(name = "空格分隔字符串 33 19 * * *")
+    public void splitSpace(CodeActivity activity) {
         String str = "33 19 * * *";
         String[] strings = str.split(" ");
-        CodeBag.showText(strings[0] + strings[1] + strings[2] + strings[3] + strings[4]);
+        activity.showText(strings[0] + strings[1] + strings[2] + strings[3] + strings[4]);
     }
 
-    @Test(name = "点分隔字符串 com.codebag.code.function.fragment.MyFragmentActivity")
-    public void splitDot() {
+    @Run(name = "点分隔字符串 com.codebag.code.function.fragment.MyFragmentActivity")
+    public void splitDot(CodeActivity activity) {
         String str = "com.codebag.code.function.fragment.MyFragmentActivity";
         String[] s = str.split("\\.");
-        CodeBag.showText("" + s[s.length - 1]);
+        activity.showText("" + s[s.length - 1]);
     }
 
-    @Test(name = "Tokenizer分隔字符串 com.codebag.code.function.fragment.MyFragmentActivity")
-    public void splitByTokenizer() {
+    @Run(name = "Tokenizer分隔字符串 com.codebag.code.function.fragment.MyFragmentActivity")
+    public void splitByTokenizer(CodeActivity activity) {
         String str = "com.codebag.code.function.fragment.MyFragmentActivity";
         StringTokenizer token = new StringTokenizer(str, ".");
+        String strings = "";
         while (token.hasMoreTokens()) {
-            CodeBag.addText(token.nextToken());
+            strings += token.nextToken();
         }
-        CodeBag.showAddedText();
+        activity.showText(strings);
     }
 
-    public void encodeUrl() {
-        String url = "http://192.168.230.119:1999/package/?mix=%E6%AD%A3%E5%B8%B8%E6%89%93%E5%8C%85&type=%E6%B5%8B%E8%AF%95%E5%8C%85&log=%E6%89%93%E5%8D%B0%E6%97%A5%E5%BF%97&branch=rl_p_v1.1.0_c_v1.1.0&mail=792387725%40qq.com%2C";
+    public void encodeUrl(CodeActivity activity) {
+        String url =
+                "http://192.168.230.119:1999/package/?mix=%E6%AD%A3%E5%B8%B8%E6%89%93%E5%8C%85&type=%E6%B5%8B%E8%AF"
+                        + "%95%E5%8C%85&log=%E6%89%93%E5%8D%B0%E6%97%A5%E5%BF%97&branch=rl_p_v1.1.0_c_v1.1.0&mail"
+                        + "=792387725%40qq.com%2C";
         try {
             String decodeUrl = URLDecoder.decode(url, Charset.defaultCharset().name());
-            CodeBag.addText("url=" + url);
-            CodeBag.addText("decodeUrl=" + decodeUrl);
-            CodeBag.showAddedText();
+            String str = "url=" + url;
+            str += "decodeUrl=" + decodeUrl;
+            activity.showText(str);
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
@@ -71,65 +75,65 @@ public class StringTest {
      * %s   （表示字符串）
      * 参考：http://examples.javacodegeeks.com/core-java/lang/string/java-string-format-example/
      */
-    public void format_string() {
-        String nameFormat = CodeBag.context().getResources().getString(R.string.format_test_name);
+    public void format_string(CodeActivity activity) {
+        String nameFormat = activity.getResources().getString(R.string.format_test_name);
         String name = String.format(nameFormat, "张瑞");
-        TextView tv = new TextView(CodeBag.context());
+        TextView tv = new TextView(activity);
         tv.setBackgroundColor(Color.WHITE);
         tv.setText(name);
-        CodeBag.showView(tv);
+        activity.setContentView(tv);
     }
 
-    public void format_string_string() {
-        String nameFormat = CodeBag.context().getResources().getString(R.string.format_test_name_place);
+    public void format_string_string(CodeActivity activity) {
+        String nameFormat = activity.getResources().getString(R.string.format_test_name_place);
         String name = String.format(nameFormat, "张瑞", "辽宁");
-        TextView tv = new TextView(CodeBag.context());
+        TextView tv = new TextView(activity);
         tv.setBackgroundColor(Color.WHITE);
         tv.setText(name);
-        CodeBag.showView(tv);
+        activity.setContentView(tv);
     }
 
-    public void format_int() {
-        String nameFormat = CodeBag.context().getResources().getString(R.string.format_test_old);
+    public void format_int(CodeActivity activity) {
+        String nameFormat = activity.getResources().getString(R.string.format_test_old);
         String name = String.format(nameFormat, 20);
-        TextView tv = new TextView(CodeBag.context());
+        TextView tv = new TextView(activity);
         tv.setBackgroundColor(Color.WHITE);
         tv.setText(name);
-        CodeBag.showView(tv);
+        activity.setContentView(tv);
     }
 
-    public void format_int_string() {
-        String nameFormat = CodeBag.context().getResources().getString(R.string.format_test_name_place_old);
+    public void format_int_string(CodeActivity activity) {
+        String nameFormat = activity.getResources().getString(R.string.format_test_name_place_old);
         String name = String.format(nameFormat, "张瑞", "辽宁", 20);
-        TextView tv = new TextView(CodeBag.context());
+        TextView tv = new TextView(activity);
         tv.setBackgroundColor(Color.WHITE);
         tv.setText(name);
-        CodeBag.showView(tv);
+        activity.setContentView(tv);
     }
 
     /**
      * 日期格式化输出
      * https://docs.oracle.com/javase/7/docs/api/java/text/SimpleDateFormat.html
      */
-    @Test(name = "日期格式化输出 SimpleDateFormat")
-    public void simpleDateFormat() {
+    @Run(name = "日期格式化输出 SimpleDateFormat")
+    public void simpleDateFormat(CodeActivity activity) {
         SimpleDateFormat sdfZ = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss Z", Locale.CHINA);
         Date date = new Date();
-        CodeBag.showText(sdfZ.format(date));
+        activity.showText(sdfZ.format(date));
     }
 
-    @Test(name = "sdcard apk file url")
-    public void uri() {
+    @Run(name = "sdcard apk file url")
+    public void uri(CodeActivity activity) {
         String path = "file:///storage/emulated/0/XUIP/App/xui_music.apk";
         Uri uri = Uri.parse(path);
-        CodeBag.addText("uri : " + path);
+        String string = "uri : " + path;
         String realPath = uri.getPath(); //  /storage/emulated/0/XUIP/App/xui_music.apk
-        CodeBag.addText("uri realPath : " + realPath);
-        CodeBag.showAddedText();
+        string += "uri realPath : " + realPath;
+        activity.showText(string);
     }
 
-    @Test(name = "根据栈信息获取Class名字")
-    public void getClassNameByString() {
+    @Run(name = "根据栈信息获取Class名字")
+    public void getClassNameByString(CodeActivity activity) {
         String s = "\tat com.javalive09.demos.ThreadTest.timer(ThreadTest.java:126)";
         String packageName = "com.javalive09.demos";
 
@@ -137,17 +141,13 @@ public class StringTest {
         int simpleClassNameEndIndex = s.indexOf(".java:");
         String simpleClassName = s.substring(simpleClassNameStartIndex, simpleClassNameEndIndex);
 
-
         int classStartIndex = s.indexOf(packageName);
         int classEndIndex = s.indexOf("." + simpleClassName + ".");
         String className = s.substring(classStartIndex, classEndIndex) + "." + simpleClassName;
-
-
-        CodeBag.addText(simpleClassName);
-        CodeBag.addText(className);
-        CodeBag.showAddedText();
+        String str = simpleClassName;
+        str += className;
+        activity.showText(str);
 
     }
-
 
 }
