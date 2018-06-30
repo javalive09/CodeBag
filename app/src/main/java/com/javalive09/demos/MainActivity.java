@@ -1,5 +1,6 @@
 package com.javalive09.demos;
 
+
 import com.javalive09.codebag.CodeActivity;
 
 import android.app.Activity;
@@ -17,10 +18,7 @@ public class MainActivity extends Activity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        CodeActivity.Launch(this);
-
+        CodeActivity.launch(MainActivity.this);
         finish();
-
     }
 }

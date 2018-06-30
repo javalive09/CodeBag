@@ -1,10 +1,15 @@
 package com.javalive09.demos;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
+import android.os.PowerManager;
 import android.provider.Settings;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.webkit.WebView;
@@ -451,6 +456,24 @@ public class ViewLauncher {
         intent.putExtra(":settings:show_fragment_url", "https://www.baidu.com/");
         intent.putExtra(":settings:show_fragment_title", "百度");
         activity.startActivity(intent);
+
+    }
+
+    @Run(name = "测试亮屏")
+    public void testLock(CodeActivity activity) {
+        activity.showText("亮屏");
+        Handler handler = new Handler(Looper.getMainLooper());
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                PowerManager pManager = (PowerManager) activity.getSystemService(Context.POWER_SERVICE);
+                PowerManager.WakeLock mWakeLock = pManager.newWakeLock(PowerManager.FULL_WAKE_LOCK
+                        | PowerManager.ACQUIRE_CAUSES_WAKEUP, "DND");
+                mWakeLock.acquire();
+                Log.e("peter", "acquire");
+            }
+        }, 60 * 1000);
+
     }
 
 

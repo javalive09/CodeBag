@@ -20,6 +20,7 @@ import android.widget.Toast;
 
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
+
 import com.javalive09.annotation.Run;
 import com.javalive09.annotation.Code;
 
@@ -35,9 +36,13 @@ public class CodeActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setTheme(android.R.style.Theme_Holo);
+        setTheme(android.R.style.Theme_DeviceDefault_Light);
         initData(getApplicationContext());
         initView();
+    }
+
+    public static void launch(@NonNull Context context) {
+        context.startActivity(new Intent(context, CodeActivity.class));
     }
 
     public void showText(@NonNull final String text) {
@@ -87,7 +92,7 @@ public class CodeActivity extends Activity {
 
     private void initView() {
         ActionBar actionBar = getActionBar();
-        if(actionBar != null) {
+        if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
         setTitle(currentNode.toString());
@@ -171,12 +176,6 @@ public class CodeActivity extends Activity {
         Intent intent = new Intent(CodeActivity.this, CodeActivity.class);
         intent.putExtra(CURRENT_NODE, node);
         startActivity(intent);
-    }
-
-    public static void Launch(Activity activity) {
-        if (activity != null) {
-            activity.startActivity(new Intent(activity, CodeActivity.class));
-        }
     }
 
 }
