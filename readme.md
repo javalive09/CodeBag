@@ -18,9 +18,9 @@ Import Library
 Gradle:
 add dependencies as follow
 ```
-compile 'com.javalive09.codebag:codebag:1.5.0'
-implementation 'com.javalive09.annotation:annotation:1.0.3'
-annotationProcessor 'com.javalive09.processor:processor:1.2'
+compile 'com.javalive09.codebag:codebag:1.5.1'
+implementation 'com.javalive09.annotation:annotation:1.0.5'
+annotationProcessor 'com.javalive09.processor:processor:1.6'
 ```
 
 Usage
