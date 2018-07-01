@@ -26,7 +26,7 @@ import com.javalive09.demos.drawable.TextDrawable;
 import java.util.Random;
 
 @Code(name = "Drawable")
-public class DrawableLauncher {
+public class DrawableTest {
 
     @Run(name = "clipDrawable 剪切类drawable")
     public void showClipDrawable(CodeActivity activity) {

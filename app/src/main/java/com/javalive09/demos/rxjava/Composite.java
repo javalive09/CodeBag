@@ -11,6 +11,7 @@ import java.util.concurrent.TimeUnit;
 
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
 /**
@@ -27,7 +28,7 @@ public class Composite {
         list.add(Observable.fromArray("1", "2", "3", "4", "5"));
         list.add(Observable.fromArray("6", "7", "8", "9", "0"));
 
-        Observable.combineLatest(list, args -> {
+        Disposable disposable = Observable.combineLatest(list, args -> {
             StringBuilder s = new StringBuilder();
             for (Object o : args) {
                 s.append(o);
@@ -48,7 +49,7 @@ public class Composite {
         ArrayList<Observable<String>> list = new ArrayList<>();
         list.add(Observable.fromArray("a", "b", "c", "d", "e", "f"));
         list.add(Observable.fromArray("1", "2", "3", "4", "5", "6"));
-        Observable.merge(list, 5).subscribe(s -> Log.i("Composite", s));
+        Disposable disposable = Observable.merge(list, 5).subscribe(s -> Log.i("Composite", s));
     }
 
     @Run
@@ -87,20 +88,20 @@ public class Composite {
         list.add(b);
         list.add(c);
         long start = System.currentTimeMillis();
-        Observable.merge(list).subscribe(s -> Log.i("Composite", (System.currentTimeMillis() - start) + " - " + s));
+        Disposable disposable = Observable.merge(list).subscribe(s -> Log.i("Composite", (System.currentTimeMillis() - start) + " - " + s));
 
     }
 
     @Run(name = "startWith \n在数据序列的开头插入一条或多条指定的项")
     public void startWith() {
-        Observable.fromArray("1", "2", "3", "4", "5").delay(5, TimeUnit.SECONDS)
+        Disposable disposable = Observable.fromArray("1", "2", "3", "4", "5").delay(5, TimeUnit.SECONDS)
                 .startWith(Arrays.asList("a", "b", "c", "d", "e"))
                 .subscribe(s -> Log.i("Composite", s));
     }
 
     @Run(name = "switchMap \n和flatMap()很像，除了一点:当源Observable发射一个新的数据项时，如果旧数据项订阅还未完成，就取消旧订阅数据和停止监视那个数据项产生的Observable,开始监视新的数据项.")
     public void switchMap() {
-        Observable.just("A", "B", "C", "D", "E").switchMap(s ->
+        Disposable disposable = Observable.just("A", "B", "C", "D", "E").switchMap(s ->
                 Observable.just(s).subscribeOn(Schedulers.newThread())).observeOn(AndroidSchedulers.mainThread()).
                 subscribe(s -> Log.i("Composite", s));
     }
@@ -110,7 +111,7 @@ public class Composite {
         Observable<String> observable1 = Observable.just("a", "b", "c", "d", "e").delay(5, TimeUnit.SECONDS);
         Observable<String> observable2 = Observable.just("1", "2", "3", "4", "5");
 
-        Observable.zip(Arrays.asList(observable1, observable2), args -> {
+        Disposable disposable = Observable.zip(Arrays.asList(observable1, observable2), args -> {
             StringBuilder result = new StringBuilder();
             for (Object o : args) {
                 result.append(o);
@@ -126,7 +127,7 @@ public class Composite {
         Observable<String> observable3 = Observable.just("6", "7", "8", "9", "10").subscribeOn(Schedulers.newThread()).delay(7, TimeUnit.SECONDS);
 
         long start = System.currentTimeMillis();
-        Observable.zip(Arrays.asList(observable1, observable2, observable3), objects -> {
+        Disposable disposable = Observable.zip(Arrays.asList(observable1, observable2, observable3), objects -> {
             StringBuilder result = new StringBuilder();
             for (Object o : objects) {
                 result.append(o);

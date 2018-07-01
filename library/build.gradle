@@ -21,7 +21,7 @@ android {
 }
 
 dependencies {
-    implementation 'com.javalive09.annotation:annotation:1.0.3'
+    implementation 'com.javalive09.annotation:annotation:1.0.5'
     implementation 'com.android.support:support-annotations:27.1.1'
 
 }

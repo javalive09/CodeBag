@@ -9,17 +9,19 @@ import java.util.HashMap;
 import java.util.List;
 
 
-@Code(name = "语法")
+@Code(name = "Grammar")
 public class GrammarTest {
 
     @Run(name = "可变参数String... str")
-    public void varyParam() {
+    public void varyParam(CodeActivity activity) {
         String[] strings = new String[]{"1", "2", "3"};
-        varyParamMethod(1, strings);
+        List<String> str = varyParamMethod(1, strings);
+        activity.showText(str.toString());
     }
 
-    private void varyParamMethod(int a, String... str) {
+    private List<String> varyParamMethod(int a, String... str) {
         List<String> strings = Arrays.asList(str);
+        return strings;
     }
 
     @Run(name = "泛型返回值<T>T")
@@ -27,7 +29,7 @@ public class GrammarTest {
         set("123", 1);
         set("456", "abc");
         try {
-            int i = getValue("12");
+            int i = getValue("123");
             String j = getValue("456");
             activity.showText(i + "" + j);
         } catch (Exception e) {

@@ -1,5 +1,6 @@
 package com.javalive09.demos;
 
+import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -8,16 +9,17 @@ import android.view.Gravity;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 
+import com.javalive09.annotation.Code;
 import com.javalive09.codebag.CodeActivity;
 import com.javalive09.annotation.Run;
 
 /**
- * Bitmap 测试
+ * BitmapTest 测试
  */
+@Code(name = "Bitmap")
+public class BitmapTest {
 
-public class Bitmap {
-
-    @Run(name = "Bitmap.Config.ALPHA_8")
+    @Run(name = "BitmapTest.Config.ALPHA_8")
     public void alpha_8(CodeActivity activity) {
         android.graphics.Bitmap mBitmap = BitmapFactory.decodeResource(activity.getResources(), R.drawable.bitmap);
         mBitmap = mBitmap.copy(android.graphics.Bitmap.Config.ALPHA_8, false);
@@ -26,7 +28,7 @@ public class Bitmap {
         activity.setContentView(view);
     }
 
-    @Run(name = "Bitmap.Config.RGB_565")
+    @Run(name = "BitmapTest.Config.RGB_565")
     public void rgb_565(CodeActivity activity) {
         android.graphics.Bitmap mBitmap = BitmapFactory.decodeResource(activity.getResources(), R.drawable.bitmap);
         mBitmap = mBitmap.copy(android.graphics.Bitmap.Config.RGB_565, false);
@@ -35,7 +37,7 @@ public class Bitmap {
         activity.setContentView(view);
     }
 
-    @Run(name = "Bitmap.Config.ARGB_4444")
+    @Run(name = "BitmapTest.Config.ARGB_4444")
     public void argb_4444(CodeActivity activity) {
         android.graphics.Bitmap mBitmap = BitmapFactory.decodeResource(activity.getResources(), R.drawable.bitmap);
         mBitmap = mBitmap.copy(android.graphics.Bitmap.Config.ARGB_4444, false);
@@ -44,7 +46,7 @@ public class Bitmap {
         activity.setContentView(view);
     }
 
-    @Run(name = "Bitmap.Config.ARGB_8888")
+    @Run(name = "BitmapTest.Config.ARGB_8888")
     public void argb_8888(CodeActivity activity) {
         android.graphics.Bitmap mBitmap = BitmapFactory.decodeResource(activity.getResources(), R.drawable.bitmap);
         mBitmap = mBitmap.copy(android.graphics.Bitmap.Config.ARGB_8888, false);
@@ -59,7 +61,7 @@ public class Bitmap {
         int height = DisplayUtil.dip2px(activity, 5);
 
         ImageView iv = new ImageView(activity);
-        android.graphics.Bitmap src = BitmapFactory.decodeResource(activity.getResources(), R.mipmap.ic_launcher);
+        android.graphics.Bitmap src = BitmapFactory.decodeResource(activity.getResources(), R.drawable.bitmap);
         android.graphics.Bitmap bm = android.graphics.Bitmap.createScaledBitmap(src, width, height, false);
         iv.setImageBitmap(bm);
         activity.setContentView(iv);
@@ -70,8 +72,8 @@ public class Bitmap {
         int width = DisplayUtil.dip2px(activity, 54);
         int height = DisplayUtil.dip2px(activity, 58);
 
-        android.graphics.Bitmap src = BitmapFactory.decodeResource(activity.getResources(), R.mipmap.ic_launcher);
-        android.graphics.Bitmap bm = android.graphics.Bitmap.createScaledBitmap(src, width, height, false);
+        Bitmap src = BitmapFactory.decodeResource(activity.getResources(), R.drawable.bitmap);
+        Bitmap bm = Bitmap.createScaledBitmap(src, width, height, false);
         android.graphics.Bitmap bitmapAltered = android.graphics.Bitmap.createBitmap(width, height, bm.getConfig());
         Canvas canvas = new Canvas(bitmapAltered);
 

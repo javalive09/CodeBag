@@ -7,13 +7,14 @@ import com.javalive09.annotation.Run;
 import com.javalive09.annotation.Code;
 
 import io.reactivex.Observable;
+import io.reactivex.disposables.Disposable;
 
 @Code(name = "错误处理")
 public class Error {
 
     @Run
     public void retry() {
-        Observable.create(subscriber -> {
+        Disposable disposable = Observable.create(subscriber -> {
             subscriber.onNext("a");
             subscriber.onNext("b");
             subscriber.onNext("c");
@@ -27,7 +28,7 @@ public class Error {
 
     @Run(name = "retryWhen \n和retry类似，区别是，retryWhen将onError中的Throwable传递给一个函数，这个函数产生另一个Observable，retryWhen观察它的结果再决定是不是要重新订阅原始的Observable")
     public void retryWhen() {
-        Observable.create(subscriber -> {
+        Disposable disposable = Observable.create(subscriber -> {
             subscriber.onNext("a");
             subscriber.onNext("b");
             subscriber.onNext("c");
@@ -43,7 +44,7 @@ public class Error {
 
     @Run(name = "onErrorReturn \n让Observable遇到错误时发射一个特殊的项并且正常终止")
     public void onErrorReturn() {
-        Observable.create(subscriber -> {
+        Disposable disposable = Observable.create(subscriber -> {
             subscriber.onNext("a");
             subscriber.onNext("b");
             subscriber.onNext("c");
@@ -57,7 +58,7 @@ public class Error {
 
     @Run(name = "onErrorResumeNext \n让Observable在遇到错误时开始发射第二个Observable的数据序列")
     public void onErrorResumeNext() {
-        Observable.create(subscriber -> {
+        Disposable disposable = Observable.create(subscriber -> {
             subscriber.onNext("a");
             subscriber.onNext("b");
             subscriber.onNext("c");
@@ -73,7 +74,7 @@ public class Error {
 
     @Run(name = "onExceptionResumeNext \n让Observable在遇到错误时继续发射后面的数据项?")
     public void onExceptionResumeNext() {
-        Observable.create(subscriber -> {
+        Disposable disposable = Observable.create(subscriber -> {
             subscriber.onNext("a");
             subscriber.onNext("b");
             subscriber.onNext("c");

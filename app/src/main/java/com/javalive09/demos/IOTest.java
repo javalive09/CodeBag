@@ -19,10 +19,10 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 
 
-@Code(name = "IO读写")
+@Code(name = "IO")
 public class IOTest {
 
-    @Run(name = "context.getFilesDir()写文件 \n 目录:/data/data/<package name>/files")
+    @Run(name = "context.getFilesDir()写文件\n 目录:/data/data/<package name>/files")
     public void app_file_write(CodeActivity activity) {
         String transferFile = "file.txt";
         File dir = activity.getFilesDir();
@@ -31,7 +31,7 @@ public class IOTest {
         activity.showText("dir =" + requestFile.getAbsolutePath());
     }
 
-    @Run(name = "context.getFilesDir()读文件 \n 目录:/data/data/<package name>/files")
+    @Run(name = "context.getFilesDir()读文件\n 目录:/data/data/<package name>/files")
     public void app_read_file(CodeActivity activity) {
         String transferFile = "file.txt";
         File dir = activity.getFilesDir();

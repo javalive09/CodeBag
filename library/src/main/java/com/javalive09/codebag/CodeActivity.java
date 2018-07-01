@@ -21,6 +21,8 @@ import android.widget.Toast;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 
+import org.w3c.dom.Node;
+
 import com.javalive09.annotation.Run;
 import com.javalive09.annotation.Code;
 
@@ -114,33 +116,20 @@ public class CodeActivity extends Activity {
                                     startActivity(node);
                                     break;
                                 case CodeNode.CLASS:
-                                    boolean addSuc = false;
-                                    String classPointMethodName = null;
+                                    boolean haveRunMethod = false;
                                     try {
                                         Class cls = Class.forName(node.className);
-                                        if (cls.isAnnotationPresent(Code.class)) {
-                                            Code player = (Code) cls.getAnnotation(Code.class);
-                                            classPointMethodName = player.point();
-                                        }
-
                                         for (Method m : cls.getDeclaredMethods()) {
-                                            if (m.isAnnotationPresent(Run.class) &&
-                                                    Modifier.PUBLIC == m.getModifiers()) {
+                                            if (m.isAnnotationPresent(Run.class) && Modifier.PUBLIC == m.getModifiers()) {
                                                 String methodName = m.getName();
-                                                CodeNode methodNode = CodeNodeLoader.getInstance()
-                                                        .createAndAddSubNode(node.className, methodName,
-                                                                CodeNode.METHOD, node);
-                                                addSuc = true;
-                                                if (TextUtils.equals(methodName, classPointMethodName)) {
-                                                    startActivity(methodNode);
-                                                    return;
-                                                }
+                                                CodeNodeLoader.getInstance().createAndAddSubNode(node.className, methodName, CodeNode.METHOD, node);
+                                                haveRunMethod = true;
                                             }
                                         }
                                     } catch (ClassNotFoundException e) {
                                         e.printStackTrace();
                                     }
-                                    if (addSuc) {
+                                    if (haveRunMethod) {
                                         startActivity(node);
                                     }
                                     break;
@@ -154,14 +143,13 @@ public class CodeActivity extends Activity {
                 break;
             case CodeNode.METHOD:
                 try {
-                    Class<?> cls = Class.forName(currentNode.className);
-                    Object obj = getClassLoader().loadClass(currentNode.className).newInstance();
-                    Method method = cls.getDeclaredMethod(currentNode.name, CodeActivity.class);
-                    if (method != null) {
-                        method.invoke(obj, CodeActivity.this);
-                    }
+                    invokeMethod(CodeActivity.class);
                 } catch (Exception e) {
-                    e.printStackTrace();
+                    try {
+                        invokeMethod(null);
+                    } catch (Exception e1) {
+                        e1.printStackTrace();
+                    }
                 }
                 //no view - finish
                 FrameLayout content = findViewById(android.R.id.content);
@@ -170,6 +158,23 @@ public class CodeActivity extends Activity {
                 }
                 break;
         }
+    }
+
+    private void invokeMethod(Class<?> parameterTypes) throws Exception{
+        Class<?> cls = Class.forName(currentNode.className);
+        Object obj = getClassLoader().loadClass(currentNode.className).newInstance();
+        if(parameterTypes == null) {
+            Method method = cls.getMethod(currentNode.name);
+            if(method != null) {
+                method.invoke(obj);
+            }
+        }else {
+            Method method = cls.getMethod(currentNode.name, parameterTypes);
+            if(method != null) {
+                method.invoke(obj, CodeActivity.this);
+            }
+        }
+
     }
 
     private void startActivity(CodeNode node) {

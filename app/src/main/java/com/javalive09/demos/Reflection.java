@@ -9,7 +9,6 @@ import java.lang.reflect.Method;
 
 import android.util.Log;
 
-@Code(name = "反射调用")
 public class Reflection {
 
     @Run(name = "反射构造器无参的对象")

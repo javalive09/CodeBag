@@ -2,6 +2,7 @@ package com.javalive09.demos;
 
 import android.content.pm.PackageInfo;
 
+import com.javalive09.annotation.Code;
 import com.javalive09.codebag.CodeActivity;
 import com.javalive09.annotation.Run;
 

@@ -11,7 +11,7 @@ import com.javalive09.annotation.Run;
  * Created by peter on 2018/1/10.
  */
 
-@Code(name = "Exception异常")
+@Code(name = "Exception")
 public class ExceptionTest {
 
     /**
@@ -20,18 +20,22 @@ public class ExceptionTest {
      */
     @Run(name = "在子线程中直接new无参Handler")
     public void newNoParamHandlerInThread(CodeActivity activity) {
-        new Thread(() -> {
-            Handler handler = new Handler();
-            Handler handler1 = new Handler();
-            Looper looper = handler.getLooper();
-            Looper looper1 = handler1.getLooper();
-            Looper mainLooper = Looper.getMainLooper();
-            String str = "";
-            str += "looper" + looper.toString();
-            str += "looper1" + looper1.toString();
-            str += "mainLooper" + mainLooper.toString();
-            activity.showText(str);
-        }).start();
+        try {
+            new Thread(() -> {
+                Handler handler = new Handler();
+                Handler handler1 = new Handler();
+                Looper looper = handler.getLooper();
+                Looper looper1 = handler1.getLooper();
+                Looper mainLooper = Looper.getMainLooper();
+                String str = "";
+                str += "looper" + looper.toString();
+                str += "looper1" + looper1.toString();
+                str += "mainLooper" + mainLooper.toString();
+                activity.showText(str);
+            }).start();
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 

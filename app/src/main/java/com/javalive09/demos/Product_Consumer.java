@@ -9,10 +9,10 @@ import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Random;
 
-@Code(point = "startRun")
+@Code(name = "生产者消费者模型")
 public class Product_Consumer {
 
-    @Run(name = "生产者消费者模型")
+    @Run(name = "启动生产和消费")
     public void startRun() {
         LinkedList<Integer> queue = new LinkedList<Integer>();
         Thread producer = new Thread(new Producer(queue, 2, "producer"));

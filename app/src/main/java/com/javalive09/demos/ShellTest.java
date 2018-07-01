@@ -13,15 +13,17 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 
 import android.util.Log;
+import android.view.KeyEvent;
 import io.reactivex.Observable;
+import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
 /**
  * Created by peter on 2018/1/10.
  */
 
-@Code(name = "shell 调用")
-public class ShellInvoke {
+@Code(name = "Shell")
+public class ShellTest {
 
     @Run(name = "保存log到file")
     public void log(CodeActivity activity) {
@@ -30,7 +32,7 @@ public class ShellInvoke {
         File logFile = new File(extDir, logFileStr);
         if (logFile.exists()) {
             boolean suc = logFile.delete();
-            Log.i("ShellInvoke-log", "suc=" + suc);
+            Log.i("ShellTest-log", "suc=" + suc);
         }
         String path = logFile.getAbsolutePath();
         logFile(path);
@@ -50,44 +52,39 @@ public class ShellInvoke {
         key(3);
     }
 
-    @Run(name = "back返回键")
+    @Run(name = "返回键")
     public void back() {
-        key(4);
+        key(KeyEvent.KEYCODE_BACK);
     }
 
     @Run(name = "加音量键")
     public void volumeUp() {
-        key(24);
+        key(KeyEvent.KEYCODE_VOLUME_UP);
     }
 
     @Run(name = "减音量键")
     public void volumeDown() {
-        key(25);
+        key(KeyEvent.KEYCODE_VOLUME_DOWN);
     }
 
     @Run(name = "菜单键")
     public void menu() {
-        key(82);
+        key(KeyEvent.KEYCODE_MENU);
     }
 
     @Run(name = "电话键")
     public void call() {
-        key(5);
+        key(KeyEvent.KEYCODE_CALL);
     }
 
     @Run(name = "照相机键")
     public void camera() {
-        key(27);
-    }
-
-    @Run(name = "关机键")
-    public void power() {
-        key(26);
+        key(KeyEvent.KEYCODE_CAMERA);
     }
 
     @Run(name = "静音键")
     public void mute() {
-        key(91);
+        key(KeyEvent.KEYCODE_MUTE);
     }
 
     @Run(name = "水平滑动屏幕")
@@ -106,8 +103,8 @@ public class ShellInvoke {
     }
 
     private void key(int key) {
-        Observable.just(1).observeOn(Schedulers.io()).subscribe(integer -> {
-            ArrayList<String> commands = new ArrayList<String>();
+        Disposable disposable = Observable.just(1).observeOn(Schedulers.io()).subscribe(integer -> {
+            ArrayList<String> commands = new ArrayList<>();
             commands.add("input");
             commands.add("keyevent");
             commands.add(key + "");
@@ -116,8 +113,8 @@ public class ShellInvoke {
     }
 
     private void swip(int x1, int y1, int x2, int y2) {
-        Observable.just(1).observeOn(Schedulers.io()).subscribe(integer -> {
-            ArrayList<String> commands = new ArrayList<String>();
+        Disposable disposable = Observable.just(1).observeOn(Schedulers.io()).subscribe(integer -> {
+            ArrayList<String> commands = new ArrayList<>();
             commands.add("input");
             commands.add("swipe");
             commands.add(x1 + "");
@@ -129,8 +126,8 @@ public class ShellInvoke {
     }
 
     private void tap(int x1, int y1) {
-        Observable.just(1).observeOn(Schedulers.io()).subscribe(integer -> {
-            ArrayList<String> commands = new ArrayList<String>();
+        Disposable disposable = Observable.just(1).observeOn(Schedulers.io()).subscribe(integer -> {
+            ArrayList<String> commands = new ArrayList<>();
             commands.add("input");
             commands.add("tap");
             commands.add(x1 + "");
@@ -140,8 +137,8 @@ public class ShellInvoke {
     }
 
     private void roll(int x1, int y1) {
-        Observable.just(1).observeOn(Schedulers.io()).subscribe(integer -> {
-            ArrayList<String> commands = new ArrayList<String>();
+        Disposable disposable = Observable.just(1).observeOn(Schedulers.io()).subscribe(integer -> {
+            ArrayList<String> commands = new ArrayList<>();
             commands.add("input");
             commands.add("roll");
             commands.add(x1 + "");
@@ -151,8 +148,8 @@ public class ShellInvoke {
     }
 
     private void logFile(String path) {
-        Observable.just(1).observeOn(Schedulers.io()).subscribe(integer -> {
-            ArrayList<String> commands = new ArrayList<String>();
+        Disposable disposable = Observable.just(1).observeOn(Schedulers.io()).subscribe(integer -> {
+            ArrayList<String> commands = new ArrayList<>();
             commands.add("logcat");
             commands.add("-v");
             commands.add("threadtime");

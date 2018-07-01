@@ -5,6 +5,7 @@ import android.os.Parcelable;
 import android.text.TextUtils;
 
 import java.lang.reflect.Method;
+import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 
 import com.javalive09.annotation.Run;
@@ -56,47 +57,29 @@ class CodeNode implements Parcelable {
                 nodeName = name;
                 break;
             case CLASS:
-                String classAnnotationName = "";
+                nodeName = name;
                 try {
                     Class<?> clazz = Class.forName(className);
                     if (clazz.isAnnotationPresent(Code.class)) {
                         Code code = clazz.getAnnotation(Code.class);
-
-                        String pointMethodAnnotationName = code.point();
-                        if (TextUtils.isEmpty(pointMethodAnnotationName)) {
-                            classAnnotationName = code.name();
-                        } else {
-                            Method method = clazz.getDeclaredMethod(pointMethodAnnotationName);
-                            Run run = method.getAnnotation(Run.class);
-                            String methodPlayName = run.name();
-                            if (TextUtils.isEmpty(methodPlayName)) {
-                                classAnnotationName = method.getName();
-                            } else {
-                                classAnnotationName = methodPlayName;
-                            }
+                        String classAnnotationName = code.name();
+                        if (!TextUtils.isEmpty(classAnnotationName)) {
+                            nodeName = classAnnotationName;
                         }
                     }
                 } catch (ClassNotFoundException e) {
                     e.printStackTrace();
-                } catch (NoSuchMethodException e) {
-                    e.printStackTrace();
-                }
-                if (TextUtils.isEmpty(classAnnotationName)) {
-                    nodeName = name;
-                } else {
-                    nodeName = classAnnotationName;
                 }
                 break;
             case METHOD:
                 String methodAnnotationName = "";
                 try {
                     Class clazz = Class.forName(className);
-                    for (Method method : clazz.getDeclaredMethods()) {
-                        if (TextUtils.equals(method.getName(), name)) {
-                            if (method.isAnnotationPresent(Run.class)) {
-                                Run run = method.getAnnotation(Run.class);
-                                methodAnnotationName = run.name();
-                            }
+                    for (Method method : clazz.getMethods()) {
+                        String methodName = method.getName();
+                        if (TextUtils.equals(methodName, name) && method.isAnnotationPresent(Run.class)) {
+                            Run run = method.getAnnotation(Run.class);
+                            methodAnnotationName = run.name();
                         }
                     }
                 } catch (ClassNotFoundException e) {

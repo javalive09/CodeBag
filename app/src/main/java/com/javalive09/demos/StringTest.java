@@ -16,7 +16,7 @@ import java.util.Date;
 import java.util.Locale;
 import java.util.StringTokenizer;
 
-@Code(name = "字符串")
+@Code(name = "String")
 public class StringTest {
 
     @Run(name = "空格分隔字符串 33 19 * * *")

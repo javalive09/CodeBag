@@ -1,5 +1,6 @@
 package com.javalive09.demos;
 
+import android.annotation.SuppressLint;
 import android.app.DownloadManager;
 import android.content.ActivityNotFoundException;
 import android.content.ComponentName;
@@ -15,8 +16,8 @@ import com.javalive09.annotation.Run;
  * Intent action 相关测试
  */
 
-@Code(name = "Intent Action")
-public class IntentOpenActivity {
+@Code(name = "Intent")
+public class IntentTest {
 
     @Run(name = "打开设置")
     public void setting(CodeActivity activity) {
@@ -51,7 +52,10 @@ public class IntentOpenActivity {
 
     @Run(name = "打开应用详情")
     public void applicationDetails(CodeActivity activity) {
-        activity.startActivity(new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS));
+        Uri packageURI = Uri.parse("package:" + activity.getPackageName());
+        Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+        intent.setData(packageURI);
+        activity.startActivity(intent);
     }
 
     @Run
@@ -91,30 +95,25 @@ public class IntentOpenActivity {
      * <p>
      * 注意：被调用组件必须，android:exported="true"
      */
-    @Run(name = "打开其他app的activity1")
-    public void openOtherAppActivity(CodeActivity activity) {
+    @SuppressLint("WrongConstant")
+    @Run(name = "显示打开微信扫码")
+    public void openmm(CodeActivity activity) {
         Intent intent = new Intent();
-        ComponentName component = new ComponentName("com.peter.appmanager", "com.peter.appmanager.SettingActivity");
+        ComponentName component = new ComponentName("com.tencent.mm", "com.tencent.mm.ui.LauncherUI");
+        intent.putExtra("LauncherUI.From.Scaner.Shortcut", true);
+        intent.setFlags(335544320);
+        intent.setAction("android.intent.action.VIEW");
         intent.setComponent(component);
         activity.startActivity(intent);
     }
 
-    @Run(name = "打开其他app的activity2")
-    public void openOtherAppActivity2(CodeActivity activity) {
-        Intent intent = new Intent();
-        intent.setAction("com.peter.foo");
-        activity.startActivity(intent);
-    }
-
-    /**
-     * 跨应用调用其他程序的service
-     */
-    @Run(name = "跨应用调用其他程序的service")
-    public void openOtherAppService(CodeActivity activity) {
-        Intent intent = new Intent();
-        ComponentName componentName = new ComponentName("com.lockscreen", "com.lockscreen.LockService");
-        intent.setComponent(componentName);
-        activity.startService(intent);
+    @Run(name = "隐示打开微信扫码")
+    public void openmm2(CodeActivity activity) {
+        Intent intent = activity.getPackageManager().getLaunchIntentForPackage("com.tencent.mm");
+        if(intent != null) {
+            intent.putExtra("LauncherUI.From.Scaner.Shortcut", true);
+            activity.startActivity(intent);
+        }
     }
 
     /**
@@ -122,7 +121,7 @@ public class IntentOpenActivity {
      */
     @Run(name = "去市场下载页面")
     public void openMarket(CodeActivity activity) {
-        String packageName = activity.getPackageName();
+        String packageName = "com.tencent.mm";
         Uri uri = Uri.parse("market://details?id=" + packageName);
         Intent goToMarket = new Intent(Intent.ACTION_VIEW, uri);
         try {

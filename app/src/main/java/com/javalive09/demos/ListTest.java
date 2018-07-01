@@ -9,15 +9,15 @@ import java.util.ArrayList;
 /**
  * List的一些特性测试
  */
-@Code(name = "List特性")
+@Code(name = "List")
 public class ListTest {
 
-    @Run(name = "addAll之后原来元素的index")
+    @Run(name = "addAll之后,原来元素的index(不变)")
     public void addAllIndex(CodeActivity activity) {
-        ArrayList arrayList = new ArrayList();
+        ArrayList<Object> arrayList = new ArrayList<>();
         Object o = new Object();
         arrayList.add(o);
-        ArrayList arrayList2 = new ArrayList();
+        ArrayList<Object> arrayList2 = new ArrayList<>();
         arrayList2.add(new Object());
         arrayList2.add(new Object());
         arrayList2.add(new Object());
@@ -27,9 +27,9 @@ public class ListTest {
         activity.showText(index + "");
     }
 
-    @Run(name = "add不同元素在0位置上")
+    @Run(name = "add不同元素在0位置上(旧元素整体后移)")
     public void AddDifferentObject(CodeActivity activity) {
-        ArrayList a = new ArrayList();
+        ArrayList<String> a = new ArrayList<>();
         a.add("a");
         a.add("b");
         a.add("c");
@@ -38,7 +38,7 @@ public class ListTest {
         activity.showText(a.toString());
     }
 
-    @Run(name = "add相同元素在0位置上")
+    @Run(name = "add相同元素在0位置上(不变)")
     public void AddSameObject(CodeActivity activity) {
         ArrayList a = new ArrayList();
         a.add("a");

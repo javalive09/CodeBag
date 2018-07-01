@@ -10,10 +10,9 @@ import com.javalive09.annotation.Code;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-@Code(name = "正则匹配")
-public class Regex {
+public class RegEx {
 
-    @Run(name = "matcher")
+    @Run(name = "matcher获取毫秒")
     public void matcher(CodeActivity activity) {
         String str = "1008 bytes from 61.135.169.125: icmp_seq=1 ttl=57 time=5.13 ms";
         String regx = "time=.*ms";
@@ -56,19 +55,19 @@ public class Regex {
         String str2 = "A";
         boolean str1Result = pattern.matcher(str1).matches();
         boolean str2Result = pattern.matcher(str2).matches();
-        String str = str1 + "match number =" + str1Result + "\n";
-        str += str2 + "match number =" + str2Result;
+        String str = str1 + " match number =" + str1Result + "\n";
+        str += str2 + " match number =" + str2Result;
         activity.showText(str);
     }
 
     @Run(name = "Patterns.IP_ADDRESS 验证ip地址")
     public void ipAddress(CodeActivity activity) {
         Matcher matcher1 = Patterns.IP_ADDRESS.matcher("localhost");
-        Matcher matcher2 = Patterns.IP_ADDRESS.matcher(null);
+        Matcher matcher2 = Patterns.IP_ADDRESS.matcher("null");
         Matcher matcher3 = Patterns.IP_ADDRESS.matcher("192.168.0.1");
-        String str = "localhost match =" + matcher1.matches();
-        str += "null match =" + matcher2.matches();
-        str += "192.168.0.1 match =" + matcher3.matches();
+        String str = "localhost match = " + matcher1.matches() + "\n";
+        str += "null match = " + matcher2.matches() + "\n";
+        str += "192.168.0.1 match = " + matcher3.matches() + "\n";
         activity.showText(str);
     }
 

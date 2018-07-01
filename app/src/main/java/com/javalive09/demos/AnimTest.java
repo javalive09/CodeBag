@@ -16,7 +16,7 @@ import com.javalive09.demos.anim.CircleView;
  */
 
 @Code(name = " Animation")
-public class AnimLauncher {
+public class AnimTest {
 
     @Run(name = "锁链动画")
     public void launchAnimChain(CodeActivity activity) {

@@ -17,7 +17,7 @@ public class Filter {
 
     @Run(name = "debounce \n仅在过了一段指定的时间还没发射数据时才发射一个数据，可用于防止按钮重复点击")
     public void debounce() {
-        Observable.create(subscriber -> {
+        Disposable disposable = Observable.create(subscriber -> {
             if (subscriber.isDisposed()) return;
             try {
                 for (int i = 1; i < 10; i++) {
@@ -34,42 +34,42 @@ public class Filter {
 
     @Run(name = "distinct \n 过滤掉重复的数据项 去重")
     public void distinct() {
-        Observable.fromArray("a", "b", "c", "a", "e", "b")
+        Disposable disposable = Observable.fromArray("a", "b", "c", "a", "e", "b")
                 .distinct()
                 .subscribe(s -> Log.i("Filter", s));
     }
 
     @Run(name = "distinctUntilChanged \n只判定一个数据和它的直接前驱是否是不同的 可以间隔相同")
     public void distinctUntilChanged() {
-        Observable.fromArray("a", "b", "c", "a", "e", "b").
+        Disposable disposable = Observable.fromArray("a", "b", "c", "a", "e", "b").
                 distinctUntilChanged()
                 .subscribe(s -> Log.i("Filter", s));
     }
 
     @Run(name = "elementAt \n只发射第N项数据")
     public void elementAt() {
-        Observable.fromArray("a", "b", "c", "a", "e", "b")
+        Disposable disposable = Observable.fromArray("a", "b", "c", "a", "e", "b")
                 .elementAt(1)
                 .subscribe(s -> Log.i("Filter", s));
     }
 
     @Run(name = "filter \n只发射通过了测试的数据项")
     public void filter() {
-        Observable.fromArray("a", "b", "c", "a", "e", "b")
+        Disposable disposable = Observable.fromArray("a", "b", "c", "a", "e", "b")
                 .filter(s -> s.equals("b"))
                 .subscribe(s -> Log.i("Filter", s));
     }
 
     @Run(name = "first \n 只发射第一项（或者满足某个条件的第一项）数据")
     public void first() {
-        Observable.fromArray("a", "b", "c", "a", "e", "b")
+        Disposable disposable = Observable.fromArray("a", "b", "c", "a", "e", "b")
                 .first("")
                 .subscribe(s -> Log.i("Filter", s));
     }
 
     @Run(name = "ignoreElements \n不发射任何数据，只发射Observable的终止通知")
     public void ignoreElements() {
-        Observable.create(subscriber -> {
+        Disposable disposable = Observable.create(subscriber -> {
             if (subscriber.isDisposed()) return;
             for (int i = 1; i < 10; i++) {
                 subscriber.onNext("a" + i);
@@ -80,14 +80,14 @@ public class Filter {
 
     @Run(name = "ofType \n 过滤一个Observable只返回指定类型的数据")
     public void ofType() {
-        Observable.fromArray("a", "b", "c", "a", "e", "b")
+        Disposable disposable = Observable.fromArray("a", "b", "c", "a", "e", "b")
                 .ofType(String.class)
                 .subscribe(s -> Log.i("Filter", s));
     }
 
     @Run(name = "last \n只发射最后一项（或者满足某个条件的最后一项）数据")
     public void last() {
-        Observable.fromArray("a", "b", "c", "a", "e", "i")
+        Disposable disposable = Observable.fromArray("a", "b", "c", "a", "e", "i")
                 .last("")
                 .subscribe(s -> Log.i("Filter", s));
     }
@@ -99,7 +99,7 @@ public class Filter {
                 .sample(3, TimeUnit.SECONDS)
                 .subscribe(s -> Log.i("Filter", s.toString()));
 
-        Observable.timer(10, TimeUnit.SECONDS).subscribe(aLong -> disposable.dispose());
+        Disposable disposable2 = Observable.timer(10, TimeUnit.SECONDS).subscribe(aLong -> disposable.dispose());
     }
 
     @Run(name = "throttleFirst \n定期发射Observable发射的第一项数据")

@@ -20,7 +20,7 @@ public class Create {
 
     @Run
     public void create() {
-        new ObservableCreate<>(e -> {
+        Disposable disposable = new ObservableCreate<>(e -> {
             e.onNext("a");
             e.onNext("b");
             e.onNext("c");
@@ -29,7 +29,7 @@ public class Create {
             e.onComplete();
         }).subscribe(o -> Log.i("create", o + ""));
 
-        Observable.create(subscriber -> {
+        Disposable disposable1 = Observable.create(subscriber -> {
             subscriber.onNext("a");
             subscriber.onNext("b");
             subscriber.onNext("c");
@@ -43,34 +43,34 @@ public class Create {
 
     @Run(name = "Just \n将单个数据转换为发射那个数据的Observable")
     public void just() {
-        Observable.just("a").subscribe(s -> Log.i("create", s + ""));
+        Disposable disposable = Observable.just("a").subscribe(s -> Log.i("create", s + ""));
     }
 
     @Run(name = "defer\n 直到有观察者订阅时才创建Observable，并且为每个观察者创建一个新的Observable")
     public void defer() {
-        Observable.defer(() -> Observable.just(System.currentTimeMillis())).subscribe(s -> Log.i("Create", "defer = " + s));
+        Disposable disposable = Observable.defer(() -> Observable.just(System.currentTimeMillis())).subscribe(s -> Log.i("Create", "defer = " + s));
     }
 
     @Run(name = "fromArray \n 将数组数据类型转换为Observable")
     public void fromArray() {
-        Observable.fromArray("a", "b", "c", "d", "e").subscribe(s -> Log.i("Create", "from = " + s));
+        Disposable disposable = Observable.fromArray("a", "b", "c", "d", "e").subscribe(s -> Log.i("Create", "from = " + s));
     }
 
     @Run(name = "interval \n 创建一个按固定时间间隔发射整数序列的Observable")
     public void interval() {
         Disposable disposable = Observable.interval(1, TimeUnit.SECONDS)
                 .subscribe(aLong -> Log.i("Create", "interval = " + aLong));
-        Observable.just("").delay(10, TimeUnit.SECONDS).subscribe(s -> disposable.dispose());
+        Disposable disposable1 = Observable.just("").delay(10, TimeUnit.SECONDS).subscribe(s -> disposable.dispose());
     }
 
     @Run(name = "range \n 创建一个发射特定整数序列的Observable")
     public void range() {
-        Observable.range(3, 5).subscribe(integer -> Log.i("Create", "range = " + integer));
+        Disposable disposable = Observable.range(3, 5).subscribe(integer -> Log.i("Create", "range = " + integer));
     }
 
     @Run(name = "timer \n 创建一个Observable，它在一个给定的延迟后发射一个特殊的值")
     public void timer() {
-        Observable.timer(2, TimeUnit.SECONDS).subscribe(aLong -> Log.i("Create", "start = " + aLong));
+        Disposable disposable = Observable.timer(2, TimeUnit.SECONDS).subscribe(aLong -> Log.i("Create", "start = " + aLong));
     }
 
 

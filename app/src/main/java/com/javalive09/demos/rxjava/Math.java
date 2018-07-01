@@ -7,13 +7,14 @@ import com.javalive09.annotation.Run;
 import com.javalive09.annotation.Code;
 
 import io.reactivex.Observable;
+import io.reactivex.disposables.Disposable;
 
 @Code(name = "数学和聚合操作")
 public class Math {
 
     @Run(name = "concat \n不交错的发射两个或多个Observable的发射物  \nMerge操作符也差不多，它结合两个或多个Observable的发射物，但是数据可能交错，而Concat不会让多个Observable的发射物交错")
     public void concat() {
-        Observable.concat(Observable.just(1, 2, 3, 4, 5, 6, 7, 8),
+        Disposable disposable = Observable.concat(Observable.just(1, 2, 3, 4, 5, 6, 7, 8),
                 Observable.just(9, 10, 11, 12, 13, 14, 15))
                 .subscribe(i -> Log.i("Math", "" + i));
 
@@ -35,18 +36,18 @@ public class Math {
             }
         });
         Observable<String> network = Observable.just("network");
-        Observable.concat(memory, disk, network).first("").subscribe(s -> Log.i("Math", s));
+        Disposable disposable2 = Observable.concat(memory, disk, network).first("").subscribe(s -> Log.i("Math", s));
     }
 
     @Run(name = "count \n计算原始Observable发射物的数量，然后只发射这个值   发射个数")
     public void count() {
-        Observable.just(1, 2, 3, 4, 5, 6, 7, 8).
+        Disposable disposable = Observable.just(1, 2, 3, 4, 5, 6, 7, 8).
                 count().subscribe(s -> Log.i("Math", "" + s));
     }
 
     @Run(name = "reduce \n按顺序对Observable发射的每项数据应用一个函数并发射最终的值 这种操作有时被称为累积，聚集，压缩，折叠，注射等")
     public void reduce() {
-        Observable.just(1, 2, 3, 4, 5, 6, 7).
+        Disposable disposable = Observable.just(1, 2, 3, 4, 5, 6, 7).
                 reduce((integer, integer2) -> {
                     Log.i("Math", "integer=" + integer + ";integer2 = " + integer2);
                     return integer + integer2;

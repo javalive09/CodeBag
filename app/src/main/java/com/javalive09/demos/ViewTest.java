@@ -38,7 +38,7 @@ import java.util.Locale;
  * View launcher
  */
 @Code(name = "View")
-public class ViewLauncher {
+public class ViewTest {
 
     @Run
     public void showXferView(CodeActivity activity) {
