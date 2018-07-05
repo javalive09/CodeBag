@@ -21,11 +21,7 @@ import android.widget.Toast;
 
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
-
-import org.w3c.dom.Node;
-
 import com.javalive09.annotation.Run;
-import com.javalive09.annotation.Code;
 
 /**
  * CodeActivity 核心逻辑类
@@ -33,6 +29,9 @@ import com.javalive09.annotation.Code;
 public class CodeActivity extends Activity {
 
     private static final String CURRENT_NODE = "current_node";
+    private static final String CLASS_NAME = "className";
+    private static final String METHOD_NAME = "methodName";
+    private static final String SP_NAME = "mark";
     private static CodeNode rootNode;
     private CodeNode currentNode;
 
@@ -118,9 +117,9 @@ public class CodeActivity extends Activity {
                     }
                 }
                 //mark method
-                SharedPreferences sp = getSharedPreferences("mark", MODE_PRIVATE);
-                sp.edit().putString("className", currentNode.className).apply();
-                sp.edit().putString("methodName", currentNode.name).apply();
+                SharedPreferences sp = getSharedPreferences(SP_NAME, MODE_PRIVATE);
+                sp.edit().putString(CLASS_NAME, currentNode.className).apply();
+                sp.edit().putString(METHOD_NAME, currentNode.name).apply();
 
                 //no view - finish
                 FrameLayout content = findViewById(android.R.id.content);
@@ -136,20 +135,20 @@ public class CodeActivity extends Activity {
         super.onDestroy();
         switch (currentNode.type) {
             case CodeNode.METHOD:
-                SharedPreferences sp = getSharedPreferences("mark", MODE_PRIVATE);
-                sp.edit().putString("methodName", "").apply();
+                SharedPreferences sp = getSharedPreferences(SP_NAME, MODE_PRIVATE);
+                sp.edit().putString(METHOD_NAME, "").apply();
                 break;
             case CodeNode.CLASS:
-                sp = getSharedPreferences("mark", MODE_PRIVATE);
-                sp.edit().putString("className", "").apply();
+                sp = getSharedPreferences(SP_NAME, MODE_PRIVATE);
+                sp.edit().putString(CLASS_NAME, "").apply();
                 break;
         }
     }
 
     private void autoClick(int type, ListView listView) {
-        SharedPreferences sp = getSharedPreferences("mark", MODE_PRIVATE);
-        String className = sp.getString("className", "");
-        String methodName = sp.getString("methodName", "");
+        SharedPreferences sp = getSharedPreferences(SP_NAME, MODE_PRIVATE);
+        String className = sp.getString(CLASS_NAME, "");
+        String methodName = sp.getString(METHOD_NAME, "");
         for (int i = 0, count = currentNode.mSubNodeList.size(); i < count; i++) {
             if (TextUtils.equals(currentNode.mSubNodeList.get(i).className, className)) {
                 if (type == CodeNode.DIR || (type == CodeNode.CLASS && TextUtils
