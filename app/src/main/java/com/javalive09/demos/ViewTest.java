@@ -30,6 +30,7 @@ import com.javalive09.demos.view.Xfermodes;
 import com.javalive09.demos.view.Xfermodes_clip;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -342,25 +343,10 @@ public class ViewTest {
     @Run(name = "时间选择器")
     public void showNumPicker(CodeActivity activity) {
         activity.setContentView(R.layout.time_picker_layout);
-        NumPicker picker = activity.findViewById(R.id.picker);
-        NumPicker.Adapter adapter = new NumPicker.Adapter(activity);
-        picker.setAdapter(adapter);
-
-        picker.setOnScrollListener(new AbsListView.OnScrollListener() {
-            @Override
-            public void onScrollStateChanged(AbsListView view, int scrollState) {
-                if (scrollState == AbsListView.OnScrollListener.SCROLL_STATE_IDLE) {
-                    int value = adapter.getValue();
-                    activity.toastShort(value + "");
-                }
-            }
-
-            @Override
-            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
-
-            }
-        });
-
+        NumPicker picker = activity.findViewById(R.id.picker1);
+        NumPicker picker2 = activity.findViewById(R.id.picker2);
+        picker.setMaxValue(60).setShowCount(5).setTextSize(50).setLoop(true).build();
+        picker2.setMaxValue(24).setShowCount(5).setLoop(true).setTextSize(50).build();
     }
 
     @Run(name = "轮子时间选择器")
@@ -373,12 +359,6 @@ public class ViewTest {
             data.add(String.format(Locale.getDefault(), "%02d", i));
         }
         wheelPicker.setData(data);
-        wheelPicker.setOnItemSelectedListener(new WheelPicker.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(WheelPicker picker, Object data, int position) {
-                activity.toastShort(Integer.valueOf(String.valueOf(data)) + "");
-            }
-        });
     }
 
     @Run(name = "使用action打开activity")
@@ -463,19 +443,14 @@ public class ViewTest {
     public void testLock(CodeActivity activity) {
         activity.showText("亮屏");
         Handler handler = new Handler(Looper.getMainLooper());
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                PowerManager pManager = (PowerManager) activity.getSystemService(Context.POWER_SERVICE);
-                PowerManager.WakeLock mWakeLock = pManager.newWakeLock(PowerManager.FULL_WAKE_LOCK
-                        | PowerManager.ACQUIRE_CAUSES_WAKEUP, "DND");
-                mWakeLock.acquire();
-                Log.e("peter", "acquire");
-            }
-        }, 60 * 1000);
+        handler.postDelayed(() -> {
+            PowerManager pManager = (PowerManager) activity.getSystemService(Context.POWER_SERVICE);
+            PowerManager.WakeLock mWakeLock = pManager.newWakeLock(PowerManager.FULL_WAKE_LOCK
+                    | PowerManager.ACQUIRE_CAUSES_WAKEUP, "DND");
+            mWakeLock.acquire();
+            Log.e("peter", "acquire");
+        }, 100 * 1000);
 
     }
-
-
 
 }

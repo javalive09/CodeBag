@@ -2,13 +2,17 @@ package com.javalive09.demos.view;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.support.annotation.ColorInt;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 /**
  * Created by peter on 2018/3/14.
@@ -16,55 +20,140 @@ import android.widget.TextView;
 
 public class NumPicker extends ListView {
 
+    private int showCount = 5;
+    private int maxValue = 60;
+    private @ColorInt int selectColor = Color.RED;
+    private @ColorInt int normalColor = Color.BLACK;
+    private int mFirstVisibleItem;
+    private NumAdapter numAdapter;
+    private int mTextSize;
+    private boolean loop;
+
     public NumPicker(Context context) {
         super(context);
-        setDividerHeight(0);
     }
 
     public NumPicker(Context context, AttributeSet attrs) {
         super(context, attrs);
-        setDividerHeight(0);
     }
 
-    public NumPicker(Context context, AttributeSet attrs, int defStyleAttr) {
-        super(context, attrs, defStyleAttr);
-        setDividerHeight(0);
+    public NumPicker setShowCount(int count) {
+        this.showCount = count;
+        return this;
     }
 
-    public static final class Adapter extends BaseAdapter {
+    public NumPicker setMaxValue(int maxValue) {
+        this.maxValue = maxValue;
+        return this;
+    }
 
-        private ListView listView;
+    public NumPicker setSelectItemColor(@ColorInt int selectColor) {
+        this.selectColor = selectColor;
+        return this;
+    }
 
-        private String[] value =
-                {"", "", "00", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15",
-                        "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31",
-                        "32", "33", "34", "35", "36", "37", "38", "39", "40", "41", "42", "43", "44", "45", "46", "47",
-                        "48", "49", "50", "51", "52", "53", "54", "55", "56", "57", "58", "59", "60", "", ""};
-        private int[] key =
-                {-1, -1, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25,
-                        26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49,
-                        50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, -1, -1};
+    public NumPicker setNormaoItemColor(@ColorInt int normalColor) {
+        this.normalColor = normalColor;
+        return this;
+    }
 
-        private static final int MAX_SHOW = 5;
-        private Context context;
+    public NumPicker setTextSize(int mTextSize) {
+        this.mTextSize = mTextSize;
+        return this;
+    }
 
-        public Adapter(Context context) {
-            this.context = context;
+    public NumPicker setLoop(boolean loop) {
+        this.loop = loop;
+        return this;
+    }
+
+    public String getSelectItem() {
+        return numAdapter.getItem(mFirstVisibleItem + showCount / 2);
+    }
+
+    public void build() {
+        setDividerHeight(0);
+        setVerticalScrollBarEnabled(false);
+        numAdapter = new NumAdapter(showCount, maxValue, mTextSize, loop);
+        setAdapter(numAdapter);
+        if (loop) {
+            post(() -> {
+                int i = Integer.MAX_VALUE / 2 % (maxValue + 1);
+                int offset = Math.abs(maxValue + 1 - showCount / 2 - i);
+                setSelection(Integer.MAX_VALUE / 2 + offset);
+            });
         }
+        setOnScrollListener(new AbsListView.OnScrollListener() {
 
-        public int getValue() {
-            int currentPos = listView.getFirstVisiblePosition() + MAX_SHOW/2;
-            return key[currentPos];
+            @Override
+            public void onScrollStateChanged(AbsListView view, int scrollState) {
+                if (scrollState == AbsListView.OnScrollListener.SCROLL_STATE_IDLE) {
+                    setSelection(mFirstVisibleItem);
+                    Toast.makeText(view.getContext(), getSelectItem(), Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+                final View firstChild = view.getChildAt(0);
+                if (firstChild != null) {
+                    int height = firstChild.getMeasuredHeight();
+                    int scrollYOffset = -getChildAt(0).getTop();
+                    if (scrollYOffset > height / 2) { //auto up
+                        mFirstVisibleItem = firstVisibleItem + 1;
+                        refreshColor(view, showCount / 2 + 1);
+                    } else {//auto down
+                        mFirstVisibleItem = firstVisibleItem;
+                        refreshColor(view, showCount / 2);
+                    }
+                }
+            }
+
+            private void refreshColor(AbsListView view, int selectItem) {
+                for (int i = 0; i < showCount; i++) {
+                    if (i == selectItem) {
+                        ((TextView) view.getChildAt(i)).setTextColor(selectColor);
+                    } else {
+                        ((TextView) view.getChildAt(i)).setTextColor(normalColor);
+                    }
+                }
+            }
+
+        });
+    }
+
+    private static final class NumAdapter extends BaseAdapter {
+
+        private int showCount;
+        private boolean loop;
+        private int maxValue;
+        private int mTextSize;
+
+        NumAdapter(int showCount, int maxValue, int mTextSize, boolean loop) {
+            this.showCount = showCount;
+            this.loop = loop;
+            this.maxValue = maxValue + 1;
+            this.mTextSize = mTextSize;
         }
 
         @Override
         public int getCount() {
-            return value.length;
+            return loop ? Integer.MAX_VALUE : maxValue + showCount / 2 * 2;
         }
 
         @Override
         public String getItem(int position) {
-            return value[position];
+            String value = "";
+            if (loop) {
+                value = String.valueOf(position % maxValue);
+            } else {
+                if (position >= showCount / 2) {
+                    if (position < maxValue + showCount / 2) {
+                        value = String.valueOf(position - showCount / 2);
+                    }
+                }
+            }
+            return value;
         }
 
         @Override
@@ -74,27 +163,19 @@ public class NumPicker extends ListView {
 
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
-            listView = (ListView) parent;
             if (convertView == null) {
-                convertView = new TextView(context);
+                convertView = new TextView(parent.getContext());
+                TextView numView = (TextView) convertView;
+                numView.setGravity(Gravity.CENTER);
+                int listViewH = parent.getMeasuredHeight();
+                if (listViewH > 0) {
+                    numView.setHeight(listViewH / showCount);
+                }
+                if (mTextSize > 0) {
+                    numView.setTextSize(mTextSize);
+                }
             }
-            TextView numView = (TextView) convertView;
-            ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(-1, -1);
-            numView.setLayoutParams(params);
-            numView.setGravity(Gravity.CENTER);
-            int listViewH = listView.getMeasuredHeight();
-            if (listViewH > 0) {
-                numView.setHeight(listViewH / MAX_SHOW);
-            }
-            String value = getItem(position);
-            numView.setText(value);
-            int firstPos = listView.getFirstVisiblePosition();
-            int centerPos = firstPos + MAX_SHOW / 2;
-            if (position == centerPos) {
-                numView.setTextColor(Color.parseColor("#ff0000"));
-            } else {
-                numView.setTextColor(Color.parseColor("#000000"));
-            }
+            ((TextView) convertView).setText(getItem(position));
             return convertView;
         }
     }
