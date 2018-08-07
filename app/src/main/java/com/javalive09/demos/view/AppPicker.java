@@ -1,7 +1,16 @@
 package com.javalive09.demos.view;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
+import com.javalive09.demos.R;
+
 import android.content.Context;
+import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.support.annotation.ColorInt;
 import android.util.AttributeSet;
 import android.util.TypedValue;
@@ -13,74 +22,59 @@ import android.widget.AbsListView;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 /**
  * Created by peter on 2018/3/14.
  */
 
-public class NumPicker extends ListView {
+public class AppPicker extends ListView {
 
     private int showCount = 5;
-    private int maxValue = 60;
-    private @ColorInt int selectColor = Color.RED;
-    private @ColorInt int normalColor = Color.BLACK;
+    private @ColorInt
+    int selectColor = Color.RED;
+    private @ColorInt
+    int normalColor = Color.BLACK;
     private int mFirstVisibleItem;
-    private NumAdapter numAdapter;
+    private AppAdapter numAdapter;
     private int mTextSize;
-    private boolean loop;
     private int mDefaultSelectNum;
     private OnSelectListener selectListener;
 
-    public NumPicker(Context context) {
+    public AppPicker(Context context) {
         super(context);
     }
 
-    public NumPicker(Context context, AttributeSet attrs) {
+    public AppPicker(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
 
-    public NumPicker setShowCount(int count) {
+    public AppPicker setShowCount(int count) {
         this.showCount = count;
         return this;
     }
 
-    public NumPicker setMaxValue(int maxValue) {
-        this.maxValue = maxValue;
-        return this;
-    }
-
-    public NumPicker setSelectItemColor(@ColorInt int selectColor) {
+    public AppPicker setSelectItemColor(@ColorInt int selectColor) {
         this.selectColor = selectColor;
         return this;
     }
 
-    public NumPicker setNormalItemColor(@ColorInt int normalColor) {
+    public AppPicker setNormalItemColor(@ColorInt int normalColor) {
         this.normalColor = normalColor;
         return this;
     }
 
-    public NumPicker setSelectListener(OnSelectListener selectListener) {
+    public AppPicker setSelectListener(OnSelectListener selectListener) {
         this.selectListener = selectListener;
         return this;
     }
 
-    public NumPicker setTextSize(int mTextSize) {
+    public AppPicker setTextSize(int mTextSize) {
         this.mTextSize = mTextSize;
-        return this;
-    }
-
-    public NumPicker setLoop(boolean loop) {
-        this.loop = loop;
         return this;
     }
 
     public String getSelectItemString() {
         return numAdapter.getItem(mFirstVisibleItem + showCount / 2);
-    }
-
-    public int getSelectItemNum() {
-        return Integer.parseInt(getSelectItemString());
     }
 
     @Override
@@ -95,9 +89,9 @@ public class NumPicker extends ListView {
         return super.dispatchTouchEvent(event);
     }
 
-    public NumPicker setDefaultItemNum(int defaultSelectItemNum) {
-        this.mDefaultSelectNum = defaultSelectItemNum;
-        if(numAdapter != null) {
+    public AppPicker setDefaultItemNum(char c) {
+        this.mDefaultSelectNum = c - 'A';
+        if (numAdapter != null) {
             setDefaultSelectNum();
         }
         return this;
@@ -112,38 +106,62 @@ public class NumPicker extends ListView {
         });
     }
 
-    private void setDefaultSelectNum () {
+    private void setDefaultSelectNum() {
         if (mDefaultSelectNum > 0) {//had set default data
-            if (loop) {
-                int i = Integer.MAX_VALUE / 2 % (maxValue + 1);
-                int offset = Math.abs(maxValue + 1 - showCount / 2 - i);
-                postSetSection(Integer.MAX_VALUE / 2 + offset + mDefaultSelectNum);
-            } else {
-                postSetSection(mDefaultSelectNum);
-            }
+            int i = Integer.MAX_VALUE / 2 % 26;
+            int offset = Math.abs(26 - showCount / 2 - i);
+            postSetSection(Integer.MAX_VALUE / 2 + offset + mDefaultSelectNum);
         } else {
-            if (loop) {
-                int i = Integer.MAX_VALUE / 2 % (maxValue + 1);
-                int offset = Math.abs(maxValue + 1 - showCount / 2 - i);
-                setSelection(Integer.MAX_VALUE / 2 + offset);
-                postSetSection(Integer.MAX_VALUE / 2 + offset);
+            int i = Integer.MAX_VALUE / 2 % 26;
+            int offset = Math.abs(26 - showCount / 2 - i);
+            setSelection(Integer.MAX_VALUE / 2 + offset);
+            postSetSection(Integer.MAX_VALUE / 2 + offset);
+        }
+    }
+
+    public ArrayList<AppModel> loadInBackground() {
+        PackageManager mPm = getContext().getPackageManager();
+        // retrieve the list of installed applications
+        List<ApplicationInfo> apps = mPm.getInstalledApplications(0);
+
+        if (apps == null) {
+            apps = new ArrayList<ApplicationInfo>();
+        }
+
+        final Context context = getContext();
+
+        // create corresponding apps and load their labels
+        ArrayList<AppModel> items = new ArrayList<AppModel>(apps.size());
+        for (int i = 0; i < apps.size(); i++) {
+            String pkg = apps.get(i).packageName;
+
+            // only apps which are launchable
+            if (context.getPackageManager().getLaunchIntentForPackage(pkg) != null) {
+                AppModel app = new AppModel(context, apps.get(i));
+                app.loadLabel(context);
+                items.add(app);
             }
         }
+
+        // sort the list
+//        Collections.sort(items, ALPHA_COMPARATOR);
+
+        return items;
     }
 
     public void build() {
         setDividerHeight(0);
         setVerticalScrollBarEnabled(false);
-        numAdapter = new NumAdapter(showCount, maxValue, mTextSize, loop);
+        numAdapter = new AppAdapter(showCount, mTextSize);
         setAdapter(numAdapter);
         setDefaultSelectNum();
-        setOnScrollListener(new AbsListView.OnScrollListener() {
+        setOnScrollListener(new OnScrollListener() {
 
             @Override
             public void onScrollStateChanged(AbsListView view, int scrollState) {
-                if (scrollState == AbsListView.OnScrollListener.SCROLL_STATE_IDLE) {
+                if (scrollState == OnScrollListener.SCROLL_STATE_IDLE) {
                     postSetSection(mFirstVisibleItem);
-                    if(selectListener != null) {
+                    if (selectListener != null) {
                         selectListener.endSelect();
                     }
                 }
@@ -169,11 +187,11 @@ public class NumPicker extends ListView {
                 for (int i = 0; i < showCount; i++) {
                     TextView child = (TextView) view.getChildAt(i);
                     if (i == selectItem) {
-                        if(child != null) {
+                        if (child != null) {
                             child.setTextColor(selectColor);
                         }
                     } else {
-                        if(child != null) {
+                        if (child != null) {
                             child.setTextColor(normalColor);
                         }
                     }
@@ -183,38 +201,24 @@ public class NumPicker extends ListView {
         });
     }
 
-    private static final class NumAdapter extends BaseAdapter {
+    private static final class AppAdapter extends BaseAdapter {
 
         private int showCount;
-        private boolean loop;
-        private int maxValue;
         private int mTextSize;
 
-        NumAdapter(int showCount, int maxValue, int mTextSize, boolean loop) {
+        AppAdapter(int showCount, int mTextSize) {
             this.showCount = showCount;
-            this.loop = loop;
-            this.maxValue = maxValue + 1;
             this.mTextSize = mTextSize;
         }
 
         @Override
         public int getCount() {
-            return loop ? Integer.MAX_VALUE : maxValue + showCount / 2 * 2;
+            return Integer.MAX_VALUE;
         }
 
         @Override
         public String getItem(int position) {
-            String value = "";
-            if (loop) {
-                value = String.valueOf(position % maxValue);
-            } else {
-                if (position >= showCount / 2) {
-                    if (position < maxValue + showCount / 2) {
-                        value = String.valueOf(position - showCount / 2);
-                    }
-                }
-            }
-            return value;
+            return String.valueOf((char) (65 + position % 26));
         }
 
         @Override
@@ -232,6 +236,9 @@ public class NumPicker extends ListView {
                 if (listViewH > 0) {
                     numView.setHeight(listViewH / showCount);
                 }
+                Drawable drawableLeft = parent.getResources().getDrawable(R.drawable.bitmap);
+                numView.setCompoundDrawablesWithIntrinsicBounds(drawableLeft, null, null, null);
+                numView.setCompoundDrawablePadding(4);
                 if (mTextSize > 0) {
                     numView.setTextSize(TypedValue.COMPLEX_UNIT_PX, mTextSize);
                 }

@@ -51,9 +51,9 @@ public class Reflection {
     @Run(name = "调用无参数的私有方法")
     public void invokePrivateMethod_no_param() {
         try {
-            Method method = ReflectionClass.class.getDeclaredMethod("show", int.class);
+            Method method = ReflectionClass.class.getDeclaredMethod("show");
             method.setAccessible(true);
-            method.invoke(new ReflectionClass(), 1);
+            method.invoke(new ReflectionClass());
         } catch (Exception e) {
             e.printStackTrace();
         }

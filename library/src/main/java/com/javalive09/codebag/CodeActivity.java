@@ -19,6 +19,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import com.javalive09.annotation.Run;
@@ -45,6 +46,27 @@ public class CodeActivity extends Activity {
 
     public static void launch(@NonNull Context context) {
         context.startActivity(new Intent(context, CodeActivity.class));
+    }
+
+    public Method getPrivateMethod(Object object, String name, Class<?>... parameterTypes) {
+        try {
+            return object.getClass().getDeclaredMethod(name, parameterTypes);
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public Object invokePrivateMethod(Object object, Method method,  Object... args) {
+        method.setAccessible(true);
+        try {
+            return method.invoke(object, args);
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     public void showText(@NonNull final String text) {

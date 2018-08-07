@@ -1,19 +1,32 @@
 package com.javalive09.demos;
 
+import android.annotation.SuppressLint;
+import android.app.Dialog;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
 import android.graphics.Color;
+import android.media.AudioManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.PowerManager;
+import android.os.SystemClock;
 import android.provider.Settings;
+import android.text.Spannable;
+import android.text.SpannableStringBuilder;
+import android.text.style.ForegroundColorSpan;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.webkit.WebView;
-import android.widget.AbsListView;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.SimpleAdapter;
@@ -23,6 +36,7 @@ import com.aigestudio.wheelpicker.WheelPicker;
 import com.javalive09.codebag.CodeActivity;
 import com.javalive09.annotation.Run;
 import com.javalive09.annotation.Code;
+import com.javalive09.demos.view.AbcPicker;
 import com.javalive09.demos.view.ArcView;
 import com.javalive09.demos.view.NumPicker;
 import com.javalive09.demos.view.SampleView;
@@ -30,7 +44,8 @@ import com.javalive09.demos.view.Xfermodes;
 import com.javalive09.demos.view.Xfermodes_clip;
 
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -345,8 +360,15 @@ public class ViewTest {
         activity.setContentView(R.layout.time_picker_layout);
         NumPicker picker = activity.findViewById(R.id.picker1);
         NumPicker picker2 = activity.findViewById(R.id.picker2);
-        picker.setMaxValue(60).setShowCount(5).setTextSize(50).setLoop(true).build();
-        picker2.setMaxValue(24).setShowCount(5).setLoop(true).setTextSize(50).build();
+        picker.setMaxValue(60).setShowCount(5).setTextSize(50).setLoop(true).setDefaultItemNum(15).build();
+        picker2.setMaxValue(24).setShowCount(5).setLoop(false).setTextSize(50).setDefaultItemNum(15).build();
+    }
+
+    @Run(name = "ABC选择器")
+    public void showABCPicker(CodeActivity activity) {
+        activity.setContentView(R.layout.abc_picker_layout);
+        AbcPicker picker = activity.findViewById(R.id.picker);
+        picker.setShowCount(5).setTextSize(50).setDefaultItemNum('G').build();
     }
 
     @Run(name = "轮子时间选择器")
@@ -451,6 +473,204 @@ public class ViewTest {
             Log.e("peter", "acquire");
         }, 100 * 1000);
 
+    }
+
+    @Run(name = "setting息屏")
+    public void testCloseScreen(CodeActivity activity) {
+        try {
+            activity.getContentResolver()
+                    .call(Uri.parse("content://com.baidu.duer.duershowsettings.provider"), "closeScreen", null, null);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Run(name = "setting亮屏")
+    public void testOpenScreen(CodeActivity activity) {
+        Handler handler = new Handler(Looper.getMainLooper());
+        handler.postDelayed(() -> {
+            try {
+                activity.getContentResolver()
+                        .call(Uri.parse("content://com.baidu.duer.duershowsettings.provider"), "openScreen", null,
+                                null);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }, 30 * 1000);
+    }
+
+    @Run(name = "setting reset")
+    public void testSetting(CodeActivity activity) {
+        activity.getContentResolver().call(Uri.parse("content://com.baidu.duer.duershowsettings.provider"),
+                "reset", null, null);
+    }
+
+    @Run(name = "打开video")
+    public void testOpenVideo(CodeActivity activity) {
+        Intent intent = new Intent(Intent.ACTION_VIEW);
+        ComponentName componentName =
+                new ComponentName("android.rk.RockVideoPlayer", "android.rk.RockVideoPlayer.RockVideoPlayer");
+        intent.setComponent(componentName);
+        if (isCallable(intent, activity)) {
+            activity.startActivity(intent);
+        }
+    }
+
+    private boolean isCallable(Intent intent, CodeActivity activity) {
+        List<ResolveInfo> list =
+                activity.getPackageManager().queryIntentActivities(intent, PackageManager.MATCH_DEFAULT_ONLY);
+        return list.size() > 0;
+    }
+
+    @Run(name = "获取Setting亮度")
+    public void testSettingProvider(CodeActivity activity) {
+        try {
+            Bundle bundle = activity.getContentResolver()
+                    .call(Uri.parse("content://com.baidu.duer.duershowsettings.provider"), "getBrightness", null, null);
+            if (bundle != null) {
+                long brightness = bundle.getLong("brightness", 0);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Run(name = "last-userActivityTime")
+    public void testGetLastUserActivity(CodeActivity activity) {
+        PowerManager pm = (PowerManager) activity.getSystemService(Context.POWER_SERVICE);
+    }
+
+        @Run(name = "snack dialog")
+        public void testsnackDialog(CodeActivity activity) {
+
+            if(!Settings.canDrawOverlays(activity)) {
+                Intent intent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION,
+                        Uri.parse("package:" + activity.getPackageName()));
+                activity.startActivityForResult(intent,10);
+            } else {
+                final Dialog mDialog = new Dialog(activity.getApplicationContext(), R.style.dialog);
+                mDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                mDialog.setContentView(R.layout.dialog);
+                Window window = mDialog.getWindow();
+                if (window != null) {
+                    window.setGravity(Gravity.BOTTOM);
+                    window.setWindowAnimations(R.style.AnimDialog);
+                    window.setType(WindowManager.LayoutParams.TYPE_SYSTEM_ALERT);
+                    WindowManager manager = window.getWindowManager();
+                    DisplayMetrics dm = new DisplayMetrics();
+                    manager.getDefaultDisplay().getMetrics(dm);
+                    WindowManager.LayoutParams params = window.getAttributes();
+                    params.width = dm.widthPixels;
+                    window.setAttributes(params);
+                    ((TextView) (mDialog.findViewById(R.id.title))).setText("设备将在180秒后自动进行升级");
+                    mDialog.findViewById(R.id.cancel).setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            mDialog.dismiss();
+                        }
+                    });
+
+                    mDialog.findViewById(R.id.ok).setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            mDialog.dismiss();
+                        }
+                    });
+                }
+                mDialog.show();
+            }
+        }
+
+    @Run(name = "test provider")
+    public void testProvider(CodeActivity activity) {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    Bundle bundle = activity.getContentResolver()
+                            .call(Uri.parse("content://com.peter.provider"), "closeScreen", null, null);
+                    if (bundle != null) {
+                        long brightness = bundle.getInt("test", 0);
+                        Log.i("peter", "brightness:" + brightness);
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
+
+    }
+
+    @Run(name = "测试ettingGlobal")
+    public void testSettingGlobal(CodeActivity activity) {
+        int str = Settings.Global.getInt(activity.getContentResolver(), "screenshot_enable", -9);
+        activity.showText(str + "");
+    }
+
+    @Run(name = "测试获取ettingGlobal")
+    public void testgetSettingGlobal(CodeActivity activity) {
+        try {
+            Settings.Global.putInt(activity.getContentResolver(), "screenshot_enable", 1);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Run
+    public void isAudioPlay(CodeActivity activity) {
+
+        Handler handler = new Handler(Looper.getMainLooper());
+        handler.postDelayed(() -> {
+            try {
+
+                final AudioManager am = (AudioManager) activity.getSystemService(Context.AUDIO_SERVICE);
+                boolean active = am.isMusicActive();
+                Log.i("peter", "active="+ active);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }, 10 * 1000);
+    }
+
+    @Run
+    public void systemUpTime(CodeActivity activity) {
+        String str = SystemClock.uptimeMillis() + "";
+        activity.showText(str);
+    }
+
+    @Run(name = "app info list")
+    public void getInfo(CodeActivity activity) {
+        activity.showText(getAppInfo(activity));
+    }
+
+
+    private String getAppInfo(CodeActivity activity)
+    {
+        @SuppressLint("WrongConstant")
+        List<ApplicationInfo> apps = activity.getPackageManager().getInstalledApplications(
+                PackageManager.GET_SIGNATURES);
+
+        String content = "";
+        for (ApplicationInfo info : apps)
+        {
+            if ((info.flags & ApplicationInfo.FLAG_SYSTEM) == 0)
+            {
+                // 非系统应用
+                content += "name=" + info.loadLabel(activity.getPackageManager()).toString()+ " path=" + info
+                        .sourceDir + "\n";
+            }
+        }
+
+        return content;
+    }
+
+    @Run(name = "获取整分钟")
+    public void getMinTime() {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(new Date());
+        calendar.set(Calendar.SECOND, 0);
+        long currentTime = calendar.getTimeInMillis();
+        Log.d("peter", "currentTime = " +  currentTime);
     }
 
 }
