@@ -22,6 +22,8 @@ import android.widget.Toast;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
+
+import com.javalive09.annotation.Code;
 import com.javalive09.annotation.Run;
 
 /**
@@ -57,7 +59,7 @@ public class CodeActivity extends Activity {
         return null;
     }
 
-    public Object invokePrivateMethod(Object object, Method method,  Object... args) {
+    public Object invokePrivateMethod(Object object, Method method, Object... args) {
         method.setAccessible(true);
         try {
             return method.invoke(object, args);
@@ -70,11 +72,8 @@ public class CodeActivity extends Activity {
     }
 
     public void showText(@NonNull final String text) {
-        TextView textView = new TextView(CodeActivity.this);
-        textView.setMovementMethod(ScrollingMovementMethod.getInstance());
-        textView.setVerticalScrollBarEnabled(true);
-        textView.setText(text);
-        setContentView(textView);
+        setContentView(R.layout.textview_layout);
+        ((TextView) (findViewById(R.id.content_text))).setText(text);
     }
 
     public void showText(@StringRes int resId) {
@@ -133,6 +132,7 @@ public class CodeActivity extends Activity {
                     invokeMethod(CodeActivity.class);
                 } catch (Exception e) {
                     try {
+                        e.printStackTrace();
                         invokeMethod(null);
                     } catch (Exception e1) {
                         e1.printStackTrace();
@@ -177,6 +177,7 @@ public class CodeActivity extends Activity {
                         .equals(methodName, currentNode.mSubNodeList.get(i).name))) {
                     listView.performItemClick(listView.getAdapter().getView(i, null, null), i,
                             listView.getAdapter().getItemId(i));
+                    listView.setSelection(i);
                     break;
                 }
             }
@@ -186,9 +187,10 @@ public class CodeActivity extends Activity {
     private ListView installListView() {
         ListView listView = null;
         if (currentNode.mSubNodeList != null) {
+            setContentView(R.layout.listview_layout);
             ArrayAdapter<CodeNode> arrayAdapter = new ArrayAdapter<>(CodeActivity.this,
                     android.R.layout.simple_list_item_1, currentNode.mSubNodeList);
-            listView = new ListView(CodeActivity.this);
+            listView = findViewById(R.id.list_content);
             listView.setAdapter(arrayAdapter);
             listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
@@ -225,26 +227,20 @@ public class CodeActivity extends Activity {
                     }
                 }
             });
-            setContentView(listView);
         }
         return listView;
     }
 
     private void invokeMethod(Class<?> parameterTypes) throws Exception {
-        Class<?> cls = Class.forName(currentNode.className);
         Object obj = getClassLoader().loadClass(currentNode.className).newInstance();
-        if (parameterTypes == null) {
-            Method method = cls.getMethod(currentNode.name);
-            if (method != null) {
-                method.invoke(obj);
-            }
-        } else {
-            Method method = cls.getMethod(currentNode.name, parameterTypes);
-            if (method != null) {
-                method.invoke(obj, CodeActivity.this);
+        Method method = getPrivateMethod(obj, currentNode.name, parameterTypes);
+        if(method != null) {
+            if (parameterTypes == null) {
+                invokePrivateMethod(obj, method);
+            }else {
+                invokePrivateMethod(obj, method, CodeActivity.this);
             }
         }
-
     }
 
     private void startActivity(CodeNode node) {

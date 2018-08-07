@@ -540,46 +540,46 @@ public class ViewTest {
         PowerManager pm = (PowerManager) activity.getSystemService(Context.POWER_SERVICE);
     }
 
-        @Run(name = "snack dialog")
-        public void testsnackDialog(CodeActivity activity) {
+    @Run(name = "snack dialog")
+    public void testsnackDialog(CodeActivity activity) {
 
-            if(!Settings.canDrawOverlays(activity)) {
-                Intent intent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION,
-                        Uri.parse("package:" + activity.getPackageName()));
-                activity.startActivityForResult(intent,10);
-            } else {
-                final Dialog mDialog = new Dialog(activity.getApplicationContext(), R.style.dialog);
-                mDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-                mDialog.setContentView(R.layout.dialog);
-                Window window = mDialog.getWindow();
-                if (window != null) {
-                    window.setGravity(Gravity.BOTTOM);
-                    window.setWindowAnimations(R.style.AnimDialog);
-                    window.setType(WindowManager.LayoutParams.TYPE_SYSTEM_ALERT);
-                    WindowManager manager = window.getWindowManager();
-                    DisplayMetrics dm = new DisplayMetrics();
-                    manager.getDefaultDisplay().getMetrics(dm);
-                    WindowManager.LayoutParams params = window.getAttributes();
-                    params.width = dm.widthPixels;
-                    window.setAttributes(params);
-                    ((TextView) (mDialog.findViewById(R.id.title))).setText("设备将在180秒后自动进行升级");
-                    mDialog.findViewById(R.id.cancel).setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            mDialog.dismiss();
-                        }
-                    });
+        if (!Settings.canDrawOverlays(activity)) {
+            Intent intent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION,
+                    Uri.parse("package:" + activity.getPackageName()));
+            activity.startActivityForResult(intent, 10);
+        } else {
+            final Dialog mDialog = new Dialog(activity.getApplicationContext(), R.style.dialog);
+            mDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+            mDialog.setContentView(R.layout.dialog);
+            Window window = mDialog.getWindow();
+            if (window != null) {
+                window.setGravity(Gravity.BOTTOM);
+                window.setWindowAnimations(R.style.AnimDialog);
+                window.setType(WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY);//
+                WindowManager manager = window.getWindowManager();
+                DisplayMetrics dm = new DisplayMetrics();
+                manager.getDefaultDisplay().getMetrics(dm);
+                WindowManager.LayoutParams params = window.getAttributes();
+                params.width = dm.widthPixels;
+                window.setAttributes(params);
+                ((TextView) (mDialog.findViewById(R.id.title))).setText("设备将在180秒后自动进行升级");
+                mDialog.findViewById(R.id.cancel).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        mDialog.dismiss();
+                    }
+                });
 
-                    mDialog.findViewById(R.id.ok).setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            mDialog.dismiss();
-                        }
-                    });
-                }
-                mDialog.show();
+                mDialog.findViewById(R.id.ok).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        mDialog.dismiss();
+                    }
+                });
             }
+            mDialog.show();
         }
+    }
 
     @Run(name = "test provider")
     public void testProvider(CodeActivity activity) {
@@ -625,7 +625,7 @@ public class ViewTest {
 
                 final AudioManager am = (AudioManager) activity.getSystemService(Context.AUDIO_SERVICE);
                 boolean active = am.isMusicActive();
-                Log.i("peter", "active="+ active);
+                Log.i("peter", "active=" + active);
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -643,20 +643,16 @@ public class ViewTest {
         activity.showText(getAppInfo(activity));
     }
 
-
-    private String getAppInfo(CodeActivity activity)
-    {
+    private String getAppInfo(CodeActivity activity) {
         @SuppressLint("WrongConstant")
         List<ApplicationInfo> apps = activity.getPackageManager().getInstalledApplications(
                 PackageManager.GET_SIGNATURES);
 
         String content = "";
-        for (ApplicationInfo info : apps)
-        {
-            if ((info.flags & ApplicationInfo.FLAG_SYSTEM) == 0)
-            {
+        for (ApplicationInfo info : apps) {
+            if ((info.flags & ApplicationInfo.FLAG_SYSTEM) == 0) {
                 // 非系统应用
-                content += "name=" + info.loadLabel(activity.getPackageManager()).toString()+ " path=" + info
+                content += "name=" + info.loadLabel(activity.getPackageManager()).toString() + " path=" + info
                         .sourceDir + "\n";
             }
         }
@@ -670,7 +666,7 @@ public class ViewTest {
         calendar.setTime(new Date());
         calendar.set(Calendar.SECOND, 0);
         long currentTime = calendar.getTimeInMillis();
-        Log.d("peter", "currentTime = " +  currentTime);
+        Log.d("peter", "currentTime = " + currentTime);
     }
 
 }

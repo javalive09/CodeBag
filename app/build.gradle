@@ -27,7 +27,7 @@ android {
 }
 
 dependencies {
-    implementation 'com.javalive09.codebag:codebag:1.5.6'
+    implementation 'com.javalive09.codebag:codebag:1.5.8'
     implementation 'com.javalive09.annotation:annotation:1.0.5'
     annotationProcessor 'com.javalive09.processor:processor:1.6'
 
@@ -35,8 +35,8 @@ dependencies {
 
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation 'com.android.support:appcompat-v7:26.1.0'
-    implementation 'io.reactivex.rxjava2:rxandroid:2.0.1'
-    implementation 'io.reactivex.rxjava2:rxjava:2.1.8'
+    implementation 'io.reactivex.rxjava2:rxandroid:2.0.2'
+    implementation 'io.reactivex.rxjava2:rxjava:2.1.17'
     implementation 'cn.aigestudio.wheelpicker:WheelPicker:1.1.2'
 
     implementation 'com.github.promeg:tinypinyin:2.0.3'
