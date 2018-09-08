@@ -27,7 +27,7 @@ Usage
 ---------------------
 -  Launch
 ```
-CodeBag.Launch(MainActivity);
+CodeBag.Launch(context);
 ```
 -  Create a file class with annotation of @Run method(the parameters must be 
 CodeActivity) as the entrance and you can 
@@ -60,7 +60,7 @@ custom class name  @Code(name = "HelloWorld 示例") and custom method name as b
         }
         
 
-![](http://peter-1254131086.costj.myqcloud.com/codebag.png)
+![](http://7xoxmg.com1.z0.glb.clouddn.com/200code_helloword.png)
 
 License
 -------
