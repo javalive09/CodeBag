@@ -38,14 +38,25 @@ public class ListTest {
         activity.showText(a.toString());
     }
 
-    @Run(name = "add相同元素在0位置上(不变)")
-    public void AddSameObject(CodeActivity activity) {
+    @Run(name = "add相同元素在0位置上")
+    public void AddSameObjectPositionZero(CodeActivity activity) {
         ArrayList a = new ArrayList();
         a.add("a");
         a.add("b");
         a.add("c");
         a.add("d");
         a.add(0, "a");
+        activity.showText(a.toString());
+    }
+
+    @Run(name = "add相同元素")
+    public void AddSameObject(CodeActivity activity) {
+        ArrayList<String> a = new ArrayList<>();
+        String str = "a";
+        a.add(str);
+        a.add(str);
+        a.add(str);
+        a.add(str);
         activity.showText(a.toString());
     }
 

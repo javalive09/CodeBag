@@ -1,6 +1,7 @@
 package com.javalive09.demos;
 
 import android.content.Intent;
+import android.provider.Settings;
 import android.util.Log;
 import android.widget.TextView;
 
@@ -16,36 +17,24 @@ import com.javalive09.annotation.Run;
 public class HelloWorld {
 
     @Run
-    public void log() {
+    public void log(CodeActivity codeActivity) {
         Log.e("HelloWorld", "log");
     }
 
     @Run
-    public void showView(CodeActivity activity) {
-        TextView textView = new TextView(activity);
-        textView.setText("hello world!!");
-        activity.setContentView(textView);
+    public void showView(CodeActivity codeActivity) {
+        codeActivity.setContentView(R.layout.shape);
     }
 
     @Run
-    public void showText(CodeActivity activity) {
-        activity.showText("hello world!!");
+    public void showText(CodeActivity codeActivity) {
+        codeActivity.showText("hello world!!");
     }
 
-    @Run(name = "显示3.5秒toast")
-    public void showToastLong(CodeActivity activity) {
-        activity.toastLong("hello world !!");
-    }
-
-    @Run(name = "显示2秒toast")
-    public void showToastShort(CodeActivity activity) {
-        activity.toastShort("hello world !!");
-    }
 
     @Run(name = "启动其他activity")
     public void startActivity(CodeActivity activity) {
-        Intent intent = new Intent(activity, CodeActivity.class);
-        activity.startActivity(intent);
+        activity.startActivity(new Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS));
     }
 
 }

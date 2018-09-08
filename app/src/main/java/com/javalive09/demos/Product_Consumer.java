@@ -4,6 +4,7 @@ import android.util.Log;
 
 import com.javalive09.annotation.Run;
 import com.javalive09.annotation.Code;
+import com.javalive09.codebag.CodeActivity;
 
 import java.util.LinkedList;
 import java.util.Queue;
@@ -13,7 +14,7 @@ import java.util.Random;
 public class Product_Consumer {
 
     @Run(name = "启动生产和消费")
-    public void startRun() {
+    public void startRun(CodeActivity activity) {
         LinkedList<Integer> queue = new LinkedList<Integer>();
         Thread producer = new Thread(new Producer(queue, 2, "producer"));
         Thread consumer = new Thread(new Consumer(queue, "consumer"));

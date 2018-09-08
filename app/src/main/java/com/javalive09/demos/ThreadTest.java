@@ -19,7 +19,7 @@ import java.util.concurrent.Executors;
 public class ThreadTest {
 
     @Run(name = "死锁模型")
-    public void deadLock() {
+    public void deadLock(CodeActivity activity) {
         new Thread(() -> methodA()).start();
         new Thread(() -> methodB()).start();
     }

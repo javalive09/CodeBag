@@ -18,7 +18,7 @@ Import Library
 Gradle:
 add dependencies as follow
 ```
-implementation 'com.javalive09.codebag:codebag:1.5.8'
+implementation 'com.javalive09.codebag:codebag:1.6.0'
 implementation 'com.javalive09.annotation:annotation:1.0.5'
 annotationProcessor 'com.javalive09.processor:processor:1.6'
 ```
@@ -29,45 +29,33 @@ Usage
 ```
 CodeBag.Launch(MainActivity);
 ```
--  Create a file class with annotation of @Run method(if you want show view the method parameters must be 
+-  Create a file class with annotation of @Run method(the parameters must be 
 CodeActivity) as the entrance and you can 
 custom class name  @Code(name = "HelloWorld 示例") and custom method name as below)
         
         
         public class HelloWorld {
         
-            @Run
-            public void log() {
-                Log.e("HelloWorld", "log");
-            }
+                @Run
+                public void log(CodeActivity codeActivity) {
+                    Log.e("HelloWorld", "log");
+                }
             
-            @Run
-            public void showView(CodeActivity activity) {
-                TextView textView = new TextView(activity);
-                textView.setText("hello world!!");
-                activity.setContentView(textView);
-            }
-        
-            @Run
-            public void showText(CodeActivity activity) {
-                activity.showText("hello world!!");
-            }
-        
-            @Run(name = "显示3.5秒toast")
-            public void showToastLong(CodeActivity activity) {
-                activity.toastLong("hello world !!");
-            }
-        
-            @Run(name = "显示2秒toast")
-            public void showToastShort(CodeActivity activity) {
-                activity.toastShort("hello world !!");
-            }
-        
-            @Run(name = "启动其他activity")
-            public void startActivity(CodeActivity activity) {
-                Intent intent = new Intent(activity, CodeActivity.class);
-                activity.startActivity(intent);
-            }
+                @Run
+                public void showView(CodeActivity codeActivity) {
+                    codeActivity.setContentView(R.layout.shape);
+                }
+            
+                @Run
+                public void showText(CodeActivity codeActivity) {
+                    codeActivity.showText("hello world!!");
+                }
+            
+            
+                @Run(name = "启动其他activity")
+                public void startActivity(CodeActivity activity) {
+                    activity.startActivity(new Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS));
+                }
         
         }
         

@@ -31,7 +31,7 @@ import com.javalive09.annotation.Run;
  */
 public class CodeActivity extends Activity {
 
-    private static final String CURRENT_NODE = "current_node";
+    private static final String CURRENT_NODE = "currentNode";
     private static final String CLASS_NAME = "className";
     private static final String METHOD_NAME = "methodName";
     private static final String SP_NAME = "mark";
@@ -47,45 +47,12 @@ public class CodeActivity extends Activity {
     }
 
     public static void launch(@NonNull Context context) {
-        context.startActivity(new Intent(context, CodeActivity.class));
-    }
-
-    public Method getPrivateMethod(Object object, String name, Class<?>... parameterTypes) {
-        try {
-            return object.getClass().getDeclaredMethod(name, parameterTypes);
-        } catch (NoSuchMethodException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-
-    public Object invokePrivateMethod(Object object, Method method, Object... args) {
-        method.setAccessible(true);
-        try {
-            return method.invoke(object, args);
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        } catch (InvocationTargetException e) {
-            e.printStackTrace();
-        }
-        return null;
+        context.getApplicationContext().startActivity(new Intent(context, CodeActivity.class));
     }
 
     public void showText(@NonNull final String text) {
         setContentView(R.layout.textview_layout);
         ((TextView) (findViewById(R.id.content_text))).setText(text);
-    }
-
-    public void showText(@StringRes int resId) {
-        showText(getString(resId));
-    }
-
-    public void toastLong(@NonNull String text) {
-        Toast.makeText(CodeActivity.this, text, Toast.LENGTH_LONG).show();
-    }
-
-    public void toastShort(@NonNull String text) {
-        Toast.makeText(CodeActivity.this, text, Toast.LENGTH_SHORT).show();
     }
 
     private void initData(Context context) {
@@ -95,7 +62,10 @@ public class CodeActivity extends Activity {
             CodeNodeLoader.getInstance().load(rootNode, getApplicationContext());
         } else {
             if (getIntent() != null) {
-                currentNode = getIntent().getParcelableExtra(CURRENT_NODE);
+                Bundle bundle = getIntent().getBundleExtra(CURRENT_NODE);
+                if (bundle != null) {
+                    currentNode = bundle.getParcelable(CURRENT_NODE);
+                }
             }
         }
         if (currentNode == null) {
@@ -124,24 +94,19 @@ public class CodeActivity extends Activity {
             case CodeNode.CLASS:
                 ListView listView = installListView();
                 if (listView != null) {
-                    autoClick(currentNode.type, listView);
+                    autoClick(listView);
                 }
                 break;
             case CodeNode.METHOD:
                 try {
                     invokeMethod(CodeActivity.class);
                 } catch (Exception e) {
-                    try {
-                        e.printStackTrace();
-                        invokeMethod(null);
-                    } catch (Exception e1) {
-                        e1.printStackTrace();
-                    }
+                    e.printStackTrace();
                 }
+
                 //mark method
-                SharedPreferences sp = getSharedPreferences(SP_NAME, MODE_PRIVATE);
-                sp.edit().putString(CLASS_NAME, currentNode.className).apply();
-                sp.edit().putString(METHOD_NAME, currentNode.name).apply();
+                saveMark(CLASS_NAME, currentNode.className);
+                saveMark(METHOD_NAME, currentNode.name);
 
                 //no view - finish
                 FrameLayout content = findViewById(android.R.id.content);
@@ -155,33 +120,46 @@ public class CodeActivity extends Activity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        switch (currentNode.type) {
-            case CodeNode.METHOD:
-                SharedPreferences sp = getSharedPreferences(SP_NAME, MODE_PRIVATE);
-                sp.edit().putString(METHOD_NAME, "").apply();
-                break;
-            case CodeNode.CLASS:
-                sp = getSharedPreferences(SP_NAME, MODE_PRIVATE);
-                sp.edit().putString(CLASS_NAME, "").apply();
-                break;
-        }
+        saveMark(CLASS_NAME, "");
+        saveMark(METHOD_NAME, "");
     }
 
-    private void autoClick(int type, ListView listView) {
-        SharedPreferences sp = getSharedPreferences(SP_NAME, MODE_PRIVATE);
-        String className = sp.getString(CLASS_NAME, "");
-        String methodName = sp.getString(METHOD_NAME, "");
+    private void autoClick(ListView listView) {
+        String className = getMark(CLASS_NAME);
+        String methodName = getMark(METHOD_NAME);
+        int type = currentNode.type;
         for (int i = 0, count = currentNode.mSubNodeList.size(); i < count; i++) {
-            if (TextUtils.equals(currentNode.mSubNodeList.get(i).className, className)) {
-                if (type == CodeNode.DIR || (type == CodeNode.CLASS && TextUtils
-                        .equals(methodName, currentNode.mSubNodeList.get(i).name))) {
-                    listView.performItemClick(listView.getAdapter().getView(i, null, null), i,
-                            listView.getAdapter().getItemId(i));
-                    listView.setSelection(i);
-                    break;
+            final CodeNode node = currentNode.mSubNodeList.get(i);
+            if (TextUtils.equals(node.className, className)) {
+                switch (type) {
+                    case CodeNode.DIR:
+                        performClickListItem(listView, i);
+                        break;
+                    case CodeNode.CLASS:
+                        if (TextUtils.equals(node.name, methodName)) {
+                            performClickListItem(listView, i);
+                        }
+                        break;
+                    default:
+                        break;
                 }
             }
         }
+    }
+
+    private void performClickListItem(ListView listView, int i) {
+        listView.setSelection(i);
+        listView.performItemClick(listView.getAdapter().getView(i, null, null), i, listView.getAdapter().getItemId(i));
+    }
+
+    private String getMark(String key) {
+        SharedPreferences sp = getSharedPreferences(SP_NAME, MODE_PRIVATE);
+        return sp.getString(key, "");
+    }
+
+    private void saveMark(String key, String value) {
+        SharedPreferences sp = getSharedPreferences(SP_NAME, MODE_PRIVATE);
+        sp.edit().putString(key, value).apply();
     }
 
     private ListView installListView() {
@@ -233,19 +211,18 @@ public class CodeActivity extends Activity {
 
     private void invokeMethod(Class<?> parameterTypes) throws Exception {
         Object obj = getClassLoader().loadClass(currentNode.className).newInstance();
-        Method method = getPrivateMethod(obj, currentNode.name, parameterTypes);
-        if(method != null) {
-            if (parameterTypes == null) {
-                invokePrivateMethod(obj, method);
-            }else {
-                invokePrivateMethod(obj, method, CodeActivity.this);
-            }
+        Method method = obj.getClass().getDeclaredMethod(currentNode.name, parameterTypes);
+        if (method != null) {
+            method.setAccessible(true);
+            method.invoke(obj, CodeActivity.this);
         }
     }
 
     private void startActivity(CodeNode node) {
         Intent intent = new Intent(CodeActivity.this, CodeActivity.class);
-        intent.putExtra(CURRENT_NODE, node);
+        Bundle bundle = new Bundle();
+        bundle.putParcelable(CURRENT_NODE, node);
+        intent.putExtra(CURRENT_NODE, bundle);
         startActivity(intent);
     }
 

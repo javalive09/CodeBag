@@ -2,11 +2,13 @@ package com.javalive09.demos;
 
 import android.graphics.Color;
 import android.net.Uri;
+import android.util.Log;
 import android.widget.TextView;
 
 import com.javalive09.codebag.CodeActivity;
 import com.javalive09.annotation.Run;
 import com.javalive09.annotation.Code;
+import com.javalive09.demos.utils.GzipUtil;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
@@ -150,4 +152,26 @@ public class StringTest {
 
     }
 
+    private String str = "";
+
+    @Run
+    public void compress(CodeActivity activity) {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < 10; i++) {
+            sb.append("代码笔记：www.note52.com");
+        }
+        str = sb.toString();
+        String s = GzipUtil.compress(str);
+        Log.i("peter", "before compress:" + str.length());
+        Log.i("peter", "compress:" + s.length());
+    }
+
+    @Run
+    public void unCompress(CodeActivity activity) {
+        String s = GzipUtil.uncompress(str);
+        Log.i("peter", "unCompress:" + s.length());
+
+    }
+
 }
+

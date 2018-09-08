@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
+import android.content.res.Configuration;
 import android.graphics.Color;
 import android.media.AudioManager;
 import android.net.Uri;
@@ -287,12 +288,12 @@ public class ViewTest {
 
     @Run
     public void showEmojiX(CodeActivity activity) {
-        activity.showText(R.string.x);
+        activity.showText(activity.getString(R.string.x));
     }
 
     @Run
     public void showEmojiY(CodeActivity activity) {
-        activity.showText(R.string.v);
+        activity.showText(activity.getString(R.string.v));
     }
 
     @Run
@@ -668,5 +669,58 @@ public class ViewTest {
         long currentTime = calendar.getTimeInMillis();
         Log.d("peter", "currentTime = " + currentTime);
     }
+
+    @Run
+    public void writeSystemSettings(CodeActivity codeActivity) {
+        boolean result = Settings.System.putString(codeActivity.getContentResolver(), "notification_sound", "peter"
+                + ".txt");
+        codeActivity.showText("result =" + result);
+    }
+
+    @Run
+    public void readSystemSettings(CodeActivity codeActivity) {
+        String result = Settings.System.getString(codeActivity.getContentResolver(), "notification_sound");
+        codeActivity.showText("result =" + result);
+    }
+
+    @Run
+    public void writeGlobalSettings(CodeActivity codeActivity) {
+        boolean result = Settings.Global.putString(codeActivity.getContentResolver(), "desk_dock_sound", "123.txt");
+        codeActivity.showText("result =" + result);
+    }
+
+    @Run
+    public void readGlobalSettings(CodeActivity codeActivity) {
+        String result = Settings.Global.getString(codeActivity.getContentResolver(), "desk_dock_sound");
+        codeActivity.showText("result =" + result);
+    }
+
+    @Run
+    public void writeSecureSettings(CodeActivity codeActivity) {
+        boolean result = Settings.Secure.putString(codeActivity.getContentResolver(), "default_input_method", "peter");
+        codeActivity.showText("result =" + result);
+    }
+
+    @Run
+    public void readSecureSettings(CodeActivity codeActivity) {
+        String result = Settings.Secure.getString(codeActivity.getContentResolver(), "default_input_method");
+        codeActivity.showText("result =" + result);
+    }
+
+
+    @Run
+    public void settingsRing(CodeActivity codeActivity) {
+        codeActivity.startActivity(new Intent("duershow.settings.RING_TONE_PICKER"));
+    }
+
+    @Run
+    public void smallestScreenWidthDp(CodeActivity codeActivity) {
+        Configuration config = codeActivity.getResources().getConfiguration();
+        int smallestScreenWidth = config.smallestScreenWidthDp;
+        codeActivity.showText(smallestScreenWidth + "");
+    }
+
+
+
 
 }

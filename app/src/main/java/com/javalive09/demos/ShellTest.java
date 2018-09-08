@@ -48,57 +48,57 @@ public class ShellTest {
     }
 
     @Run(name = "Home键")
-    public void home() {
+    public void home(CodeActivity activity) {
         key(3);
     }
 
     @Run(name = "返回键")
-    public void back() {
+    public void back(CodeActivity activity) {
         key(KeyEvent.KEYCODE_BACK);
     }
 
     @Run(name = "加音量键")
-    public void volumeUp() {
+    public void volumeUp(CodeActivity activity) {
         key(KeyEvent.KEYCODE_VOLUME_UP);
     }
 
     @Run(name = "减音量键")
-    public void volumeDown() {
+    public void volumeDown(CodeActivity activity) {
         key(KeyEvent.KEYCODE_VOLUME_DOWN);
     }
 
     @Run(name = "菜单键")
-    public void menu() {
+    public void menu(CodeActivity activity) {
         key(KeyEvent.KEYCODE_MENU);
     }
 
     @Run(name = "电话键")
-    public void call() {
+    public void call(CodeActivity activity) {
         key(KeyEvent.KEYCODE_CALL);
     }
 
     @Run(name = "照相机键")
-    public void camera() {
+    public void camera(CodeActivity activity) {
         key(KeyEvent.KEYCODE_CAMERA);
     }
 
     @Run(name = "静音键")
-    public void mute() {
+    public void mute(CodeActivity activity) {
         key(KeyEvent.KEYCODE_MUTE);
     }
 
     @Run(name = "水平滑动屏幕")
-    public void swip() {
+    public void swip(CodeActivity activity) {
         swip(600, 600, 1000, 600);
     }
 
     @Run(name = "点击屏幕")
-    public void tap() {
+    public void tap(CodeActivity activity) {
         tap(600, 600);
     }
 
     @Run(name = "滚动屏幕")
-    public void roll() {
+    public void roll(CodeActivity activity) {
         roll(0, 900);
     }
 
