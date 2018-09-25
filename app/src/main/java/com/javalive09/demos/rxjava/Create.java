@@ -4,6 +4,7 @@ import android.util.Log;
 
 import com.javalive09.annotation.Run;
 import com.javalive09.annotation.Code;
+import com.javalive09.codebag.CodeActivity;
 
 import java.util.concurrent.TimeUnit;
 
@@ -19,7 +20,7 @@ import io.reactivex.internal.operators.observable.ObservableCreate;
 public class Create {
 
     @Run
-    public void create() {
+    public void create(CodeActivity codeActivity) {
         Disposable disposable = new ObservableCreate<>(e -> {
             e.onNext("a");
             e.onNext("b");
@@ -42,34 +43,34 @@ public class Create {
     }
 
     @Run(name = "Just \n将单个数据转换为发射那个数据的Observable")
-    public void just() {
+    public void just(CodeActivity codeActivity) {
         Disposable disposable = Observable.just("a").subscribe(s -> Log.i("create", s + ""));
     }
 
     @Run(name = "defer\n 直到有观察者订阅时才创建Observable，并且为每个观察者创建一个新的Observable")
-    public void defer() {
+    public void defer(CodeActivity codeActivity) {
         Disposable disposable = Observable.defer(() -> Observable.just(System.currentTimeMillis())).subscribe(s -> Log.i("Create", "defer = " + s));
     }
 
     @Run(name = "fromArray \n 将数组数据类型转换为Observable")
-    public void fromArray() {
+    public void fromArray(CodeActivity codeActivity) {
         Disposable disposable = Observable.fromArray("a", "b", "c", "d", "e").subscribe(s -> Log.i("Create", "from = " + s));
     }
 
     @Run(name = "interval \n 创建一个按固定时间间隔发射整数序列的Observable")
-    public void interval() {
+    public void interval(CodeActivity codeActivity) {
         Disposable disposable = Observable.interval(1, TimeUnit.SECONDS)
                 .subscribe(aLong -> Log.i("Create", "interval = " + aLong));
         Disposable disposable1 = Observable.just("").delay(10, TimeUnit.SECONDS).subscribe(s -> disposable.dispose());
     }
 
     @Run(name = "range \n 创建一个发射特定整数序列的Observable")
-    public void range() {
+    public void range(CodeActivity codeActivity) {
         Disposable disposable = Observable.range(3, 5).subscribe(integer -> Log.i("Create", "range = " + integer));
     }
 
     @Run(name = "timer \n 创建一个Observable，它在一个给定的延迟后发射一个特殊的值")
-    public void timer() {
+    public void timer(CodeActivity codeActivity) {
         Disposable disposable = Observable.timer(2, TimeUnit.SECONDS).subscribe(aLong -> Log.i("Create", "start = " + aLong));
     }
 

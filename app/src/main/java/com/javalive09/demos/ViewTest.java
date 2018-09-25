@@ -721,6 +721,15 @@ public class ViewTest {
     }
 
 
+    @Run
+    public void showShape(CodeActivity codeActivity) {
+        codeActivity.setContentView(R.layout.shape_1_2);
+    }
 
+    @Run
+    public void getAndroiodScreenProperty(CodeActivity codeActivity) {
+        int sw = codeActivity.getResources().getConfiguration().smallestScreenWidthDp;
+        codeActivity.showText("sw = " + sw);
+    }
 
 }

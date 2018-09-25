@@ -5,6 +5,7 @@ import android.util.Log;
 
 import com.javalive09.annotation.Run;
 import com.javalive09.annotation.Code;
+import com.javalive09.codebag.CodeActivity;
 
 import java.util.concurrent.TimeUnit;
 
@@ -16,7 +17,7 @@ import io.reactivex.schedulers.Schedulers;
 public class Filter {
 
     @Run(name = "debounce \n仅在过了一段指定的时间还没发射数据时才发射一个数据，可用于防止按钮重复点击")
-    public void debounce() {
+    public void debounce(CodeActivity codeActivity) {
         Disposable disposable = Observable.create(subscriber -> {
             if (subscriber.isDisposed()) return;
             try {
@@ -33,7 +34,7 @@ public class Filter {
     }
 
     @Run(name = "distinct \n 过滤掉重复的数据项 去重")
-    public void distinct() {
+    public void distinct(CodeActivity codeActivity) {
         Disposable disposable = Observable.fromArray("a", "b", "c", "a", "e", "b")
                 .distinct()
                 .subscribe(s -> Log.i("Filter", s));
