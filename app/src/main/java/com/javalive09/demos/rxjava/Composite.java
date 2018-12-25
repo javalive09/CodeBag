@@ -11,8 +11,11 @@ import java.util.Arrays;
 import java.util.concurrent.TimeUnit;
 
 import io.reactivex.Observable;
+import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.BiFunction;
+import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 
 /**
@@ -51,6 +54,20 @@ public class Composite {
         list.add(Observable.fromArray("a", "b", "c", "d", "e", "f"));
         list.add(Observable.fromArray("1", "2", "3", "4", "5", "6"));
         Disposable disposable = Observable.merge(list, 5).subscribe(s -> Log.i("Composite", s));
+    }
+
+    private String str = "data:";
+    @Run(name = "merge2")
+    public void merge2(CodeActivity codeActivity) {
+
+        Observable<String> network = Observable.just("network");
+        Observable<String> localString = Observable.just("localData");
+        Disposable disposable = Observable.merge(network, localString).subscribe(new Consumer<String>() {
+            @Override
+            public void accept(String s) throws Exception {
+                Log.i("peter", s);
+            }
+        });
     }
 
     @Run
@@ -119,6 +136,46 @@ public class Composite {
             }
             return result.toString();
         }).subscribe(s -> Log.i("Composite", s));
+
+
+
+        Disposable disposable1 = Observable.zip(observable1, observable2, new BiFunction<String, String, Bean>() {
+            @Override
+            public Bean apply(String t1, String t2) throws Exception {
+                return new Bean(t1, t2);
+            }
+        }).subscribe(new Consumer<Bean>() {
+            @Override
+            public void accept(Bean bean) throws Exception {
+
+            }
+        });
+    }
+    @Run(name ="zip \n等待多个网络请求完成")
+    public void zip2() {
+        Observable<String> observable3 = Observable.just("a", "b", "c", "d", "e").subscribeOn(Schedulers.io());
+        Observable<String> observable4 = Observable.just("1", "2", "3", "4", "5").subscribeOn(Schedulers.io());
+        Disposable disposable1 = Observable.zip(observable3, observable4, new BiFunction<String, String, Bean>() {
+            @Override
+            public Bean apply(String t1, String t2) throws Exception {
+                return new Bean(t1, t2);
+            }
+        }).subscribe(new Consumer<Bean>() {
+            @Override
+            public void accept(Bean bean) throws Exception {
+                Log.i("peter", bean.toString());
+            }
+        });
+    }
+
+    class Bean {
+        String str1;
+        String str2;
+
+        public Bean(String str1, String str2) {
+            this.str1 = str1;
+            this.str2 = str2;
+        }
     }
 
     @Run()

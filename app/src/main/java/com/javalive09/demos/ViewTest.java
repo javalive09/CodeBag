@@ -1,6 +1,7 @@
 package com.javalive09.demos;
 
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.ComponentName;
 import android.content.Context;
@@ -732,4 +733,25 @@ public class ViewTest {
         codeActivity.showText("sw = " + sw);
     }
 
+    @Run
+    public void actionWebView(CodeActivity codeActivity) {
+        Intent intent = new Intent("com.baidu.duer.action.CUSTOMER_WEB_VIEW");
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.putExtra("USE_HTML_TITLE", true);
+        intent.putExtra("EXTRA_URL", "https://xiaodu.baidu.com/saiya/html/helpVideo.html");
+        intent.putExtra("EXTRA_SHOW_TOOLBAR", true);
+        codeActivity.startActivity(intent);
+    }
+
+
+    @Run
+    public void edittext(CodeActivity codeActivity) {
+        codeActivity.setContentView(R.layout.edit);
+    }
+
+    @Run
+    public void showDialog(CodeActivity codeActivity) {
+        codeActivity.startActivity(new Intent(codeActivity, APIActivity.class));
+
+    }
 }

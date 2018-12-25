@@ -27,5 +27,9 @@
         <attr name="rearch_angle" format="float" />/>
         <attr name="rearch_res" format="integer" />/>
     </declare-styleable>
-    
+
+    <declare-styleable name="WifiEncryptionState">
+        <attr name="state_encrypted" format="boolean" />
+    </declare-styleable>
+
 </resources>

@@ -5,6 +5,10 @@ import com.javalive09.annotation.Code;
 import com.javalive09.annotation.Run;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+
+import android.animation.ObjectAnimator;
+import android.util.Log;
 
 /**
  * List的一些特性测试
@@ -58,6 +62,31 @@ public class ListTest {
         a.add(str);
         a.add(str);
         activity.showText(a.toString());
+    }
+
+    HashMap<String, Object> hashMap = new HashMap<>();
+
+
+    @Run(name = "hashmap delete value")
+    public void deleteSameValue(CodeActivity activity) {
+
+        Object o = new Object();
+
+        hashMap.put("a", o);
+        hashMap.put("b", o);
+        hashMap.put("c", o);
+
+        Log.i("peter", hashMap.toString());
+
+
+        hashMap.remove("a");
+        Log.i("peter", hashMap.toString());
+
+        hashMap.remove("b");
+        Log.i("peter", hashMap.toString());
+
+        hashMap.remove("c");
+        Log.i("peter", hashMap.toString());
     }
 
 }

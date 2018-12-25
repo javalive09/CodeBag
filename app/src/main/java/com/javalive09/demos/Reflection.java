@@ -151,4 +151,8 @@ public class Reflection {
         }
 
     }
+
+    static class InnerClass {
+        private static final String ZEN_MODE = "zen_mode";
+    }
 }

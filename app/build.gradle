@@ -26,8 +26,15 @@ android {
     }
 }
 
+repositories {
+    flatDir {
+        dirs 'libs'   // aar目录
+    }
+
+}
+
 dependencies {
-    implementation 'com.javalive09.codebag:codebag:1.6.0'
+    implementation 'com.javalive09.codebag:codebag:1.6.1'
     implementation 'com.javalive09.annotation:annotation:1.0.5'
     annotationProcessor 'com.javalive09.processor:processor:1.6'
 
@@ -36,10 +43,16 @@ dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation 'com.android.support:appcompat-v7:26.1.0'
     implementation 'io.reactivex.rxjava2:rxandroid:2.0.2'
-    implementation 'io.reactivex.rxjava2:rxjava:2.1.17'
+    implementation 'io.reactivex.rxjava2:rxjava:2.2.2'
     implementation 'cn.aigestudio.wheelpicker:WheelPicker:1.1.2'
 
     implementation 'com.github.promeg:tinypinyin:2.0.3'
+    implementation 'com.github.lzyzsd:jsbridge:1.0.4'
+    implementation 'org.jooq:joor:0.9.6'
+
+//    implementation(name: 'lib-debug', ext: 'aar')
+    implementation 'com.javalive09.rxipc:rxipc:1.0.5'
+
 }
 
 //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>添加长按查看源码功能

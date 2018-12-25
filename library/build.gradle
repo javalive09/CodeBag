@@ -7,8 +7,8 @@ android {
     defaultConfig {
         minSdkVersion 14
         targetSdkVersion 26
-        versionCode 60
-        versionName "1.6.0"
+        versionCode 61
+        versionName "1.6.1"
     }
 
     buildTypes {
@@ -22,7 +22,7 @@ android {
 
 dependencies {
     implementation 'com.javalive09.annotation:annotation:1.0.5'
-    implementation 'com.android.support:support-annotations:27.1.1'
+    implementation 'com.android.support:support-annotations:28.0.0'
 
 }
 
