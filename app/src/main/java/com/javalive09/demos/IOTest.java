@@ -258,4 +258,13 @@ public class IOTest {
         activity.showText(str);
     }
 
+    @Run
+    public void writeCache(CodeActivity activity) {
+        String transferFile = "file.txt";
+        File dir = new File("/cache");
+        File requestFile = new File(dir, transferFile);
+        String str = readFromFile(requestFile);
+        activity.showText(transferFile + ":" + str);
+    }
+
 }
