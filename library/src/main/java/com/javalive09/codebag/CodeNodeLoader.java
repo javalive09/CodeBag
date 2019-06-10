@@ -3,6 +3,7 @@ package com.javalive09.codebag;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.Collections;
 
 import com.javalive09.annotation.Constant;
 
@@ -34,6 +35,7 @@ public class CodeNodeLoader {
             Object obj = clazz.newInstance();
             Object returnObj = method.invoke(obj);
             ArrayList arrayList = (ArrayList) returnObj;
+            Collections.sort(arrayList);
             for (Object className : arrayList) {
                 String fileName = className.toString().substring(pkgName.length() + 1);
                 String[] fileNames = fileName.split("\\.");

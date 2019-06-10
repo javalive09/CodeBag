@@ -7,8 +7,8 @@ android {
     defaultConfig {
         minSdkVersion 14
         targetSdkVersion 26
-        versionCode 61
-        versionName "1.6.1"
+        versionCode 62
+        versionName "1.6.2"
     }
 
     buildTypes {
@@ -33,21 +33,4 @@ publish {
     publishVersion = android.defaultConfig.versionName//版本号
     desc = 'simple library for programmer collect code(demo, unit test ...)'//描述
     website = 'https://github.com/javalive09/CodeActivity'//网站
-}
-
-task('uploadJcenter') doLast {
-    //加载资源
-    Properties properties = new Properties()
-    InputStream inputStream = project.rootProject.file('local.properties').newDataInputStream()
-    properties.load(inputStream)
-    //读取字段
-    def bintray_user = properties.getProperty('bintray_user')
-    def bintray_key = properties.getProperty('bintray_key')
-    println "bintray_user >> " + bintray_user
-    println "bintray_key >> " + bintray_key
-    def uploadJcenterCMD = '.././gradlew clean build bintrayUpload -PbintrayUser=' + bintray_user + ' -PbintrayKey=' +
-            bintray_key + ' -PdryRun=false'
-    println "uploadJcenterCMD >> " + uploadJcenterCMD
-    def uploadAPKResult = uploadJcenterCMD.execute().text.trim()
-    println "uploadAPKResult >>>>>>>>>>>> " + uploadAPKResult
 }

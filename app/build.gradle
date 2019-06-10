@@ -34,11 +34,11 @@ repositories {
 }
 
 dependencies {
-    implementation 'com.javalive09.codebag:codebag:1.6.1'
+    implementation 'com.javalive09.codebag:codebag:1.6.2'
     implementation 'com.javalive09.annotation:annotation:1.0.5'
     annotationProcessor 'com.javalive09.processor:processor:1.6'
 
-//        implementation project(':library')
+//    implementation project(':library')
 
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation 'com.android.support:appcompat-v7:26.1.0'
@@ -55,35 +55,3 @@ dependencies {
 
 }
 
-//>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>添加长按查看源码功能
-afterEvaluate {
-    android.applicationVariants.all { variant ->
-        variant.assemble.dependsOn(generateSources)
-    }
-}
-task generateSources doLast {
-
-    //加载资源
-    Properties properties = new Properties()
-    InputStream inputStream = project.rootProject.file('local.properties').newDataInputStream()
-    properties.load(inputStream)
-    //读取字段
-    def show_source = properties.getProperty('show_source')
-
-    if (show_source == 'true') {
-        def src = android.sourceSets.findByName("main").java.srcDirs.find().toString()
-        def dest = android.sourceSets.findByName("main").assets.srcDirs.find().toString()
-        println 'src >>>>>>>>> ' + src.toString()
-        println 'dest >>>>>>>> ' + dest.toString()
-        delete fileTree(dest)
-        copy {
-            from(src)
-            into(dest)
-            rename { String fileName ->
-                fileName.replace(".java", ".source")
-            }
-        }
-    } else {
-        println 'show_source >>>>>>>> ' + show_source
-    }
-}
