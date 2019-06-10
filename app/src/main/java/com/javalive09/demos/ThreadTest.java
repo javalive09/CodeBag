@@ -2,6 +2,7 @@ package com.javalive09.demos;
 
 import android.os.Handler;
 import android.os.Looper;
+import android.os.SystemClock;
 import android.util.Log;
 import android.widget.TextView;
 
@@ -142,6 +143,28 @@ public class ThreadTest {
                 }
             }
         }, 0, 1000);
+    }
+
+    @Run
+    public void interrupt(CodeActivity codeActivity) {
+        Thread thread = new Thread() {
+            @Override
+            public void run() {
+                while (!isInterrupted()) {
+                    Log.i("peter", String.valueOf(System.currentTimeMillis()));
+                    SystemClock.sleep(1000);
+                }
+            }
+        };
+        thread.start();
+
+        TextView textView = new TextView(codeActivity);
+        textView.setText("interrupt");
+        codeActivity.setContentView(textView);
+        textView.setOnClickListener(v -> {
+            thread.interrupt();
+            Log.i("peter", "interrupt:" + thread.isInterrupted());
+        });
     }
 
 }
