@@ -60,7 +60,7 @@ custom class name  @Code(name = "HelloWorld 示例") and custom method name as b
         }
         
 
-![](http://7xoxmg.com1.z0.glb.clouddn.com/200code_helloword.png)
+![](https://github-1254131086.cos.ap-beijing.myqcloud.com/device-2019-06-11-111835.jpg)
 
 License
 -------
