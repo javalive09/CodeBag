@@ -1,9 +1,6 @@
 package com.javalive09.demos;
 
-import java.io.IOException;
-import java.net.HttpURLConnection;
 import java.util.Arrays;
-
 import com.javalive09.annotation.Run;
 import com.javalive09.codebag.CodeActivity;
 
@@ -29,30 +26,5 @@ public class Sort {
         long delta = System.currentTimeMillis() - start;
         activity.showText("delta = " + delta);
     }
-
-    public void threadSort(CodeActivity activity) {
-        init();
-
-//        HttpURLConnection httpURLConnection = new HttpURLConnection() {
-//            @Override
-//            public void disconnect() {
-//
-//            }
-//
-//            @Override
-//            public boolean usingProxy() {
-//                return false;
-//            }
-//
-//            @Override
-//            public void connect() throws IOException {
-//
-//            }
-//        };
-//        httpURLConnection.setConnectTimeout(500);
-//        httpURLConnection.setReadTimeout(500);
-//        httpURLConnection.setChunkedStreamingMode(0);
-    }
-
 
 }

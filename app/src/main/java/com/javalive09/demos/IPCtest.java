@@ -3,13 +3,10 @@ package com.javalive09.demos;
 import com.javalive09.annotation.Run;
 import com.javalive09.codebag.CodeActivity;
 import com.javalive09.rxipc.IPCHelper;
-
-import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
-import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
-import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 
 /**
@@ -20,21 +17,14 @@ public class IPCtest {
     @Run
     public void ipc(CodeActivity codeActivity) {
         codeActivity.showText("invoke ipc method...");
-        Observable<Bundle> observable = IPCHelper.call(codeActivity, "com.javalive09.ipc", "ipc-test", null, null);
-        Disposable disposable = observable.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
-                .subscribe(
-                        new Consumer<Bundle>() {
-                            @Override
-                            public void accept(Bundle bundle) throws Exception {
-                                String name = bundle.getString("abc");
-                                codeActivity.showText(name);
-                            }
-                        }, new Consumer<Throwable>() {
-                            @Override
-                            public void accept(Throwable throwable) throws Exception {
-                                Log.e("IPC", throwable.getMessage());
-                            }
-                        });
+        Disposable d = IPCHelper.call(codeActivity, "com.javalive09.ipc", "ipc-test", null, null)
+                .subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+                .doOnError(throwable -> Log.e("IPC", throwable.getMessage())).subscribe(bundle -> {
+                    String name = bundle.getString("abc");
+                    if (!TextUtils.isEmpty(name)) {
+                        codeActivity.showText(name);
+                    }
+                });
     }
 
 }

@@ -10,11 +10,6 @@ import java.util.concurrent.ThreadLocalRandom;
 import com.javalive09.annotation.Run;
 import com.javalive09.codebag.CodeActivity;
 
-import android.os.SystemClock;
-import android.util.Log;
-import android.view.View;
-import android.widget.TextView;
-
 /**
  * Created by peter on 2019-06-10
  */
@@ -47,12 +42,7 @@ public class Random {
             add("c");
         }};
 
-        Collections.sort(list, new Comparator<String>() {
-            @Override
-            public int compare(String o1, String o2) {
-                return Integer.compare(o1.length(), o2.length());
-            }
-        });
+        Collections.sort(list, (o1, o2) -> Integer.compare(o1.length(), o2.length()));
         Collections.sort(list, (o1, o2) -> Integer.compare(o1.length(), o2.length()));
 
         Collections.sort(list, Comparator.comparingInt(String::length));

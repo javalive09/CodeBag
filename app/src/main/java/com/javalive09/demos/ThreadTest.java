@@ -21,8 +21,8 @@ public class ThreadTest {
 
     @Run(name = "死锁模型")
     public void deadLock(CodeActivity activity) {
-        new Thread(() -> methodA()).start();
-        new Thread(() -> methodB()).start();
+        new Thread(this::methodA).start();
+        new Thread(this::methodB).start();
     }
 
     private Object lockOne = new Object();

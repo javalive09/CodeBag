@@ -34,11 +34,11 @@ repositories {
 }
 
 dependencies {
-    implementation 'com.javalive09.codebag:codebag:1.6.2'
+//    implementation 'com.javalive09.codebag:codebag:1.6.2'
     implementation 'com.javalive09.annotation:annotation:1.0.5'
     annotationProcessor 'com.javalive09.processor:processor:1.6'
 
-//    implementation project(':library')
+    implementation project(':library')
 
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation 'com.android.support:appcompat-v7:26.1.0'

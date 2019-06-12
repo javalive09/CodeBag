@@ -2,8 +2,6 @@ package com.javalive09.demos;
 
 import com.javalive09.annotation.Run;
 import com.javalive09.codebag.CodeActivity;
-
-import android.support.annotation.NonNull;
 import android.util.Log;
 
 /**
