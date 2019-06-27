@@ -13,8 +13,13 @@ import com.javalive09.annotation.Code;
 import java.lang.ref.WeakReference;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
 
 @Code(name = "Thread")
 public class ThreadTest {
@@ -165,6 +170,45 @@ public class ThreadTest {
             thread.interrupt();
             Log.i("peter", "interrupt:" + thread.isInterrupted());
         });
+    }
+
+    @Run
+    public void callable(CodeActivity codeActivity) throws Exception{
+        ExecutorService executorService = Executors.newCachedThreadPool();
+        Future<String> future = executorService.submit(() -> {
+            SystemClock.sleep(20 * 1000);
+            return "result";
+        });
+        String result = future.get();
+        codeActivity.showText("result = " + result);
+    }
+
+    @Run
+    public void callableTimeout(CodeActivity codeActivity) {
+        ExecutorService executorService = Executors.newCachedThreadPool();
+        Future<String> future = executorService.submit(() -> {
+            SystemClock.sleep(20 * 1000);
+            return "result";
+        });
+        String result = "time out";
+        try {
+             result = future.get(5, TimeUnit.SECONDS);
+        }catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (TimeoutException e) {
+            e.printStackTrace();
+        }
+        codeActivity.showText("result = " + result);
+    }
+
+    @Run
+    public void joinTimeout(CodeActivity codeActivity) throws Exception{
+        Thread t = new Thread(() -> SystemClock.sleep(50000));
+        t.start();
+        t.join(20000); // 当前线程阻塞20秒
+        codeActivity.showText("xxxx");
     }
 
 }
