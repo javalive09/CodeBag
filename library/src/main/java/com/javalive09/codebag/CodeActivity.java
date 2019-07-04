@@ -39,7 +39,9 @@ public class CodeActivity extends Activity {
     }
 
     public static void launch(@NonNull Context context) {
-        context.getApplicationContext().startActivity(new Intent(context, CodeActivity.class));
+        Intent intent = new Intent(context, CodeActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        context.getApplicationContext().startActivity(intent);
     }
 
     public void showText(@NonNull final String text) {
