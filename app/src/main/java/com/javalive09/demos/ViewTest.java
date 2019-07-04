@@ -750,9 +750,29 @@ public class ViewTest {
     }
 
     @Run
-    public void showDialog(CodeActivity codeActivity) {
-        codeActivity.startActivity(new Intent(codeActivity, APIActivity.class));
+    public void showDialogActivity(CodeActivity codeActivity) {
+        TextView textView = new TextView(codeActivity);
+        textView.setText("dddddddddd");
+        codeActivity.setContentView(textView);
+        textView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                codeActivity.startActivity(new Intent(codeActivity, APIActivity.class));
+            }
+        });
+    }
 
+    @Run
+    public void showDialog(CodeActivity codeActivity) {
+        TextView textView = new TextView(codeActivity);
+        textView.setText("dddddddddd");
+        codeActivity.setContentView(textView);
+        textView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new AlertDialog.Builder(codeActivity).setTitle("peter").setMessage("test").show();
+            }
+        });
     }
 
     public void touchDelegate(CodeActivity codeActivity) {
