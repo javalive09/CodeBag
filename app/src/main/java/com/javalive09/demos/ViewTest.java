@@ -33,6 +33,7 @@ import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.aigestudio.wheelpicker.WheelPicker;
 import com.javalive09.codebag.CodeActivity;
@@ -743,7 +744,6 @@ public class ViewTest {
         codeActivity.startActivity(intent);
     }
 
-
     @Run
     public void edittext(CodeActivity codeActivity) {
         codeActivity.setContentView(R.layout.edit);
@@ -754,4 +754,13 @@ public class ViewTest {
         codeActivity.startActivity(new Intent(codeActivity, APIActivity.class));
 
     }
+
+    public void touchDelegate(CodeActivity codeActivity) {
+        ImageView view = new ImageView(codeActivity);
+        view.setImageResource(R.drawable.bitmap);
+        codeActivity.setContentView(view);
+        view.setOnClickListener(v -> Toast.makeText(codeActivity, "click", Toast.LENGTH_SHORT).show());
+    }
+
+
 }

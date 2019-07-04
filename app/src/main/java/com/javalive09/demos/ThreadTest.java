@@ -192,7 +192,7 @@ public class ThreadTest {
         });
         String result = "time out";
         try {
-             result = future.get(5, TimeUnit.SECONDS);
+             result = future.get(5, TimeUnit.SECONDS); // 当前线程阻塞5秒
         }catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {

@@ -76,4 +76,23 @@ public class TestRx {
                 });
     }
 
+
+    @Run
+    public void asyncTask(CodeActivity codeActivity) {
+        Observable.create(new ObservableOnSubscribe<String>() {
+            @Override
+            public void subscribe(ObservableEmitter<String> emitter) throws Exception {
+                Log.i("peter", "/////////");
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        SystemClock.sleep(5000);
+                        emitter.onError(new Throwable("error"));
+                    }
+                });
+            }
+        }).retry(5).subscribe();
+
+    }
+
 }

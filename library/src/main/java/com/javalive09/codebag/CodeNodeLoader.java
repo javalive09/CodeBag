@@ -35,7 +35,7 @@ public class CodeNodeLoader {
             Object obj = clazz.newInstance();
             Object returnObj = method.invoke(obj);
             ArrayList arrayList = (ArrayList) returnObj;
-            Collections.sort(arrayList);
+            Collections.sort(arrayList, String.CASE_INSENSITIVE_ORDER);
             for (Object className : arrayList) {
                 String fileName = className.toString().substring(pkgName.length() + 1);
                 String[] fileNames = fileName.split("\\.");

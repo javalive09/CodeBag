@@ -15,7 +15,7 @@ import com.javalive09.demos.anim.CircleView;
  * Created by peter on 2018/1/11.
  */
 
-@Code(name = " Animation")
+@Code(name = "Animation")
 public class AnimTest {
 
     @Run(name = "锁链动画")
