@@ -381,7 +381,7 @@ public class ViewTest {
 
         List<String> data = new ArrayList<>();
         for (int i = 0; i < 61; i++) {
-            data.add(String.format(Locale.getDefault(), "%02d", i));
+            data.add(String.format(Locale.getDefault(), "%03d", i));
         }
         wheelPicker.setData(data);
     }
@@ -429,7 +429,7 @@ public class ViewTest {
     @Run(name = "获取勿扰模式")
     public void showZenMode(CodeActivity activity) {
         String ZEN_MODE = "zen_mode";
-        //        Settings.Global.getInt(mContext.getContentResolver(), Settings.Global.ZEN_MODE, 0);
+        //        SettingsTest.Global.getInt(mContext.getContentResolver(), SettingsTest.Global.ZEN_MODE, 0);
         int result = Settings.Global.getInt(activity.getContentResolver(), ZEN_MODE, 0);
         activity.showText("result =" + result);
 

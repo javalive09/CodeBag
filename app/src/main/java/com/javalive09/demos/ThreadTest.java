@@ -34,26 +34,26 @@ public class ThreadTest {
     private Object lockTwo = new Object();
 
     private void methodA() {
-        synchronized (lockOne) {
+        synchronized(lockOne) {
             try {
                 Thread.sleep(2000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-            synchronized (lockTwo) {
+            synchronized(lockTwo) {
                 Log.i("threadTest", "methodA");
             }
         }
     }
 
     private void methodB() {
-        synchronized (lockTwo) {
+        synchronized(lockTwo) {
             try {
                 Thread.sleep(2000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-            synchronized (lockOne) {
+            synchronized(lockOne) {
                 Log.i("threadTest", "methodB");
             }
         }
@@ -173,14 +173,39 @@ public class ThreadTest {
     }
 
     @Run
-    public void callable(CodeActivity codeActivity) throws Exception{
+    public void callable(CodeActivity codeActivity) throws Exception {
         ExecutorService executorService = Executors.newCachedThreadPool();
-        Future<String> future = executorService.submit(() -> {
-            SystemClock.sleep(20 * 1000);
-            return "result";
+        Future<String> future1 = executorService.submit(() -> {
+            Log.i("ThreadTest", "future1 start");
+            SystemClock.sleep(5 * 1000);
+            Log.i("ThreadTest", "future1 end");
+            return "result1";
         });
-        String result = future.get();
-        codeActivity.showText("result = " + result);
+        Future<String> future2 = executorService.submit(() -> {
+            Log.i("ThreadTest", "future2 start");
+            SystemClock.sleep(2 * 1000);
+            Log.i("ThreadTest", "future2 end");
+            return "result2";
+        });
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                SystemClock.sleep(6 * 1000);
+                try {
+                    String f1 = future1.get();
+                    Log.i("ThreadTest", "f1 result =" + f1);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                } catch (ExecutionException e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
+        String f2 = future2.get();
+        Log.i("ThreadTest", "f2 result");
+
+        codeActivity.showText("result = " + f2);
     }
 
     @Run
@@ -192,8 +217,8 @@ public class ThreadTest {
         });
         String result = "time out";
         try {
-             result = future.get(5, TimeUnit.SECONDS); // 当前线程阻塞5秒
-        }catch (InterruptedException e) {
+            result = future.get(5, TimeUnit.SECONDS); // 当前线程阻塞5秒
+        } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {
             e.printStackTrace();
@@ -203,8 +228,34 @@ public class ThreadTest {
         codeActivity.showText("result = " + result);
     }
 
+    public void callableUse(CodeActivity codeActivity) throws Exception {
+        ExecutorService executorService = Executors.newCachedThreadPool();
+        Future<String> future1 = executorService.submit(() -> {
+            Log.i("ThreadTest", "future1 start");
+            SystemClock.sleep(5 * 1000);
+            Log.i("ThreadTest", "future1 end");
+            return "result1";
+        });
+        Future<String> future2 = executorService.submit(() -> {
+            Log.i("ThreadTest", "future2 start");
+            SystemClock.sleep(2 * 1000);
+            Log.i("ThreadTest", "future2 end");
+            return "result2";
+        });
+        Future<String> future3 = executorService.submit(() -> {
+            Log.i("ThreadTest", "future3 start");
+            SystemClock.sleep(3 * 1000);
+            Log.i("ThreadTest", "future3 end");
+            return "result3";
+        });
+
+        future1.get();
+        future2.get();
+        future3.get();
+    }
+
     @Run
-    public void joinTimeout(CodeActivity codeActivity) throws Exception{
+    public void joinTimeout(CodeActivity codeActivity) throws Exception {
         Thread t = new Thread(() -> SystemClock.sleep(50000));
         t.start();
         t.join(20000); // 当前线程阻塞20秒

@@ -4,7 +4,7 @@ android {
     compileSdkVersion 26
     defaultConfig {
         applicationId "com.javalive09.demos"
-        minSdkVersion 21
+        minSdkVersion 16
         targetSdkVersion 26
         versionCode 1
         versionName "1.0"
@@ -52,6 +52,8 @@ dependencies {
 
 //    implementation(name: 'lib-debug', ext: 'aar')
     implementation 'com.javalive09.rxipc:rxipc:1.0.5'
+
+    compile 'com.google.code.gson:gson:2.2.1'
 
 }
 
