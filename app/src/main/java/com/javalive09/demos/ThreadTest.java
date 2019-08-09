@@ -18,6 +18,8 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
+import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 
@@ -126,6 +128,33 @@ public class ThreadTest {
                 }
             });
         }
+    }
+
+    @Run
+    public void customPool(CodeActivity codeActivity) {
+        ExecutorService executor = new ThreadPoolExecutor(1, 2,
+                0L, TimeUnit.MILLISECONDS,
+                new LinkedBlockingQueue<Runnable>(1));
+        Log.i("peter2", "start >>" + Thread.currentThread().getName());
+        executor.execute(() -> {
+            SystemClock.sleep(5_000);
+            Log.i("peter2", Thread.currentThread().getName());
+        });
+
+        executor.execute(() -> {
+            SystemClock.sleep(2_000);
+            Log.i("peter2", Thread.currentThread().getName());
+        });
+
+        executor.execute(() -> {
+            SystemClock.sleep(4_000);
+            Log.i("peter2", Thread.currentThread().getName());
+        });
+
+
+
+
+
     }
 
     private int count = 0;
