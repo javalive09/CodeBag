@@ -6,6 +6,7 @@ import android.app.Dialog;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.content.ServiceConnection;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
@@ -15,6 +16,7 @@ import android.media.AudioManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.IBinder;
 import android.os.Looper;
 import android.os.PowerManager;
 import android.os.SystemClock;
@@ -780,6 +782,27 @@ public class ViewTest {
         view.setImageResource(R.drawable.bitmap);
         codeActivity.setContentView(view);
         view.setOnClickListener(v -> Toast.makeText(codeActivity, "click", Toast.LENGTH_SHORT).show());
+    }
+
+    @Run
+    public void startService(CodeActivity codeActivity) {
+        codeActivity.startService(new Intent(codeActivity, MyService.class));
+        codeActivity.showText("startService");
+    }
+
+    @Run
+    public void bindService(CodeActivity codeActivity) {
+        codeActivity.bindService(new Intent(codeActivity, MyService.class), new ServiceConnection() {
+            @Override
+            public void onServiceConnected(ComponentName name, IBinder service) {
+
+            }
+
+            @Override
+            public void onServiceDisconnected(ComponentName name) {
+
+            }
+        }, Context.BIND_AUTO_CREATE);
     }
 
 
