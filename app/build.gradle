@@ -53,7 +53,7 @@ dependencies {
 //    implementation(name: 'lib-debug', ext: 'aar')
     implementation 'com.javalive09.rxipc:rxipc:1.0.5'
 
-    compile 'com.google.code.gson:gson:2.8.2'
+    implementation 'com.google.code.gson:gson:2.8.2'
 
 }
 
