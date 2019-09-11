@@ -18,7 +18,7 @@ Import Library
 Gradle:
 add dependencies as follow
 ```
-implementation 'com.javalive09.codebag:codebag:1.6.4'
+implementation 'com.javalive09.codebag:codebag:1.6.5'
 implementation 'com.javalive09.annotation:annotation:1.0.5'
 annotationProcessor 'com.javalive09.processor:processor:1.6'
 ```
@@ -61,6 +61,12 @@ custom class name  @Code(name = "HelloWorld 示例") and custom method name as b
         
 
 ![](https://github-1254131086.cos.ap-beijing.myqcloud.com/device-2019-06-11-111835.jpg)
+
+Plugin
+--------
+[https://github.com/javalive09/CodeBagPlugin](https://github.com/javalive09/CodeBagPlugin)
+[下载zip包](https://github.com/javalive09/CodeBagPlugin/blob/master/CodeBagPlugin.zip)
+
 
 License
 -------
