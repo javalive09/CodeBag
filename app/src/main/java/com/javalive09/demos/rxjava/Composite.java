@@ -25,7 +25,8 @@ import io.reactivex.schedulers.Schedulers;
 @Code(name = "Composite 结合操作")
 public class Composite {
 
-    @Run(name = "combineLatest \n 1.所有的Observable都发射过数据。\n2.满足条件1的时候任何一个Observable发射一个数据，就将所有Observable最新发射的数据按照提供的函数组装起来发射出去。\n注册的时候所有输入信息（邮箱、密码、电话号码等）合法才点亮注册按钮")
+    @Run(name = "combineLatest \n 1.所有的Observable都发射过数据。\n2"
+            + ".满足条件1的时候任何一个Observable发射一个数据，就将所有Observable最新发射的数据按照提供的函数组装起来发射出去。\n注册的时候所有输入信息（邮箱、密码、电话号码等）合法才点亮注册按钮")
     public void combineLatest(CodeActivity codeActivity) {
         ArrayList<Observable<String>> list = new ArrayList<>();
         list.add(Observable.fromArray("a", "b", "c", "d", "e"));
@@ -43,9 +44,9 @@ public class Composite {
 
     @Run(name = "join ? ")
     public void join(CodeActivity codeActivity) {
-//        ArrayList<Observable<String>> list = new ArrayList<>();
-//        list.add(Observable.fromArray("a", "b", "c", "d", "e", "f"));
-//        list.add(Observable.fromArray("1", "2", "3", "4", "5", "6"));
+        //        ArrayList<Observable<String>> list = new ArrayList<>();
+        //        list.add(Observable.fromArray("a", "b", "c", "d", "e", "f"));
+        //        list.add(Observable.fromArray("1", "2", "3", "4", "5", "6"));
     }
 
     @Run(name = "merge \n合并多个Observables的发射物 \n一组数据来自网络，一组数据来自文件，需要合并两组数据一起展示。界面需要等到多个接口并发取完数据，再更新")
@@ -53,10 +54,11 @@ public class Composite {
         ArrayList<Observable<String>> list = new ArrayList<>();
         list.add(Observable.fromArray("a", "b", "c", "d", "e", "f"));
         list.add(Observable.fromArray("1", "2", "3", "4", "5", "6"));
-        Disposable disposable = Observable.merge(list, 5).subscribe(s -> Log.i("Composite", s));
+        Disposable disposable = Observable.merge(list).subscribe(s -> Log.i("Composite", s));
     }
 
     private String str = "data:";
+
     @Run(name = "merge2")
     public void merge2(CodeActivity codeActivity) {
 
@@ -106,7 +108,8 @@ public class Composite {
         list.add(b);
         list.add(c);
         long start = System.currentTimeMillis();
-        Disposable disposable = Observable.merge(list).subscribe(s -> Log.i("Composite", (System.currentTimeMillis() - start) + " - " + s));
+        Disposable disposable = Observable.merge(list)
+                .subscribe(s -> Log.i("Composite", (System.currentTimeMillis() - start) + " - " + s));
 
     }
 
@@ -117,7 +120,8 @@ public class Composite {
                 .subscribe(s -> Log.i("Composite", s));
     }
 
-    @Run(name = "switchMap \n和flatMap()很像，除了一点:当源Observable发射一个新的数据项时，如果旧数据项订阅还未完成，就取消旧订阅数据和停止监视那个数据项产生的Observable,开始监视新的数据项.")
+    @Run(name = "switchMap \n和flatMap()很像，除了一点:当源Observable发射一个新的数据项时，如果旧数据项订阅还未完成，就取消旧订阅数据和停止监视那个数据项产生的Observable,"
+            + "开始监视新的数据项.")
     public void switchMap(CodeActivity codeActivity) {
         Disposable disposable = Observable.just("A", "B", "C", "D", "E").switchMap(s ->
                 Observable.just(s).subscribeOn(Schedulers.newThread())).observeOn(AndroidSchedulers.mainThread()).
@@ -137,8 +141,6 @@ public class Composite {
             return result.toString();
         }).subscribe(s -> Log.i("Composite", s));
 
-
-
         Disposable disposable1 = Observable.zip(observable1, observable2, new BiFunction<String, String, Bean>() {
             @Override
             public Bean apply(String t1, String t2) throws Exception {
@@ -151,8 +153,9 @@ public class Composite {
             }
         });
     }
-    @Run(name ="zip \n等待多个网络请求完成")
-    public void zip2() {
+
+    @Run(name = "zip \n等待多个网络请求完成")
+    public void zip2(CodeActivity codeActivity) {
         Observable<String> observable3 = Observable.just("a", "b", "c", "d", "e").subscribeOn(Schedulers.io());
         Observable<String> observable4 = Observable.just("1", "2", "3", "4", "5").subscribeOn(Schedulers.io());
         Disposable disposable1 = Observable.zip(observable3, observable4, new BiFunction<String, String, Bean>() {
@@ -176,13 +179,24 @@ public class Composite {
             this.str1 = str1;
             this.str2 = str2;
         }
+
+        @Override
+        public String toString() {
+            return "Bean{" +
+                    "str1='" + str1 + '\'' +
+                    ", str2='" + str2 + '\'' +
+                    '}';
+        }
     }
 
     @Run()
     public void zip_multi_thread(CodeActivity codeActivity) {
-        Observable<String> observable1 = Observable.just("a", "b", "c", "d", "e").subscribeOn(Schedulers.newThread()).delay(3, TimeUnit.SECONDS);
-        Observable<String> observable2 = Observable.just("1", "2", "3", "4", "5").subscribeOn(Schedulers.newThread()).delay(5, TimeUnit.SECONDS);
-        Observable<String> observable3 = Observable.just("6", "7", "8", "9", "10").subscribeOn(Schedulers.newThread()).delay(7, TimeUnit.SECONDS);
+        Observable<String> observable1 =
+                Observable.just("a", "b", "c", "d", "e").subscribeOn(Schedulers.newThread()).delay(3, TimeUnit.SECONDS);
+        Observable<String> observable2 =
+                Observable.just("1", "2", "3", "4", "5").subscribeOn(Schedulers.newThread()).delay(5, TimeUnit.SECONDS);
+        Observable<String> observable3 = Observable.just("6", "7", "8", "9", "10").subscribeOn(Schedulers.newThread())
+                .delay(7, TimeUnit.SECONDS);
 
         long start = System.currentTimeMillis();
         Disposable disposable = Observable.zip(Arrays.asList(observable1, observable2, observable3), objects -> {

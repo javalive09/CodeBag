@@ -8,7 +8,7 @@ buildscript {
 
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.4.2' // novoda 这个版本不会报错
+        classpath 'com.android.tools.build:gradle:3.5.0' // novoda 这个版本不会报错
 
         classpath 'com.novoda:bintray-release:0.9.1'//添加
 
@@ -27,4 +27,11 @@ allprojects {
 
 task clean(type: Delete) {
     delete rootProject.buildDir
+}
+
+task startApp(type: Exec) {
+    println("startApp=========")
+    def adb = "$System.env.ANDROID_HOME/platform-tools/adb"
+    println("adb=" + adb)
+    commandLine adb, "shell", "am", "start", "-n", "com.javalive09.demos/.MainActivity"
 }

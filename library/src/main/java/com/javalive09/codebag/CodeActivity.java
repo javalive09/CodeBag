@@ -8,6 +8,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -17,6 +18,9 @@ import android.widget.ListView;
 import android.widget.TextView;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
+
+import org.w3c.dom.Node;
+
 import com.javalive09.annotation.Run;
 
 /**
@@ -50,13 +54,14 @@ public class CodeActivity extends Activity {
     }
 
     private void initData(Context context) {
+        Intent intent = getIntent();
         if (rootNode == null) {
             String pkgName = context.getPackageName();
             rootNode = new CodeNode(pkgName, CodeNode.DIR);
             CodeNodeLoader.getInstance().load(rootNode, getApplicationContext());
         } else {
-            if (getIntent() != null) {
-                Bundle bundle = getIntent().getBundleExtra(CURRENT_NODE);
+            if (intent != null) {
+                Bundle bundle = intent.getBundleExtra(CURRENT_NODE);
                 if (bundle != null) {
                     currentNode = bundle.getParcelable(CURRENT_NODE);
                 }
@@ -65,6 +70,19 @@ public class CodeActivity extends Activity {
         if (currentNode == null) {
             currentNode = rootNode;
         }
+
+        if(intent != null) {
+            String className = intent.getStringExtra(CLASS_NAME);
+            if(!TextUtils.isEmpty(className)) {
+                saveMarkSync(CLASS_NAME, className);
+            }
+            String methodName = intent.getStringExtra(METHOD_NAME);
+            if(!TextUtils.isEmpty(methodName)) {
+                saveMarkSync(METHOD_NAME, methodName);
+            }
+            Log.i("peter1", className + methodName);
+        }
+
     }
 
     @Override
@@ -97,11 +115,6 @@ public class CodeActivity extends Activity {
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-
-                //mark method
-                saveMark(CLASS_NAME, currentNode.className);
-                saveMark(METHOD_NAME, currentNode.name);
-
                 //no view - finish
                 FrameLayout content = findViewById(android.R.id.content);
                 if (content.getChildCount() == 0) {
@@ -114,6 +127,11 @@ public class CodeActivity extends Activity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+    }
+
+    @Override
+    public void finish() {
+        super.finish();
         saveMark(CLASS_NAME, "");
         saveMark(METHOD_NAME, "");
     }
@@ -121,6 +139,7 @@ public class CodeActivity extends Activity {
     private void autoClick(ListView listView) {
         String className = getMark(CLASS_NAME);
         String methodName = getMark(METHOD_NAME);
+        Log.i("peter", className + methodName);
         int type = currentNode.type;
         for (int i = 0, count = currentNode.mSubNodeList.size(); i < count; i++) {
             final CodeNode node = currentNode.mSubNodeList.get(i);
@@ -154,6 +173,10 @@ public class CodeActivity extends Activity {
     private void saveMark(String key, String value) {
         SharedPreferences sp = getSharedPreferences(SP_NAME, MODE_PRIVATE);
         sp.edit().putString(key, value).apply();
+    }
+    private void saveMarkSync(String key, String value) {
+        SharedPreferences sp = getSharedPreferences(SP_NAME, MODE_PRIVATE);
+        sp.edit().putString(key, value).commit();
     }
 
     private ListView installListView() {
