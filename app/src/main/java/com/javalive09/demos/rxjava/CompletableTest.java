@@ -10,6 +10,8 @@ import io.reactivex.Completable;
 import io.reactivex.CompletableEmitter;
 import io.reactivex.CompletableOnSubscribe;
 import io.reactivex.Maybe;
+import io.reactivex.Scheduler;
+import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.functions.Action;
 import io.reactivex.schedulers.Schedulers;
 
@@ -22,27 +24,32 @@ public class CompletableTest {
     public void action(CodeActivity activity) {
         Completable.fromAction(() -> {
             String name = Thread.currentThread().getName();
-            Log.i("peter", "name-----" + name);
-        }).subscribe();
+            Log.i("peter", "name1-----" + name);
+        }).subscribeOn(Schedulers.io()).subscribe();
         Completable.fromCallable(new Callable<Object>() {
             @Override
             public Object call() throws Exception {
+                String name = Thread.currentThread().getName();
+                Log.i("peter", "name2-----" + name);
                 return null;
             }
-        });
+        }).observeOn(Schedulers.io()).subscribe();
         Completable.fromRunnable(new Runnable() {
             @Override
             public void run() {
-
+                String name = Thread.currentThread().getName();
+                Log.i("peter", "name3-----" + name);
             }
-        });
+        }).subscribe();
 
         Maybe.fromAction(new Action() {
             @Override
             public void run() throws Exception {
-
+                String name = Thread.currentThread().getName();
+                Log.i("peter", "name4-----" + name);
             }
-        });
+        }).subscribe();
+        activity.showText("====");
     }
 
 }

@@ -1,9 +1,11 @@
 package com.javalive09.demos;
 
+import android.os.AsyncTask;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.SystemClock;
 import android.util.Log;
+import android.view.View;
 import android.widget.TextView;
 
 import com.javalive09.codebag.CodeActivity;
@@ -11,6 +13,7 @@ import com.javalive09.annotation.Run;
 import com.javalive09.annotation.Code;
 
 import java.lang.ref.WeakReference;
+import java.util.HashMap;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.Callable;
@@ -19,6 +22,8 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
@@ -36,26 +41,26 @@ public class ThreadTest {
     private Object lockTwo = new Object();
 
     private void methodA() {
-        synchronized(lockOne) {
+        synchronized (lockOne) {
             try {
                 Thread.sleep(2000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-            synchronized(lockTwo) {
+            synchronized (lockTwo) {
                 Log.i("threadTest", "methodA");
             }
         }
     }
 
     private void methodB() {
-        synchronized(lockTwo) {
+        synchronized (lockTwo) {
             try {
                 Thread.sleep(2000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-            synchronized(lockOne) {
+            synchronized (lockOne) {
                 Log.i("threadTest", "methodB");
             }
         }
@@ -150,9 +155,6 @@ public class ThreadTest {
             SystemClock.sleep(4_000);
             Log.i("peter2", Thread.currentThread().getName());
         });
-
-
-
 
 
     }
@@ -290,5 +292,202 @@ public class ThreadTest {
         t.join(20000); // 当前线程阻塞20秒
         codeActivity.showText("xxxx");
     }
+
+    @Run
+    public void threadPoolTaskCountTest(CodeActivity codeActivity) {
+        ScheduledThreadPoolExecutor stpe = new ScheduledThreadPoolExecutor(0);
+        stpe.schedule(new Runnable() {
+            @Override
+            public void run() {
+                SystemClock.sleep(2000);
+                Log.e("peter", "abc");
+            }
+        }, 2000, TimeUnit.MILLISECONDS);
+
+        stpe.schedule(new Runnable() {
+            @Override
+            public void run() {
+                SystemClock.sleep(2000);
+                Log.e("peter", "abc");
+            }
+        }, 4000, TimeUnit.MILLISECONDS);
+
+        Handler handler = new Handler(Looper.getMainLooper());
+
+        StringBuffer infoB = new StringBuffer();
+
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                codeActivity.showText(infoB.append("1----" + getInfo(stpe)).toString());
+            }
+        }, 1000);
+
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                codeActivity.showText(infoB.append("2----" + getInfo(stpe)).toString());
+            }
+        }, 3000);
+
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                codeActivity.showText(infoB.append("3----" + getInfo(stpe)).toString());
+            }
+        }, 5000);
+
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                codeActivity.showText(infoB.append("4----" + getInfo(stpe)).toString());
+            }
+        }, 7000);
+
+        codeActivity.showText("===========");
+
+        codeActivity.getWindow().getDecorView().addOnAttachStateChangeListener(new View.OnAttachStateChangeListener() {
+            @Override
+            public void onViewAttachedToWindow(View v) {
+
+            }
+
+            @Override
+            public void onViewDetachedFromWindow(View v) {
+                handler.removeCallbacksAndMessages(null);
+                stpe.shutdownNow();
+            }
+        });
+    }
+
+    private String getInfo(ScheduledThreadPoolExecutor stpe) {
+        return "taskCount=" + stpe.getTaskCount() + ",\n" +
+                "activeCount=" + stpe.getActiveCount() + ",\n" +
+                "queueSize=" + stpe.getQueue().size() + ",\n" +
+                "completeCount=" + stpe.getCompletedTaskCount() + ",\n" +
+                "poolSize=" + stpe.getPoolSize() + "\n";
+    }
+
+    @Run
+    public void delay(CodeActivity codeActivity) {
+        final WeakReference<ThreadPoolExecutor> delay = ScheduleUtils.delay(5000, new Runnable() {
+            @Override
+            public void run() {
+                Log.i("peter", "delay"+ Thread.currentThread().getName());
+            }
+        });
+
+        TextView textView = new TextView(codeActivity);
+        textView.setText("delay");
+        textView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ScheduleUtils.shutdownNow(delay);
+            }
+        });
+        codeActivity.setContentView(textView);
+    }
+
+    @Run
+    public void retry(CodeActivity codeActivity) {
+        final WeakReference<ThreadPoolExecutor> retry = ScheduleUtils.retry(1000, 2000, new ScheduleUtils.Retry(3) {
+            @Override
+            public void onTry() {
+                Log.i("peter", "onTry" + Thread.currentThread().getName());
+            }
+
+            @Override
+            public void onComplete() {
+                Log.i("peter", "onComplete"+ Thread.currentThread().getName());
+            }
+        });
+
+        TextView textView = new TextView(codeActivity);
+        textView.setText("retry");
+        textView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ScheduleUtils.shutdownNow(retry);
+            }
+        });
+        codeActivity.setContentView(textView);
+    }
+
+    @Run
+    public void timerOOM(CodeActivity codeActivity) {
+        HashMap<Integer, Timer> times = new HashMap<>();
+        for (int i = 0; i < Integer.MAX_VALUE; i++) {
+            times.put(i, new Timer());
+            times.get(i).schedule(new TimerTask() {
+                @Override
+                public void run() {
+                    Log.i("peter", "----------");
+                }
+            }, 10);
+            Log.i("peter", String.valueOf(i));
+        }
+    }
+
+    @Run
+    public void multiThread(CodeActivity codeActivity) {
+            for(int i = 0; i< 10000; i++) {
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        new Thread(new Runnable() {
+                            @Override
+                            public void run() {
+                                Log.i("peter", "thread 1");
+                            }
+                        }).start();
+                        try {
+                            Thread.sleep(1);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                        new Thread(new Runnable() {
+                            @Override
+                            public void run() {
+                                Log.i("peter", "thread 2");
+                            }
+                        }).start();
+
+                    }
+                }).start();
+                Log.i("peter", "end ===============");
+                SystemClock.sleep(1000);
+            }
+    }
+
+    @Run
+    public void asyncTask(CodeActivity codeActivity) {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                AsyncTask asyncTask = new AsyncTask<Void, Void, Void>(){
+
+                    @Override
+                    protected void onPreExecute() {
+                        super.onPreExecute();
+                        Log.i("peter", "onPreExecute thread :" + Thread.currentThread());
+                    }
+
+                    @Override
+                    protected void onPostExecute(Void aVoid) {
+                        super.onPostExecute(aVoid);
+                        Log.i("peter", "onPostExecute thread :" + Thread.currentThread());
+                    }
+
+                    @Override
+                    protected Void doInBackground(Void... voids) {
+                        Log.i("peter", "doInBackground thread :" + Thread.currentThread());
+                        return null;
+                    }
+                }.execute();
+            }
+        }).start();
+
+    }
+
 
 }

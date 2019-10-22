@@ -98,4 +98,5 @@ public class BitmapTest {
         activity.setContentView(iv);
     }
 
+
 }

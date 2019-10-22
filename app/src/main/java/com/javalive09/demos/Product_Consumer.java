@@ -16,7 +16,7 @@ public class Product_Consumer {
     @Run(name = "启动生产和消费")
     public void startRun(CodeActivity activity) {
         LinkedList<Integer> queue = new LinkedList<Integer>();
-        Thread producer = new Thread(new Producer(queue, 2, "producer"));
+        Thread producer = new Thread(new Producer(queue, 5, "producer"));
         Thread consumer = new Thread(new Consumer(queue, "consumer"));
         producer.start();
         consumer.start();

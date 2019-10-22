@@ -30,6 +30,7 @@
         </activity>
         <activity android:name=".APIActivity"
         android:theme="@style/dialog"/>
+        <activity android:name=".activity.PostActivity" />
 
         <service android:name=".MyService"/>
     </application>

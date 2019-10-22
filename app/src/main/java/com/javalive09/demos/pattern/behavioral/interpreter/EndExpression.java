@@ -1,12 +1,16 @@
 package com.javalive09.demos.pattern.behavioral.interpreter;
 
-import android.util.Log;
-
 public class EndExpression implements Expression {
 
+	private int number;
+
+	public EndExpression(String s) {
+		number = Integer.parseInt(s);
+	}
+
 	@Override
-	public void express() {
-		Log.i("peter", "end express");
+	public int interpret() {
+		return number;
 	}
 
 }

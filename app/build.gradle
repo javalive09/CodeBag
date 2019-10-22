@@ -48,7 +48,7 @@ dependencies {
 
     implementation 'com.github.promeg:tinypinyin:2.0.3'
     implementation 'com.github.lzyzsd:jsbridge:1.0.4'
-    implementation 'org.jooq:joor:0.9.6'
+    implementation 'org.jooq:joor:0.9.12'
 
 //    implementation(name: 'lib-debug', ext: 'aar')
     implementation 'com.javalive09.rxipc:rxipc:1.0.5'

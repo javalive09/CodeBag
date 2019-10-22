@@ -12,12 +12,16 @@ import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.content.res.Configuration;
 import android.graphics.Color;
+import android.graphics.Rect;
 import android.media.AudioManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.HandlerThread;
 import android.os.IBinder;
 import android.os.Looper;
+import android.os.Message;
+import android.os.MessageQueue;
 import android.os.PowerManager;
 import android.os.SystemClock;
 import android.provider.Settings;
@@ -27,10 +31,14 @@ import android.text.style.ForegroundColorSpan;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.MotionEvent;
+import android.view.TouchDelegate;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.webkit.WebView;
+import android.widget.FrameLayout;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.SimpleAdapter;
@@ -41,6 +49,7 @@ import com.aigestudio.wheelpicker.WheelPicker;
 import com.javalive09.codebag.CodeActivity;
 import com.javalive09.annotation.Run;
 import com.javalive09.annotation.Code;
+import com.javalive09.demos.activity.PostActivity;
 import com.javalive09.demos.view.AbcPicker;
 import com.javalive09.demos.view.ArcView;
 import com.javalive09.demos.view.NumPicker;
@@ -777,11 +786,44 @@ public class ViewTest {
         });
     }
 
+    private static Toast toast;
+    @Run
     public void touchDelegate(CodeActivity codeActivity) {
+        FrameLayout frameLayout = new FrameLayout(codeActivity);
+
         ImageView view = new ImageView(codeActivity);
-        view.setImageResource(R.drawable.bitmap);
-        codeActivity.setContentView(view);
-        view.setOnClickListener(v -> Toast.makeText(codeActivity, "click", Toast.LENGTH_SHORT).show());
+        view.setImageResource(R.drawable.card_danager_memory);
+
+        frameLayout.post(new Runnable() {
+            @Override
+            public void run() {
+                frameLayout.setTouchDelegate(new TouchDelegate(new Rect(0, 0, 250, 250), view));
+            }
+        });
+
+        frameLayout.addView(view, new FrameLayout.LayoutParams(100, 100));
+        frameLayout.setBackgroundColor(Color.GREEN);
+        codeActivity.setContentView(frameLayout);
+        view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(toast != null) {
+                    toast.cancel();
+                }
+                toast = Toast.makeText(codeActivity, "click", Toast.LENGTH_SHORT);
+                toast.show();
+            }
+        });
+        frameLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(toast != null) {
+                    toast.cancel();
+                }
+                toast = Toast.makeText(codeActivity, "frame layout click", Toast.LENGTH_SHORT);
+                toast.show();
+            }
+        });
     }
 
     @Run
@@ -805,5 +847,163 @@ public class ViewTest {
         }, Context.BIND_AUTO_CREATE);
     }
 
+    private static boolean click = false;
+
+    @Run
+    public void actionCancel(CodeActivity codeActivity) {
+
+        click = false;
+        FrameLayout frameLayout = new FrameLayout(codeActivity) {
+            @Override
+            public boolean onInterceptTouchEvent(MotionEvent ev) {
+                Log.i("peter", "conInterceptTouchEvent:" + ev.toString());
+
+                if(click) {
+                    return true;
+                }
+                return super.onInterceptTouchEvent(ev);
+            }
+
+            @Override
+            public boolean onTouchEvent(MotionEvent event) {
+                Log.i("peter", "click:" + click + "father:" + event.toString());
+                return true;
+            }
+        };
+
+        ImageView imageView = new ImageView(codeActivity) {
+            @Override
+            public boolean onTouchEvent(MotionEvent event) {
+                if(event.getAction() == MotionEvent.ACTION_DOWN) {
+                    click = false;
+                    new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            click = true;
+                        }
+                    }, 5000);
+                }
+
+                if(event.getAction() == MotionEvent.ACTION_CANCEL) {
+                    Log.i("peter", "click:" + click + "child:" + event.toString());
+                }
+
+                Log.i("peter", "click:" + click + "child:" + event.toString());
+                return true;
+            }
+        };
+        imageView.setImageResource(R.drawable.card_danager_memory);
+        imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
+        frameLayout.addView(imageView, new FrameLayout.LayoutParams(100, 100));
+        codeActivity.setContentView(frameLayout, new FrameLayout.LayoutParams(900, 900));
+
+    }
+
+    @Run
+    public void dispatchTouchEvent(CodeActivity activity) {
+        FrameLayout frameLayout = new FrameLayout(activity) {
+
+        };
+
+        ImageView imageView = new ImageView(activity) {
+            @Override
+            public boolean onTouchEvent(MotionEvent event) {
+                if(event.getAction() == MotionEvent.ACTION_DOWN) {
+                    new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            frameLayout.removeAllViews();
+                        }
+                    }, 5_000);
+                }
+
+
+                Log.i("peter", "onTouchEvent" + event.getAction());
+                if(event.getAction() == MotionEvent.ACTION_CANCEL) {
+                    Log.i("peter", "onTouchEvent" + event.getAction());
+                }
+                return true;
+            }
+        };
+
+        imageView.setImageResource(R.drawable.card_danager_memory);
+
+        frameLayout.setBackgroundColor(Color.GREEN);
+
+
+        activity.setContentView(frameLayout, new FrameLayout.LayoutParams(900, 900));
+
+    }
+
+    @Run
+    public void postActivity(CodeActivity codeActivity) {
+        codeActivity.startActivity(new Intent(codeActivity, PostActivity.class));
+    }
+
+    @Run
+    public void idleHandler(CodeActivity codeActivity) {
+        HandlerThread handlerThread = new HandlerThread("idle");
+        handlerThread.start();
+        Handler h = new Handler(handlerThread.getLooper()) {
+            @Override
+            public void handleMessage(Message msg) {
+                super.handleMessage(msg);
+                Log.i("peter", "handler//// = " + msg.what);
+            }
+        };
+        h.sendEmptyMessage(3);
+        h.sendEmptyMessage(4);
+        h.sendEmptyMessage(5);
+
+        MessageQueue queue = handlerThread.getLooper().getQueue();
+        queue.addIdleHandler(new MessageQueue.IdleHandler() {
+            @Override
+            public boolean queueIdle() {
+                Log.i("peter", "idle");
+                return true;
+            }
+        });
+
+        TextView textView = new TextView(codeActivity);
+        textView.setText("ddddddddddddddd");
+        textView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                h.sendEmptyMessage(3);
+                h.sendEmptyMessage(4);
+                h.sendEmptyMessage(5);
+            }
+        });
+        codeActivity.setContentView(textView);
+    }
+
+    @Run
+    public void measureTest(CodeActivity activity) {
+        FrameLayout frameLayout = new FrameLayout(activity) {
+
+            @Override
+            protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+                super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+            }
+
+        };
+
+        ImageView imageView = new ImageView(activity);
+
+        imageView.setImageResource(R.drawable.card_danager_memory);
+
+        frameLayout.setBackgroundColor(Color.GRAY);
+
+        frameLayout.addView(imageView, new FrameLayout.LayoutParams(100, 100));
+
+        activity.setContentView(frameLayout, new FrameLayout.LayoutParams(900, 900));
+
+    }
 
 }

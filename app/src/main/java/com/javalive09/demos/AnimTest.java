@@ -2,6 +2,7 @@ package com.javalive09.demos;
 
 import android.animation.ValueAnimator;
 import android.graphics.*;
+import android.provider.Settings;
 import android.view.View;
 import android.view.animation.LinearInterpolator;
 
