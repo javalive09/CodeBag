@@ -41,6 +41,8 @@ import android.webkit.WebView;
 import android.widget.FrameLayout;
 import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
+import android.widget.SeekBar;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -63,6 +65,8 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+
+import io.feeeei.circleseekbar.CircleSeekBar;
 
 /**
  * View launcher
@@ -1003,6 +1007,50 @@ public class ViewTest {
         frameLayout.addView(imageView, new FrameLayout.LayoutParams(100, 100));
 
         activity.setContentView(frameLayout, new FrameLayout.LayoutParams(900, 900));
+
+    }
+
+    @Run
+    public void constraintLayout(CodeActivity codeActivity) {
+        codeActivity.setContentView(R.layout.progressbar);
+
+        CircleSeekBar bar = codeActivity.findViewById(R.id.image);
+        TextView tv = codeActivity.findViewById(R.id.tv);
+        tv.setText("dddddd");
+
+
+        bar.setOnSeekBarChangeListener(new CircleSeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onChanged(CircleSeekBar seekbar, int curValue) {
+                tv.setText("ddd" + seekbar.getCurProcess());
+            }
+        });
+    }
+
+    @Run
+    public void queryIntent(CodeActivity codeActivity) {
+        Intent intent = new Intent("com.android.duershow.settings.action.SETTINGS");
+        List<ResolveInfo> abc = codeActivity.getPackageManager().queryIntentActivities(intent, PackageManager.GET_META_DATA);
+
+        for (ResolveInfo info : abc) {
+            Log.i("peter_1", "info=" + info.activityInfo);
+            Log.i("peter_1", "priority=" + info.priority);
+        }
+        intent = new Intent("duershow.settings.OTA.UPGRADE");
+        abc = codeActivity.getPackageManager().queryIntentActivities(intent, PackageManager.GET_META_DATA);
+
+        for (ResolveInfo info : abc) {
+            Log.i("peter_2", "info=" + info.activityInfo);
+            Log.i("peter_2", "priority=" + info.priority);
+        }
+    }
+
+    @Run
+    public void showDrawablePNG(CodeActivity codeActivity) {
+        ImageView imageView = new ImageView(codeActivity);
+
+        imageView.setImageResource(R.drawable.test);
+
 
     }
 

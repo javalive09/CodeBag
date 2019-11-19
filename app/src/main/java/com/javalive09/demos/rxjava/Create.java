@@ -12,6 +12,7 @@ import com.javalive09.codebag.CodeActivity;
 import org.reactivestreams.Publisher;
 
 import java.util.List;
+import java.util.concurrent.Callable;
 import java.util.concurrent.TimeUnit;
 
 import io.reactivex.Observable;
@@ -22,6 +23,7 @@ import io.reactivex.Observer;
 import io.reactivex.Single;
 import io.reactivex.SingleSource;
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
 import io.reactivex.functions.Function;
@@ -137,6 +139,25 @@ public class Create {
                 Log.i("peter", "repeatwhen thread = " + Thread.currentThread().getName());
             }
         });
+    }
+
+    @Run
+    public void fromCallable(CodeActivity codeActivity) {
+        new CompositeDisposable().add(
+        Observable.fromCallable(new Callable<String>() {
+
+            @Override
+            public String call() throws Exception {
+                SystemClock.sleep(5000);
+                return "abc";
+            }
+        }).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(new Consumer<String>() {
+            @Override
+            public void accept(String s) throws Exception {
+                codeActivity.showText(s);
+            }
+        }));
+        codeActivity.showText("loading...");
     }
 
     @Run
