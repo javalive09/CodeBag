@@ -5,7 +5,6 @@ import java.util.Observer;
 import com.javalive09.annotation.Run;
 import com.javalive09.codebag.CodeActivity;
 
-import android.icu.util.TimeUnit;
 import android.os.SystemClock;
 import android.util.Log;
 import io.reactivex.Observable;
@@ -14,6 +13,7 @@ import io.reactivex.ObservableOnSubscribe;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
+import io.reactivex.subjects.PublishSubject;
 
 /**
  * Created by peter on 2019/1/10
@@ -93,6 +93,12 @@ public class TestRx {
             }
         }).retry(5).subscribe();
 
+    }
+
+    @Run
+    public void subject(CodeActivity codeActivity) {
+        PublishSubject publishSubject = PublishSubject.create();
+        Disposable disposable = publishSubject.subscribe();
     }
 
 }

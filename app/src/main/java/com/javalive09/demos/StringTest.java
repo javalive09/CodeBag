@@ -8,6 +8,7 @@ import android.widget.TextView;
 import com.javalive09.codebag.CodeActivity;
 import com.javalive09.annotation.Run;
 import com.javalive09.annotation.Code;
+import com.javalive09.codebag.CodeBag$ClassCenter;
 import com.javalive09.demos.utils.GzipUtil;
 
 import java.io.UnsupportedEncodingException;
@@ -171,6 +172,12 @@ public class StringTest {
         String s = GzipUtil.uncompress(str);
         Log.i("peter", "unCompress:" + s.length());
 
+    }
+
+    @Run
+    public void numberTest(CodeActivity activity) {
+        int i = 3 * 60 * 000;
+        activity.showText("i =" + i);
     }
 
 }
