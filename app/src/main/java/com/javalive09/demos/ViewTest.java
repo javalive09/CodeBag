@@ -12,6 +12,7 @@ import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.content.res.Configuration;
 import android.graphics.Color;
+import android.graphics.PixelFormat;
 import android.graphics.Rect;
 import android.media.AudioManager;
 import android.net.Uri;
@@ -68,9 +69,6 @@ import java.util.Locale;
 
 import io.feeeei.circleseekbar.CircleSeekBar;
 
-/**
- * View launcher
- */
 @Code(name = "View")
 public class ViewTest {
 
@@ -1053,5 +1051,49 @@ public class ViewTest {
 
 
     }
+
+    @Run
+    public void aWindow(CodeActivity codeActivity) {
+        WindowManager windowManager = (WindowManager) codeActivity.getSystemService(Context.WINDOW_SERVICE);
+        WindowManager.LayoutParams mAppsViewParams = new WindowManager.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT,
+                WindowManager.LayoutParams.FIRST_SYSTEM_WINDOW + 24,
+                WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE
+                        | WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN
+                        | WindowManager.LayoutParams.FLAG_TOUCHABLE_WHEN_WAKING
+                        | WindowManager.LayoutParams.FLAG_SPLIT_TOUCH
+                        | WindowManager.LayoutParams.FLAG_WATCH_OUTSIDE_TOUCH,
+                PixelFormat.TRANSLUCENT);
+        mAppsViewParams.flags |= WindowManager.LayoutParams.FLAG_HARDWARE_ACCELERATED;
+        mAppsViewParams.setTitle("codeBag");
+        mAppsViewParams.gravity = Gravity.START;
+
+        View test = new View(codeActivity);
+        test.setBackgroundColor(Color.BLUE);
+        windowManager.addView(test, mAppsViewParams);
+        codeActivity.showText("abc");
+    }
+
+    @Run
+    public void aSWdp(CodeActivity codeActivity) {
+        int sw = codeActivity.getResources().getConfiguration().smallestScreenWidthDp;
+        int w = codeActivity.getResources().getConfiguration().screenWidthDp;
+        int h = codeActivity.getResources().getConfiguration().screenHeightDp;
+        codeActivity.showText("sw = " + sw + "dp" + "\n"
+                + "w = " + w + "dp" + "\n"
+                + "h = " + h + "dp" + "\n"
+        );
+    }
+
+    @Run
+    public void aGetWdp(CodeActivity codeActivity) {
+        codeActivity.showText(codeActivity.getString(R.string.who_are_you));
+    }
+
+    @Run()
+    public void aWeight(CodeActivity codeActivity) {
+        codeActivity.setContentView(R.layout.weight);
+    }
+
 
 }

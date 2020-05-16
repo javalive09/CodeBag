@@ -3,8 +3,11 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/CodeBag.iml" filepath="$PROJECT_DIR$/CodeBag.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/CodeBag-app.iml" filepath="$PROJECT_DIR$/app/CodeBag-app.iml" group="CodeBag/app" />
+      <module fileurl="file://$PROJECT_DIR$/library/CodeBag-library.iml" filepath="$PROJECT_DIR$/library/CodeBag-library.iml" group="CodeBag/library" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/library/library.iml" filepath="$PROJECT_DIR$/library/library.iml" />
+      <module fileurl="file://$PROJECT_DIR$/peter-CodeBag.iml" filepath="$PROJECT_DIR$/peter-CodeBag.iml" group="CodeBag" />
     </modules>
   </component>
 </project>
