@@ -16,8 +16,6 @@ task runMethod(type: Exec, group: 'codebag') {
         println "className = " + className
         println "methodName = " + methodName
         println "runMethod>>>>>>>>>>>>>>>>>>>>>>>>> "
-        commandLine 'adb', 'root'
-        commandLine 'adb', 'remount'
         commandLine "adb", "shell", "am", "start", "-a", "com.javalive09.ACTION_CODEBAG", "--es", "className",
                 "" + className, "--es", "methodName", "" + methodName
     }

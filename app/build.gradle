@@ -4,8 +4,8 @@ android {
     compileSdkVersion 26
     defaultConfig {
         applicationId "com.javalive09.demos"
-        minSdkVersion 16
-        targetSdkVersion 26
+        minSdkVersion 21
+        targetSdkVersion 28
         versionCode 1
         versionName "1.0"
     }
@@ -50,7 +50,7 @@ dependencies {
     implementation 'com.github.lzyzsd:jsbridge:1.0.4'
     implementation 'org.jooq:joor:0.9.12'
 
-//    implementation(name: 'lib-debug', ext: 'aar')
+    implementation(name: 'lib-debug', ext: 'aar')
     implementation 'com.javalive09.rxipc:rxipc:1.0.5'
 
     implementation 'com.google.code.gson:gson:2.8.5'
@@ -58,6 +58,7 @@ dependencies {
     implementation 'com.android.support.constraint:constraint-layout:1.1.3'
 
     implementation 'com.github.feeeei:CircleSeekbar:v1.1.2'
+
 
 
 }

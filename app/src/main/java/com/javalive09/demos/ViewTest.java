@@ -571,7 +571,7 @@ public class ViewTest {
             if (window != null) {
                 window.setGravity(Gravity.BOTTOM);
                 window.setWindowAnimations(R.style.AnimDialog);
-                window.setType(WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY);//
+                window.setType(WindowManager.LayoutParams.FIRST_SYSTEM_WINDOW+26);//
                 WindowManager manager = window.getWindowManager();
                 DisplayMetrics dm = new DisplayMetrics();
                 manager.getDefaultDisplay().getMetrics(dm);
@@ -826,12 +826,6 @@ public class ViewTest {
                 toast.show();
             }
         });
-    }
-
-    @Run
-    public void startService(CodeActivity codeActivity) {
-        codeActivity.startService(new Intent(codeActivity, MyService.class));
-        codeActivity.showText("startService");
     }
 
     @Run
@@ -1095,5 +1089,39 @@ public class ViewTest {
         codeActivity.setContentView(R.layout.weight);
     }
 
+    @Run
+    public void aGetDp(CodeActivity codeActivity) {
+        codeActivity.showText("123");
+        View decorView = codeActivity.getWindow().getDecorView();
+        int uiOptions = View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+                | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY | View.SYSTEM_UI_FLAG_FULLSCREEN;
+        decorView.setSystemUiVisibility(uiOptions);
+    }
 
+    @Run
+    public void testColor(CodeActivity codeActivity) {
+        codeActivity.setContentView(R.layout.color_layout);
+    }
+
+    @Run
+    public void getColor(CodeActivity codeActivity) {
+        //错误颜色 framework color
+//        codeActivity.showText(String.format("%08x",-14606047)); // ff212121   primary  notification_primary_text_color_light
+//        codeActivity.showText(String.format("%08x",-9737365)); // ff6b6b6b  secondary  notification_secondary_text_color_light
+
+        //正确颜色  systemui color
+//        codeActivity.showText(String.format("%08x",-657931)); // fff5f5f5  primary  notification_primary_text_color_light
+//        codeActivity.showText(String.format("%08x",-2039584)); // ffe0e0e0  secondary  notification_secondary_text_color_light
+          codeActivity.showText(String.format("%08x",17170767)); // secondary color id
+
+
+//        codeActivity.showText(String.format("%08x",-16645116)); // ffe0e0e0
+    }
+
+
+    @Run
+    public void startService(CodeActivity codeActivity) {
+        codeActivity.startService(new Intent(codeActivity, MyService.class));
+        codeActivity.showText("startService");
+    }
 }
