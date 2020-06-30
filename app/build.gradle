@@ -20,10 +20,6 @@ android {
         targetCompatibility JavaVersion.VERSION_1_8
     }
 
-    //防止上传到jcenter lint error 检查
-    lintOptions {
-        abortOnError false
-    }
 }
 
 repositories {
@@ -34,14 +30,10 @@ repositories {
 }
 
 dependencies {
-    implementation 'com.javalive09.codebag:codebag:1.6.5'
-    implementation 'com.javalive09.annotation:annotation:1.0.5'
-    annotationProcessor 'com.javalive09.processor:processor:1.6'
-
-//    implementation project(':library')
+    implementation 'com.javalive09.codebag:codebag:1.6.7'
 
     implementation fileTree(include: ['*.jar'], dir: 'libs')
-    implementation 'com.android.support:appcompat-v7:26.1.0'
+    implementation 'com.android.support:appcompat-v7:28.0.0'
     implementation 'io.reactivex.rxjava2:rxandroid:2.1.0'
     implementation 'io.reactivex.rxjava2:rxjava:2.2.2'
     implementation 'cn.aigestudio.wheelpicker:WheelPicker:1.1.2'
