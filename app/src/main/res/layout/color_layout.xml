@@ -1,10 +1,10 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
              android:id="@+id/root"
-             android:layout_width="@dimen/match_parent"
-             android:layout_height="500dp"
+             android:layout_width="500dp"
+             android:layout_height="100dp"
              android:background="#ff6b6b6b">
-    <View
-        android:layout_width="100dp"
+    <TextView
+        android:layout_width="300dp"
         android:layout_height="100dp"
         android:background="#ff212121"
         />

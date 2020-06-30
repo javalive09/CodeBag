@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.View;
 
 /**
@@ -14,9 +15,7 @@ public class APIActivity extends Activity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(new View(this));
-
-        new AlertDialog.Builder(this).setTitle("peter").setMessage("test").show();
+        setContentView(R.layout.dialog);
     }
 
     @Override
@@ -27,5 +26,11 @@ public class APIActivity extends Activity {
     @Override
     protected void onPause() {
         super.onPause();
+    }
+
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+        super.onWindowFocusChanged(hasFocus);
+        Log.i("peter", "onWindowFocusChanged");
     }
 }

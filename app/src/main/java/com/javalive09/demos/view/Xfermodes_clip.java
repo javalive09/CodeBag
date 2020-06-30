@@ -63,12 +63,12 @@ public class Xfermodes_clip {
             int y = 100;
 			
             // draw the src/dst example into our offscreen bitmap
-            canvas.saveLayer(x, y, x + W, y + H, null,
-                                      Canvas.MATRIX_SAVE_FLAG |
-                                      Canvas.CLIP_SAVE_FLAG |
-                                      Canvas.HAS_ALPHA_LAYER_SAVE_FLAG |
-                                      Canvas.FULL_COLOR_LAYER_SAVE_FLAG |
-                                      Canvas.CLIP_TO_LAYER_SAVE_FLAG);
+//            canvas.saveLayer(x, y, x + W, y + H, null,
+//                                      Canvas.MATRIX_SAVE_FLAG |
+//                                      Canvas.CLIP_SAVE_FLAG |
+//                                      Canvas.HAS_ALPHA_LAYER_SAVE_FLAG |
+//                                      Canvas.FULL_COLOR_LAYER_SAVE_FLAG |
+//                                      Canvas.CLIP_TO_LAYER_SAVE_FLAG);
 			
             canvas.translate(x, y);
 			canvas.drawBitmap(mDstB, 0, 0, paint);

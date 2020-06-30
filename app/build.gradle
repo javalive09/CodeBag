@@ -1,7 +1,7 @@
 apply plugin: 'com.android.application'
 apply from: 'util.gradle'
 android {
-    compileSdkVersion 26
+    compileSdkVersion 28
     defaultConfig {
         applicationId "com.javalive09.demos"
         minSdkVersion 21

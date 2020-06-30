@@ -104,7 +104,7 @@ public class MyService extends Service {
         Notification notification = builder.build();
         notification.flags = Notification.FLAG_AUTO_CANCEL;
         NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-        notificationManager.notify(OTA_NOTIFICATION_ID, notification);
+        notificationManager.notify("codebag",OTA_NOTIFICATION_ID, notification);
 
     }
 

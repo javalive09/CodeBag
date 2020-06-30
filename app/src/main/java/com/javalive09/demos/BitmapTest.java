@@ -88,7 +88,7 @@ public class BitmapTest {
         paint.setFilterBitmap(true);
         canvas.drawLine(paintW, width + paintW, width - paintW, width + paintW, paint);
         canvas.drawLine(paintW * 2, width + 3 * paintW, width - 2 * paintW, width + 3 * paintW, paint);
-        canvas.save(Canvas.ALL_SAVE_FLAG);
+//        canvas.save(Canvas.ALL_SAVE_FLAG);
         canvas.restore();
 
         ImageView iv = new ImageView(activity);

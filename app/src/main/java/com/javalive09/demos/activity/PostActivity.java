@@ -10,16 +10,18 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
+import com.javalive09.codebag.CodeActivity;
+
 /**
  * onResume 中post 和 onMeasure onLayout onDraw的顺序
  */
-public class PostActivity extends Activity {
+public class PostActivity extends CodeActivity {
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         MyView view = new MyView(this);
-        view.setText("peter");
+        view.setText("peter123");
         setContentView(view, new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
         Log.i("peter", "onCreate");
     }
