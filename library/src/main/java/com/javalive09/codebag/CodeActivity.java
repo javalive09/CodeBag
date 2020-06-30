@@ -169,7 +169,7 @@ public class CodeActivity extends Activity {
 
     private void clearMark(String... keys) {
         SharedPreferences sp = getSharedPreferences(SP_NAME, MODE_PRIVATE);
-        for(String key : keys) {
+        for (String key : keys) {
             sp.edit().remove(key).apply();
         }
     }
@@ -200,7 +200,7 @@ public class CodeActivity extends Activity {
                         case CodeNode.CLASS:
                             boolean haveRunMethod = false;
                             try {
-                                Class cls = Class.forName(node.className);
+                                Class<?> cls = Class.forName(node.className);
                                 for (Method m : cls.getDeclaredMethods()) {
                                     if (m.isAnnotationPresent(Run.class) && Modifier.PUBLIC == m
                                             .getModifiers()) {
@@ -229,9 +229,11 @@ public class CodeActivity extends Activity {
 
     private void invokeMethod() throws Exception {
         Object obj = getClassLoader().loadClass(currentNode.className).newInstance();
-        Method method = obj.getClass().getDeclaredMethod(currentNode.name, CodeActivity.class);
-        method.setAccessible(true);
-        method.invoke(obj, CodeActivity.this);
+        if (currentNode != null && currentNode.name != null) {
+            Method method = obj.getClass().getDeclaredMethod(currentNode.name, CodeActivity.class);
+            method.setAccessible(true);
+            method.invoke(obj, CodeActivity.this);
+        }
     }
 
     private void startActivity(CodeNode node) {

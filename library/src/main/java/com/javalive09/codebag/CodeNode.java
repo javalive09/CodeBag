@@ -61,9 +61,11 @@ class CodeNode implements Parcelable {
                     Class<?> clazz = Class.forName(className);
                     if (clazz.isAnnotationPresent(Code.class)) {
                         Code code = clazz.getAnnotation(Code.class);
-                        String classAnnotationName = code.name();
-                        if (!TextUtils.isEmpty(classAnnotationName)) {
-                            nodeName = classAnnotationName;
+                        if (code != null) {
+                            String classAnnotationName = code.name();
+                            if (!TextUtils.isEmpty(classAnnotationName)) {
+                                nodeName = classAnnotationName;
+                            }
                         }
                     }
                 } catch (ClassNotFoundException e) {
@@ -73,12 +75,14 @@ class CodeNode implements Parcelable {
             case METHOD:
                 String methodAnnotationName = "";
                 try {
-                    Class clazz = Class.forName(className);
+                    Class<?> clazz = Class.forName(className);
                     for (Method method : clazz.getMethods()) {
                         String methodName = method.getName();
                         if (TextUtils.equals(methodName, name) && method.isAnnotationPresent(Run.class)) {
                             Run run = method.getAnnotation(Run.class);
-                            methodAnnotationName = run.name();
+                            if (run != null) {
+                                methodAnnotationName = run.name();
+                            }
                         }
                     }
                 } catch (ClassNotFoundException e) {

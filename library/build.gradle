@@ -7,8 +7,8 @@ android {
     defaultConfig {
         minSdkVersion 14
         targetSdkVersion 29
-        versionCode 66
-        versionName "1.6.6"
+        versionCode 67
+        versionName "1.6.7"
     }
 
     buildTypes {
@@ -20,10 +20,6 @@ android {
 
 }
 
-dependencies {
-    implementation 'com.javalive09.annotation:annotation:1.0.5'
-}
-
 publish {
     userOrg = 'javalive09'//bintray.com用户名
     groupId = 'com.javalive09.codebag'//包名
@@ -32,3 +28,5 @@ publish {
     desc = 'simple library for programmer collect code(demo, unit test ...)'//描述
     website = 'https://github.com/javalive09/CodeActivity'//网站
 }
+
+//  ./gradlew clean build bintrayUpload -PbintrayUser=javalive09 -PbintrayKey=xxx -PdryRun=false

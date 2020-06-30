@@ -3,8 +3,6 @@ package com.javalive09.demos;
 import android.content.Intent;
 import android.provider.Settings;
 import android.util.Log;
-import android.widget.TextView;
-
 import com.javalive09.codebag.CodeActivity;
 import com.javalive09.annotation.Run;
 

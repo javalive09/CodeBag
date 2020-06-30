@@ -1,13 +1,16 @@
 package com.javalive09.codebag;
 
-import java.lang.reflect.InvocationTargetException;
+import java.io.IOException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
-import java.util.Collections;
-
-import com.javalive09.annotation.Constant;
+import java.util.Enumeration;
+import com.javalive09.annotation.Run;
 
 import android.content.Context;
+import android.content.pm.PackageManager;
+import android.text.TextUtils;
+
+import dalvik.system.DexFile;
 
 /**
  * Tester node loader
@@ -30,29 +33,38 @@ public class CodeNodeLoader {
     void load(CodeNode rootNode, Context context) {
         String pkgName = context.getPackageName();
         try {
-            Class<?> clazz = context.getClassLoader().loadClass(Constant.PACKAGE_NAME + "." + Constant.CLASS_NAME);
-            Method method = clazz.getDeclaredMethod(Constant.METHOD_NAME);
-            Object obj = clazz.newInstance();
-            Object returnObj = method.invoke(obj);
-            ArrayList arrayList = (ArrayList) returnObj;
-            Collections.sort(arrayList, String.CASE_INSENSITIVE_ORDER);
-            for (Object className : arrayList) {
-                String fileName = className.toString().substring(pkgName.length() + 1);
-                String[] fileNames = fileName.split("\\.");
-                loadCodeBagNode(className.toString(), fileNames, 0, rootNode);
+            String apkDir = context.getPackageManager().getApplicationInfo(pkgName, 0).sourceDir;
+            DexFile dexFile = new DexFile(apkDir);
+            Enumeration<String> apkClassNames = dexFile.entries();
+            while (apkClassNames.hasMoreElements()) {
+                String className = apkClassNames.nextElement();
+                if (className.startsWith(pkgName) && isPlayClass(className) & !className.contains("$") &
+                        !className.endsWith(".R") & !className.contains("BuildConfig")) {
+                    String fileName = className.substring(pkgName.length() + 1);
+                    String[] fileNames = fileName.split("\\.");
+                    loadCodeBagNode(className, fileNames, 0, rootNode);
+                }
             }
-        } catch (ClassNotFoundException e) {
+        } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        } catch (InstantiationException e) {
-            e.printStackTrace();
-        } catch (NoSuchMethodException e) {
-            e.printStackTrace();
-        } catch (InvocationTargetException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
 
+    }
+
+    private boolean isPlayClass(String className) {
+        try {
+            Class<?> clazz = Class.forName(className);
+            for (Method method : clazz.getDeclaredMethods()) {
+                if (method.isAnnotationPresent(Run.class)) {
+                    return true;
+                }
+            }
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 
     /**
@@ -89,7 +101,7 @@ public class CodeNodeLoader {
             currentNode.mSubNodeList = new ArrayList<>();
         } else {
             for (CodeNode n : currentNode.mSubNodeList) {//父节点有子节点列表，则遍历一下
-                if (n.name.equals(nodeName)) {
+                if(TextUtils.equals(nodeName, n.name)) {
                     return n;
                 }
             }
