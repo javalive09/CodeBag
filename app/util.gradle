@@ -1,6 +1,7 @@
 task runMethod(type: Exec, group: 'codebag') {
 
-    Task install = installDebug()
+//    Task install = installDebug()
+    Task install = installS202()
     dependsOn(install)
 
     doFirst {
@@ -25,6 +26,16 @@ def installDebug() {
     String taskName = "installDebugForMethod"
     return tasks.create(taskName) {
         println "installDebug>>>>>>>>>>>>>>>>>>>>>>>>> "
-        dependsOn ":app:installDebug"
+        dependsOn ":app:installNormalDebug"
+    }
+}
+
+
+
+def installS202() {
+    String taskName = "installinstallS202ReleaseForMethod"
+    return tasks.create(taskName) {
+        println "installDebug>>>>>>>>>>>>>>>>>>>>>>>>> "
+        dependsOn ":app:installS202Release"
     }
 }

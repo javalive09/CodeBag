@@ -20,6 +20,28 @@ android {
         targetCompatibility JavaVersion.VERSION_1_8
     }
 
+    signingConfigs {
+        S202 {
+            storeFile file("$rootDir/security/keystore/S202/platform.keystore")
+            storePassword 'WUTONG'
+            keyAlias = 'S202'
+            keyPassword 'WUTONG'
+        }
+    }
+
+    flavorDimensions "default"
+
+    productFlavors {
+        s202 {
+            dimension "default"
+            signingConfig signingConfigs.S202
+        }
+
+        normal {
+            dimension "default"
+        }
+    }
+
 }
 
 repositories {

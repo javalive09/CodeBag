@@ -27,12 +27,14 @@ public class MyService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        createUpdateNotification("my_channel_01", "我是渠道名字1");
-//        show("my_channel_01", "我是渠道名字1");
-//        show("my_channel_02", "我是渠道名字2");
-//        show("my_channel_03", "我是渠道名字3");
-//        show("my_channel_04", "我是渠道名字4");
-//        show("my_channel_05", "我是渠道名字5");
+        createUpdateNotification("1", "我是渠道名字01");
+        createUpdateNotification("2", "我是渠道名字02");
+        createUpdateNotification("2", "我是渠道名字03");
+        show("1", "我是渠道名字1");
+        show("1", "我是渠道名字2");
+        show("1", "我是渠道名字3");
+        show("1", "我是渠道名字4");
+        show("1", "我是渠道名字5");
         return super.onStartCommand(intent, flags, startId);
     }
 

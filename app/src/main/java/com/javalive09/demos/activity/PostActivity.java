@@ -3,6 +3,7 @@ package com.javalive09.demos.activity;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.util.Log;
@@ -21,6 +22,7 @@ public class PostActivity extends CodeActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         MyView view = new MyView(this);
+        view.setBackgroundColor(Color.BLUE);
         view.setText("peter123");
         setContentView(view, new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
         Log.i("peter", "onCreate");

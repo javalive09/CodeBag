@@ -232,6 +232,17 @@ public class WTTest {
         Toast.makeText(codeActivity, "toast", Toast.LENGTH_LONG).show();
     }
 
+    @Run
+    public void hideStatusBar(CodeActivity codeActivity) {
+        codeActivity.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        codeActivity.showText("hideStatusBar");
 
+
+    }
+
+    @Run
+    public void showTempreture(CodeActivity codeActivity) {
+        codeActivity.showText("12345" + "\n" + "50"+"\u2103");
+    }
 
 }
