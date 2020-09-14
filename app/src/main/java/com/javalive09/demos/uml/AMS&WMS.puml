@@ -1,0 +1,134 @@
+@startuml
+
+
+package AMS #LightGray{
+class ActivityManagerService {
+    final ActivityStackSupervisor mStackSupervisor
+    RootWindowContainer mRoot
+}
+
+class ActivityStackSupervisor {
+    final SparseArray<ActivityDisplay> mActivityDisplays
+}
+
+
+class ActivityDisplay {
+    final ArrayList<ActivityStack> mStacks
+    ActivityStack createStackUnchecked()
+}
+
+class ActivityStack {
+    final ArrayList<TaskRecord> mTaskHistory
+    StackWindowController mWindowContainerController
+    createStackWindowController()
+}
+
+class TaskRecord {
+    final ArrayList<ActivityRecord> mActivities
+    TaskWindowContainerController mWindowContainerController
+    createWindowContainer()
+    setWindowContainerController(TaskWindowContainerController controller)
+}
+
+class ActivityRecord {
+    AppWindowContainerController mController
+    final IApplicationToken.Stub appToken
+    createWindowContainer()
+}
+}
+
+
+package WMS #LightGray {
+class AppWindowContainerController {
+    final IApplicationToken mToken
+}
+
+class AppWindowToken {
+    final WindowList<WindowState> mChildren
+}
+
+class TaskWindowContainerController {
+    Task createTask()
+}
+
+class WindowState {
+
+}
+
+class StackWindowController {
+    final int mStackId
+}
+
+class TaskStack {
+    final WindowList<Task> mChildren
+}
+
+class DisplayContent {
+    final TaskStackContainers mTaskStackContainers
+    TaskStack createStack(StackWindowController controller)
+}
+
+'class WindowContainerController {
+'    RootWindowContainer mRoot
+'}
+
+class WindowContainer {
+    WindowContainerController mController
+    WindowList<E> mChildren
+    setController(WindowContainerController controller)
+    addChild(E child, int index)
+}
+
+class Task {
+
+}
+
+class WindowToken {
+
+}
+
+class RootWindowContainer {
+    final WindowList<DisplayContent> mChildren
+}
+
+class TaskStackContainers {
+    final WindowList<TaskStack> mChildren
+}
+}
+
+ActivityManagerService -right-> ActivityStackSupervisor
+ActivityStackSupervisor *-right-> ActivityDisplay
+ActivityDisplay *-right-> ActivityStack
+ActivityStack *-right-> TaskRecord
+TaskRecord *-right-> ActivityRecord
+
+
+
+ActivityManagerService -down-> RootWindowContainer
+RootWindowContainer --|> WindowContainer
+RootWindowContainer *-right-> DisplayContent
+ActivityStack --> StackWindowController
+'StackWindowController ..> DisplayContent
+'StackWindowController -down-|> WindowContainerController
+'DisplayContent ..> TaskStack
+DisplayContent -right-> TaskStackContainers
+TaskStackContainers *-right-> TaskStack
+TaskStackContainers --|> WindowContainer
+TaskStack --|> WindowContainer
+TaskStack *-right-> Task
+TaskRecord --> TaskWindowContainerController
+'TaskWindowContainerController --> Task
+'TaskWindowContainerController --|> WindowContainerController
+Task --|> WindowContainer
+Task *-right-> AppWindowToken
+ActivityRecord --> AppWindowContainerController
+'AppWindowContainerController --|> WindowContainerController
+AppWindowContainerController --> AppWindowToken
+AppWindowToken *-right-> WindowState
+AppWindowToken --|> WindowToken
+WindowToken --|> WindowContainer
+StackWindowController ..> DisplayContent
+TaskWindowContainerController ..> Task
+
+
+@enduml

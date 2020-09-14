@@ -31,8 +31,9 @@
             </intent-filter>
         </activity>
         <activity android:name=".APIActivity"
-        android:theme="@style/dialog"/>
+        android:theme="@style/dialog" />
         <activity android:name=".activity.PostActivity"
+            android:exported="true"
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen"/>
 
         <service android:name=".MyService"/>
