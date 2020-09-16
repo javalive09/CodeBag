@@ -17,6 +17,7 @@ class ActivityDisplay {
     ActivityStack createStackUnchecked()
 }
 
+
 class ActivityStack {
     final ArrayList<TaskRecord> mTaskHistory
     StackWindowController mWindowContainerController
