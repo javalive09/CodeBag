@@ -1,0 +1,61 @@
+@startuml
+
+skinparam BoxPadding 2
+
+'skinparam sequence {
+'ArrowColor black
+'LifeLineBorderColor black
+'ParticipantBorderColor black
+'ParticipantBackgroundColor white
+'}
+
+box "InputManagerService"
+participant InputDispatcher
+end box
+
+
+box "WindowManagerService"
+participant InputEventReceiver
+participant PointerEventDispatcher
+participant TaskTapPointerEventListener
+participant TaskPositioningController
+participant DisplayContent
+end box
+
+box "ActivityManagerService"
+participant ActivityManagerService
+end box
+
+
+InputDispatcher -> InputEventReceiver: dispatchInputEvent()
+
+activate InputEventReceiver
+InputEventReceiver -> PointerEventDispatcher: onInputEvent()
+deactivate InputEventReceiver
+
+activate PointerEventDispatcher
+PointerEventDispatcher -> TaskTapPointerEventListener: onPointerEvent()
+deactivate PointerEventDispatcher
+
+activate TaskTapPointerEventListener
+TaskTapPointerEventListener -> TaskPositioningController: handleTapOutsideTask()
+deactivate TaskTapPointerEventListener
+
+activate TaskPositioningController
+TaskPositioningController -> DisplayContent: taskIdFromPoint()
+activate DisplayContent
+note right
+此处对HomeTask进行过滤通过
+返回无效的taskId来屏蔽焦点切换
+end note
+DisplayContent --> TaskPositioningController: taskId
+
+deactivate DisplayContent
+
+
+TaskPositioningController -> ActivityManagerService: setFocusedTask(taskId)
+deactivate DisplayContent
+deactivate TaskPositioningController
+
+
+@enduml
