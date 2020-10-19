@@ -9,6 +9,10 @@ participant ActivityThread_ApplicationThread
 participant ActivityThread
 participant TransactionExecutor
 participant PauseActivityItem
+participant Looper
+participant ZygoteInit
+participant RuntimeInit
+participant ZygoteConnection_App
 end box
 
 box "Binder" #Light
@@ -25,6 +29,8 @@ participant ActivityStack
 participant TaskRecord
 participant ActivityRecord
 participant ClientLifecycleManager
+participant ProcessRecord
+participant Process
 end box
 
 box "Controller"  #Light
@@ -43,6 +49,12 @@ participant Task
 participant AppWindowToken
 end box
 
+box "Zygote"  #LightYellow
+participant ZygoteProcess
+participant ZygoteServer
+participant ZygoteConnection_Zygote
+participant Zygote
+end box
 
 activate Activity
 Activity -> Activity: startActivity(Intent intent, @Nullable Bundle options)
@@ -317,6 +329,7 @@ activate TransactionExecutor
 TransactionExecutor -> TransactionExecutor:executeLifecycleState()
 activate TransactionExecutor
 TransactionExecutor -> PauseActivityItem:execute()
+
 activate PauseActivityItem
 PauseActivityItem -> ActivityThread:handlePauseActivity()
 activate ActivityThread
@@ -328,6 +341,7 @@ activate Instrumentation
 Instrumentation -> Activity:performPause
 activate Activity
 Activity -> Activity:onPause()
+
 activate Activity
 deactivate Activity
 deactivate Activity
@@ -336,8 +350,138 @@ deactivate ActivityThread
 deactivate ActivityThread
 deactivate ActivityThread
 deactivate ActivityThread
+deactivate PauseActivityItem
+
+TransactionExecutor -> PauseActivityItem:postExecute()
+activate PauseActivityItem
+PauseActivityItem -> ActivityManager:getService()
+activate ActivityManager
+
+ActivityManager -> IActivityManager:activityPaused()
 deactivate TransactionExecutor
 deactivate TransactionExecutor
 deactivate PauseActivityItem
+deactivate ActivityManager
+activate IActivityManager
+
+IActivityManager -> ActivityManagerService:activityPaused()
+activate ActivityManagerService
+ActivityManagerService -> ActivityStack:activityPausedLocked()
+activate ActivityStack
+ActivityStack -> ActivityStack:completePauseLocked()
+activate ActivityStack
+ActivityStack -> ActivityStackSupervisor:resumeFocusedStackTopActivityLocked()
+activate ActivityStackSupervisor
+ActivityStackSupervisor -> ActivityStack:resumeTopActivityUncheckedLocked()
+activate ActivityStack
+ActivityStack -> ActivityStack:resumeTopActivityInnerLocked()
+activate ActivityStack
+ActivityStack -> ActivityStackSupervisor:startSpecificActivityLocked()
+activate ActivityStackSupervisor
+
+ActivityStackSupervisor -> ActivityManagerService:startProcessLocked()
+activate ActivityManagerService
+ActivityManagerService -> ActivityManagerService:newProcessRecordLocked()
+activate ActivityManagerService
+ActivityManagerService -> ProcessRecord:new()
+activate ProcessRecord
+deactivate ProcessRecord
+deactivate ActivityManagerService
+deactivate ActivityManagerService
+
+ActivityManagerService -> ActivityManagerService:startProcessLocked()
+activate ActivityManagerService
+ActivityManagerService -> ActivityManagerService:startProcess()
+activate ActivityManagerService
+ActivityManagerService -> Process:start()
+activate Process
+Process -> ZygoteProcess:start()
+activate ZygoteProcess
+ZygoteProcess -> ZygoteProcess:startViaZygote()
+activate ZygoteProcess
+deactivate Process
+deactivate ActivityStack
+deactivate ActivityStack
+deactivate ActivityStack
+deactivate ActivityStack
+deactivate ActivityStackSupervisor
+deactivate ActivityStackSupervisor
+deactivate ActivityManagerService
+deactivate ActivityManagerService
+deactivate ActivityManagerService
+deactivate IActivityManager
+
+
+ZygoteProcess -> ZygoteServer:runSelectLoop()
+activate ZygoteServer
+ZygoteServer -> ZygoteConnection_Zygote:processOneCommand()
+activate ZygoteConnection_Zygote
+ZygoteConnection_Zygote -> Zygote:forkAndSpecialize()
+activate Zygote
+Zygote -> Zygote:nativeForkAndSpecialize()
+activate Zygote
+
+ZygoteConnection_Zygote -> ZygoteConnection_App:handleChildProc()
+deactivate Zygote
+deactivate Zygote
+deactivate ZygoteConnection_Zygote
+deactivate ZygoteServer
+deactivate ZygoteProcess
+deactivate ZygoteProcess
+activate ZygoteConnection_App
+
+ZygoteConnection_App -> ZygoteInit:zygoteInit()
+activate ZygoteInit
+
+ZygoteInit -> RuntimeInit:commonInit()
+activate RuntimeInit
+
+ZygoteInit -> ZygoteInit:nativeZygoteInit()
+activate ZygoteInit
+
+ZygoteInit -> RuntimeInit:applicationInit()
+activate RuntimeInit
+
+RuntimeInit -> RuntimeInit:findStaticMain()
+activate RuntimeInit
+
+RuntimeInit -> ActivityThread:main()
+activate ActivityThread
+
+ActivityThread -> Looper:prepareMainLooper()
+activate Looper
+deactivate Looper
+
+ActivityThread -> ActivityThread:new()
+activate ActivityThread
+deactivate ActivityThread
+ActivityThread -> ActivityThread:attach()
+activate ActivityThread
+
+ActivityThread -> ActivityManager:getService()
+activate ActivityManager
+ActivityManager -> ActivityManagerService:attachApplication()
+deactivate ActivityManager
+deactivate ActivityThread
+deactivate ActivityThread
+deactivate ZygoteInit
+deactivate ZygoteInit
+deactivate RuntimeInit
+deactivate RuntimeInit
+deactivate RuntimeInit
+deactivate ZygoteConnection_App
+activate ActivityManagerService
+
+ActivityManagerService -> ActivityManagerService:attachApplicationLocked()
+activate ActivityManagerService
+ActivityManagerService -> ActivityThread:bindApplication
+activate ActivityThread
+ActivityThread -> ActivityThread:sendMessage(H.BIND_APPLICATION)
+activate ActivityThread
+ActivityThread -> ActivityThread:handleBindApplication()
+activate ActivityThread
+
+
+
 
 @enduml
