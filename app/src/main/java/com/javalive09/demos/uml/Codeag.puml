@@ -1,0 +1,8 @@
+@startuml
+
+:加载 dexFile;
+:加载 class File;
+:将class放入Node节点;
+:显示入口节点Node列表;
+
+@enduml

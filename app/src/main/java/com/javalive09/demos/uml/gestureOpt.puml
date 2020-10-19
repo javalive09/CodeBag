@@ -1,0 +1,10 @@
+@startuml
+(*)  --> "SystemServer过滤屏幕输入事件"
+If "符合注册过的手势" then
+--> [Yes] "通知给注册该事件的app"
+-->(*)
+else
+--> [No]"忽略事件"
+Endif
+
+@enduml

@@ -1,0 +1,15 @@
+@startuml
+
+start
+:入口文件夹Node节点;
+:入口class Node节点;
+:入口method Node节点;
+:反射调用method中的逻辑;
+if (method中是否有显示View逻辑) then (yes)
+  : 显示View;
+else (no)
+  : 执行方法逻辑不显示View;
+endif
+end
+
+@enduml
