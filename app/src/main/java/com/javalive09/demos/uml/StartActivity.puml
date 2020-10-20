@@ -9,6 +9,7 @@ participant ActivityThread_ApplicationThread
 participant ActivityThread
 participant TransactionExecutor
 participant LaunchActivityItem
+participant ResumeActivityItem
 participant PauseActivityItem
 participant Looper
 participant ZygoteInit
@@ -574,8 +575,79 @@ deactivate ActivityThread
 deactivate ActivityThread
 deactivate ActivityThread
 deactivate TransactionExecutor
-deactivate TransactionExecutor
 deactivate LaunchActivityItem
+
+TransactionExecutor -> TransactionExecutor:executeLifecycleState()
+activate TransactionExecutor
+
+TransactionExecutor -> TransactionExecutor:cycleToPath()
+activate TransactionExecutor
+
+TransactionExecutor -> TransactionExecutor:performLifecycleSequence()
+activate TransactionExecutor
+
+TransactionExecutor -> ActivityThread:handleStartActivity()
+activate ActivityThread
+
+ActivityThread -> Activity:performStart()
+activate Activity
+
+Activity -> Instrumentation:callActivityOnStart()
+activate Instrumentation
+
+Instrumentation -> Activity:onStart()
+activate Activity
+deactivate Activity
+deactivate Activity
+deactivate Instrumentation
+deactivate ActivityThread
+deactivate TransactionExecutor
+deactivate TransactionExecutor
+deactivate TransactionExecutor
+
+
+
+TransactionExecutor -> ResumeActivityItem:execute()
+activate ResumeActivityItem
+
+ResumeActivityItem -> ActivityThread:handleResumeActivity()
+activate ActivityThread
+
+ResumeActivityItem -> ActivityThread:performResumeActivity()
+activate ActivityThread
+
+ActivityThread -> Activity:performResume()
+activate Activity
+
+Activity -> Instrumentation:callActivityOnResume()
+activate Instrumentation
+
+Instrumentation -> Activity:onResume()
+activate Activity
+deactivate Activity
+deactivate Activity
+deactivate Instrumentation
+deactivate ActivityThread
+deactivate ActivityThread
+deactivate ResumeActivityItem
+
+TransactionExecutor -> ResumeActivityItem:postExecute()
+activate ResumeActivityItem
+
+ResumeActivityItem -> ActivityManager:getService()
+activate ActivityManager
+
+ActivityManager -> IActivityManager:activityResumed()
+deactivate ResumeActivityItem
+deactivate TransactionExecutor
+deactivate ActivityManager
+activate IActivityManager
+
+
+
+IActivityManager -> ActivityManagerService:activityResumed()
+activate ActivityManagerService
+
 
 
 
