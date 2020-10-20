@@ -2,21 +2,25 @@
 
 box "App" #LightYellow
 participant Activity
+participant Application
 participant Instrumentation
 participant ActivityManager
-participant ClientTransaction
 participant ActivityThread_ApplicationThread
 participant ActivityThread
 participant TransactionExecutor
+participant LaunchActivityItem
 participant PauseActivityItem
 participant Looper
 participant ZygoteInit
 participant RuntimeInit
 participant ZygoteConnection_App
+participant ClientTransaction_App
+
 end box
 
 box "Binder" #Light
 participant IActivityManager
+participant IApplicationThread
 end box
 
 box "AMS" #LightYellow
@@ -31,6 +35,7 @@ participant ActivityRecord
 participant ClientLifecycleManager
 participant ProcessRecord
 participant Process
+participant ClientTransaction_AMS
 end box
 
 box "Controller"  #Light
@@ -57,9 +62,9 @@ participant Zygote
 end box
 
 activate Activity
-Activity -> Activity: startActivity(Intent intent, @Nullable Bundle options)
+Activity -> Activity: startActivity(...)
 activate Activity
-Activity -> Activity: startActivityForResult(Intent intent, int requestCode)
+Activity -> Activity: startActivityForResult(...)
 activate Activity
 Activity -> Instrumentation: execStartActivity(...)
 activate Activity
@@ -297,11 +302,12 @@ activate ActivityStack
 ActivityStack -> ClientLifecycleManager: scheduleTransaction()
 
 activate ClientLifecycleManager
-ClientLifecycleManager -> ClientTransaction:schedule()
-activate ClientTransaction
+ClientLifecycleManager -> ClientTransaction_AMS:schedule()
+activate ClientTransaction_AMS
 
-ClientTransaction -> ActivityThread_ApplicationThread:scheduleTransaction()
-deactivate ClientTransaction
+ClientTransaction_AMS -> IApplicationThread:scheduleTransaction()
+deactivate ClientTransaction_AMS
+activate IApplicationThread
 deactivate ClientLifecycleManager
 deactivate ActivityStack
 deactivate ActivityStack
@@ -317,11 +323,14 @@ deactivate ActivityStarter
 deactivate ActivityStarter
 deactivate ActivityStarter
 
+IApplicationThread -> ActivityThread_ApplicationThread:scheduleTransaction()
 activate ActivityThread_ApplicationThread
+
 ActivityThread_ApplicationThread -> ActivityThread:scheduleTransaction()
 deactivate ActivityThread_ApplicationThread
-
+deactivate IApplicationThread
 activate ActivityThread
+
 ActivityThread -> ActivityThread:sendMessage()
 activate ActivityThread
 ActivityThread -> TransactionExecutor:execute()
@@ -480,7 +489,97 @@ ActivityThread -> ActivityThread:sendMessage(H.BIND_APPLICATION)
 activate ActivityThread
 ActivityThread -> ActivityThread:handleBindApplication()
 activate ActivityThread
+ActivityThread -> Instrumentation:onCreate()
+activate Instrumentation
+deactivate Instrumentation
+ActivityThread -> Instrumentation:callApplicationOnCreate
+activate Instrumentation
+Instrumentation -> Application:onCreate()
+activate Application
+deactivate Application
+deactivate Instrumentation
+deactivate ActivityThread
+deactivate ActivityThread
+deactivate ActivityThread
+ActivityManagerService -> ActivityStackSupervisor:attachApplicationLocked()
+activate ActivityStackSupervisor
 
+ActivityStackSupervisor -> ActivityStackSupervisor:ensureActivitiesVisibleLocked()
+activate ActivityStackSupervisor
+
+ActivityStackSupervisor -> ActivityStack:ensureActivitiesVisibleLocked()
+activate ActivityStack
+ActivityStack -> ActivityStack:makeVisibleAndRestartIfNeeded()
+activate ActivityStack
+
+ActivityStack -> ActivityStackSupervisor:startSpecificActivityLocked()
+activate ActivityStackSupervisor
+
+ActivityStackSupervisor -> ActivityStackSupervisor:realStartActivityLocked()
+activate ActivityStackSupervisor
+
+ActivityStackSupervisor -> ClientLifecycleManager:scheduleTransaction()
+activate ClientLifecycleManager
+
+ClientLifecycleManager -> ClientTransaction_AMS:schedule()
+activate ClientTransaction_AMS
+
+ClientTransaction_AMS -> IApplicationThread:scheduleTransaction()
+deactivate ClientTransaction_AMS
+deactivate ClientLifecycleManager
+deactivate ActivityStack
+deactivate ActivityStack
+deactivate ActivityStackSupervisor
+deactivate ActivityStackSupervisor
+deactivate ActivityStackSupervisor
+deactivate ActivityStackSupervisor
+deactivate ActivityManagerService
+deactivate ActivityManagerService
+activate IApplicationThread
+
+IApplicationThread -> ActivityThread:scheduleTransaction()
+activate ActivityThread
+ActivityThread -> ActivityThread:sendMessage(ActivityThread.H.EXECUTE_TRANSACTION)
+deactivate IApplicationThread
+activate ActivityThread
+
+ActivityThread -> TransactionExecutor:execute()
+activate TransactionExecutor
+
+TransactionExecutor -> TransactionExecutor:executeCallbacks()
+activate TransactionExecutor
+
+TransactionExecutor -> LaunchActivityItem:execute()
+activate LaunchActivityItem
+
+LaunchActivityItem -> ActivityThread:handleLaunchActivity()
+activate ActivityThread
+
+ActivityThread -> ActivityThread:performLaunchActivity()
+activate ActivityThread
+
+ActivityThread -> Instrumentation:callActivityOnCreate()
+activate Instrumentation
+
+Instrumentation -> Activity:performCreate()
+activate Activity
+
+Activity -> Activity:onCreate()
+activate Activity
+deactivate Activity
+deactivate Activity
+deactivate Instrumentation
+deactivate ActivityThread
+deactivate ActivityThread
+deactivate ActivityThread
+deactivate ActivityThread
+deactivate TransactionExecutor
+deactivate TransactionExecutor
+deactivate LaunchActivityItem
+
+
+
+'TransactionExecutor -> ClientTransaction_App:
 
 
 
