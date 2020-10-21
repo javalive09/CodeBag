@@ -11,12 +11,13 @@ participant TransactionExecutor
 participant LaunchActivityItem
 participant ResumeActivityItem
 participant PauseActivityItem
+participant ActivityThread_H
+participant MessageQueue
 participant Looper
 participant ZygoteInit
 participant RuntimeInit
 participant ZygoteConnection_App
 participant ClientTransaction_App
-
 end box
 
 box "Binder" #Light
@@ -27,7 +28,6 @@ end box
 box "AMS" #LightYellow
 participant ActivityManagerService
 participant ActivityStarter
-participant ActivityStartController
 participant ActivityStackSupervisor
 participant ActivityDisplay
 participant ActivityStack
@@ -37,9 +37,11 @@ participant ClientLifecycleManager
 participant ProcessRecord
 participant Process
 participant ClientTransaction_AMS
+participant ZygoteProcess
+participant BufferedWriter
 end box
 
-box "Controller"  #Light
+box "Controller"  #LightYellow
 participant DisplayWindowController
 participant StackWindowController
 participant TaskWindowContainerController
@@ -55,45 +57,41 @@ participant Task
 participant AppWindowToken
 end box
 
-box "Zygote"  #LightYellow
-participant ZygoteProcess
+box "Socket"  #Light
+participant LocalSocket
+participant OutputStream
+end box
+
+box "Zygote"  #LightBlue
 participant ZygoteServer
 participant ZygoteConnection_Zygote
 participant Zygote
 end box
 
 activate Activity
-Activity -> Activity: startActivity(...)
+Activity -> Activity: startActivity()
 activate Activity
-Activity -> Activity: startActivityForResult(...)
+Activity -> Activity: startActivityForResult()
 activate Activity
-Activity -> Instrumentation: execStartActivity(...)
-activate Activity
-
+Activity -> Instrumentation: execStartActivity()
 activate Instrumentation
 Instrumentation -> ActivityManager: getService()
-
 activate ActivityManager
-ActivityManager -> IActivityManager: startActivity(...)
-deactivate ActivityManager
-deactivate Activity
-deactivate Activity
-deactivate Activity
-deactivate Activity
-deactivate Instrumentation
-
+ActivityManager -> IActivityManager: startActivity()
 activate IActivityManager
-IActivityManager -> ActivityManagerService: startActivity(...)
+deactivate IActivityManager
+deactivate ActivityManager
+deactivate Instrumentation
+deactivate Activity
+deactivate Activity
+deactivate Activity
+deactivate Activity
 
+IActivityManager -> ActivityManagerService: startActivity()
 activate ActivityManagerService
-ActivityManagerService -> ActivityManagerService: startActivityAsUser(...)
+ActivityManagerService -> ActivityManagerService: startActivityAsUser()
 activate ActivityManagerService
-ActivityManagerService -> ActivityStartController: obtainStarter()
-
-activate ActivityStartController
 ActivityManagerService -> ActivityStarter: execute()
-deactivate ActivityStartController
-
 activate ActivityStarter
 ActivityStarter -> ActivityStarter: startActivityMayWait()
 activate ActivityStarter
@@ -102,6 +100,9 @@ activate ActivityStarter
 ActivityStarter -> ActivityStarter: startActivityUnchecked()
 activate ActivityStarter
 ActivityStarter -> ActivityStarter: getReusableIntentActivity()
+activate ActivityStarter
+deactivate ActivityStarter
+
 ActivityStarter -> ActivityStarter: setTaskFromReuseOrCreateNewTask()
 activate ActivityStarter
 ActivityStarter -> ActivityStarter: computeStackFocus()
@@ -109,41 +110,33 @@ activate ActivityStarter
 ActivityStarter -> ActivityStarter: getLaunchStack()
 activate ActivityStarter
 ActivityStarter -> ActivityStackSupervisor: getLaunchStack()
-
 activate ActivityStackSupervisor
 ActivityStackSupervisor -> ActivityStackSupervisor: getActivityDisplayOrCreateLocked()
 activate ActivityStackSupervisor
 ActivityStackSupervisor -> ActivityDisplay: new()
-
 activate ActivityDisplay
 ActivityDisplay -> ActivityDisplay: createWindowContainerController()
 activate ActivityDisplay
-deactivate ActivityDisplay
 ActivityDisplay -> DisplayWindowController : new()
-
 activate DisplayWindowController
 DisplayWindowController -> RootWindowContainer : createDisplayContent()
-
 activate RootWindowContainer
 RootWindowContainer -> DisplayContent : new()
-
 activate DisplayContent
-DisplayContent -> RootWindowContainer : addChild()
+DisplayContent -> RootWindowContainer : addChild(this)
 activate RootWindowContainer
 deactivate RootWindowContainer
 deactivate DisplayContent
 deactivate RootWindowContainer
 deactivate DisplayWindowController
 deactivate ActivityDisplay
+deactivate ActivityDisplay
 
 ActivityStackSupervisor -> ActivityStackSupervisor: attachDisplay()
 activate ActivityStackSupervisor
-
-
-ActivityStackSupervisor -> ActivityStackSupervisor: mActivityDisplays.put(display.mDisplayId, display)
-activate ActivityStackSupervisor
+deactivate ActivityStackSupervisor
+deactivate ActivityStackSupervisor
 ActivityStackSupervisor -> ActivityDisplay: getOrCreateStack()
-
 activate ActivityDisplay
 ActivityDisplay -> ActivityDisplay: getOrCreateStack()
 activate ActivityDisplay
@@ -151,38 +144,34 @@ ActivityDisplay -> ActivityDisplay: createStack()
 activate ActivityDisplay
 ActivityDisplay -> ActivityDisplay: createStackUnchecked()
 activate ActivityDisplay
-deactivate ActivityDisplay
 ActivityDisplay -> ActivityStack: new()
-
 activate ActivityStack
 ActivityStack -> ActivityStack: createStackWindowController()
 activate ActivityStack
 ActivityStack -> StackWindowController: new()
 activate StackWindowController
 StackWindowController -> DisplayContent: createStack()
-
 activate DisplayContent
 DisplayContent -> TaskStack: new()
-
 activate TaskStack
-DisplayContent -> TaskStackContainers: addStackToDisplay()
 deactivate TaskStack
-
+DisplayContent -> TaskStackContainers: addStackToDisplay(TaskStack)
+deactivate TaskStack
 activate TaskStackContainers
-TaskStackContainers -> TaskStackContainers: addChild()
+TaskStackContainers -> TaskStackContainers: addChild(TaskStack)
 activate TaskStackContainers
 deactivate TaskStackContainers
 deactivate TaskStackContainers
 deactivate ActivityStack
 deactivate DisplayContent
 deactivate StackWindowController
-
 ActivityStack -> ActivityStack: postAddToDisplay()
 activate ActivityStack
-ActivityStack -> ActivityDisplay: addChild()
+ActivityStack -> ActivityDisplay: addChild(this)
 activate ActivityDisplay
 deactivate ActivityStack
 deactivate ActivityStack
+deactivate ActivityDisplay
 deactivate ActivityDisplay
 deactivate ActivityDisplay
 deactivate ActivityDisplay
@@ -196,10 +185,8 @@ deactivate ActivityStackSupervisor
 
 ActivityStarter -> ActivityStack: createTaskRecord()
 activate ActivityStack
-
 ActivityStack -> TaskRecord: create()
 activate ActivityStack
-
 activate TaskRecord
 TaskRecord -> TaskRecord: new()
 activate TaskRecord
@@ -207,34 +194,31 @@ deactivate ActivityStack
 deactivate TaskRecord
 deactivate TaskRecord
 
-
 ActivityStack -> ActivityStack: addTask()
 activate ActivityStack
+deactivate ActivityStack
 ActivityStack -> TaskRecord: createWindowContainer()
-
 activate TaskRecord
 TaskRecord -> TaskWindowContainerController: new()
-
 activate TaskWindowContainerController
 TaskWindowContainerController -> TaskWindowContainerController: createTask()
 activate TaskWindowContainerController
-deactivate TaskWindowContainerController
 TaskWindowContainerController -> Task: new()
-
 activate Task
-TaskWindowContainerController -> TaskStack: addTask()
 deactivate Task
-
+deactivate TaskWindowContainerController
+TaskWindowContainerController -> TaskStack: addTask(Task)
 activate TaskStack
-TaskStack -> TaskStack: addChild()
+TaskStack -> TaskStack: addChild(Task)
 activate TaskStack
 deactivate TaskStack
 deactivate TaskStack
-deactivate ActivityStarter
-deactivate ActivityStack
-deactivate ActivityStack
 deactivate TaskWindowContainerController
 deactivate TaskRecord
+deactivate ActivityStack
+deactivate ActivityStack
+deactivate ActivityStarter
+
 
 ActivityStarter -> ActivityStack: startActivityLocked
 
@@ -251,36 +235,37 @@ activate AppWindowContainerController
 AppWindowContainerController -> AppWindowContainerController: createAppWindow()
 activate AppWindowContainerController
 AppWindowContainerController -> AppWindowToken: new()
-
 activate AppWindowToken
-AppWindowContainerController -> Task: addChild(atoken, index)
 deactivate AppWindowToken
+deactivate AppWindowContainerController
+
+AppWindowContainerController -> Task: addChild(atoken, index)
 activate Task
+deactivate Task
+deactivate AppWindowContainerController
 
 ActivityRecord -> TaskRecord: addActivityToTop()
+activate TaskRecord
+deactivate TaskRecord
 deactivate Task
 deactivate AppWindowContainerController
 deactivate AppWindowContainerController
-activate TaskRecord
-
-TaskRecord -> TaskRecord :mActivities.add(index, r)
-
-activate TaskRecord
-deactivate TaskRecord
-deactivate TaskRecord
 deactivate ActivityRecord
 
 ActivityStack -> ActivityRecord: showStartingWindow()
-
 activate ActivityRecord
+
+ActivityRecord -> ActivityRecord: showStartingWindow()
+activate ActivityRecord
+
 ActivityRecord -> AppWindowContainerController: addStartingWindow()
 
 activate AppWindowContainerController
 AppWindowContainerController -> AppWindowContainerController: scheduleAddStartingWindow()
-
 activate AppWindowContainerController
 deactivate AppWindowContainerController
 deactivate AppWindowContainerController
+deactivate ActivityRecord
 deactivate ActivityRecord
 deactivate ActivityStack
 
@@ -300,15 +285,15 @@ ActivityStackSupervisor -> ActivityStack: startPausingLocked()
 activate ActivityStack
 ActivityStack -> ActivityStack: startPausingLocked()
 activate ActivityStack
-ActivityStack -> ClientLifecycleManager: scheduleTransaction()
-
+ActivityStack -> ClientLifecycleManager: scheduleTransaction(PauseActivityItem)
 activate ClientLifecycleManager
 ClientLifecycleManager -> ClientTransaction_AMS:schedule()
 activate ClientTransaction_AMS
 
 ClientTransaction_AMS -> IApplicationThread:scheduleTransaction()
-deactivate ClientTransaction_AMS
 activate IApplicationThread
+deactivate IApplicationThread
+deactivate ClientTransaction_AMS
 deactivate ClientLifecycleManager
 deactivate ActivityStack
 deactivate ActivityStack
@@ -351,7 +336,6 @@ activate Instrumentation
 Instrumentation -> Activity:performPause
 activate Activity
 Activity -> Activity:onPause()
-
 activate Activity
 deactivate Activity
 deactivate Activity
@@ -366,13 +350,13 @@ TransactionExecutor -> PauseActivityItem:postExecute()
 activate PauseActivityItem
 PauseActivityItem -> ActivityManager:getService()
 activate ActivityManager
-
 ActivityManager -> IActivityManager:activityPaused()
+activate IActivityManager
+deactivate IActivityManager
 deactivate TransactionExecutor
 deactivate TransactionExecutor
 deactivate PauseActivityItem
 deactivate ActivityManager
-activate IActivityManager
 
 IActivityManager -> ActivityManagerService:activityPaused()
 activate ActivityManagerService
@@ -388,7 +372,6 @@ ActivityStack -> ActivityStack:resumeTopActivityInnerLocked()
 activate ActivityStack
 ActivityStack -> ActivityStackSupervisor:startSpecificActivityLocked()
 activate ActivityStackSupervisor
-
 ActivityStackSupervisor -> ActivityManagerService:startProcessLocked()
 activate ActivityManagerService
 ActivityManagerService -> ActivityManagerService:newProcessRecordLocked()
@@ -409,6 +392,20 @@ Process -> ZygoteProcess:start()
 activate ZygoteProcess
 ZygoteProcess -> ZygoteProcess:startViaZygote()
 activate ZygoteProcess
+ZygoteProcess -> ZygoteProcess:zygoteSendArgsAndGetResult()
+activate ZygoteProcess
+ZygoteProcess -> BufferedWriter:write()
+activate BufferedWriter
+BufferedWriter -> LocalSocket:getOutputStream()
+activate LocalSocket
+LocalSocket -> OutputStream:write()
+activate OutputStream
+deactivate OutputStream
+deactivate LocalSocket
+deactivate BufferedWriter
+deactivate ZygoteProcess
+deactivate ZygoteProcess
+deactivate ZygoteProcess
 deactivate Process
 deactivate ActivityStack
 deactivate ActivityStack
@@ -419,10 +416,8 @@ deactivate ActivityStackSupervisor
 deactivate ActivityManagerService
 deactivate ActivityManagerService
 deactivate ActivityManagerService
-deactivate IActivityManager
 
-
-ZygoteProcess -> ZygoteServer:runSelectLoop()
+OutputStream -> ZygoteServer:runSelectLoop()
 activate ZygoteServer
 ZygoteServer -> ZygoteConnection_Zygote:processOneCommand()
 activate ZygoteConnection_Zygote
@@ -430,61 +425,60 @@ ZygoteConnection_Zygote -> Zygote:forkAndSpecialize()
 activate Zygote
 Zygote -> Zygote:nativeForkAndSpecialize()
 activate Zygote
-
-ZygoteConnection_Zygote -> ZygoteConnection_App:handleChildProc()
 deactivate Zygote
 deactivate Zygote
 deactivate ZygoteConnection_Zygote
 deactivate ZygoteServer
-deactivate ZygoteProcess
-deactivate ZygoteProcess
-activate ZygoteConnection_App
 
+ZygoteConnection_Zygote -> ZygoteConnection_App:handleChildProc()
+activate ZygoteConnection_App
 ZygoteConnection_App -> ZygoteInit:zygoteInit()
 activate ZygoteInit
-
 ZygoteInit -> RuntimeInit:commonInit()
 activate RuntimeInit
-
+deactivate RuntimeInit
 ZygoteInit -> ZygoteInit:nativeZygoteInit()
 activate ZygoteInit
-
+deactivate ZygoteInit
 ZygoteInit -> RuntimeInit:applicationInit()
 activate RuntimeInit
-
 RuntimeInit -> RuntimeInit:findStaticMain()
 activate RuntimeInit
-
 RuntimeInit -> ActivityThread:main()
 activate ActivityThread
-
 ActivityThread -> Looper:prepareMainLooper()
 activate Looper
 deactivate Looper
-
 ActivityThread -> ActivityThread:new()
 activate ActivityThread
 deactivate ActivityThread
 ActivityThread -> ActivityThread:attach()
 activate ActivityThread
-
 ActivityThread -> ActivityManager:getService()
 activate ActivityManager
-ActivityManager -> ActivityManagerService:attachApplication()
+ActivityManager -> IActivityManager:attachApplication()
+activate IActivityManager
+deactivate IActivityManager
 deactivate ActivityManager
 deactivate ActivityThread
+
+ActivityThread -> Looper:loop()
+activate Looper
+deactivate Looper
 deactivate ActivityThread
 deactivate ZygoteInit
-deactivate ZygoteInit
-deactivate RuntimeInit
 deactivate RuntimeInit
 deactivate RuntimeInit
 deactivate ZygoteConnection_App
-activate ActivityManagerService
 
+IActivityManager -> ActivityManagerService:attachApplication()
+activate ActivityManagerService
 ActivityManagerService -> ActivityManagerService:attachApplicationLocked()
 activate ActivityManagerService
-ActivityManagerService -> ActivityThread:bindApplication
+ActivityManagerService -> IApplicationThread:bindApplication
+activate IApplicationThread
+deactivate IApplicationThread
+IApplicationThread -> ActivityThread:bindApplication
 activate ActivityThread
 ActivityThread -> ActivityThread:sendMessage(H.BIND_APPLICATION)
 activate ActivityThread
@@ -502,30 +496,28 @@ deactivate Instrumentation
 deactivate ActivityThread
 deactivate ActivityThread
 deactivate ActivityThread
+
 ActivityManagerService -> ActivityStackSupervisor:attachApplicationLocked()
 activate ActivityStackSupervisor
-
+ActivityStackSupervisor -> ActivityStackSupervisor:realStartActivityLocked()
+activate ActivityStackSupervisor
 ActivityStackSupervisor -> ActivityStackSupervisor:ensureActivitiesVisibleLocked()
 activate ActivityStackSupervisor
-
 ActivityStackSupervisor -> ActivityStack:ensureActivitiesVisibleLocked()
 activate ActivityStack
 ActivityStack -> ActivityStack:makeVisibleAndRestartIfNeeded()
 activate ActivityStack
-
 ActivityStack -> ActivityStackSupervisor:startSpecificActivityLocked()
 activate ActivityStackSupervisor
-
 ActivityStackSupervisor -> ActivityStackSupervisor:realStartActivityLocked()
 activate ActivityStackSupervisor
-
 ActivityStackSupervisor -> ClientLifecycleManager:scheduleTransaction()
 activate ClientLifecycleManager
-
 ClientLifecycleManager -> ClientTransaction_AMS:schedule()
 activate ClientTransaction_AMS
-
 ClientTransaction_AMS -> IApplicationThread:scheduleTransaction()
+activate IApplicationThread
+deactivate IApplicationThread
 deactivate ClientTransaction_AMS
 deactivate ClientLifecycleManager
 deactivate ActivityStack
@@ -536,35 +528,49 @@ deactivate ActivityStackSupervisor
 deactivate ActivityStackSupervisor
 deactivate ActivityManagerService
 deactivate ActivityManagerService
-activate IApplicationThread
 
 IApplicationThread -> ActivityThread:scheduleTransaction()
 activate ActivityThread
 ActivityThread -> ActivityThread:sendMessage(ActivityThread.H.EXECUTE_TRANSACTION)
-deactivate IApplicationThread
 activate ActivityThread
+ActivityThread -> ActivityThread_H:sendMessage()
+activate ActivityThread_H
+ActivityThread_H -> ActivityThread_H:sendMessageDelayed()
+activate ActivityThread_H
+ActivityThread_H -> ActivityThread_H:sendMessageAtTime()
+activate ActivityThread_H
+ActivityThread_H -> ActivityThread_H:enqueueMessage()
+activate ActivityThread_H
+ActivityThread_H -> MessageQueue:enqueueMessage()
+activate MessageQueue
+deactivate MessageQueue
+deactivate ActivityThread_H
+deactivate ActivityThread_H
+deactivate ActivityThread_H
+deactivate ActivityThread_H
+deactivate ActivityThread
+deactivate ActivityThread
 
-ActivityThread -> TransactionExecutor:execute()
+Looper -> Looper:loop()
+activate Looper
+Looper -> ActivityThread_H:dispatchMessage()
+activate ActivityThread_H
+ActivityThread_H -> ActivityThread_H:handleMessage()
+activate ActivityThread_H
+ActivityThread_H -> TransactionExecutor:execute()
 activate TransactionExecutor
-
 TransactionExecutor -> TransactionExecutor:executeCallbacks()
 activate TransactionExecutor
-
 TransactionExecutor -> LaunchActivityItem:execute()
 activate LaunchActivityItem
-
 LaunchActivityItem -> ActivityThread:handleLaunchActivity()
 activate ActivityThread
-
 ActivityThread -> ActivityThread:performLaunchActivity()
 activate ActivityThread
-
 ActivityThread -> Instrumentation:callActivityOnCreate()
 activate Instrumentation
-
 Instrumentation -> Activity:performCreate()
 activate Activity
-
 Activity -> Activity:onCreate()
 activate Activity
 deactivate Activity
@@ -579,22 +585,16 @@ deactivate LaunchActivityItem
 
 TransactionExecutor -> TransactionExecutor:executeLifecycleState()
 activate TransactionExecutor
-
 TransactionExecutor -> TransactionExecutor:cycleToPath()
 activate TransactionExecutor
-
 TransactionExecutor -> TransactionExecutor:performLifecycleSequence()
 activate TransactionExecutor
-
 TransactionExecutor -> ActivityThread:handleStartActivity()
 activate ActivityThread
-
 ActivityThread -> Activity:performStart()
 activate Activity
-
 Activity -> Instrumentation:callActivityOnStart()
 activate Instrumentation
-
 Instrumentation -> Activity:onStart()
 activate Activity
 deactivate Activity
@@ -603,25 +603,17 @@ deactivate Instrumentation
 deactivate ActivityThread
 deactivate TransactionExecutor
 deactivate TransactionExecutor
-deactivate TransactionExecutor
-
-
 
 TransactionExecutor -> ResumeActivityItem:execute()
 activate ResumeActivityItem
-
 ResumeActivityItem -> ActivityThread:handleResumeActivity()
 activate ActivityThread
-
 ResumeActivityItem -> ActivityThread:performResumeActivity()
 activate ActivityThread
-
 ActivityThread -> Activity:performResume()
 activate Activity
-
 Activity -> Instrumentation:callActivityOnResume()
 activate Instrumentation
-
 Instrumentation -> Activity:onResume()
 activate Activity
 deactivate Activity
@@ -633,16 +625,18 @@ deactivate ResumeActivityItem
 
 TransactionExecutor -> ResumeActivityItem:postExecute()
 activate ResumeActivityItem
-
 ResumeActivityItem -> ActivityManager:getService()
 activate ActivityManager
-
 ActivityManager -> IActivityManager:activityResumed()
+activate IActivityManager
+deactivate IActivityManager
 deactivate ResumeActivityItem
 deactivate TransactionExecutor
+deactivate TransactionExecutor
 deactivate ActivityManager
-activate IActivityManager
-
+deactivate ActivityThread_H
+deactivate ActivityThread_H
+deactivate Looper
 
 
 IActivityManager -> ActivityManagerService:activityResumed()
