@@ -8,6 +8,7 @@ participant ActivityManager
 participant ActivityThread_ApplicationThread
 participant ActivityThread
 participant TransactionExecutor
+participant ActivityClientRecord
 participant LaunchActivityItem
 participant ResumeActivityItem
 participant PauseActivityItem
@@ -574,6 +575,9 @@ TransactionExecutor -> TransactionExecutor:executeCallbacks()
 activate TransactionExecutor
 TransactionExecutor -> LaunchActivityItem:execute()
 activate LaunchActivityItem
+LaunchActivityItem -> ActivityClientRecord:new()
+activate ActivityClientRecord
+deactivate ActivityClientRecord
 LaunchActivityItem -> ActivityThread:handleLaunchActivity()
 activate ActivityThread
 ActivityThread -> ActivityThread:performLaunchActivity()
