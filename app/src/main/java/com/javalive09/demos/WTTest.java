@@ -13,6 +13,8 @@ import android.graphics.PorterDuff;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.storage.StorageManager;
+import android.os.storage.StorageVolume;
 import android.provider.Settings;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -28,6 +30,14 @@ import android.widget.Toast;
 
 import com.javalive09.annotation.Run;
 import com.javalive09.codebag.CodeActivity;
+
+import org.joor.Reflect;
+
+import java.io.File;
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by zhangrui on 20-6-6
@@ -243,6 +253,22 @@ public class WTTest {
     @Run
     public void showTempreture(CodeActivity codeActivity) {
         codeActivity.showText("12345" + "\n" + "50"+"\u2103");
+    }
+
+    @Run
+    public void getVolumeList(CodeActivity codeActivity) {
+        StorageManager storageManager = codeActivity.getSystemService(StorageManager.class);
+//        storageManager.getStorageVolumes();
+        List<StorageVolume> list = Reflect.on(storageManager).call("getStorageVolumes").get();
+
+        List<String> ps = new ArrayList<>();
+        for(StorageVolume storageVolume: list) {
+            Method[] methods = storageVolume.getClass().getDeclaredMethods();
+            Field[] fields = storageVolume.getClass().getDeclaredFields();
+           String s = Reflect.on(storageVolume).call("getPath").get();
+            ps.add(s);
+        }
+        codeActivity.showText(ps.toString());
     }
 
 }

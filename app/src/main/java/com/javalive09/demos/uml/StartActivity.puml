@@ -97,6 +97,15 @@ ActivityStarter -> ActivityStarter: startActivityMayWait()
 activate ActivityStarter
 ActivityStarter -> ActivityStarter: startActivity()
 activate ActivityStarter
+ActivityStarter -> ActivityStarter: startActivity()
+activate ActivityStarter
+
+ActivityStarter -> ActivityRecord:new()
+activate ActivityRecord
+deactivate ActivityRecord
+
+ActivityStarter -> ActivityStarter: startActivity()
+activate ActivityStarter
 ActivityStarter -> ActivityStarter: startActivityUnchecked()
 activate ActivityStarter
 ActivityStarter -> ActivityStarter: getReusableIntentActivity()
@@ -176,6 +185,8 @@ deactivate ActivityDisplay
 deactivate ActivityDisplay
 deactivate ActivityDisplay
 deactivate ActivityDisplay
+deactivate ActivityStarter
+deactivate ActivityStarter
 deactivate ActivityStarter
 deactivate ActivityStarter
 deactivate ActivityStackSupervisor
