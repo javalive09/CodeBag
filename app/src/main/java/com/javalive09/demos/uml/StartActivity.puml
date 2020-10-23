@@ -77,7 +77,7 @@ Activity -> Instrumentation: execStartActivity()
 activate Instrumentation
 Instrumentation -> ActivityManager: getService()
 activate ActivityManager
-ActivityManager -> IActivityManager: startActivity()
+ActivityManager ->> IActivityManager: startActivity()
 activate IActivityManager
 deactivate IActivityManager
 deactivate ActivityManager
@@ -301,7 +301,7 @@ activate ClientLifecycleManager
 ClientLifecycleManager -> ClientTransaction_AMS:schedule()
 activate ClientTransaction_AMS
 
-ClientTransaction_AMS -> IApplicationThread:scheduleTransaction()
+ClientTransaction_AMS ->> IApplicationThread:scheduleTransaction()
 activate IApplicationThread
 deactivate IApplicationThread
 deactivate ClientTransaction_AMS
@@ -361,7 +361,7 @@ TransactionExecutor -> PauseActivityItem:postExecute()
 activate PauseActivityItem
 PauseActivityItem -> ActivityManager:getService()
 activate ActivityManager
-ActivityManager -> IActivityManager:activityPaused()
+ActivityManager ->> IActivityManager:activityPaused()
 activate IActivityManager
 deactivate IActivityManager
 deactivate TransactionExecutor
@@ -467,7 +467,7 @@ ActivityThread -> ActivityThread:attach()
 activate ActivityThread
 ActivityThread -> ActivityManager:getService()
 activate ActivityManager
-ActivityManager -> IActivityManager:attachApplication()
+ActivityManager ->> IActivityManager:attachApplication()
 activate IActivityManager
 deactivate IActivityManager
 deactivate ActivityManager
@@ -486,7 +486,7 @@ IActivityManager -> ActivityManagerService:attachApplication()
 activate ActivityManagerService
 ActivityManagerService -> ActivityManagerService:attachApplicationLocked()
 activate ActivityManagerService
-ActivityManagerService -> IApplicationThread:bindApplication
+ActivityManagerService ->> IApplicationThread:bindApplication
 activate IApplicationThread
 deactivate IApplicationThread
 IApplicationThread -> ActivityThread:bindApplication
@@ -526,7 +526,7 @@ ActivityStackSupervisor -> ClientLifecycleManager:scheduleTransaction()
 activate ClientLifecycleManager
 ClientLifecycleManager -> ClientTransaction_AMS:schedule()
 activate ClientTransaction_AMS
-ClientTransaction_AMS -> IApplicationThread:scheduleTransaction()
+ClientTransaction_AMS ->> IApplicationThread:scheduleTransaction()
 activate IApplicationThread
 deactivate IApplicationThread
 deactivate ClientTransaction_AMS
@@ -638,7 +638,7 @@ TransactionExecutor -> ResumeActivityItem:postExecute()
 activate ResumeActivityItem
 ResumeActivityItem -> ActivityManager:getService()
 activate ActivityManager
-ActivityManager -> IActivityManager:activityResumed()
+ActivityManager ->> IActivityManager:activityResumed()
 activate IActivityManager
 deactivate IActivityManager
 deactivate ResumeActivityItem
