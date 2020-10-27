@@ -249,8 +249,10 @@ activate AppWindowContainerController
 AppWindowContainerController -> AppWindowToken: new()
 activate AppWindowToken
 deactivate AppWindowToken
+AppWindowContainerController -> DisplayContent:addWindowToken()
+activate DisplayContent
+deactivate DisplayContent
 deactivate AppWindowContainerController
-
 AppWindowContainerController -> Task: addChild(atoken, index)
 activate Task
 deactivate Task
