@@ -1,0 +1,47 @@
+@startuml
+
+Choreographer_FrameDisplayEventReceiver -> Choreographer: doFrame()
+activate Choreographer
+Choreographer -> Choreographer: doCallbacks(CALLBACK_TRAVERSAL)
+activate Choreographer
+Choreographer -> ViewRootImpl: doTraversal()
+activate ViewRootImpl
+ViewRootImpl -> ViewRootImpl: performTraversals()
+activate ViewRootImpl
+ViewRootImpl -> ViewRootImpl: relayoutWindow()
+activate ViewRootImpl
+ViewRootImpl ->> IWindowSession: relayout()
+activate IWindowSession
+deactivate IWindowSession
+deactivate Choreographer
+deactivate Choreographer
+deactivate ViewRootImpl
+deactivate ViewRootImpl
+deactivate ViewRootImpl
+
+IWindowSession -> Session:relayout()
+activate Session
+Session -> WindowManagerService:relayoutWindow()
+activate WindowManagerService
+WindowManagerService -> WindowSurfacePlacer:performSurfacePlacement()
+activate WindowSurfacePlacer
+WindowSurfacePlacer -> WindowSurfacePlacer:performSurfacePlacementLoop()
+activate WindowSurfacePlacer
+WindowSurfacePlacer -> WindowSurfacePlacer:requestTraversal()
+activate WindowSurfacePlacer
+WindowSurfacePlacer ->> WindowSurfacePlacer:performSurfacePlacement()()
+activate WindowSurfacePlacer
+WindowSurfacePlacer -> WindowSurfacePlacer:performSurfacePlacementLoop()
+activate WindowSurfacePlacer
+WindowSurfacePlacer -> RootWindowContainer:performSurfacePlacement()
+activate RootWindowContainer
+RootWindowContainer -> WindowSurfacePlacer:handleAppTransitionReadyLocked()
+activate WindowSurfacePlacer
+RootWindowContainer -> WindowSurfacePlacer:maybeUpdateTransitToWallpaper()
+activate WindowSurfacePlacer
+RootWindowContainer -> WindowSurfacePlacer:getTopApp()
+activate WindowSurfacePlacer
+
+
+
+@enduml
