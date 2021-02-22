@@ -1,0 +1,25 @@
+@startuml
+Binder -> ActivityManagerService: activityPaused()
+activate ActivityManagerService
+ActivityManagerService --> ActivityStack: activityPausedLocked()
+activate ActivityStack
+ActivityStack --> ActivityStack: completePauseLocked()
+activate ActivityStack
+ActivityStack --> ActivityStackSupervisor: resumeFocusedStackTopActivityLocked()
+activate ActivityStackSupervisor
+ActivityStackSupervisor --> ActivityStack: resumeTopActivityUncheckedLocked()
+activate ActivityStack
+ActivityStack --> ActivityStack: resumeTopActivityInnerLocked()
+activate ActivityStack
+ActivityStack --> ActivityStackSupervisor: ensureVisibilityAndConfig()
+activate ActivityStackSupervisor
+ActivityStackSupervisor --> ActivityStackSupervisor: ensureActivitiesVisibleLocked()
+activate ActivityStackSupervisor
+ActivityStackSupervisor --> ActivityStack: ensureActivitiesVisibleLocked()
+activate ActivityStack
+ActivityStack --> ActivityStack: shouldBeVisible()
+activate ActivityStack
+ActivityStack --> ActivityStack: isStackTranslucent()
+activate ActivityStack
+
+@enduml

@@ -1,0 +1,96 @@
+@startuml
+App -> ActivityManagerService: activityPaused()
+activate ActivityManagerService
+ActivityManagerService --> ActivityStack: activityPausedLocked()
+activate ActivityStack
+ActivityStack -> ActivityStack: completePauseLocked()
+activate ActivityStack
+ActivityStack -> ActivityStackSupervisor: resumeFocusedStackTopActivityLocked   ()
+activate ActivityStackSupervisor
+ActivityStackSupervisor -> ActivityStack: resumeTopActivityUncheckedLocked()
+activate ActivityStack
+ActivityStack -> ActivityStack: resumeTopActivityInnerLocked()
+activate ActivityStack
+ActivityStack -> ActivityStackSupervisor: startSpecificActivityLocked()
+activate ActivityStackSupervisor
+ActivityStackSupervisor -> ActivityStackSupervisor: realStartActivityLocked()
+activate ActivityStackSupervisor
+ActivityStackSupervisor -> ActivityStack: minimalResumeActivityLocked()
+activate ActivityStack
+ActivityStack -> ActivityRecord: completeResumeLocked()
+activate ActivityRecord
+ActivityRecord -> ActivityStackSupervisor: reportResumedActivityLocked()
+activate ActivityStackSupervisor
+ActivityStackSupervisor -> WindowManagerService: executeAppTransition()
+activate WindowManagerService
+WindowManagerService -> WindowSurfacePlacer: requestTraversal()
+activate WindowSurfacePlacer
+deactivate ActivityManagerService
+deactivate ActivityStack
+deactivate ActivityStack
+deactivate ActivityStack
+deactivate ActivityStack
+deactivate ActivityStackSupervisor
+deactivate ActivityStackSupervisor
+deactivate ActivityStackSupervisor
+deactivate ActivityStackSupervisor
+deactivate ActivityRecord
+deactivate WindowManagerService
+deactivate WindowSurfacePlacer
+
+ActivityStack -> WindowManagerService: continueSurfaceLayout()
+activate WindowManagerService
+WindowManagerService -> WindowSurfacePlacer: continueLayout()
+activate WindowSurfacePlacer
+WindowSurfacePlacer -> WindowSurfacePlacer: performSurfacePlacement()
+activate WindowSurfacePlacer
+WindowSurfacePlacer -> WindowSurfacePlacer: performSurfacePlacementLoop()
+activate WindowSurfacePlacer
+WindowSurfacePlacer -> RootWindowContainer: performSurfacePlacement()
+activate RootWindowContainer
+RootWindowContainer -> WindowSurfacePlacer: handleAppTransitionReadyLocked()
+activate WindowSurfacePlacer
+WindowSurfacePlacer -> WindowSurfacePlacer: handleClosingApps()
+activate WindowSurfacePlacer
+WindowSurfacePlacer -> AppWindowToken: setVisibility()
+activate AppWindowToken
+AppWindowToken -> AppWindowToken: applyAnimationLocked()
+activate AppWindowToken
+AppWindowToken -> AppWindowToken: loadAnimation()
+activate AppWindowToken
+AppWindowToken -> AppTransition: loadAnimation()
+activate AppTransition
+AppTransition -> AppTransition: loadAnimationAttr()
+activate AppTransition
+AppTransition -> AppTransition: getCachedAnimations()
+activate AppTransition
+AppTransition -> AttributeCache: get()
+activate AttributeCache
+AttributeCache -> Context: createPackageContextAsUser()
+activate Context
+deactivate Context
+AttributeCache -> Package: new()
+activate Package
+deactivate Package
+AttributeCache -> LruCache: put()
+activate LruCache
+deactivate LruCache
+deactivate AttributeCache
+AppTransition -> AnimationUtils: loadAnimation()
+activate AnimationUtils
+deactivate WindowManagerService
+deactivate WindowSurfacePlacer
+deactivate WindowSurfacePlacer
+deactivate WindowSurfacePlacer
+deactivate WindowSurfacePlacer
+deactivate WindowSurfacePlacer
+deactivate RootWindowContainer
+deactivate AppWindowToken
+deactivate AppWindowToken
+deactivate AppWindowToken
+deactivate AppTransition
+deactivate AppTransition
+deactivate AppTransition
+deactivate AnimationUtils
+
+@enduml

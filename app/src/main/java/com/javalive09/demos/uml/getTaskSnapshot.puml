@@ -1,0 +1,37 @@
+@startuml
+ActivityManagerService -> ActivityManagerService: getTaskSnapshot
+activate ActivityManagerService
+ActivityManagerService -> TaskRecord:getSnapshot()
+activate TaskRecord
+TaskRecord -> WindowManagerService:getTaskSnapshot()
+activate WindowManagerService
+WindowManagerService -> TaskSnapshotController:getTaskSnapshot()
+activate TaskSnapshotController
+TaskSnapshotController -> TaskSnapshotCache:getTaskSnapshot()
+activate TaskSnapshotCache
+TaskSnapshotCache -> TaskSnapshotCache:mRunningCache.get()
+activate TaskSnapshotCache
+deactivate TaskSnapshotCache
+TaskSnapshotCache -> TaskSnapshotCache:tryRestoreFromDisk()
+activate TaskSnapshotCache
+TaskSnapshotCache -> TaskSnapshotLoader:loadTask()
+activate TaskSnapshotLoader
+TaskSnapshotLoader -> TaskSnapshotPersister:getProtoFile()
+activate TaskSnapshotPersister
+deactivate TaskSnapshotPersister
+TaskSnapshotLoader -> TaskSnapshotPersister:getBitmapFile()
+activate TaskSnapshotPersister
+deactivate TaskSnapshotPersister
+TaskSnapshotLoader -> TaskSnapshot:new()
+activate TaskSnapshot
+deactivate TaskSnapshot
+
+deactivate TaskSnapshotCache
+deactivate TaskSnapshotLoader
+deactivate ActivityManagerService
+deactivate TaskRecord
+deactivate WindowManagerService
+deactivate TaskSnapshotController
+deactivate TaskSnapshotCache
+
+@enduml

@@ -1,0 +1,29 @@
+@startuml
+TaskPositioningController -> TaskPositioningController:handleTapOutsideTask()
+activate TaskPositioningController
+TaskPositioningController -> ActivityManagerService:setFocusedTask()
+deactivate TaskPositioningController
+activate ActivityManagerService
+ActivityManagerService -> ActivityStackSupervisor:moveFocusableActivityStackToFrontLocked()
+activate ActivityStackSupervisor
+ActivityStackSupervisor -> Stack:moveToFront()
+activate Stack
+Stack -> ActivityDisplay:positionChildAtTop()
+activate ActivityDisplay
+ActivityDisplay -> DisplayWindowController:positionChildAt()
+activate DisplayWindowController
+DisplayWindowController -> DisplayContent:positionStackAt()
+activate DisplayContent
+DisplayContent -> TaskStackContainers:positionChildAt()
+activate TaskStackContainers
+deactivate TaskStackContainers
+DisplayContent -> DisplayContent:layoutAndAssignWindowLayersIfNeeded()
+activate DisplayContent
+deactivate DisplayContent
+deactivate DisplayContent
+deactivate DisplayWindowController
+
+ActivityDisplay -> ActivityDisplay:onStackOrderChanged()
+activate ActivityDisplay
+
+@enduml

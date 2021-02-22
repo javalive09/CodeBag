@@ -1,0 +1,79 @@
+@startuml
+ActivityManagerService -> ActivityManagerService: attachApplication()
+activate ActivityManagerService
+ActivityManagerService -> ActivityManagerService: attachApplicationLocked()
+activate ActivityManagerService
+ActivityManagerService -> ActivityStackSupervisor: attachApplicationLocked()
+activate ActivityStackSupervisor
+ActivityStackSupervisor -> ActivityStackSupervisor: realStartActivityLocked()
+activate ActivityStackSupervisor
+ActivityStackSupervisor -> ActivityStackSupervisor: ensureVisibilityAndConfig()
+activate ActivityStackSupervisor
+ActivityStackSupervisor -> ActivityManagerService: updateDisplayOverrideConfigurationLocked()
+activate ActivityManagerService
+ActivityManagerService -> ActivityManagerService: continueSurfaceLayout()
+activate ActivityManagerService
+ActivityManagerService -> WindowSurfacePlacer: continueLayout()
+activate WindowSurfacePlacer
+WindowSurfacePlacer -> WindowSurfacePlacer: performSurfacePlacement()
+activate WindowSurfacePlacer
+WindowSurfacePlacer -> WindowSurfacePlacer: performSurfacePlacementLoop()
+activate WindowSurfacePlacer
+WindowSurfacePlacer -> RootWindowContainer: performSurfacePlacement()
+activate RootWindowContainer
+RootWindowContainer -> RootWindowContainer: performSurfacePlacement()
+activate RootWindowContainer
+RootWindowContainer -> DisplayContent: applySurfaceChangesTransaction()
+activate DisplayContent
+DisplayContent -> DisplayManagerService: setDisplayPropertiesInternal()
+activate DisplayManagerService
+
+
+DisplayManagerService -> DisplayManagerService: performTraversalInternal()
+activate DisplayManagerService
+
+
+
+DisplayManagerService -> DisplayManagerService: clearViewportsLocked()
+activate DisplayManagerService
+DisplayManagerService -> InputManagerService: clearViewportsLocked()
+activate InputManagerService
+InputManagerService -> InputManagerService: setDisplayViewportsInternal()
+activate InputManagerService
+InputManagerService -> InputManagerService: nativeSetDisplayViewport()
+activate InputManagerService
+
+
+InputManagerService -> com_android_server_input_InputManagerService: nativeSetDisplayViewport()
+activate com_android_server_input_InputManagerService
+
+com_android_server_input_InputManagerService -> NativeInputManager: setDisplayViewport()
+activate NativeInputManager
+
+NativeInputManager -> InputReader: requestRefreshConfiguration()
+activate InputReader
+
+InputReader -> InputReader:loopOnce()
+activate InputReader
+InputReader -> InputReader:refreshConfigurationLocked()
+activate InputReader
+InputReader -> InputDevice:configure()
+activate InputDevice
+
+InputDevice -> TouchInputMapper:configure()
+activate TouchInputMapper
+
+InputDevice -> TouchInputMapper:configureSurface()
+activate TouchInputMapper
+
+TouchInputMapper -> InputReaderConfiguration:getDisplayViewport()
+activate InputReaderConfiguration
+
+
+
+
+
+
+
+
+@enduml
