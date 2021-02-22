@@ -4,7 +4,6 @@
 package AMS #LightGray{
 class ActivityManagerService {
     final ActivityStackSupervisor mStackSupervisor
-    RootWindowContainer mRoot
 }
 
 class ActivityStackSupervisor {
@@ -14,6 +13,7 @@ class ActivityStackSupervisor {
 
 class ActivityDisplay {
     final ArrayList<ActivityStack> mStacks
+    DisplayWindowController mWindowContainerController
     ActivityStack createStackUnchecked()
 }
 
@@ -40,8 +40,17 @@ class ActivityRecord {
 
 
 package WMS #LightGray {
+class WindowManagerService {
+    RootWindowContainer mRoot
+    public  WindowManagerService(){mRoot=new RootWindowContainer()}
+    static WindowManagerService getInstance()
+}
 class AppWindowContainerController {
     final IApplicationToken mToken
+}
+class DisplayWindowController {
+    WindowManagerService mService
+    RootWindowContainer mRoot
 }
 
 class AppWindowToken {
@@ -69,11 +78,7 @@ class DisplayContent {
     TaskStack createStack(StackWindowController controller)
 }
 
-'class WindowContainerController {
-'    RootWindowContainer mRoot
-'}
-
-class WindowContainer {
+class WindowContainer<E> {
     WindowContainerController mController
     WindowList<E> mChildren
     setController(WindowContainerController controller)
@@ -103,27 +108,21 @@ ActivityDisplay *-right-> ActivityStack
 ActivityStack *-right-> TaskRecord
 TaskRecord *-right-> ActivityRecord
 
-
-
-ActivityManagerService -down-> RootWindowContainer
+ActivityDisplay --> DisplayWindowController
+DisplayWindowController --> RootWindowContainer
+WindowManagerService -right-> RootWindowContainer
 RootWindowContainer --|> WindowContainer
 RootWindowContainer *-right-> DisplayContent
 ActivityStack --> StackWindowController
-'StackWindowController ..> DisplayContent
-'StackWindowController -down-|> WindowContainerController
-'DisplayContent ..> TaskStack
 DisplayContent -right-> TaskStackContainers
 TaskStackContainers *-right-> TaskStack
 TaskStackContainers --|> WindowContainer
 TaskStack --|> WindowContainer
 TaskStack *-right-> Task
 TaskRecord --> TaskWindowContainerController
-'TaskWindowContainerController --> Task
-'TaskWindowContainerController --|> WindowContainerController
 Task --|> WindowContainer
 Task *-right-> AppWindowToken
 ActivityRecord --> AppWindowContainerController
-'AppWindowContainerController --|> WindowContainerController
 AppWindowContainerController --> AppWindowToken
 AppWindowToken *-right-> WindowState
 AppWindowToken --|> WindowToken

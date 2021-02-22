@@ -50,12 +50,17 @@ participant AppWindowContainerController
 end box
 
 box "WMS"  #LightYellow
-participant RootWindowContainer
+participant WindowManagerService
+participant WindowSurfacePlacer
+participant AppWindowToken
+participant SurfaceAnimator
+participant SurfaceControl
 participant DisplayContent
 participant TaskStack
 participant TaskStackContainers
+participant RootWindowContainer
 participant Task
-participant AppWindowToken
+
 end box
 
 box "Socket"  #Light
@@ -229,8 +234,17 @@ deactivate TaskWindowContainerController
 deactivate TaskRecord
 deactivate ActivityStack
 deactivate ActivityStack
-deactivate ActivityStarter
 
+ActivityStarter -> ActivityStarter:addOrReparentStartingActivity()
+activate ActivityStarter
+ActivityStarter -> TaskRecord:addActivityToTop()
+activate TaskRecord
+TaskRecord -> TaskRecord:addActivityAtIndex()
+activate TaskRecord
+deactivate TaskRecord
+deactivate TaskRecord
+deactivate ActivityStarter
+deactivate ActivityStarter
 
 ActivityStarter -> ActivityStack: startActivityLocked
 
@@ -424,12 +438,82 @@ deactivate Process
 deactivate ActivityStack
 deactivate ActivityStack
 deactivate ActivityStack
-deactivate ActivityStack
 deactivate ActivityStackSupervisor
 deactivate ActivityStackSupervisor
 deactivate ActivityManagerService
 deactivate ActivityManagerService
 deactivate ActivityManagerService
+ActivityStack -> WindowManagerService:continueSurfaceLayout()
+activate WindowManagerService
+WindowManagerService -> WindowSurfacePlacer:continueLayout()
+activate WindowSurfacePlacer
+WindowSurfacePlacer -> WindowSurfacePlacer:performSurfacePlacement()
+activate WindowSurfacePlacer
+WindowSurfacePlacer -> WindowSurfacePlacer:performSurfacePlacementLoop()
+activate WindowSurfacePlacer
+WindowSurfacePlacer -> RootWindowContainer:performSurfacePlacement()
+activate RootWindowContainer
+RootWindowContainer -> WindowSurfacePlacer:handleAppTransitionReadyLocked()
+activate WindowSurfacePlacer
+WindowSurfacePlacer -> WindowSurfacePlacer:handleClosingApps()
+activate WindowSurfacePlacer
+WindowSurfacePlacer -> AppWindowToken:setVisibility()
+activate AppWindowToken
+AppWindowToken -> AppWindowToken:applyAnimationLocked()
+activate AppWindowToken
+AppWindowToken -> SurfaceAnimator:startAnimation()
+activate SurfaceAnimator
+SurfaceAnimator -> AppWindowToken:onAnimationLeashCreated()
+activate AppWindowToken
+AppWindowToken -> AppWindowToken:getPrefixOrderIndex()
+activate AppWindowToken
+AppWindowToken -> SurfaceControl:setLayer()
+activate SurfaceControl
+AppWindowToken -> DisplayContent:assignStackOrdering()
+activate DisplayContent
+DisplayContent -> TaskStackContainers:assignStackOrdering()
+activate TaskStackContainers
+deactivate TaskStackContainers
+deactivate DisplayContent
+deactivate SurfaceControl
+deactivate SurfaceAnimator
+deactivate AppWindowToken
+deactivate AppWindowToken
+deactivate AppWindowToken
+deactivate AppWindowToken
+deactivate WindowSurfacePlacer
+
+
+
+
+WindowSurfacePlacer -> WindowSurfacePlacer:handleOpeningApps()
+activate WindowSurfacePlacer
+WindowSurfacePlacer -> AppWindowToken:setVisibility()
+activate AppWindowToken
+AppWindowToken -> AppWindowToken:applyAnimationLocked()
+activate AppWindowToken
+AppWindowToken -> SurfaceAnimator:startAnimation()
+activate SurfaceAnimator
+SurfaceAnimator -> AppWindowToken:onAnimationLeashCreated()
+activate AppWindowToken
+AppWindowToken -> AppWindowToken:getPrefixOrderIndex()
+activate AppWindowToken
+AppWindowToken -> SurfaceControl:setLayer()
+activate SurfaceControl
+AppWindowToken -> DisplayContent:assignStackOrdering()
+activate DisplayContent
+DisplayContent -> TaskStackContainers:assignStackOrdering()
+activate TaskStackContainers
+deactivate TaskStackContainers
+deactivate DisplayContent
+deactivate SurfaceControl
+deactivate SurfaceAnimator
+deactivate AppWindowToken
+deactivate AppWindowToken
+deactivate AppWindowToken
+deactivate AppWindowToken
+deactivate WindowSurfacePlacer
+
 
 OutputStream -> ZygoteServer:runSelectLoop()
 activate ZygoteServer

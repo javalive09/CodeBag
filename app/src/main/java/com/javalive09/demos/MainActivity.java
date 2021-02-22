@@ -19,6 +19,5 @@ public class MainActivity extends Activity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         CodeActivity.launch(MainActivity.this);
-        finish();
     }
 }

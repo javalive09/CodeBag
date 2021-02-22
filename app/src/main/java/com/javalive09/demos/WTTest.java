@@ -1,15 +1,19 @@
 package com.javalive09.demos;
 
+import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.UiModeManager;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.graphics.PorterDuff;
+import android.hardware.display.DisplayManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -18,12 +22,14 @@ import android.os.storage.StorageVolume;
 import android.provider.Settings;
 import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.Display;
 import android.view.Gravity;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.PopupWindow;
 import android.widget.RemoteViews;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -37,6 +43,7 @@ import java.io.File;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -258,17 +265,101 @@ public class WTTest {
     @Run
     public void getVolumeList(CodeActivity codeActivity) {
         StorageManager storageManager = codeActivity.getSystemService(StorageManager.class);
-//        storageManager.getStorageVolumes();
         List<StorageVolume> list = Reflect.on(storageManager).call("getStorageVolumes").get();
-
         List<String> ps = new ArrayList<>();
-        for(StorageVolume storageVolume: list) {
-            Method[] methods = storageVolume.getClass().getDeclaredMethods();
-            Field[] fields = storageVolume.getClass().getDeclaredFields();
-           String s = Reflect.on(storageVolume).call("getPath").get();
+        for (StorageVolume storageVolume : list) {
+            String s = Reflect.on(storageVolume).call("getPath").get();
             ps.add(s);
         }
         codeActivity.showText(ps.toString());
     }
 
+    private static boolean haveFlag(int flag, int mask) {
+        return (flag&mask) != 0;
+    }
+
+    @Run
+    public void getFlag(CodeActivity codeActivity) {
+        int flag = 0x14000000;
+
+        String text =  "Intent.FLAG_ACTIVITY_CLEAR_TASK= " + haveFlag(Intent.FLAG_ACTIVITY_CLEAR_TASK, flag) +
+                "\nFLAG_ACTIVITY_BROUGHT_TO_FRONT= " + haveFlag(Intent.FLAG_ACTIVITY_BROUGHT_TO_FRONT, flag) +
+                "\nFLAG_ACTIVITY_CLEAR_TASK = " + haveFlag(Intent.FLAG_ACTIVITY_CLEAR_TASK, flag) +
+                "\nFLAG_ACTIVITY_CLEAR_TOP =" + haveFlag(Intent.FLAG_ACTIVITY_CLEAR_TOP, flag) +
+                "\nFLAG_ACTIVITY_NEW_TASK =" + haveFlag(Intent.FLAG_ACTIVITY_NEW_TASK, flag);
+
+        codeActivity.showText(text);
+
+    }
+
+    @Run
+    public void showDialog(CodeActivity codeActivity) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(codeActivity).setTitle("alertDialog").setMessage("message");
+        builder.show();
+        codeActivity.showText("dialog");
+    }
+
+    @Run
+    public void showPopUpWindow(CodeActivity codeActivity) {
+
+        codeActivity.showText("bg");
+        TextView textView = new TextView(codeActivity);
+        textView.setText("popupWindow");
+        textView.setBackgroundColor(Color.BLUE);
+        codeActivity.getWindow().getDecorView().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                PopupWindow popupWindow = new PopupWindow(codeActivity);
+                popupWindow.setContentView(textView);
+                popupWindow.showAtLocation(codeActivity.getWindow().getDecorView(), Gravity.NO_GRAVITY,100,100);
+            }
+        }, 2000);
+    }
+
+    public final static int FID_BEGIN = 1000;
+
+    @Run
+    public void getInteger(CodeActivity codeActivity) {
+        codeActivity.showText("FID_BEGIN = " + getId("FID_BEGIN"));
+    }
+
+
+    private static int getId(String idName) {
+        try {
+            Field sidField = WTTest.class.getDeclaredField(idName);
+            return sidField.getInt(WTTest.class);
+        } catch (NoSuchFieldException | IllegalAccessException e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
+
+    @Run
+    public void testDisplay(CodeActivity codeActivity) {
+        DisplayManager mDm = (DisplayManager) codeActivity.getSystemService(Context.DISPLAY_SERVICE);
+        Display[] displays = mDm.getDisplays();
+        for(Display display : displays) {
+            if(display.getDisplayId() != Display.DEFAULT_DISPLAY) {
+                codeActivity.showText("" + display.getDisplayId());
+                break;
+            }
+        }
+
+    }
+
+    @Run
+    public void testNoHistory(CodeActivity c) {
+        Intent intent = new Intent();
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+        ComponentName componentName = new ComponentName("com.wt.wt30demo", "com.wt.wt30demo.NoHistoryActivity");
+        intent.setComponent(componentName);
+        c.startActivity(intent);
+    }
+
+    @Run
+    public void testStartLauncher(CodeActivity c) {
+        Intent intent = new Intent().setComponent(new ComponentName("com.wt.launcher3_", "com.wt.launcher3_.MainActivity")).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        c.startActivity(intent);
+    }
 }
