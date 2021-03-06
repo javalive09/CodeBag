@@ -18,7 +18,7 @@ Import Library
 Gradle:
 add dependencies as follow
 ```
-implementation 'com.javalive09.codebag:codebag:1.6.7'
+implementation 'com.javalive09.codebag:codebag:1.6.8'
 ```
 
 Usage
@@ -53,6 +53,22 @@ custom class name  @Code(name = "HelloWorld 示例") and custom method name as b
                 @Run(name = "启动其他activity")
                 public void startActivity(CodeActivity activity) {
                     activity.startActivity(new Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS));
+                }
+
+                @Run
+                public void addButtons(CodeActivity activity) {
+                    activity.addClickButton("finish", new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            activity.finish();
+                        }
+                    });
+                    activity.addClickButton("toast", new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Toast.makeText(activity, "toast", Toast.LENGTH_LONG).show();
+                        }
+                    });
                 }
         
         }
