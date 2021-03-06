@@ -25,7 +25,7 @@ import com.javalive09.annotation.Run;
 /**
  * CodeActivity 核心逻辑类
  */
-public class CodeActivity extends Activity {
+public class CodeActivity extends ButtonsActivity {
 
     private static final String CURRENT_NODE = "currentNode";
     private static final String CLASS_NAME = "className";
@@ -113,10 +113,13 @@ public class CodeActivity extends Activity {
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-                //no view - finish
+                //no view
                 FrameLayout content = findViewById(android.R.id.content);
                 if (content.getChildCount() == 0) {
-                    finish();
+                    TextView textView = new TextView(this);
+                    textView.setText("  no content view !");
+                    textView.setTextSize(30);
+                    content.addView(textView);
                 }
                 break;
         }
