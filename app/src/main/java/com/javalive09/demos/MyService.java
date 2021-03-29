@@ -11,9 +11,14 @@ import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.Binder;
 import android.os.Build;
+import android.os.Handler;
 import android.os.IBinder;
+import android.os.ResultReceiver;
 import android.support.annotation.Nullable;
 import android.support.v4.app.NotificationCompat;
+import android.util.Log;
+
+import java.util.Random;
 
 /**
  * Created by peter on 2019-08-09
@@ -25,6 +30,7 @@ public class MyService extends Service {
         return new Binder();
     }
 
+    Handler handler = new Handler();
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         createUpdateNotification("1", "我是渠道名字01");
@@ -35,6 +41,27 @@ public class MyService extends Service {
         show("1", "我是渠道名字3");
         show("1", "我是渠道名字4");
         show("1", "我是渠道名字5");
+
+        ResultReceiver resultReceiver = intent.getParcelableExtra("resultReceiver");
+
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if(resultReceiver != null) {
+                    int i = new Random().nextInt(10000);
+                    Log.i("peter", "send>>>>>>>start?>" + i);
+                    try {
+                        resultReceiver.send(i, null);
+                    }catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    Log.i("peter", "send>>>>>>>end?>" + i);
+                    handler.postDelayed(this, 2000);
+
+                }
+            }
+        }, 2000);
+
         return super.onStartCommand(intent, flags, startId);
     }
 
@@ -110,4 +137,9 @@ public class MyService extends Service {
 
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        Log.i("peter", "send>>>>>>>onDestroy>");
+    }
 }

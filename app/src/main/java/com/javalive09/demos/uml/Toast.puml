@@ -1,0 +1,40 @@
+@startuml
+Client -> Toast: makeText()
+activate Toast
+Toast -> Toast: new()
+Toast -> TN: new()
+activate TN
+deactivate Toast
+deactivate TN
+
+Client -> Toast: show()
+activate Toast
+
+Toast -> NotificationManagerService: enqueueToast()
+activate NotificationManagerService
+
+NotificationManagerService -> Binder: new()
+note right: windowToken
+activate Binder
+deactivate Binder
+
+NotificationManagerService -> WindowManagerService: addWindowToken()
+activate WindowManagerService
+deactivate WindowManagerService
+
+NotificationManagerService -> ToastRecord: new()
+activate ToastRecord
+deactivate ToastRecord
+
+NotificationManagerService -> NotificationManagerService: showNextToastLocked()
+activate NotificationManagerService
+
+NotificationManagerService -> TN: show(windowToken)
+activate TN
+TN -> TN: handleShow()
+activate TN
+TN -> WindowManager: addView()
+activate WindowManager
+
+
+@enduml

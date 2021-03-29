@@ -1,0 +1,42 @@
+@startuml
+Client -> WindowManagerImpl: addView()
+activate WindowManagerImpl
+WindowManagerImpl --> WindowManagerGlobal: addView()
+note left: 参数中含有Display
+activate WindowManagerGlobal
+WindowManagerGlobal --> ViewRootImpl: setView()
+activate ViewRootImpl
+ViewRootImpl --> Session: addToDisplay()
+activate Session
+Session --> WindowManagerService: addWindow()
+activate WindowManagerService
+WindowManagerService --> WindowToken: new()
+activate WindowToken
+deactivate WindowToken
+WindowManagerService --> WindowState: new()
+activate WindowState
+deactivate WindowState
+WindowManagerService --> WindowToken: addWindow(WindowState)
+activate WindowToken
+WindowToken --> WindowState: addChild()
+activate WindowState
+WindowState --> WindowState: setParent()
+activate WindowState
+WindowState --> WindowState: onParentSet()
+activate WindowState
+WindowState --> WindowState: makeSurface()
+activate WindowState
+WindowState --> DisplayContent: makeSurface()
+activate DisplayContent
+DisplayContent --> SurfaceControl_Builder: new()
+activate SurfaceControl_Builder
+deactivate SurfaceControl_Builder
+deactivate DisplayContent
+WindowState --> SurfaceControl_Builder: build()
+activate SurfaceControl_Builder
+SurfaceControl_Builder --> SurfaceControl: new()
+activate SurfaceControl
+SurfaceControl --> SurfaceControl: nativeCreate()
+activate SurfaceControl
+
+@enduml

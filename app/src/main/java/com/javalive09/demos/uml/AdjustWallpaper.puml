@@ -1,0 +1,28 @@
+@startuml
+WindowSurfacePlacer -> WindowSurfacePlacer: requestTraversal()
+activate WindowSurfacePlacer
+WindowSurfacePlacer -> WindowSurfacePlacer: performSurfacePlacement()
+activate WindowSurfacePlacer
+WindowSurfacePlacer -> RootWindowContainer: performSurfacePlacement()
+activate RootWindowContainer
+RootWindowContainer -> RootWindowContainer: applySurfaceChangesTransaction()
+activate RootWindowContainer
+RootWindowContainer -> DisplayContent: applySurfaceChangesTransaction()
+activate DisplayContent
+DisplayContent -> WallpaperController: adjustWallpaperWindows()
+activate WallpaperController
+WallpaperController -> WallpaperController: findWallpaperTarget()
+activate WallpaperController
+deactivate WallpaperController
+WallpaperController -> WallpaperController: updateWallpaperWindowsTarget()
+activate WallpaperController
+deactivate WallpaperController
+WallpaperController -> WallpaperController: isWallpaperVisible()
+activate WallpaperController
+deactivate WallpaperController
+WallpaperController -> WallpaperController: updateWallpaperTokens()
+activate WallpaperController
+deactivate WallpaperController
+
+
+@enduml

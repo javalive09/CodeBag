@@ -1,0 +1,31 @@
+@startuml
+client -> ActivityManagerService: activityPaused()
+activate ActivityManagerService
+ActivityManagerService -> ActivityStack: activityPausedLocked()
+activate ActivityStack
+ActivityStack -> ActivityManagerService: continueSurfaceLayout()
+activate ActivityManagerService
+ActivityManagerService -> WindowSurfacePlacer: continueLayout()
+activate WindowSurfacePlacer
+WindowSurfacePlacer -> WindowSurfacePlacer: performSurfacePlacement()
+activate WindowSurfacePlacer
+WindowSurfacePlacer -> WindowSurfacePlacer: performSurfacePlacementLoop()
+activate WindowSurfacePlacer
+WindowSurfacePlacer -> RootWindowContainer: performSurfacePlacement()
+activate RootWindowContainer
+RootWindowContainer -> RootWindowContainer: applySurfaceChangesTransaction()
+activate RootWindowContainer
+RootWindowContainer -> DisplayContent: applySurfaceChangesTransaction()
+activate DisplayContent
+DisplayContent -> WallpaperController: adjustWallpaperWindows()
+activate WallpaperController
+WallpaperController -> WallpaperController: findWallpaperTarget()
+activate WallpaperController
+deactivate WallpaperController
+WallpaperController -> WallpaperController: updateWallpaperWindowsTarget()
+activate WallpaperController
+deactivate WallpaperController
+WallpaperController -> WallpaperController: updateWallpaperTokens()
+activate WallpaperController
+
+@enduml

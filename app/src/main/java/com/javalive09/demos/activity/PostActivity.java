@@ -12,9 +12,11 @@ import android.graphics.Color;
 import android.graphics.Rect;
 import android.graphics.drawable.Icon;
 import android.os.Bundle;
+import android.os.ResultReceiver;
 import android.support.annotation.Nullable;
 import android.util.Log;
 import android.util.Rational;
+import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.FrameLayout;
@@ -25,6 +27,7 @@ import com.javalive09.demos.R;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 /**
  * onResume 中post 和 onMeasure onLayout onDraw的顺序
@@ -57,6 +60,16 @@ public class PostActivity extends CodeActivity {
 //                enterPicInPic4(new Rect(500, 80, 1500, 500));
 //            }
 //        });
+
+        ResultReceiver resultReceiver = getIntent().getParcelableExtra("resultReceiver");
+        addClickButton("send", new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(resultReceiver != null) {
+                    resultReceiver.send(new Random().nextInt(100), null);
+                }
+            }
+        });
     }
 
     private void enterPicInPic4(Rect rect) {

@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    android:sharedUserId="com.wt.peter"
           package="com.javalive09.demos">
 
     <uses-permission android:name="android.permission.WRITE_SECURE_SETTINGS"/>
@@ -39,7 +38,8 @@
             android:resizeableActivity="true"
             android:exported="true"/>
 
-        <service android:name=".MyService"/>
+        <service android:name=".MyService"
+            android:exported="true"/>
     </application>
 
 </manifest>
