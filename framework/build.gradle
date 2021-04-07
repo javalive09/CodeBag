@@ -1,0 +1,21 @@
+apply plugin: 'java-library'
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+}
+
+sourceCompatibility = "1.7"
+targetCompatibility = "1.7"
+
+sourceSets {
+    def and_root = '/media/peter/319deb9e-fd96-4919-bbbf-01b06b297828/wt3.0r_x70_market/android/frameworks'
+    main.java.srcDirs += and_root
+    //要导入梧桐的项目应按照如下的写法
+//    def wt_root = 'D:\\wt\\wt28\\'(绝对路径)
+
+//    main.java.srcDirs += wt_root + 'wt_servers\\java'
+//    main.java.srcDirs += wt_root + 'wt_servers\\aosp\\frameworks\\base\\services\\core\\java'
+//    main.java.srcDirs += wt_root + 'wt_plugs\\java'
+//
+//    main.java.srcDirs += wt_root + 'wt_frames\\java'
+}
