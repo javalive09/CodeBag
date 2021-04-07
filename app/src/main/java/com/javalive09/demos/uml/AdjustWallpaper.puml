@@ -24,5 +24,4 @@ WallpaperController -> WallpaperController: updateWallpaperTokens()
 activate WallpaperController
 deactivate WallpaperController
 
-
 @enduml

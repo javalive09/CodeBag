@@ -19,6 +19,7 @@ participant ZygoteInit
 participant RuntimeInit
 participant ZygoteConnection_App
 participant ClientTransaction_App
+participant MessageQueue_IdleHandler
 end box
 
 box "Binder" #Light
@@ -437,12 +438,43 @@ deactivate ZygoteProcess
 deactivate Process
 deactivate ActivityStack
 deactivate ActivityStack
+
+deactivate ActivityStackSupervisor
+deactivate ActivityStackSupervisor
+deactivate ActivityManagerService
+deactivate ActivityManagerService
+deactivate ActivityManagerService
+
+
+
+ActivityStack -> ActivityStackSupervisor:ensureActivitiesVisibleLocked()
+activate ActivityStackSupervisor
+note left: process进程存在
+ActivityStackSupervisor -> ActivityStack:ensureActivitiesVisibleLocked()
+activate ActivityStack
+ActivityStack -> ActivityStack:makeInvisible()
+activate ActivityStack
+ActivityStack -> ActivityStack:addToStopping()
+activate ActivityStack
+ActivityStack -> ActivityStackSupervisor:scheduleIdleLocked()
+activate ActivityStackSupervisor
+ActivityStackSupervisor -> ActivityStackSupervisor:activityIdleInternalLocked()
+activate ActivityStackSupervisor
+ActivityStackSupervisor -> ActivityStack:stopActivityLocked()
+activate ActivityStack
+ActivityStack -> ClientLifecycleManager:scheduleTransaction(StopActivityItem)
+activate ClientLifecycleManager
+deactivate ClientLifecycleManager
+deactivate ActivityStack
+deactivate ActivityStack
+deactivate ActivityStack
+deactivate ActivityStack
 deactivate ActivityStack
 deactivate ActivityStackSupervisor
 deactivate ActivityStackSupervisor
-deactivate ActivityManagerService
-deactivate ActivityManagerService
-deactivate ActivityManagerService
+deactivate ActivityStackSupervisor
+
+
 ActivityStack -> WindowManagerService:continueSurfaceLayout()
 activate WindowManagerService
 WindowManagerService -> WindowSurfacePlacer:continueLayout()
@@ -513,6 +545,13 @@ deactivate AppWindowToken
 deactivate AppWindowToken
 deactivate AppWindowToken
 deactivate WindowSurfacePlacer
+deactivate WindowSurfacePlacer
+deactivate WindowSurfacePlacer
+deactivate WindowSurfacePlacer
+deactivate WindowSurfacePlacer
+deactivate RootWindowContainer
+deactivate WindowManagerService
+deactivate ActivityStack
 
 
 OutputStream -> ZygoteServer:runSelectLoop()
@@ -620,6 +659,7 @@ deactivate ClientTransaction_AMS
 deactivate ClientLifecycleManager
 deactivate ActivityStack
 deactivate ActivityStack
+deactivate ActivityStackSupervisor
 deactivate ActivityStackSupervisor
 deactivate ActivityStackSupervisor
 deactivate ActivityStackSupervisor
@@ -737,16 +777,28 @@ deactivate TransactionExecutor
 deactivate ActivityManager
 deactivate ActivityThread_H
 deactivate ActivityThread_H
-deactivate Looper
 
 
 IActivityManager -> ActivityManagerService:activityResumed()
 activate ActivityManagerService
+deactivate ActivityManagerService
+Looper -> MessageQueue_IdleHandler:queueIdle()
+activate MessageQueue_IdleHandler
+MessageQueue_IdleHandler -> IActivityManager:activityIdle()
+activate IActivityManager
+deactivate IActivityManager
 
+IActivityManager -> ActivityManagerService:activityIdle()
+activate ActivityManagerService
 
+ActivityManagerService -> ActivityStackSupervisor: activityIdleInternalLocked()
+activate ActivityStackSupervisor
 
+ActivityStackSupervisor -> ActivityStack: stopActivityLocked()
+activate ActivityStack
 
-'TransactionExecutor -> ClientTransaction_App:
+ActivityStack -> ClientLifecycleManager:scheduleTransaction(StopActivityItem)
+activate ClientLifecycleManager
 
 
 

@@ -1,0 +1,99 @@
+@startuml
+Init_rc -> ZygoteInit: main()
+activate ZygoteInit
+ZygoteInit -> ZygoteInit: forkSystemServer()
+activate ZygoteInit
+ZygoteInit -> ZygoteInit: handleSystemServerProcess()
+activate ZygoteInit
+ZygoteInit -> ZygoteInit: zygoteInit()
+activate ZygoteInit
+ZygoteInit -> RuntimeInit: commonInit()
+activate RuntimeInit
+deactivate RuntimeInit
+ZygoteInit -> ZygoteInit: nativeZygoteInit()
+activate ZygoteInit
+deactivate ZygoteInit
+ZygoteInit -> RuntimeInit: applicationInit()
+activate RuntimeInit
+RuntimeInit -> SystemServer: main()
+activate SystemServer
+SystemServer -> SystemServer: run()
+activate SystemServer
+SystemServer -> SystemServer: startBootstrapServices()
+activate SystemServer
+deactivate SystemServer
+SystemServer -> SystemServer: startCoreServices()
+activate SystemServer
+deactivate SystemServer
+SystemServer -> SystemServer: startOtherServices()
+activate SystemServer
+SystemServer -> SystemServiceManager: startService()
+activate SystemServiceManager
+SystemServiceManager -> SystemServiceManager: startService()
+activate SystemServiceManager
+SystemServiceManager -> WallpaperManagerService_Lifecycle: onStart()
+activate WallpaperManagerService_Lifecycle
+deactivate WallpaperManagerService_Lifecycle
+deactivate SystemServiceManager
+deactivate SystemServiceManager
+SystemServer -> WallpaperManagerService_Lifecycle: startBootPhase()
+activate WallpaperManagerService_Lifecycle
+WallpaperManagerService_Lifecycle -> WallpaperManagerService: onBootPhase()
+activate WallpaperManagerService
+WallpaperManagerService -> WallpaperManagerService: systemReady()
+activate WallpaperManagerService
+WallpaperManagerService -> WallpaperManagerService: initialize()
+activate WallpaperManagerService
+WallpaperManagerService -> WallpaperManagerService: loadSettingsLocked()
+activate WallpaperManagerService
+deactivate WallpaperManagerService
+WallpaperManagerService -> WallpaperManagerService: getWallpaperSafeLocked()
+activate WallpaperManagerService
+deactivate WallpaperManagerService
+deactivate WallpaperManagerService
+deactivate WallpaperManagerService
+deactivate WallpaperManagerService
+
+WallpaperManagerService_Lifecycle -> WallpaperManagerService: switchUser()
+activate WallpaperManagerService
+WallpaperManagerService -> WallpaperManagerService: switchWallpaper()
+activate WallpaperManagerService
+WallpaperManagerService -> WallpaperManagerService: bindWallpaperComponentLocked()
+activate WallpaperManagerService
+WallpaperManagerService -> WallpaperConnection: new()
+activate WallpaperConnection
+deactivate WallpaperConnection
+WallpaperManagerService -> AMS: bindServiceAsUser()
+activate AMS
+AMS -> WallpaperService: onBind()
+activate WallpaperService
+WallpaperService -> IWallpaperServiceWrapper: new()
+activate IWallpaperServiceWrapper
+deactivate IWallpaperServiceWrapper
+deactivate WallpaperService
+AMS -> WallpaperConnection: onServiceConnected()
+activate WallpaperConnection
+WallpaperConnection -> WallpaperConnection:attachServiceLocked()
+activate WallpaperConnection
+WallpaperConnection -> IWallpaperServiceWrapper:attach()
+activate IWallpaperServiceWrapper
+IWallpaperServiceWrapper -> IWallpaperEngineWrapper:new()
+activate IWallpaperEngineWrapper
+IWallpaperEngineWrapper -> WallpaperConnection:attachEngine()
+activate WallpaperConnection
+deactivate WallpaperConnection
+IWallpaperEngineWrapper -> WallpaperService: onCreateEngine()
+activate WallpaperService
+deactivate WallpaperService
+IWallpaperEngineWrapper -> Engine: attach()
+activate Engine
+Engine -> Engine: onCreate()
+activate Engine
+deactivate Engine
+Engine -> Engine: updateSurface()
+activate Engine
+Engine -> WMS: addToDisplay()
+activate WMS
+
+
+@enduml

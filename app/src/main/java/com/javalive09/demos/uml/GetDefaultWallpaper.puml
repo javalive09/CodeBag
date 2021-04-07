@@ -1,0 +1,35 @@
+@startuml
+
+IWallpaperEngineWrapper -> ImageWallpaper: onCreateEngine()
+activate ImageWallpaper
+ImageWallpaper -> DrawableEngine: new()
+activate DrawableEngine
+deactivate DrawableEngine
+deactivate ImageWallpaper
+IWallpaperEngineWrapper -> DrawableEngine: attach()
+activate DrawableEngine
+DrawableEngine -> DrawableEngine: onCreate()
+activate DrawableEngine
+DrawableEngine -> DrawableEngine: updateSurfaceSize()
+activate DrawableEngine
+deactivate DrawableEngine
+deactivate DrawableEngine
+
+DrawableEngine -> DrawableEngine: updateSurface()
+activate DrawableEngine
+DrawableEngine -> DrawableEngine: drawFrame()
+activate DrawableEngine
+DrawableEngine -> DrawableEngine: loadWallpaper()
+activate DrawableEngine
+DrawableEngine -> WallpaperManager: getBitmap()
+activate WallpaperManager
+
+WallpaperManager -> WallpaperManager_Globals: peekWallpaperBitmap()
+activate WallpaperManager_Globals
+WallpaperManager_Globals -> WallpaperManager_Globals: getDefaultWallpaper()
+activate WallpaperManager_Globals
+WallpaperManager_Globals -> WallpaperManager: openDefaultWallpaper()
+activate WallpaperManager
+
+
+@enduml
