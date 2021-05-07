@@ -14,6 +14,7 @@ import android.os.Build;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.ResultReceiver;
+import android.os.SystemClock;
 import android.support.annotation.Nullable;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
@@ -28,6 +29,11 @@ public class MyService extends Service {
     @Override
     public IBinder onBind(Intent intent) {
         return new Binder();
+    }
+
+    @Override
+    public void onCreate() {
+        super.onCreate();
     }
 
     Handler handler = new Handler();

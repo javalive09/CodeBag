@@ -1,0 +1,375 @@
+@startuml
+
+box "App" #LightYellow
+participant Activity
+participant Instrumentation
+participant ActivityThread
+participant TransactionExecutor
+participant PauseActivityItem
+participant ResumeActivityItem
+participant MessageQueue
+participant Idler
+participant DestroyActivityItem
+participant WindowManager
+end box
+
+box "Binder" #LightWhite
+participant ActivityManager
+participant ActivityThread_ApplicationThread
+end box
+
+box "AMS" #LightYellow
+participant ActivityManagerService
+participant ActivityStack
+participant ClientLifecycleManager
+participant Handler
+participant ActivityStackSupervisor
+participant ActivityRecord
+participant TaskRecord
+end box
+
+box "WMS" #LightYellow
+participant WindowManagerService
+participant WindowSurfacePlacer
+participant RootWindowContainer
+participant AppWindowToken
+participant WindowContainer
+participant SurfaceAnimator
+participant LocalAnimationAdapter
+participant SurfaceAnimationRunner
+participant AnimatorListenerAdapter
+participant AppTransition
+participant AppWindowContainerController
+end box
+
+Activity -> Activity: finish()
+activate Activity
+Activity -> ActivityManager: finishActivity()
+activate ActivityManager
+deactivate ActivityManager
+deactivate Activity
+ActivityManager -> ActivityManagerService: finishActivity()
+activate ActivityManagerService
+ActivityManagerService -> ActivityStack: requestFinishActivityLocked()
+activate ActivityStack
+ActivityStack -> ActivityStack: finishActivityLocked()
+activate ActivityStack
+ActivityStack -> ActivityStack: adjustFocusedActivityStack()
+activate ActivityStack
+ActivityStack -> ActivityStack: adjustFocusToNextFocusableStack()
+activate ActivityStack
+ActivityStack -> ActivityStack: moveToFront()
+activate ActivityStack
+deactivate ActivityStack
+deactivate ActivityStack
+deactivate ActivityStack
+ActivityStack -> ActivityStack: startPausingLocked()
+activate ActivityStack
+ActivityStack -> ClientLifecycleManager: scheduleTransaction(PauseActivityItem)
+activate ClientLifecycleManager
+ClientLifecycleManager -> ActivityThread_ApplicationThread: scheduleTransaction(PauseActivityItem)
+activate ActivityThread_ApplicationThread
+deactivate ActivityThread_ApplicationThread
+deactivate ClientLifecycleManager
+
+ActivityStack -> ActivityStack: schedulePauseTimeout(PauseActivityItem)
+activate ActivityStack
+ActivityStack -> Handler: sendMessageDelayed(PAUSE_TIMEOUT_MSG)
+activate Handler
+deactivate Handler
+deactivate ActivityStack
+deactivate ActivityStack
+deactivate ActivityStack
+deactivate ActivityStack
+deactivate ActivityStack
+deactivate ActivityManagerService
+
+
+ActivityThread_ApplicationThread -> TransactionExecutor: execute()
+activate TransactionExecutor
+TransactionExecutor -> TransactionExecutor: executeLifecycleState()
+activate TransactionExecutor
+TransactionExecutor -> PauseActivityItem: execute()
+activate PauseActivityItem
+PauseActivityItem -> ActivityThread: handlePauseActivity()
+activate ActivityThread
+ActivityThread -> ActivityThread: performPauseActivity()
+activate ActivityThread
+ActivityThread -> ActivityThread: performPauseActivityIfNeeded()
+activate ActivityThread
+ActivityThread -> Instrumentation: callActivityOnPause()
+activate Instrumentation
+Instrumentation -> Activity: performPause()
+activate Activity
+Activity -> Activity: onPause()
+activate Activity
+
+deactivate PauseActivityItem
+deactivate ActivityThread
+deactivate ActivityThread
+deactivate ActivityThread
+deactivate Instrumentation
+deactivate Activity
+deactivate Activity
+
+TransactionExecutor -> PauseActivityItem: postExecute()
+activate PauseActivityItem
+PauseActivityItem -> ActivityManager: activityPaused()
+activate ActivityManager
+deactivate ActivityManager
+deactivate PauseActivityItem
+deactivate TransactionExecutor
+deactivate TransactionExecutor
+
+ActivityManager -> ActivityManagerService: activityPaused()
+activate ActivityManagerService
+ActivityManagerService -> ActivityStack: activityPausedLocked()
+activate ActivityStack
+ActivityStack -> Handler: removeMessages(PAUSE_TIMEOUT_MSG)
+activate Handler
+deactivate Handler
+ActivityStack -> ActivityStack: completePauseLocked()
+activate ActivityStack
+ActivityStack -> ActivityStackSupervisor: resumeFocusedStackTopActivityLocked()
+activate ActivityStackSupervisor
+ActivityStackSupervisor -> ActivityStack: resumeTopActivityUncheckedLocked()
+activate ActivityStack
+ActivityStack -> ActivityStack: resumeTopActivityInnerLocked()
+activate ActivityStack
+ActivityStack -> ClientLifecycleManager: scheduleTransaction()
+activate ClientLifecycleManager
+ClientLifecycleManager -> ActivityThread_ApplicationThread: scheduleTransaction(ResumeActivityItem)
+activate ActivityThread_ApplicationThread
+deactivate ActivityThread_ApplicationThread
+deactivate ClientLifecycleManager
+deactivate ActivityStackSupervisor
+deactivate ActivityManagerService
+deactivate ActivityManagerService
+deactivate ActivityStack
+deactivate ActivityStack
+deactivate ActivityStack
+ActivityStack -> WindowManagerService: continueSurfaceLayout()
+activate WindowManagerService
+WindowManagerService -> WindowSurfacePlacer: continueLayout()
+activate WindowSurfacePlacer
+WindowSurfacePlacer -> WindowSurfacePlacer: performSurfacePlacement()
+activate WindowSurfacePlacer
+WindowSurfacePlacer -> RootWindowContainer: performSurfacePlacement()
+activate RootWindowContainer
+RootWindowContainer -> WindowSurfacePlacer: handleAppTransitionReadyLocked()
+activate WindowSurfacePlacer
+WindowSurfacePlacer -> WindowSurfacePlacer: handleClosingApps()
+activate WindowSurfacePlacer
+WindowSurfacePlacer -> AppWindowToken: setVisibility()
+activate AppWindowToken
+AppWindowToken -> AppWindowToken: applyAnimationLocked()
+activate AppWindowToken
+AppWindowToken -> WindowContainer: startAnimation()
+activate WindowContainer
+WindowContainer -> SurfaceAnimator: startAnimation()
+activate SurfaceAnimator
+SurfaceAnimator -> LocalAnimationAdapter: startAnimation()
+activate LocalAnimationAdapter
+LocalAnimationAdapter -> SurfaceAnimationRunner: startAnimation()
+activate SurfaceAnimationRunner
+deactivate SurfaceAnimationRunner
+deactivate LocalAnimationAdapter
+deactivate SurfaceAnimator
+deactivate WindowContainer
+deactivate AppWindowToken
+deactivate AppWindowToken
+deactivate RootWindowContainer
+deactivate WindowSurfacePlacer
+deactivate WindowSurfacePlacer
+
+WindowSurfacePlacer -> WindowSurfacePlacer: requestTraversal()
+activate WindowSurfacePlacer
+deactivate WindowSurfacePlacer
+deactivate WindowSurfacePlacer
+deactivate WindowSurfacePlacer
+deactivate WindowManagerService
+deactivate ActivityStack
+
+
+ActivityThread_ApplicationThread -> TransactionExecutor: execute()
+activate TransactionExecutor
+TransactionExecutor -> TransactionExecutor: executeLifecycleState()
+activate TransactionExecutor
+TransactionExecutor -> ResumeActivityItem: execute()
+activate ResumeActivityItem
+ResumeActivityItem -> ActivityThread: handleResumeActivity()
+activate ActivityThread
+ActivityThread -> ActivityThread: performResumeActivity()
+activate ActivityThread
+ActivityThread -> ActivityThread: performResumeActivity()
+activate ActivityThread
+ActivityThread -> Activity: performResume()
+activate Activity
+ActivityThread -> Activity: performResume()
+activate Activity
+Activity -> Instrumentation: callActivityOnResume()
+activate Instrumentation
+Activity -> Activity: onResume()
+activate Activity
+deactivate ActivityThread
+deactivate ActivityThread
+deactivate ActivityThread
+ActivityThread -> MessageQueue: addIdleHandler(Idler)
+activate MessageQueue
+deactivate MessageQueue
+deactivate ResumeActivityItem
+deactivate Activity
+deactivate Activity
+deactivate Activity
+deactivate Instrumentation
+TransactionExecutor -> ResumeActivityItem: postExecute()
+activate ResumeActivityItem
+ResumeActivityItem -> ActivityManager: activityResumed()
+activate ActivityManager
+deactivate ActivityManager
+deactivate ResumeActivityItem
+deactivate TransactionExecutor
+deactivate TransactionExecutor
+
+ActivityManager -> ActivityManagerService: activityResumed()
+activate ActivityManagerService
+deactivate ActivityManagerService
+
+MessageQueue -> Idler: queueIdle()
+activate Idler
+Idler -> ActivityManager: activityIdle()
+activate ActivityManager
+deactivate ActivityManager
+deactivate Idler
+
+ActivityManager -> ActivityManagerService: activityIdle()
+
+
+AnimatorListenerAdapter -> AppWindowToken: onAnimationFinished()
+activate AppWindowToken
+AppWindowToken -> AppTransition: notifyAppTransitionFinishedLocked()
+activate AppTransition
+AppTransition -> AppWindowToken: updateReportedVisibilityLocked()
+activate AppWindowToken
+AppWindowToken -> AppWindowContainerController: reportWindowsVisible()
+activate AppWindowContainerController
+AppWindowContainerController -> ActivityRecord: onWindowsVisible()
+activate ActivityRecord
+ActivityRecord -> ActivityStackSupervisor: scheduleIdleLocked()
+activate ActivityStackSupervisor
+ActivityStackSupervisor -> ActivityStackSupervisor: activityIdleInternalLocked()
+activate ActivityStackSupervisor
+ActivityStackSupervisor -> ActivityStack: finishCurrentActivityLocked()
+activate ActivityStack
+ActivityStack -> ActivityStack: destroyActivityLocked()
+activate ActivityStack
+ActivityStack -> ClientLifecycleManager: scheduleTransaction()
+activate ClientLifecycleManager
+ClientLifecycleManager -> ActivityThread_ApplicationThread: scheduleTransaction(DestroyActivityItem)
+activate ActivityThread_ApplicationThread
+deactivate ActivityThread_ApplicationThread
+deactivate ActivityStack
+deactivate ActivityStack
+deactivate ClientLifecycleManager
+deactivate ActivityStackSupervisor
+deactivate ActivityStackSupervisor
+
+deactivate ActivityRecord
+deactivate AppWindowContainerController
+deactivate AppTransition
+deactivate AnimatorListenerAdapter
+deactivate AppWindowToken
+deactivate AppWindowToken
+
+ActivityThread_ApplicationThread -> TransactionExecutor: execute()
+activate TransactionExecutor
+TransactionExecutor -> TransactionExecutor: executeLifecycleState()
+activate TransactionExecutor
+TransactionExecutor -> TransactionExecutor: cycleToPath()
+activate TransactionExecutor
+TransactionExecutor -> TransactionExecutor: performLifecycleSequence()
+activate TransactionExecutor
+TransactionExecutor -> ActivityThread: handleStopActivity()
+activate ActivityThread
+ActivityThread -> ActivityThread: performStopActivityInner()
+activate ActivityThread
+ActivityThread -> ActivityThread: callActivityOnStop()
+activate ActivityThread
+ActivityThread -> Activity: performStop()
+activate Activity
+Activity -> Instrumentation: callActivityOnStop()
+activate Instrumentation
+Instrumentation -> Activity: onStop()
+activate Activity
+deactivate Activity
+deactivate Activity
+deactivate Instrumentation
+deactivate ActivityThread
+deactivate ActivityThread
+deactivate ActivityThread
+
+deactivate TransactionExecutor
+deactivate TransactionExecutor
+TransactionExecutor -> DestroyActivityItem: execute()
+activate DestroyActivityItem
+DestroyActivityItem -> ActivityThread:handleDestroyActivity()
+activate ActivityThread
+ActivityThread -> ActivityThread: performDestroyActivity()
+activate ActivityThread
+ActivityThread -> ActivityThread: callActivityOnDestroy()
+activate ActivityThread
+ActivityThread -> Activity: performDestroy()
+activate Activity
+ActivityThread -> Instrumentation: callActivityOnDestroy()
+activate Instrumentation
+ActivityThread -> Activity: onDestroy()
+activate Activity
+deactivate Activity
+deactivate Activity
+deactivate Activity
+deactivate Instrumentation
+deactivate ActivityThread
+deactivate ActivityThread
+
+ActivityThread -> WindowManager:removeViewImmediate()
+activate WindowManager
+ActivityThread -> ActivityManager:activityDestroyed()
+activate ActivityManager
+deactivate ActivityManager
+deactivate WindowManager
+deactivate DestroyActivityItem
+deactivate TransactionExecutor
+deactivate TransactionExecutor
+deactivate ActivityThread
+ActivityManager -> ActivityManagerService:activityDestroyed()
+activate ActivityManagerService
+ActivityManagerService -> ActivityStack:activityDestroyedLocked()
+activate ActivityStack
+ActivityStack -> ActivityStack:activityDestroyedLocked()
+activate ActivityStack
+ActivityStack -> ActivityStack:removeActivityFromHistoryLocked()
+activate ActivityStack
+ActivityStack -> TaskRecord:removeActivity()
+activate TaskRecord
+TaskRecord -> TaskRecord:removeActivity()
+activate TaskRecord
+deactivate TaskRecord
+deactivate TaskRecord
+deactivate ActivityStack
+
+ActivityStack -> ActivityStack:removeTask()
+activate ActivityStack
+ActivityStack -> ActivityStack:remove()
+activate ActivityStack
+ActivityStack -> ActivityStack:removeFromDisplay()
+activate ActivityStack
+
+deactivate TaskRecord
+deactivate TaskRecord
+deactivate ActivityStack
+deactivate ActivityStack
+deactivate ActivityStack
+deactivate ActivityStack
+deactivate ActivityManagerService
+
+@enduml

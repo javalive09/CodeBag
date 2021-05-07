@@ -69,7 +69,6 @@ import java.util.Locale;
 
 import io.feeeei.circleseekbar.CircleSeekBar;
 
-@Code(name = "View")
 public class ViewTest {
 
     @Run

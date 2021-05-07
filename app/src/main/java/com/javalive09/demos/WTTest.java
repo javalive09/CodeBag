@@ -15,6 +15,7 @@ import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.hardware.display.DisplayManager;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.storage.StorageManager;
@@ -361,5 +362,17 @@ public class WTTest {
     public void testStartLauncher(CodeActivity c) {
         Intent intent = new Intent().setComponent(new ComponentName("com.wt.launcher3_", "com.wt.launcher3_.MainActivity")).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         c.startActivity(intent);
+    }
+
+    @Run(name = "peter22222222222222")
+    public void run(CodeActivity activity) {
+        Object o = new Object();
+        AsyncTask.THREAD_POOL_EXECUTOR.execute(new Runnable() {
+            @Override
+            public void run() {
+                Log.d("peter", (String)o);
+            }
+        });
+        activity.showText("111111");
     }
 }

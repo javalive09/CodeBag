@@ -1,0 +1,163 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+autonumber
+
+box "App" #Light
+participant Activity
+participant ContextImpl
+participant ActivityThread
+participant Instrumentation
+participant Application
+participant Service
+end box
+
+box "Binder" #Light
+participant IActivityManager
+participant IApplicationThread
+end box
+
+Activity -> Activity: startService()
+activate Activity
+Activity --> ContextImpl: startService()
+activate ContextImpl
+ContextImpl --> ContextImpl: startServiceCommon()
+activate ContextImpl
+ContextImpl --> IActivityManager: startService()
+activate IActivityManager
+
+deactivate Activity
+deactivate ContextImpl
+deactivate ContextImpl
+deactivate IActivityManager
+IActivityManager --> ActivityManagerService: startService()
+activate ActivityManagerService
+ActivityManagerService --> ActiveServices: startServiceLocked()
+activate ActiveServices
+ActiveServices --> ActiveServices: retrieveServiceLocked()
+activate ActiveServices
+deactivate ActiveServices
+ActiveServices --> ActiveServices: startServiceInnerLocked()
+activate ActiveServices
+ActiveServices --> ActiveServices: bringUpServiceLocked()
+activate ActiveServices
+ActiveServices --> ActivityManagerService: startProcessLocked()
+activate ActivityManagerService
+ActivityManagerService --> ActivityManagerService: startProcess()
+activate ActivityManagerService
+ActivityManagerService --> Process: start()
+activate Process
+Process --> ZygoteProcess: start()
+activate ZygoteProcess
+ZygoteProcess --> ZygoteProcess: startViaZygote()
+activate ZygoteProcess
+ZygoteProcess --> ZygoteProcess: zygoteSendArgsAndGetResult()
+activate ZygoteProcess
+ZygoteProcess --> ZygoteServer: processOneCommand()
+activate ZygoteServer
+ZygoteServer --> ZygoteServer: forkAndSpecialize()
+activate ZygoteServer
+ZygoteServer --> ZygoteServer: handleChildProc()
+activate ZygoteServer
+ZygoteServer --> ZygoteInit: childZygoteInit()
+activate ZygoteInit
+ZygoteInit --> RuntimeInit: findStaticMain()
+activate RuntimeInit
+RuntimeInit --> MethodAndArgsCaller: new()
+activate MethodAndArgsCaller
+deactivate MethodAndArgsCaller
+RuntimeInit --> MethodAndArgsCaller: run()
+activate MethodAndArgsCaller
+MethodAndArgsCaller --> ActivityThread: main()
+activate ActivityThread
+ActivityThread --> IActivityManager: attachApplication()
+activate IActivityManager
+deactivate ActivityManagerService
+deactivate MethodAndArgsCaller
+deactivate RuntimeInit
+deactivate ZygoteInit
+deactivate ZygoteServer
+deactivate ZygoteServer
+deactivate ZygoteServer
+deactivate ZygoteProcess
+deactivate ZygoteProcess
+deactivate ZygoteProcess
+deactivate Process
+deactivate ActiveServices
+deactivate ActiveServices
+deactivate ActiveServices
+deactivate ActivityManagerService
+deactivate ActivityManagerService
+deactivate IActivityManager
+deactivate ActivityThread
+IActivityManager --> ActivityManagerService: attachApplication()
+activate ActivityManagerService
+ActivityManagerService --> ActivityManagerService: attachApplicationLocked()
+activate ActivityManagerService
+ActivityManagerService --> IApplicationThread: bindApplication()
+activate IApplicationThread
+deactivate IApplicationThread
+deactivate ActivityManagerService
+IApplicationThread --> ActivityThread: handleBindApplication()
+activate ActivityThread
+ActivityThread --> ContextImpl: createAppContext()
+activate ContextImpl
+deactivate ContextImpl
+ActivityThread --> Instrumentation: newApplication()
+activate Instrumentation
+deactivate Instrumentation
+ActivityThread --> Instrumentation: callApplicationOnCreate()
+activate Instrumentation
+Instrumentation --> Application: onCreate()
+activate Application
+deactivate Application
+deactivate Instrumentation
+deactivate ActivityThread
+
+ActivityManagerService --> ActiveServices: attachApplicationLocked()
+activate ActiveServices
+ActiveServices --> ActiveServices: realStartServiceLocked()
+activate ActiveServices
+ActiveServices --> ActiveServices: bumpServiceExecutingLocked("create")
+activate ActiveServices
+ActiveServices --> ActiveServices: scheduleServiceTimeoutLocked()
+activate ActiveServices
+deactivate ActiveServices
+deactivate ActiveServices
+note right: anr 埋雷 fg ? 20s : 200s
+ActiveServices --> IApplicationThread: scheduleCreateService()
+activate IApplicationThread
+deactivate IApplicationThread
+deactivate ActiveServices
+deactivate ActiveServices
+IApplicationThread --> ActivityThread: handleCreateService()
+activate ActivityThread
+ActivityThread --> Service: new()
+activate Service
+deactivate Service
+ActivityThread --> ContextImpl: createAppContext()
+activate ContextImpl
+deactivate ContextImpl
+ActivityThread --> ContextImpl: setOuterContext(service)
+activate ContextImpl
+deactivate ContextImpl
+ActivityThread --> Service: attach()
+activate Service
+deactivate Service
+ActivityThread --> Service: onCreate()
+activate Service
+deactivate Service
+ActivityThread --> IActivityManager: serviceDoneExecuting()
+activate IActivityManager
+deactivate IActivityManager
+deactivate ActivityThread
+IActivityManager --> ActivityManagerService: serviceDoneExecuting()
+activate ActivityManagerService
+ActivityManagerService --> ActiveServices: serviceDoneExecutingLocked()
+activate ActiveServices
+note right: anr拆雷
+
+
+
+
+@enduml

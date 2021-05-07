@@ -1,0 +1,84 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+skinparam BoxPadding 2
+skinparam sequence {
+ArrowColor black
+LifeLineBorderColor black
+ParticipantBorderColor black
+ParticipantBackgroundColor white
+}
+
+box "ClientApp" #White
+participant ClientActivity
+end box
+
+box "FrameworkClient" #White
+participant PhoneWindow
+participant WtTaskSizeController
+participant WtManager
+end box
+
+box "Launcher" #White
+participant Launcher
+end box
+
+box "FrameworkServer" #White
+participant AMS
+end box
+
+
+ClientActivity -> PhoneWindow: requestFeature(featureId)
+activate PhoneWindow
+PhoneWindow --> WtTaskSizeController: resizeTask()
+activate WtTaskSizeController
+WtTaskSizeController --> Launcher: resizeTask(bundle)
+activate Launcher
+
+Launcher --> WtManager: resizeTask()
+activate WtManager
+WtManager --> AMS: resizeTask()
+activate AMS
+deactivate WtManager
+deactivate AMS
+
+Launcher --> WtTaskSizeController: delayResetSize(delayTime)
+deactivate Launcher
+activate WtTaskSizeController
+
+WtTaskSizeController --> Launcher: resizeTask()
+activate Launcher
+
+note right: Launcher负责业务逻辑，决策自\n动还原时间及resize哪个多窗口
+Launcher --> WtManager: resizeTask(bundle)
+activate WtManager
+WtManager --> AMS: resizeTask(bundle)
+activate AMS
+deactivate WtManager
+deactivate AMS
+deactivate Launcher
+deactivate PhoneWindow
+deactivate WtTaskSizeController
+deactivate WtTaskSizeController
+
+
+ClientActivity -> PhoneWindow:superDispatchTouchEvent()
+note left: 拦截触摸事件更新自动还原时间
+activate PhoneWindow
+PhoneWindow -> WtTaskSizeController:delayResetSize()
+activate WtTaskSizeController
+
+WtTaskSizeController -> Launcher: resizeTask(bundle)
+activate Launcher
+
+Launcher --> WtManager: resizeTask()
+activate WtManager
+WtManager --> AMS: resizeTask()
+activate AMS
+deactivate WtManager
+deactivate AMS
+deactivate WtTaskSizeController
+deactivate PhoneWindow
+deactivate Launcher
+
+@enduml

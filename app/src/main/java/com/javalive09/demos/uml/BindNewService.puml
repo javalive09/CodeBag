@@ -1,0 +1,272 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+autonumber
+
+box "App" #Light
+participant Activity
+participant ContextImpl
+participant LoadedApk
+participant ServiceDispatcher
+participant InnerConnection
+participant ActivityThread
+participant Service
+participant ServiceConnection
+participant DeathMonitor
+participant Instrumentation
+participant Application
+end box
+
+box "Binder" #Light
+participant IActivityManager
+participant IApplicationThread
+participant IServiceConnection
+end box
+
+Activity -> Activity: bindService()
+activate Activity
+Activity --> ContextImpl: bindService()
+activate ContextImpl
+ContextImpl --> ContextImpl: bindServiceCommon()
+activate ContextImpl
+ContextImpl --> LoadedApk: getServiceDispatcher()
+activate LoadedApk
+LoadedApk --> ServiceDispatcher: new()
+activate ServiceDispatcher
+ServiceDispatcher --> InnerConnection: new()
+activate InnerConnection
+deactivate InnerConnection
+deactivate ServiceDispatcher
+deactivate LoadedApk
+
+
+
+ContextImpl --> IActivityManager: bindService()
+activate IActivityManager
+
+deactivate Activity
+deactivate ContextImpl
+deactivate ContextImpl
+deactivate IActivityManager
+IActivityManager --> ActivityManagerService: bindService()
+activate ActivityManagerService
+ActivityManagerService --> ActiveServices: bindServiceLocked()
+activate ActiveServices
+ActiveServices --> ActiveServices: retrieveServiceLocked()
+activate ActiveServices
+deactivate ActiveServices
+ActiveServices --> ConnectionRecord: new()
+activate ConnectionRecord
+deactivate ConnectionRecord
+ActiveServices --> ActiveServices: bringUpServiceLocked()
+activate ActiveServices
+ActiveServices --> ActivityManagerService: startProcessLocked()
+activate ActivityManagerService
+ActivityManagerService --> ActivityManagerService: startProcess()
+activate ActivityManagerService
+ActivityManagerService --> Process: start()
+activate Process
+Process --> ZygoteProcess: start()
+activate ZygoteProcess
+ZygoteProcess --> ZygoteProcess: startViaZygote()
+activate ZygoteProcess
+ZygoteProcess --> ZygoteProcess: zygoteSendArgsAndGetResult()
+activate ZygoteProcess
+deactivate ZygoteProcess
+deactivate ZygoteProcess
+deactivate ZygoteProcess
+deactivate Process
+deactivate ActivityManagerService
+deactivate ActivityManagerService
+deactivate ActivityManagerService
+deactivate ActiveServices
+deactivate ActiveServices
+
+ZygoteProcess --> ZygoteConnection: processOneCommand()
+activate ZygoteConnection
+ZygoteConnection --> Zygote: forkAndSpecialize()
+activate Zygote
+deactivate Zygote
+ZygoteConnection --> ZygoteConnection: handleChildProc()
+activate ZygoteConnection
+ZygoteConnection --> ZygoteInit: childZygoteInit()
+activate ZygoteInit
+ZygoteInit --> RuntimeInit: findStaticMain()
+activate RuntimeInit
+RuntimeInit --> MethodAndArgsCaller: new()
+activate MethodAndArgsCaller
+deactivate MethodAndArgsCaller
+RuntimeInit --> MethodAndArgsCaller: run()
+activate MethodAndArgsCaller
+MethodAndArgsCaller --> ActivityThread: main()
+activate ActivityThread
+ActivityThread --> ActivityThread: attach()
+activate ActivityThread
+ActivityThread --> IActivityManager: attachApplication()
+activate IActivityManager
+deactivate IActivityManager
+deactivate ActivityThread
+deactivate ActivityThread
+deactivate RuntimeInit
+deactivate ZygoteInit
+deactivate MethodAndArgsCaller
+
+IActivityManager --> ActivityManagerService: attachApplication()
+activate ActivityManagerService
+ActivityManagerService --> ActivityManagerService: attachApplicationLocked()
+activate ActivityManagerService
+ActivityManagerService --> IApplicationThread: bindApplication()
+activate IApplicationThread
+deactivate IApplicationThread
+deactivate ActivityManagerService
+
+IApplicationThread --> ActivityThread: handleBindApplication()
+activate ActivityThread
+ActivityThread --> ContextImpl: createAppContext()
+activate ContextImpl
+deactivate ContextImpl
+ActivityThread --> Instrumentation: new()
+activate Instrumentation
+deactivate Instrumentation
+ActivityThread --> Application: new()
+activate Application
+deactivate Application
+ActivityThread --> Instrumentation: onCreate()
+activate Instrumentation
+deactivate Instrumentation
+ActivityThread --> Instrumentation: callApplicationOnCreate()
+activate Instrumentation
+deactivate Instrumentation
+deactivate ActivityThread
+
+ActivityManagerService --> ActiveServices: attachApplicationLocked()
+activate ActiveServices
+ActiveServices --> ActiveServices: realStartServiceLocked()
+activate ActiveServices
+ActiveServices --> ActiveServices: bumpServiceExecutingLocked("create")
+activate ActiveServices
+ActiveServices --> ActiveServices: scheduleServiceTimeoutLocked()
+activate ActiveServices
+note right: anr埋雷
+ActiveServices --> IApplicationThread: scheduleCreateService()
+activate IApplicationThread
+deactivate IApplicationThread
+deactivate ActiveServices
+deactivate ActiveServices
+
+IApplicationThread --> ActivityThread: handleCreateService()
+activate ActivityThread
+ActivityThread --> Service: new()
+activate Service
+deactivate Service
+ActivityThread --> ContextImpl: createAppContext()
+activate ContextImpl
+deactivate ContextImpl
+ActivityThread --> ContextImpl: setOuterContext(service)
+activate ContextImpl
+deactivate ContextImpl
+ActivityThread --> Service: attach()
+activate Service
+deactivate Service
+ActivityThread --> Service: onCreate()
+activate Service
+deactivate Service
+ActivityThread --> IActivityManager: serviceDoneExecuting()
+activate IActivityManager
+deactivate IActivityManager
+deactivate ActivityThread
+
+IActivityManager --> ActivityManagerService: serviceDoneExecutingLocked()
+activate ActivityManagerService
+ActivityManagerService --> ActiveServices: serviceDoneExecutingLocked()
+activate ActiveServices
+deactivate ActiveServices
+note right: anr 拆雷
+
+ActiveServices --> ActiveServices: requestServiceBindingsLocked()
+activate ActiveServices
+ActiveServices --> ActiveServices: bumpServiceExecutingLocked()
+activate ActiveServices
+
+deactivate ActiveServices
+deactivate ActiveServices
+
+
+
+'
+'
+'
+'
+'
+'
+'ActiveServices --> ActiveServices: requestServiceBindingsLocked()
+'activate ActiveServices
+'ActiveServices --> ActiveServices: bumpServiceExecutingLocked("bind")
+'activate ActiveServices
+'ActiveServices --> ActiveServices: scheduleServiceTimeoutLocked()
+'activate ActiveServices
+'deactivate ActiveServices
+'deactivate ActiveServices
+'note right: anr 埋雷 fg ? 20s : 200s
+
+ActiveServices --> IApplicationThread: scheduleBindService()
+activate IApplicationThread
+deactivate IApplicationThread
+deactivate ActiveServices
+deactivate ActiveServices
+deactivate ActivityManagerService
+deactivate ActiveServices
+IApplicationThread --> ActivityThread: handleBindService()
+activate ActivityThread
+ActivityThread --> Service: onBind()
+activate Service
+deactivate Service
+
+ActivityThread --> IActivityManager: publishService()
+activate IActivityManager
+deactivate ActivityThread
+deactivate IActivityManager
+IActivityManager --> ActivityManagerService: publishService()
+activate ActivityManagerService
+ActivityManagerService --> ActiveServices: publishServiceLocked()
+activate ActiveServices
+ActiveServices --> IServiceConnection: connected()
+activate IServiceConnection
+deactivate IServiceConnection
+
+ActiveServices --> ActiveServices: serviceDoneExecutingLocked()
+activate ActiveServices
+deactivate ActiveServices
+deactivate ActiveServices
+deactivate ActivityManagerService
+
+IServiceConnection --> InnerConnection: connected()
+activate InnerConnection
+InnerConnection --> ServiceDispatcher: connected()
+activate ServiceDispatcher
+ServiceDispatcher --> ServiceDispatcher: doConnected()
+activate ServiceDispatcher
+ServiceDispatcher --> ServiceConnection: onServiceConnected()
+activate ServiceConnection
+deactivate ServiceConnection
+ServiceDispatcher --> DeathMonitor: new()
+activate DeathMonitor
+deactivate DeathMonitor
+deactivate ServiceDispatcher
+deactivate ServiceDispatcher
+deactivate InnerConnection
+
+DeathMonitor --> DeathMonitor: binderDied()
+activate DeathMonitor
+DeathMonitor --> ServiceDispatcher: death()
+activate ServiceDispatcher
+ServiceDispatcher --> ServiceDispatcher: doDeath()
+activate ServiceDispatcher
+ServiceDispatcher --> ServiceConnection: onServiceDisconnected()
+activate ServiceConnection
+deactivate ServiceConnection
+deactivate ServiceDispatcher
+deactivate ServiceDispatcher
+deactivate DeathMonitor
+
+@enduml

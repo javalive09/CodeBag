@@ -1,0 +1,55 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+autonumber
+
+InputDispatcher -> ViewRootImpl_WindowInputEventReceiver: dispatchInputEvent()
+activate ViewRootImpl_WindowInputEventReceiver
+ViewRootImpl_WindowInputEventReceiver -> ViewRootImpl_WindowInputEventReceiver: onInputEvent()
+activate ViewRootImpl_WindowInputEventReceiver
+ViewRootImpl_WindowInputEventReceiver -> ViewRootImpl: enqueueInputEvent()
+activate ViewRootImpl
+ViewRootImpl -> ViewRootImpl: deliverInputEvent()
+activate ViewRootImpl
+ViewRootImpl -> ViewRootImpl_InputStage: deliver()
+activate ViewRootImpl_InputStage
+ViewRootImpl_InputStage -> ViewRootImpl_InputStage: apply()
+activate ViewRootImpl_InputStage
+ViewRootImpl_InputStage -> ViewRootImpl_InputStage: forward()
+activate ViewRootImpl_InputStage
+ViewRootImpl_InputStage -> ViewRootImpl_InputStage: onDeliverToNext()
+activate ViewRootImpl_InputStage
+ViewRootImpl_InputStage -> ViewRootImpl_InputStage: deliver()
+activate ViewRootImpl_InputStage
+ViewRootImpl_InputStage -> ViewRootImpl_InputStage: apply()
+activate ViewRootImpl_InputStage
+ViewRootImpl_InputStage -> ViewRootImpl_AsyncInputStage: apply()
+activate ViewRootImpl_AsyncInputStage
+ViewRootImpl_AsyncInputStage -> ViewRootImpl_InputStage: apply()
+activate ViewRootImpl_InputStage
+ViewRootImpl_InputStage -> ViewRootImpl_AsyncInputStage: forward()
+activate ViewRootImpl_AsyncInputStage
+ViewRootImpl_AsyncInputStage -> ViewRootImpl_InputStage: forward()
+activate ViewRootImpl_InputStage
+ViewRootImpl_InputStage -> ViewRootImpl_InputStage: onDeliverToNext()
+activate ViewRootImpl_InputStage
+ViewRootImpl_InputStage -> ViewRootImpl_InputStage: deliver()
+activate ViewRootImpl_InputStage
+ViewRootImpl_InputStage -> ViewRootImpl_ViewPostImeInputStage: onProcess()
+activate ViewRootImpl_ViewPostImeInputStage
+ViewRootImpl_ViewPostImeInputStage -> ViewRootImpl_ViewPostImeInputStage: processPointerEvent()
+activate ViewRootImpl_ViewPostImeInputStage
+ViewRootImpl_ViewPostImeInputStage -> View: dispatchPointerEvent()
+activate View
+View -> DecorView: dispatchTouchEvent()
+activate DecorView
+DecorView -> Activity: dispatchTouchEvent()
+activate Activity
+Activity -> PhoneWindow: superDispatchTouchEvent()
+activate PhoneWindow
+PhoneWindow -> DecorView: superDispatchTouchEvent()
+activate DecorView
+
+
+
+@enduml

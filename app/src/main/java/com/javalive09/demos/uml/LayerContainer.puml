@@ -1,5 +1,11 @@
 @startuml
-
+skinparam class {
+BackgroundColor White
+ArrowColor Black
+BorderColor Black
+BackgroundColor<<Foo>> Black
+BorderColor<<Foo>> Black
+}
 class WindowManagerService {
 RootWindowContainer mRoot
 }

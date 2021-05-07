@@ -43,10 +43,15 @@ class LongClickFilter {
 perform(MotionEvent motionEvent)
 }
 
+class SingleClickFilter {
+perform(MotionEvent motionEvent)
+}
+
 
 MotionEventFilter <|-- FingerFlingFilter
 MotionEventFilter <|-- FingerSlideFilter
 MotionEventFilter <|-- LongClickFilter
+MotionEventFilter <|-- SingleClickFilter
 IWtServer$Stub <|-- WtServer
 Binder <|-- IWtServer$Stub
 WtServer *-- MotionEventFilter

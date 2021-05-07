@@ -1,0 +1,38 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+skinparam BoxPadding 2
+skinparam sequence {
+ArrowColor black
+LifeLineBorderColor black
+ParticipantBorderColor black
+ParticipantBackgroundColor white
+}
+autonumber
+
+InputDispatcher -> WindowManagerService_PointerEventDispatcher: dispatchInputEvent()
+activate WindowManagerService_PointerEventDispatcher
+WindowManagerService_PointerEventDispatcher -> WindowManagerService_PointerEventDispatcher: onInputEvent()
+activate WindowManagerService_PointerEventDispatcher
+
+WindowManagerService_PointerEventDispatcher -> Services_GestureEventListener: onPointerEvent()
+activate Services_GestureEventListener
+Services_GestureEventListener -> WtServer: sendEventToFilter()
+activate WtServer
+note right:控制事件分发
+WtServer -> MotionEventFilter: perform()
+activate MotionEventFilter
+note right:判断手势并过滤
+MotionEventFilter -> WtServer: sendFilterResultToRemote()
+activate WtServer
+
+WtServer -> ClientApp_callback: onGesture()
+activate ClientApp_callback
+deactivate ClientApp_callback
+deactivate WtServer
+deactivate WtServer
+deactivate MotionEventFilter
+deactivate Services_GestureEventListener
+deactivate WindowManagerService_PointerEventDispatcher
+deactivate WindowManagerService_PointerEventDispatcher
+
+@enduml

@@ -1,20 +1,19 @@
 @startuml
 
 skinparam BoxPadding 2
+skinparam sequence {
+ArrowColor black
+LifeLineBorderColor black
+ParticipantBorderColor black
+ParticipantBackgroundColor white
+}
 
-'skinparam sequence {
-'ArrowColor black
-'LifeLineBorderColor black
-'ParticipantBorderColor black
-'ParticipantBackgroundColor white
-'}
-
-box "InputManagerService"
+box "InputManagerService" #White
 participant InputDispatcher
 end box
 
 
-box "WindowManagerService"
+box "WindowManagerService" #White
 participant InputEventReceiver
 participant PointerEventDispatcher
 participant TaskTapPointerEventListener
@@ -22,7 +21,7 @@ participant TaskPositioningController
 participant DisplayContent
 end box
 
-box "ActivityManagerService"
+box "ActivityManagerService" #White
 participant ActivityManagerService
 end box
 

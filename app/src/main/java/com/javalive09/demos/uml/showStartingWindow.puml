@@ -1,0 +1,133 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+Client -> ActivityManagerService: startActivityAsUser()
+activate ActivityManagerService
+
+ActivityManagerService -> ActivityStarter: execute()
+activate ActivityStarter
+
+ActivityStarter -> ActivityStarter: startActivityMayWait()
+activate ActivityStarter
+
+ActivityStarter -> ActivityStarter: startActivity()
+activate ActivityStarter
+
+ActivityStarter -> ActivityStarter: startActivityUnchecked()
+activate ActivityStarter
+
+ActivityStarter -> ActivityStack: startActivityLocked()
+activate ActivityStack
+
+ActivityStack -> ActivityRecord: startActivityLocked()
+activate ActivityRecord
+
+ActivityRecord -> ActivityRecord: showStartingWindow()
+activate ActivityRecord
+
+ActivityRecord -> AppWindowContainerController: addStartingWindow()
+activate AppWindowContainerController
+AppWindowContainerController -> AppWindowContainerController: getStartingWindowType()
+activate AppWindowContainerController
+deactivate AppWindowContainerController
+
+AppWindowContainerController -> AppWindowContainerController: createSnapshot()
+activate AppWindowContainerController
+
+note left: snapshot type starting window
+AppWindowContainerController -> SnapshotStartingData: new()
+activate SnapshotStartingData
+deactivate SnapshotStartingData
+deactivate AppWindowContainerController
+
+AppWindowContainerController -> AppWindowContainerController: scheduleAddStartingWindow()
+activate AppWindowContainerController
+
+AppWindowContainerController -> AppWindowContainerController_1: run()
+activate AppWindowContainerController_1
+AppWindowContainerController_1 -> SnapshotStartingData:createStartingSurface()
+activate SnapshotStartingData
+SnapshotStartingData -> SnapshotStartingData:drawSnapshot()
+activate SnapshotStartingData
+deactivate SnapshotStartingData
+deactivate AppWindowContainerController_1
+deactivate AppWindowContainerController
+
+
+deactivate SnapshotStartingData
+deactivate AppWindowContainerController
+deactivate ActivityRecord
+deactivate ActivityRecord
+deactivate ActivityStack
+deactivate ActivityStarter
+deactivate ActivityStarter
+deactivate ActivityStarter
+deactivate ActivityStarter
+deactivate ActivityManagerService
+
+
+
+Client -> ActivityManagerService: startActivityAsUser()
+activate ActivityManagerService
+
+ActivityManagerService -> ActivityStarter: execute()
+activate ActivityStarter
+
+ActivityStarter -> ActivityStarter: startActivityMayWait()
+activate ActivityStarter
+
+ActivityStarter -> ActivityStarter: startActivity()
+activate ActivityStarter
+
+ActivityStarter -> ActivityStarter: startActivityUnchecked()
+activate ActivityStarter
+
+ActivityStarter -> ActivityStack: startActivityLocked()
+activate ActivityStack
+
+ActivityStack -> ActivityRecord: startActivityLocked()
+activate ActivityRecord
+
+ActivityRecord -> ActivityRecord: showStartingWindow()
+activate ActivityRecord
+
+ActivityRecord -> AppWindowContainerController: addStartingWindow()
+activate AppWindowContainerController
+AppWindowContainerController -> AppWindowContainerController: getStartingWindowType()
+activate AppWindowContainerController
+deactivate AppWindowContainerController
+
+AppWindowContainerController -> SplashScreenStartingData: new()
+activate SplashScreenStartingData
+deactivate SplashScreenStartingData
+note left: splash screen type starting window
+
+AppWindowContainerController -> AppWindowContainerController: scheduleAddStartingWindow()
+activate AppWindowContainerController
+
+AppWindowContainerController -> AppWindowContainerController_1: run()
+activate AppWindowContainerController_1
+
+AppWindowContainerController_1 -> SplashScreenStartingData: createStartingSurface()
+activate SplashScreenStartingData
+AppWindowContainerController_1 -> PhoneWindowManager: addSplashScreen()
+activate PhoneWindowManager
+PhoneWindowManager -> PhoneWindow: new()
+activate PhoneWindow
+PhoneWindow -> PhoneWindow: addSplashscreenContent()
+activate PhoneWindow
+PhoneWindow -> View: new()
+activate View
+View -> View: setBackground()
+activate View
+deactivate View
+deactivate View
+
+PhoneWindow -> PhoneWindow: setContentView()
+activate PhoneWindow
+PhoneWindow -> WindowManager: addView()
+activate WindowManager
+
+
+
+@enduml

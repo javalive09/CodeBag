@@ -1,4 +1,11 @@
 @startuml
+skinparam BoxPadding 2
+skinparam sequence {
+ArrowColor black
+LifeLineBorderColor black
+ParticipantBorderColor black
+ParticipantBackgroundColor white
+}
 ActivityManagerService -> ActivityManagerService: getTaskSnapshot
 activate ActivityManagerService
 ActivityManagerService -> TaskRecord:getSnapshot()
@@ -7,8 +14,18 @@ TaskRecord -> WindowManagerService:getTaskSnapshot()
 activate WindowManagerService
 WindowManagerService -> TaskSnapshotController:getTaskSnapshot()
 activate TaskSnapshotController
+
+TaskSnapshotController -> TaskSnapShotControllerPlugs:getTaskSnapshot()
+activate TaskSnapShotControllerPlugs
+note right:此处为动态获取截屏插入点
+TaskSnapShotControllerPlugs -> TaskSnapShotController:snapshotTasks()
+activate TaskSnapShotController
+deactivate TaskSnapShotController
+deactivate TaskSnapShotControllerPlugs
+
 TaskSnapshotController -> TaskSnapshotCache:getTaskSnapshot()
 activate TaskSnapshotCache
+
 TaskSnapshotCache -> TaskSnapshotCache:mRunningCache.get()
 activate TaskSnapshotCache
 deactivate TaskSnapshotCache
