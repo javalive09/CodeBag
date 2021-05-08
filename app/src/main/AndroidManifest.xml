@@ -41,6 +41,11 @@
         <service android:name=".MyService"
             android:process=":com.javalive09.service"
             android:exported="true"/>
+        <receiver android:name=".MyReceiver">
+            <intent-filter>
+                <action android:name="com.wt.peter3"/>
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>

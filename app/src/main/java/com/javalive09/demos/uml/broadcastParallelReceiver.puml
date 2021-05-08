@@ -86,6 +86,7 @@ deactivate BroadcastRecord
 ActivityManagerService -> BroadcastQueue:enqueueParallelBroadcastLocked()
 activate BroadcastQueue
 deactivate BroadcastQueue
+note right: 只有动态广播才有并行广播逻辑，通过(intent.getComponent() == null)&&注册过receiver 来判断是动态广播
 ActivityManagerService -> BroadcastQueue:scheduleBroadcastsLocked()
 activate BroadcastQueue
 deactivate BroadcastQueue

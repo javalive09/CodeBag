@@ -383,6 +383,7 @@ public class WTTest {
         IntentFilter intentFilter = new IntentFilter();
         intentFilter.addAction("com.wt.test1");
         intentFilter.addAction("com.wt.test2");
+        intentFilter.addAction("com.wt.test3");
         activity.registerReceiver(new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
@@ -394,6 +395,11 @@ public class WTTest {
                     case "com.wt.test2":
                         i = new Intent("com.wt.peter1");
                         activity.sendOrderedBroadcast(i, null);
+                        break;
+                    case "com.wt.test3":
+                        i = new Intent("com.wt.peter3");
+//                        i.setClass(activity, MyReceiver.class);
+                        activity.sendBroadcast(i);
                         break;
                 }
             }
