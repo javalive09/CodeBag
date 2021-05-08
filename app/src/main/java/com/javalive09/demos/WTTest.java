@@ -6,9 +6,11 @@ import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.UiModeManager;
+import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.res.Configuration;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
@@ -374,5 +376,41 @@ public class WTTest {
             }
         });
         activity.showText("111111");
+    }
+
+    @Run(name = "registerReceiver")
+    public void run1(CodeActivity activity) {
+        IntentFilter intentFilter = new IntentFilter();
+        intentFilter.addAction("com.wt.test1");
+        intentFilter.addAction("com.wt.test2");
+        activity.registerReceiver(new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                switch (intent.getAction()) {
+                    case "com.wt.test1":
+                        Intent i = new Intent("com.wt.peter");
+                        activity.sendBroadcast(i);
+                        break;
+                    case "com.wt.test2":
+                        i = new Intent("com.wt.peter1");
+                        activity.sendOrderedBroadcast(i, null);
+                        break;
+                }
+            }
+        }, intentFilter);
+
+        activity.registerReceiver(new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                Log.i("peter", "registerReceiver>>>>>>>>>>>>>>>>>>>>>>");
+            }
+        }, new IntentFilter("com.wt.peter"));
+
+        activity.registerReceiver(new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                Log.i("peter", "registerReceiver1>>>>>>>>>>>>>>>>>>>>>>");
+            }
+        }, new IntentFilter("com.wt.peter1"));
     }
 }

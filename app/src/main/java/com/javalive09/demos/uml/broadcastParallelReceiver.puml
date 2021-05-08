@@ -1,0 +1,128 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+box "App" #Light
+participant Activity
+participant ContextImpl
+participant ActivityThread
+participant Instrumentation
+participant Application
+participant Service
+participant LoadedApk
+participant ReceiverDispatcher
+participant ReceiverDispatcher_InnerReceiver
+participant Args
+participant BroadcastReceiver
+end box
+
+box "Binder" #Light
+participant IActivityManager
+participant IApplicationThread
+end box
+
+box "AMS" #Light
+participant ActivityManagerService
+participant ReceiverList
+participant BroadcastFilter
+participant BroadcastRecord
+participant BroadcastQueue
+end box
+
+
+
+autonumber
+
+Activity -> Activity: registerReceiver()
+activate Activity
+Activity --> ContextImpl: registerReceiver()
+activate ContextImpl
+ContextImpl --> ContextImpl: registerReceiverInternal()
+activate ContextImpl
+ContextImpl --> LoadedApk: getReceiverDispatcher()
+activate LoadedApk
+LoadedApk --> ReceiverDispatcher: new()
+activate ReceiverDispatcher
+ReceiverDispatcher --> ReceiverDispatcher_InnerReceiver: new()
+activate ReceiverDispatcher_InnerReceiver
+deactivate ReceiverDispatcher_InnerReceiver
+ReceiverDispatcher --> IActivityManager: registerReceiver()
+activate IActivityManager
+deactivate IActivityManager
+deactivate ReceiverDispatcher
+deactivate LoadedApk
+deactivate ContextImpl
+deactivate ContextImpl
+deactivate Activity
+
+IActivityManager --> ActivityManagerService: registerReceiver()
+activate ActivityManagerService
+ActivityManagerService --> ReceiverList: new()
+activate ReceiverList
+deactivate ReceiverList
+ActivityManagerService --> BroadcastFilter: new()
+activate BroadcastFilter
+deactivate BroadcastFilter
+deactivate ActivityManagerService
+
+Activity -> Activity:sendBroadcast()
+activate Activity
+Activity -> ContextImpl:sendBroadcast()
+activate ContextImpl
+ContextImpl -> IActivityManager:broadcastIntent()
+activate IActivityManager
+deactivate IActivityManager
+deactivate ContextImpl
+deactivate Activity
+IActivityManager -> ActivityManagerService:broadcastIntent()
+activate ActivityManagerService
+ActivityManagerService -> ActivityManagerService:broadcastIntentLocked()
+activate ActivityManagerService
+ActivityManagerService -> ActivityManagerService:broadcastQueueForIntent()
+activate ActivityManagerService
+deactivate ActivityManagerService
+ActivityManagerService -> BroadcastRecord:new()
+activate BroadcastRecord
+deactivate BroadcastRecord
+ActivityManagerService -> BroadcastQueue:enqueueParallelBroadcastLocked()
+activate BroadcastQueue
+deactivate BroadcastQueue
+ActivityManagerService -> BroadcastQueue:scheduleBroadcastsLocked()
+activate BroadcastQueue
+deactivate BroadcastQueue
+deactivate ActivityManagerService
+deactivate ActivityManagerService
+BroadcastQueue -> BroadcastQueue:processNextBroadcast()
+activate BroadcastQueue
+BroadcastQueue -> BroadcastQueue:processNextBroadcastLocked()
+activate BroadcastQueue
+BroadcastQueue -> BroadcastQueue:deliverToRegisteredReceiverLocked()
+activate BroadcastQueue
+BroadcastQueue -> BroadcastQueue:performReceiveLocked()
+activate BroadcastQueue
+BroadcastQueue -> IApplicationThread:scheduleRegisteredReceiver()
+activate IApplicationThread
+deactivate IApplicationThread
+deactivate BroadcastQueue
+deactivate BroadcastQueue
+deactivate BroadcastQueue
+deactivate BroadcastQueue
+IApplicationThread -> ReceiverDispatcher_InnerReceiver:performReceive()
+activate ReceiverDispatcher_InnerReceiver
+ReceiverDispatcher_InnerReceiver -> ReceiverDispatcher:performReceive()
+activate ReceiverDispatcher
+ReceiverDispatcher -> Args:new()
+activate Args
+deactivate Args
+ReceiverDispatcher -> Args:getRunnable()
+activate Args
+Args -> BroadcastReceiver:onReceive()
+activate BroadcastReceiver
+deactivate BroadcastReceiver
+deactivate Args
+ReceiverDispatcher -> BroadcastReceiver:finish()
+activate BroadcastReceiver
+deactivate BroadcastReceiver
+deactivate ReceiverDispatcher
+deactivate ReceiverDispatcher_InnerReceiver
+
+@enduml

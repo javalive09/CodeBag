@@ -3,6 +3,7 @@ package com.javalive09.demos;
 import com.javalive09.annotation.Run;
 import com.javalive09.codebag.CodeActivity;
 
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
@@ -15,7 +16,12 @@ public class Battery {
 
     private boolean isValidBatterys(Context mContext) {
         Intent batteryInfoIntent = mContext.getApplicationContext()
-                .registerReceiver(null, new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
+                .registerReceiver(new BroadcastReceiver() {
+                    @Override
+                    public void onReceive(Context context, Intent intent) {
+                        Log.i("peter", "isValidBatterys=" + intent.toString());
+                    }
+                }, new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
         if (batteryInfoIntent != null) {
             int level = batteryInfoIntent.getIntExtra("level", 0);
             int scale = batteryInfoIntent.getIntExtra("scale", 0);
