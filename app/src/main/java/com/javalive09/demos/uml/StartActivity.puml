@@ -20,6 +20,8 @@ participant RuntimeInit
 participant ZygoteConnection_App
 participant ClientTransaction_App
 participant MessageQueue_IdleHandler
+participant ContextImpl
+participant LoadedApk
 end box
 
 box "Binder" #Light
@@ -708,6 +710,19 @@ LaunchActivityItem -> ActivityThread:handleLaunchActivity()
 activate ActivityThread
 ActivityThread -> ActivityThread:performLaunchActivity()
 activate ActivityThread
+ActivityThread -> ActivityThread:createBaseContextForActivity()
+activate ActivityThread
+ActivityThread -> ContextImpl:createActivityContext()
+activate ContextImpl
+deactivate ContextImpl
+deactivate ActivityThread
+ActivityThread -> LoadedApk:makeApplication()
+activate LoadedApk
+deactivate LoadedApk
+ActivityThread -> Activity:attach()
+activate Activity
+deactivate Activity
+
 ActivityThread -> Instrumentation:callActivityOnCreate()
 activate Instrumentation
 Instrumentation -> Activity:performCreate()

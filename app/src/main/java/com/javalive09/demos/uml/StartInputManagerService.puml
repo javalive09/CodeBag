@@ -1,0 +1,88 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+autonumber
+
+SystemServer.java -> SystemServer.java: main()
+activate SystemServer.java
+SystemServer.java --> SystemServer.java: run()
+activate SystemServer.java
+SystemServer.java --> SystemServer.java: startOtherServices()
+activate SystemServer.java
+SystemServer.java --> InputManagerService.java: new()
+activate InputManagerService.java
+InputManagerService.java --> InputManagerService.java: nativeInit()
+activate InputManagerService.java
+InputManagerService.java --> com_android_server_input_InputManagerService.cpp: nativeInit()
+activate com_android_server_input_InputManagerService.cpp
+com_android_server_input_InputManagerService.cpp --> NativeInputManager.cpp: new()
+activate NativeInputManager.cpp
+NativeInputManager.cpp --> EventHub.cpp: new()
+activate EventHub.cpp
+
+EventHub.cpp --> EventHub.cpp: epoll_create()
+activate EventHub.cpp
+deactivate EventHub.cpp
+EventHub.cpp --> EventHub.cpp: inotify_init()
+activate EventHub.cpp
+deactivate EventHub.cpp
+EventHub.cpp --> EventHub.cpp: inotify_add_watch()
+activate EventHub.cpp
+deactivate EventHub.cpp
+note right: DEVICE_PATH = "/dev/input"
+EventHub.cpp --> EventHub.cpp: pipe()
+activate EventHub.cpp
+deactivate EventHub.cpp
+note right: 创建管道
+EventHub.cpp --> EventHub.cpp: epoll_ctl()
+activate EventHub.cpp
+deactivate EventHub.cpp
+deactivate EventHub.cpp
+
+NativeInputManager.cpp --> InputManager.cpp: new()
+activate InputManager.cpp
+InputManager.cpp --> InputDispatcher.cpp: new()
+activate InputDispatcher.cpp
+deactivate InputDispatcher.cpp
+InputManager.cpp --> InputReader.cpp: new()
+activate InputReader.cpp
+InputReader.cpp --> QueuedInputListener.cpp: new()
+activate QueuedInputListener.cpp
+deactivate QueuedInputListener.cpp
+deactivate InputReader.cpp
+
+InputManager.cpp --> InputManager.cpp: initialize()
+activate InputManager.cpp
+InputManager.cpp --> InputReaderThread.cpp: new()
+activate InputReaderThread.cpp
+deactivate InputReaderThread.cpp
+InputManager.cpp --> InputDispatcherThread.cpp: new()
+activate InputDispatcherThread.cpp
+deactivate InputDispatcherThread.cpp
+deactivate InputManager.cpp
+deactivate InputManager.cpp
+deactivate NativeInputManager.cpp
+deactivate com_android_server_input_InputManagerService.cpp
+
+deactivate InputManagerService.java
+deactivate InputManagerService.java
+
+SystemServer.java --> InputManagerService.java: start()
+activate InputManagerService.java
+InputManagerService.java --> InputManagerService.java: nativeStart()
+activate InputManagerService.java
+InputManagerService.java --> com_android_server_input_InputManagerService.cpp: nativeStart()
+activate com_android_server_input_InputManagerService.cpp
+com_android_server_input_InputManagerService.cpp --> InputManager.cpp: start()
+activate InputManager.cpp
+InputManager.cpp --> InputDispatcherThread.cpp: run()
+activate InputDispatcherThread.cpp
+deactivate InputDispatcherThread.cpp
+note right:启动线程InputDispatcher
+InputManager.cpp --> InputReaderThread.cpp: run()
+activate InputReaderThread.cpp
+deactivate InputReaderThread.cpp
+note right:启动线程InputReader
+
+
+@enduml

@@ -5,6 +5,7 @@ import android.app.Dialog;
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
+import android.app.Presentation;
 import android.app.UiModeManager;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
@@ -16,6 +17,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.hardware.display.DisplayManager;
+import android.hardware.display.VirtualDisplay;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -27,6 +29,9 @@ import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Display;
 import android.view.Gravity;
+import android.view.Surface;
+import android.view.SurfaceHolder;
+import android.view.SurfaceView;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -42,11 +47,8 @@ import com.javalive09.codebag.CodeActivity;
 
 import org.joor.Reflect;
 
-import java.io.File;
 import java.lang.reflect.Field;
-import java.lang.reflect.Method;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -193,7 +195,7 @@ public class WTTest {
         mNotification = new Notification.Builder(mContext, channel_id)
                 .setSmallIcon(R.drawable.ic_light)
                 .setLargeIcon(BitmapFactory.decodeResource(mContext.getResources(),
-                        R.drawable.image_demo))
+                        R.drawable.image_heigh))
                 .setContentTitle(mContext.getString(R.string.app_name))
                 .setAutoCancel(true)
                 .setCustomContentView(rv)
@@ -418,5 +420,98 @@ public class WTTest {
                 Log.i("peter", "registerReceiver1>>>>>>>>>>>>>>>>>>>>>>");
             }
         }, new IntentFilter("com.wt.peter1"));
+
+        activity.registerReceiver(new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                Log.i("peter", "registerReceiver2>>>>>>>>>>>>>>>>>>>>>>");
+            }
+        }, new IntentFilter("com.wt.peter1"));
+
+        activity.registerReceiver(new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                Log.i("peter", "registerReceiver2>>>>>>>>>>>>>>>>>>>>>>");
+            }
+        }, new IntentFilter("com.wt.peter1"));
+
     }
+
+    @Run
+    public void LongShow(CodeActivity activity) {
+        activity.showText("min=" + Long.MIN_VALUE);
+    }
+
+    @Run
+    public void startLauncher(CodeActivity activity) {
+
+        activity.registerReceiver(new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent1) {
+                Intent intent = new Intent();
+                intent.setComponent(new ComponentName("com.wt.launcher3", "com.wt.launcher3.MainActivity"));
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK).addFlags(Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED);
+                activity.startActivity(intent);
+            }
+        }, new IntentFilter("com.peter.start"));
+
+
+    }
+    @Run
+    public void startLauncher1(CodeActivity activity) {
+
+        activity.registerReceiver(new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent1) {
+                Intent intent = new Intent();
+
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK).addFlags(Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED);
+                activity.startActivity(intent);
+            }
+        }, new IntentFilter("com.peter.start1"));
+
+
+    }
+
+    @Run
+    public void testVirtualDisplay(CodeActivity activity) {
+        SurfaceView mSurfaceView = new SurfaceView(activity);
+
+        mSurfaceView.getHolder().addCallback(new SurfaceHolder.Callback() {
+            @Override
+            public void surfaceCreated(SurfaceHolder holder) {
+                createPresentation(activity, holder.getSurface(), 1920, 720);
+            }
+
+            @Override
+            public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
+
+            }
+
+            @Override
+            public void surfaceDestroyed(SurfaceHolder holder) {
+
+            }
+        });
+        activity.setContentView(mSurfaceView);
+    }
+
+    private void createPresentation(CodeActivity mActivity, final Surface surface, final int width,
+                                    final int height) {
+        DisplayManager displayManager =
+                (DisplayManager) mActivity.getSystemService(Context.DISPLAY_SERVICE);
+        VirtualDisplay mVirtualDisplay = displayManager.createVirtualDisplay("localFocusTest",
+                width, height, 300, surface, 0);
+        Presentation presentation = new Presentation(mActivity, mVirtualDisplay.getDisplay()) {
+            protected void onCreate(Bundle savedInstanceState) {
+                ImageView imageView = new ImageView(mActivity);
+                imageView.setImageResource(R.drawable.image_heigh);
+                setContentView(imageView);
+            }
+        };
+
+        presentation.show();
+    }
+
+
 }

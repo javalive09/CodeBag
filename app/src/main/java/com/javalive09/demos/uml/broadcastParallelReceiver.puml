@@ -34,6 +34,7 @@ autonumber
 
 Activity -> Activity: registerReceiver()
 activate Activity
+note left: FLAG_RECEIVER_REGISTERED_ONLY 只允许动态注册的广播接收
 Activity --> ContextImpl: registerReceiver()
 activate ContextImpl
 ContextImpl --> ContextImpl: registerReceiverInternal()

@@ -1,0 +1,32 @@
+@startuml
+'https://plantuml.com/class-diagram
+skinparam groupInheritance 5
+
+abstract class Context
+class ContextWrapper {
+Context mBase
+}
+class ContextImpl {
+    Context mOuterContext
+    LoadedApk mPackageInfo
+}
+class ReceiverRestrictedContext
+class Service
+class ContextThemeWrapper
+class LoadedApk {
+Application mApplication
+}
+
+Context <|-- ContextWrapper
+Context <|-- ContextImpl
+
+ContextWrapper <|-- ReceiverRestrictedContext
+ContextWrapper <|-- Service
+ContextWrapper <|-- ContextThemeWrapper
+ContextThemeWrapper <|-- Activity
+ContextWrapper <|-- Application
+ContextWrapper "1" -left->  ContextImpl
+ContextImpl "1" -->  LoadedApk
+Application <-left- LoadedApk
+
+@enduml

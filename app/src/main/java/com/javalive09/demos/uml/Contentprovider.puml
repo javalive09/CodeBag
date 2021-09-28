@@ -1,0 +1,137 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+box "App" #LightYellow
+participant Activity
+participant ContextImpl
+participant ApplicationContentResolver
+participant ActivityThread
+participant ZygoteInit
+participant RuntimeInit
+participant MethodAndArgsCaller
+participant ContentProvider
+
+end box
+
+box "Binder" #Light
+participant IActivityManager
+participant IApplicationThread
+end box
+
+box "AMS" #LightYellow
+participant ActivityManagerService
+participant Process
+participant ZygoteProcess
+end box
+
+box "Zygote" #Light
+participant ZygoteConnection
+participant Zygote
+end box
+
+
+Activity -> ContextImpl: getContentResolver()
+activate ContextImpl
+deactivate ContextImpl
+Activity -> ApplicationContentResolver: call()
+activate ApplicationContentResolver
+ApplicationContentResolver -> ApplicationContentResolver: acquireProvider()
+activate ApplicationContentResolver
+ApplicationContentResolver -> ActivityThread: acquireProvider()
+activate ActivityThread
+ActivityThread -> ActivityThread: acquireExistingProvider()
+activate ActivityThread
+deactivate ActivityThread
+ActivityThread -> IActivityManager: getContentProvider()
+activate IActivityManager
+deactivate IActivityManager
+IActivityManager -> ActivityManagerService: getContentProvider()
+activate ActivityManagerService
+ActivityManagerService -> ActivityManagerService: getContentProviderImpl()
+activate ActivityManagerService
+ActivityManagerService --> ActivityManagerService: startProcess()
+activate ActivityManagerService
+ActivityManagerService --> Process: start()
+activate Process
+Process --> ZygoteProcess: start()
+activate ZygoteProcess
+ZygoteProcess --> ZygoteProcess: startViaZygote()
+activate ZygoteProcess
+ZygoteProcess --> ZygoteProcess: zygoteSendArgsAndGetResult()
+activate ZygoteProcess
+deactivate ZygoteProcess
+deactivate ZygoteProcess
+deactivate ZygoteProcess
+deactivate Process
+deactivate ActivityManagerService
+deactivate ActivityManagerService
+deactivate ActivityManagerService
+
+
+ZygoteProcess --> ZygoteConnection: processOneCommand()
+activate ZygoteConnection
+ZygoteConnection --> Zygote: forkAndSpecialize()
+activate Zygote
+deactivate Zygote
+ZygoteConnection --> ZygoteConnection: handleChildProc()
+activate ZygoteConnection
+ZygoteConnection --> ZygoteInit: childZygoteInit()
+activate ZygoteInit
+ZygoteInit --> RuntimeInit: findStaticMain()
+activate RuntimeInit
+RuntimeInit --> MethodAndArgsCaller: new()
+activate MethodAndArgsCaller
+deactivate MethodAndArgsCaller
+RuntimeInit --> MethodAndArgsCaller: run()
+activate MethodAndArgsCaller
+MethodAndArgsCaller --> ActivityThread: main()
+activate ActivityThread
+ActivityThread --> ActivityThread: attach()
+activate ActivityThread
+ActivityThread --> IActivityManager: attachApplication()
+activate IActivityManager
+deactivate IActivityManager
+deactivate MethodAndArgsCaller
+deactivate RuntimeInit
+deactivate ZygoteInit
+deactivate ActivityThread
+deactivate ActivityThread
+deactivate ZygoteConnection
+deactivate ZygoteConnection
+
+IActivityManager --> ActivityManagerService: attachApplication()
+activate ActivityManagerService
+ActivityManagerService --> ActivityManagerService: attachApplicationLocked()
+activate ActivityManagerService
+note right: mHandler.sendMessageDelayed(msg, CONTENT_PROVIDER_PUBLISH_TIMEOUT); 埋雷10s
+ActivityManagerService --> IApplicationThread: bindApplication()
+activate IApplicationThread
+deactivate IApplicationThread
+deactivate ActivityManagerService
+deactivate ActivityManagerService
+
+IApplicationThread --> ActivityThread: handleBindApplication()
+activate ActivityThread
+ActivityThread -> ActivityThread: installContentProviders()
+activate ActivityThread
+ActivityThread -> ActivityThread: installProvider()
+activate ActivityThread
+ActivityThread -> ActivityThread: new ContentProvider()
+activate ActivityThread
+ActivityThread -> ContentProvider: attachInfo()
+activate ContentProvider
+ContentProvider -> ContentProvider: onCreate()
+activate ContentProvider
+deactivate ContentProvider
+deactivate ContentProvider
+
+deactivate ActivityThread
+deactivate ActivityThread
+ActivityThread -> ActivityThread: publishContentProviders()
+activate ActivityThread
+ActivityThread -> IActivityManager: publishContentProviders()
+activate ActivityThread
+note right: mHandler.removeMessages(CONTENT_PROVIDER_PUBLISH_TIMEOUT_MSG, r); 拆雷
+
+
+@enduml

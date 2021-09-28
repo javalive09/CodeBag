@@ -146,6 +146,31 @@ public class IOTest {
         writeToFile("filexxx", requestFile);
         activity.showText("dir=" + requestFile.getAbsolutePath());
     }
+    @Run(name = "file path 写文件\n 目录:SDCard/Android/data/<package name>/files")
+    public void sdcard_write_file2(CodeActivity activity) {
+        if (!isExternalStorageWritable()) {
+            return;
+        }
+        String transferFile = "file2.txt";
+        File extDir = new File("/sdcard/Android/data/com.javalive09.demos/files");
+        File requestFile = new File(extDir, transferFile);
+        requestFile.setReadable(true, false);
+        writeToFile("file2xxx", requestFile);
+        activity.showText("dir=" + requestFile.getAbsolutePath());
+    }
+
+    @Run(name = "file path 写文件\n 目录:SDCard/Android/data/<package name>/files")
+    public void sdcard_write_file3(CodeActivity activity) {
+        if (!isExternalStorageWritable()) {
+            return;
+        }
+        String transferFile = "file3.txt";
+        File extDir = new File("/sdcard/");
+        File requestFile = new File(extDir, transferFile);
+        requestFile.setReadable(true, false);
+        writeToFile("file3xxx", requestFile);
+        activity.showText("dir=" + requestFile.getAbsolutePath());
+    }
 
     @Run(name = "context.getExternalFilesDir()读文件\n 目录:SDCard/Android/data/<package name>/files")
     public void sdcard_read_file_str(CodeActivity activity) {

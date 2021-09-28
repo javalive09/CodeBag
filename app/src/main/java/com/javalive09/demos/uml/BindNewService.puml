@@ -1,9 +1,7 @@
 @startuml
 'https://plantuml.com/sequence-diagram
 
-autonumber
-
-box "App" #Light
+box "App" #LightYellow
 participant Activity
 participant ContextImpl
 participant LoadedApk
@@ -15,13 +13,33 @@ participant ServiceConnection
 participant DeathMonitor
 participant Instrumentation
 participant Application
+participant ZygoteInit
+participant RuntimeInit
+participant MethodAndArgsCaller
+participant IServiceConnection
 end box
 
 box "Binder" #Light
-participant IActivityManager
 participant IApplicationThread
-participant IServiceConnection
+participant IActivityManager
 end box
+
+box "AMS" #LightYellow
+participant ActivityManagerService
+participant ActivityStack
+participant ActiveServices
+participant ConnectionRecord
+participant Process
+participant ZygoteProcess
+end box
+
+box "Zygote" #Light
+participant ZygoteConnection
+participant Zygote
+end box
+
+
+
 
 Activity -> Activity: bindService()
 activate Activity
@@ -38,7 +56,6 @@ activate InnerConnection
 deactivate InnerConnection
 deactivate ServiceDispatcher
 deactivate LoadedApk
-
 
 
 ContextImpl --> IActivityManager: bindService()
@@ -110,6 +127,8 @@ deactivate ActivityThread
 deactivate RuntimeInit
 deactivate ZygoteInit
 deactivate MethodAndArgsCaller
+deactivate ZygoteConnection
+deactivate ZygoteConnection
 
 IActivityManager --> ActivityManagerService: attachApplication()
 activate ActivityManagerService
@@ -147,7 +166,7 @@ ActiveServices --> ActiveServices: bumpServiceExecutingLocked("create")
 activate ActiveServices
 ActiveServices --> ActiveServices: scheduleServiceTimeoutLocked()
 activate ActiveServices
-note right: anr埋雷
+note right: anr 埋雷 fg ? 20s : 200s
 ActiveServices --> IApplicationThread: scheduleCreateService()
 activate IApplicationThread
 deactivate IApplicationThread

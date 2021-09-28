@@ -3,7 +3,7 @@
 
 autonumber
 
-box "App" #Light
+box "App" #LightYellow
 participant Activity
 participant ContextImpl
 participant LoadedApk
@@ -19,6 +19,12 @@ box "Binder" #Light
 participant IActivityManager
 participant IApplicationThread
 participant IServiceConnection
+end box
+
+box "AMS" #LightYellow
+participant ActivityManagerService
+participant ActiveServices
+participant ConnectionRecord
 end box
 
 Activity -> Activity: bindService()

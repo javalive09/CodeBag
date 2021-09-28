@@ -26,9 +26,6 @@ import android.os.MessageQueue;
 import android.os.PowerManager;
 import android.os.SystemClock;
 import android.provider.Settings;
-import android.text.Spannable;
-import android.text.SpannableStringBuilder;
-import android.text.style.ForegroundColorSpan;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Gravity;
@@ -42,8 +39,6 @@ import android.webkit.WebView;
 import android.widget.FrameLayout;
 import android.widget.GridView;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
-import android.widget.SeekBar;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -51,7 +46,6 @@ import android.widget.Toast;
 import com.aigestudio.wheelpicker.WheelPicker;
 import com.javalive09.codebag.CodeActivity;
 import com.javalive09.annotation.Run;
-import com.javalive09.annotation.Code;
 import com.javalive09.demos.activity.PostActivity;
 import com.javalive09.demos.view.AbcPicker;
 import com.javalive09.demos.view.ArcView;
@@ -158,119 +152,68 @@ public class ViewTest {
 
     @Run(name = "ScaleType.CENTER\n按图片的原来size居中显示(不进行压缩，放大处理)，当图片长/宽超过View的长/宽，则截取图片的居中部分显示， 原图剪切效果")
     public void show_Big__ScaleType_CENTER(CodeActivity activity) {
-        ImageView iv = new ImageView(activity);
-        iv.setImageResource(R.drawable.image_demo);
-        iv.setScaleType(ImageView.ScaleType.CENTER);
-        iv.setBackgroundColor(Color.WHITE);
-        activity.setContentView(iv);
-    }
-
-    @Run
-    public void show_small__ScaleType_CENTER(CodeActivity activity) {
-        ImageView iv = new ImageView(activity);
-        iv.setImageResource(R.drawable.vimeo_button);
-        iv.setScaleType(ImageView.ScaleType.CENTER);
-        iv.setBackgroundColor(Color.WHITE);
-        activity.setContentView(iv);
+        showImageViews(activity, ImageView.ScaleType.CENTER);
     }
 
     @Run(name = "ScaleType.CENTER_CROP\n按比例扩大图片的size居中显示(放大处理)，使得图片长 (宽)等于或大于View的长(宽), 原图放大填充效果")
     public void show_Big__ScaleType_CENTER_CROP(CodeActivity activity) {
-        ImageView iv = new ImageView(activity);
-        iv.setImageResource(R.drawable.image_demo);
-        iv.setScaleType(ImageView.ScaleType.CENTER_CROP);
-        iv.setBackgroundColor(Color.WHITE);
-        activity.setContentView(iv);
+        showImageViews(activity, ImageView.ScaleType.CENTER_CROP);
     }
 
-    @Run
-    public void show_small__ScaleType_CENTER_CROP(CodeActivity activity) {
+    private void showImageViews(CodeActivity activity, ImageView.ScaleType scaleType) {
+        FrameLayout frameLayout = new FrameLayout(activity);
         ImageView iv = new ImageView(activity);
-        iv.setImageResource(R.drawable.vimeo_button);
-        iv.setScaleType(ImageView.ScaleType.CENTER_CROP);
-        iv.setBackgroundColor(Color.WHITE);
-        activity.setContentView(iv);
+        iv.setImageResource(R.drawable.image_wide);
+        iv.setScaleType(scaleType);
+        iv.setBackgroundColor(Color.BLUE);
+        FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(300, 300);
+        layoutParams.gravity = Gravity.CENTER| Gravity.START;
+        layoutParams.leftMargin= 20;
+        frameLayout.addView(iv, layoutParams);
+
+        ImageView iv1 = new ImageView(activity);
+        iv1.setImageResource(R.drawable.image_heigh);
+        iv1.setScaleType(scaleType);
+        iv1.setBackgroundColor(Color.BLUE);
+        FrameLayout.LayoutParams layoutParams1 = new FrameLayout.LayoutParams(300, 300);
+        layoutParams1.gravity = Gravity.CENTER;
+        frameLayout.addView(iv1, layoutParams1);
+
+        ImageView iv2 = new ImageView(activity);
+        iv2.setImageResource(R.drawable.vimeo_button);
+        iv2.setScaleType(scaleType);
+        iv2.setBackgroundColor(Color.BLUE);
+        FrameLayout.LayoutParams layoutParams2 = new FrameLayout.LayoutParams(300, 300);
+        layoutParams2.gravity = Gravity.CENTER|Gravity.END;
+        layoutParams2.rightMargin = 20;
+        frameLayout.addView(iv2, layoutParams2);
+
+        activity.setContentView(frameLayout);
     }
 
     @Run(name = "ScaleType.CENTER_INSIDE\n将图片的内容完整居中显示，通过按比例缩小或原来的size使得图片长(宽)等于或小于View的长(宽)， 原图压缩效果")
     public void show_Big__ScaleType_CENTER_INSIDE(CodeActivity activity) {
-        ImageView iv = new ImageView(activity);
-        iv.setImageResource(R.drawable.image_demo);
-        iv.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
-        iv.setBackgroundColor(Color.WHITE);
-        activity.setContentView(iv);
+        showImageViews(activity, ImageView.ScaleType.CENTER_INSIDE);
     }
 
-    @Run
-    public void show_small__ScaleType_CENTER_INSIDE(CodeActivity activity) {
-        ImageView iv = new ImageView(activity);
-        iv.setImageResource(R.drawable.vimeo_button);
-        iv.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
-        iv.setBackgroundColor(Color.WHITE);
-        activity.setContentView(iv);
-    }
-
-    @Run(name = "ScaleType.FIT_CENTER 把图片按比例扩大(缩小)到View的宽度，居中显示， 原图安比例缩放，显示全部内容（不丢失内容信息）")
+    @Run(name = "ScaleType.FIT_CENTER 把图片按比例扩大(缩小)到View能装下的尺寸，居中显示， 原图安比例缩放，显示全部内容（不丢失内容信息）")
     public void show_Big__ScaleType_FIT_CENTER(CodeActivity activity) {
-        ImageView iv = new ImageView(activity);
-        iv.setImageResource(R.drawable.image_demo);
-        iv.setScaleType(ImageView.ScaleType.FIT_CENTER);
-        iv.setBackgroundColor(Color.WHITE);
-        activity.setContentView(iv);
+        showImageViews(activity, ImageView.ScaleType.FIT_CENTER);
     }
 
-    @Run
-    public void show_small__ScaleType_FIT_CENTER(CodeActivity activity) {
-        ImageView iv = new ImageView(activity);
-        iv.setImageResource(R.drawable.vimeo_button);
-        iv.setScaleType(ImageView.ScaleType.FIT_CENTER);
-        iv.setBackgroundColor(Color.WHITE);
-        activity.setContentView(iv);
-    }
-
-    @Run(name = "ScaleType.FIT_START\n把图片按比例扩大(缩小)到View的宽度，显示在View的上／左部分位置，原图安比例缩放，显示全部内容（不丢失内容信息）")
+    @Run(name = "ScaleType.FIT_START\n把图片按比例扩大(缩小)到View能装下的尺寸，显示在View的上／左部分位置，原图安比例缩放，显示全部内容（不丢失内容信息）")
     public void show_Big__ScaleType_FIT_START(CodeActivity activity) {
-        ImageView iv = new ImageView(activity);
-        iv.setImageResource(R.drawable.image_demo);
-        iv.setScaleType(ImageView.ScaleType.FIT_START);
-        iv.setBackgroundColor(Color.WHITE);
-        activity.setContentView(iv);
+        showImageViews(activity, ImageView.ScaleType.FIT_START);
     }
 
-    @Run
-    public void show_small__ScaleType_FIT_START(CodeActivity activity) {
-        ImageView iv = new ImageView(activity);
-        iv.setImageResource(R.drawable.vimeo_button);
-        iv.setScaleType(ImageView.ScaleType.FIT_START);
-        iv.setBackgroundColor(Color.WHITE);
-        activity.setContentView(iv);
-    }
-
-    @Run(name = "ScaleType.FIT_END\n把图片按比例扩大(缩小)到View的宽度，显示在View的下／右部分位置，原图安比例（填充view最小边）缩放，显示全部内容（不丢失内容信息)")
+    @Run(name = "ScaleType.FIT_END\n把图片按比例扩大(缩小)到View能装下的尺寸，显示在View的下／右部分位置，原图安比例（填充view最小边）缩放，显示全部内容（不丢失内容信息)")
     public void show_Big__ScaleType_FIT_END(CodeActivity activity) {
-        ImageView iv = new ImageView(activity);
-        iv.setImageResource(R.drawable.image_demo);
-        iv.setBackgroundColor(Color.WHITE);
-        iv.setScaleType(ImageView.ScaleType.FIT_END);
-        activity.setContentView(iv);
+        showImageViews(activity, ImageView.ScaleType.FIT_END);
     }
 
-    @Run
-    public void show_small__ScaleType_FIT_END(CodeActivity activity) {
-        ImageView iv = new ImageView(activity);
-        iv.setImageResource(R.drawable.vimeo_button);
-        iv.setScaleType(ImageView.ScaleType.FIT_END);
-        iv.setBackgroundColor(Color.WHITE);
-        activity.setContentView(iv);
-    }
-
-    @Run(name = "ScaleType.FIT_XY\n把图片按照指定的大小在View中显示，原图填充放大 ")
+    @Run(name = "ScaleType.FIT_XY\n把图片填充扩大(缩小)到View能装下的尺寸")
     public void show_Big__ScaleType_FIT_XY(CodeActivity activity) {
-        ImageView iv = new ImageView(activity);
-        iv.setImageResource(R.drawable.image_demo);
-        iv.setBackgroundColor(Color.WHITE);
-        iv.setScaleType(ImageView.ScaleType.FIT_XY);
-        activity.setContentView(iv);
+        showImageViews(activity, ImageView.ScaleType.FIT_XY);
     }
 
     @Run
@@ -285,7 +228,7 @@ public class ViewTest {
     @Run(name = "ScaleType.MATRIX 用matrix来绘制")
     public void show_Big__ScaleType_MATRIX(CodeActivity activity) {
         ImageView iv = new ImageView(activity);
-        iv.setImageResource(R.drawable.image_demo);
+        iv.setImageResource(R.drawable.image_heigh);
         iv.setScaleType(ImageView.ScaleType.MATRIX);
         iv.setBackgroundColor(Color.WHITE);
         activity.setContentView(iv);
@@ -829,7 +772,7 @@ public class ViewTest {
 
     @Run
     public void bindService(CodeActivity codeActivity) {
-        codeActivity.bindService(new Intent(codeActivity, MyService.class), new ServiceConnection() {
+        ServiceConnection serviceConnection = new ServiceConnection() {
             @Override
             public void onServiceConnected(ComponentName name, IBinder service) {
 
@@ -839,7 +782,15 @@ public class ViewTest {
             public void onServiceDisconnected(ComponentName name) {
 
             }
-        }, Context.BIND_AUTO_CREATE);
+        };
+        codeActivity.bindService(new Intent(codeActivity, MyService.class), serviceConnection, Context.BIND_AUTO_CREATE);
+
+        codeActivity.getWindow().getDecorView().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                codeActivity.unbindService(serviceConnection);
+            }
+        }, 10_000);
     }
 
     private static boolean click = false;
@@ -1123,4 +1074,5 @@ public class ViewTest {
         codeActivity.startService(new Intent(codeActivity, MyService.class));
         codeActivity.showText("startService");
     }
+
 }

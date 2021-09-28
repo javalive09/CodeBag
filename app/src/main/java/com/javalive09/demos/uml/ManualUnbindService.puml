@@ -1,0 +1,65 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+box "App" #LightYellow
+participant ActivityThread
+participant Service
+participant ContextImpl
+end box
+
+box "Binder" #Light
+participant IApplicationThread
+participant IActivityManager
+end box
+
+box "AMS" #LightYellow
+participant ActivityManagerService
+participant ActivityStack
+participant ActiveServices
+end box
+
+
+ContextImpl -> IActivityManager: unbindService()
+activate IActivityManager
+deactivate IActivityManager
+IActivityManager -> ActivityManagerService: unbindService()
+activate ActivityManagerService
+ActivityManagerService -> ActiveServices: unbindServiceLocked()
+activate ActiveServices
+ActiveServices -> ActiveServices: removeConnectionLocked()
+activate ActiveServices
+ActiveServices -> ActiveServices: bumpServiceExecutingLocked()
+activate ActiveServices
+ActiveServices -> ActiveServices: scheduleServiceTimeoutLocked()
+activate ActiveServices
+deactivate ActiveServices
+deactivate ActiveServices
+deactivate ActiveServices
+note right: anr 埋雷 fg ? 20s : 200s
+
+ActiveServices --> IApplicationThread: scheduleUnbindService
+activate IApplicationThread
+deactivate IApplicationThread
+deactivate ActiveServices
+deactivate ActivityManagerService
+
+IApplicationThread --> ActivityThread: handleUnbindService
+activate ActivityThread
+ActivityThread --> Service: onUnbind
+activate Service
+deactivate Service
+ActivityThread --> IActivityManager: serviceDoneExecuting
+activate IActivityManager
+deactivate IActivityManager
+deactivate ActivityThread
+IActivityManager --> ActivityManagerService: serviceDoneExecuting
+activate ActivityManagerService
+ActivityManagerService --> ActiveServices: serviceDoneExecutingLocked
+activate ActiveServices
+deactivate ActiveServices
+deactivate ActivityManagerService
+deactivate ActivityThread
+note right: anr 拆雷
+
+
+@enduml

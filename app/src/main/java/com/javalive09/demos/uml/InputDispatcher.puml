@@ -1,0 +1,133 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+autonumber
+
+InputDispatcher.cpp -> InputDispatcher.cpp: threadLoop()
+activate InputDispatcher.cpp
+InputDispatcher.cpp -> InputDispatcher.cpp: dispatchOnce()
+activate InputDispatcher.cpp
+InputDispatcher.cpp -> InputDispatcher.cpp: haveCommandsLocked()
+activate InputDispatcher.cpp
+deactivate InputDispatcher.cpp
+InputDispatcher.cpp -> InputDispatcher.cpp: dispatchOnceInnerLocked()
+activate InputDispatcher.cpp
+InputDispatcher.cpp -> Queue.cpp: dequeueAtHead()
+activate Queue.cpp
+deactivate Queue.cpp
+note right: 从mInboundQueue队列获取mPendingEvent
+InputDispatcher.cpp -> InputDispatcher.cpp: resetANRTimeoutsLocked()
+activate InputDispatcher.cpp
+deactivate InputDispatcher.cpp
+InputDispatcher.cpp -> InputDispatcher.cpp: dispatchMotionLocked()
+activate InputDispatcher.cpp
+InputDispatcher.cpp -> InputDispatcher.cpp: findTouchedWindowTargetsLocked()
+activate InputDispatcher.cpp
+note right:findTouchedWindowTargetsLocked()做了三件事:\n 1.根据窗口点击坐标和事件发生坐标选择合适的目标窗口(ZOrder由上至下遍历，ZOrder越靠上，优先权越高)\n 2.调用checkWindowReadyForMoreInputLocked()函数检查窗口是否可接收新的点击事件，如果无法接收，说明此窗口有可能发生ANR\n 3.如果找到可以接收新事件的窗口，则调用addWindowTargetLocked()生成InputTarget，并添加到inputTargets列表中
+
+InputDispatcher.cpp -> InputDispatcher.cpp: findTouchedWindowAtLocked()
+activate InputDispatcher.cpp
+note right: 找出windowHandle：\n1.visible \n2.touchable \n3.focusable
+InputDispatcher.cpp -> TouchState.cpp: addOrUpdateWindow()
+activate TouchState.cpp
+deactivate TouchState.cpp
+deactivate InputDispatcher.cpp
+InputDispatcher.cpp -> InputDispatcher.cpp: checkWindowReadyForMoreInputLocked()
+activate InputDispatcher.cpp
+deactivate InputDispatcher.cpp
+note right: 埋雷预警：\nreason: \n1.window is paused \n2.input channel is not registered \n3.connection not normal\n4.input channel is full\n5.window has not finished(currentTime > deliveryTime+0.5s)
+InputDispatcher.cpp -> InputDispatcher.cpp: handleTargetsNotReadyLocked()
+activate InputDispatcher.cpp
+note right:埋雷预警：mInputTargetWaitTimeoutTime=currentTime+5s
+InputDispatcher.cpp -> InputDispatcher.cpp: onANRLocked()
+activate InputDispatcher.cpp
+InputDispatcher.cpp -> InputDispatcher.cpp: postCommandLocked(doNotifyANRLockedInterruptible)
+activate InputDispatcher.cpp
+note right:开始埋雷：currentTime >= mInputTargetWaitTimeoutTime
+deactivate InputDispatcher.cpp
+deactivate InputDispatcher.cpp
+deactivate InputDispatcher.cpp
+
+InputDispatcher.cpp -> InputDispatcher.cpp: addWindowTargetLocked()
+activate InputDispatcher.cpp
+deactivate InputDispatcher.cpp
+InputDispatcher.cpp -> InputDispatcher.cpp: addMonitoringTargetLocked()
+activate InputDispatcher.cpp
+deactivate InputDispatcher.cpp
+deactivate InputDispatcher.cpp
+
+InputDispatcher.cpp -> InputDispatcher.cpp: addGlobalMonitoringTargetsLocked()
+activate InputDispatcher.cpp
+deactivate InputDispatcher.cpp
+
+InputDispatcher.cpp -> InputDispatcher.cpp: dispatchEventLocked()
+activate InputDispatcher.cpp
+
+InputDispatcher.cpp -> InputDispatcher.cpp: prepareDispatchCycleLocked()
+activate InputDispatcher.cpp
+
+InputDispatcher.cpp -> InputDispatcher.cpp: enqueueDispatchEntriesLocked()
+activate InputDispatcher.cpp
+
+InputDispatcher.cpp -> InputDispatcher.cpp: enqueueDispatchEntryLocked()
+activate InputDispatcher.cpp
+deactivate InputDispatcher.cpp
+note right: 将dispatchEvent加入outboundQueue对列：outboundQueue.enqueueAtTail()
+
+InputDispatcher.cpp -> InputDispatcher.cpp: startDispatchCycleLocked()
+activate InputDispatcher.cpp
+InputDispatcher.cpp -> InputPublisher.cpp: publishMotionEvent()
+activate InputPublisher.cpp
+deactivate InputPublisher.cpp
+InputDispatcher.cpp -> Queue.cpp: dequeue()
+activate Queue.cpp
+deactivate Queue.cpp
+note right: 将dispatchEvent移出outboundQueue对列： outboundQueue.dequeue()
+InputDispatcher.cpp -> Queue.cpp: enqueueAtTail()
+activate Queue.cpp
+deactivate Queue.cpp
+note right: 将dispatchEvent加入等待队列： waitQueue.enqueueAtTail()
+
+deactivate InputDispatcher.cpp
+deactivate InputDispatcher.cpp
+deactivate InputDispatcher.cpp
+deactivate InputDispatcher.cpp
+deactivate InputDispatcher.cpp
+deactivate InputDispatcher.cpp
+
+InputDispatcher.cpp -> InputDispatcher.cpp: releasePendingEventLocked()
+activate InputDispatcher.cpp
+deactivate InputDispatcher.cpp
+deactivate InputDispatcher.cpp
+
+
+InputDispatcher.cpp -> InputDispatcher.cpp: handleReceiveCallback()
+activate InputDispatcher.cpp
+InputDispatcher.cpp -> InputDispatcher.cpp: finishDispatchCycleLocked()
+activate InputDispatcher.cpp
+InputDispatcher.cpp -> InputDispatcher.cpp: onDispatchCycleFinishedLocked()
+activate InputDispatcher.cpp
+InputDispatcher.cpp -> InputDispatcher.cpp: doDispatchCycleFinishedLockedInterruptible()
+activate InputDispatcher.cpp
+note right:如果一个dispatch周期超过2秒，将打印警告信息
+InputDispatcher.cpp -> Queue.cpp: dequeue()
+activate Queue.cpp
+deactivate Queue.cpp
+deactivate InputDispatcher.cpp
+note right: 排雷: waitQueue.dequeue
+
+InputDispatcher.cpp -> InputDispatcher.cpp: startDispatchCycleLocked()
+activate InputDispatcher.cpp
+deactivate InputDispatcher.cpp
+deactivate InputDispatcher.cpp
+note right: 如果outBoundQueue中还有event则继续派发
+
+InputDispatcher.cpp -> InputDispatcher.cpp: runCommandsLockedInterruptible()
+activate InputDispatcher.cpp
+deactivate InputDispatcher.cpp
+
+
+
+
+
+@enduml

@@ -10,11 +10,30 @@ participant ActivityThread
 participant Instrumentation
 participant Application
 participant Service
+participant ZygoteInit
+participant RuntimeInit
+participant MethodAndArgsCaller
+
 end box
 
 box "Binder" #Light
 participant IActivityManager
 participant IApplicationThread
+end box
+
+
+box "AMS" #LightYellow
+participant ActivityManagerService
+participant ActivityStack
+participant ActiveServices
+participant ConnectionRecord
+participant Process
+participant ZygoteProcess
+end box
+
+box "Zygote" #Light
+participant ZygoteConnection
+participant Zygote
 end box
 
 Activity -> Activity: startService()
@@ -53,13 +72,26 @@ ZygoteProcess --> ZygoteProcess: startViaZygote()
 activate ZygoteProcess
 ZygoteProcess --> ZygoteProcess: zygoteSendArgsAndGetResult()
 activate ZygoteProcess
-ZygoteProcess --> ZygoteServer: processOneCommand()
-activate ZygoteServer
-ZygoteServer --> ZygoteServer: forkAndSpecialize()
-activate ZygoteServer
-ZygoteServer --> ZygoteServer: handleChildProc()
-activate ZygoteServer
-ZygoteServer --> ZygoteInit: childZygoteInit()
+deactivate ZygoteProcess
+deactivate ZygoteProcess
+deactivate ZygoteProcess
+deactivate Process
+deactivate ActiveServices
+deactivate ActiveServices
+deactivate ActiveServices
+deactivate ActivityManagerService
+deactivate ActivityManagerService
+deactivate ActivityManagerService
+
+
+ZygoteProcess --> ZygoteConnection: processOneCommand()
+activate ZygoteConnection
+ZygoteConnection --> Zygote: forkAndSpecialize()
+activate Zygote
+deactivate Zygote
+ZygoteConnection --> ZygoteConnection: handleChildProc()
+activate ZygoteConnection
+ZygoteConnection --> ZygoteInit: childZygoteInit()
 activate ZygoteInit
 ZygoteInit --> RuntimeInit: findStaticMain()
 activate RuntimeInit
@@ -76,9 +108,6 @@ deactivate ActivityManagerService
 deactivate MethodAndArgsCaller
 deactivate RuntimeInit
 deactivate ZygoteInit
-deactivate ZygoteServer
-deactivate ZygoteServer
-deactivate ZygoteServer
 deactivate ZygoteProcess
 deactivate ZygoteProcess
 deactivate ZygoteProcess
@@ -90,6 +119,8 @@ deactivate ActivityManagerService
 deactivate ActivityManagerService
 deactivate IActivityManager
 deactivate ActivityThread
+deactivate ZygoteConnection
+deactivate ZygoteConnection
 IActivityManager --> ActivityManagerService: attachApplication()
 activate ActivityManagerService
 ActivityManagerService --> ActivityManagerService: attachApplicationLocked()
@@ -123,12 +154,10 @@ activate ActiveServices
 ActiveServices --> ActiveServices: scheduleServiceTimeoutLocked()
 activate ActiveServices
 deactivate ActiveServices
-deactivate ActiveServices
 note right: anr 埋雷 fg ? 20s : 200s
 ActiveServices --> IApplicationThread: scheduleCreateService()
 activate IApplicationThread
 deactivate IApplicationThread
-deactivate ActiveServices
 deactivate ActiveServices
 IApplicationThread --> ActivityThread: handleCreateService()
 activate ActivityThread
@@ -155,9 +184,35 @@ IActivityManager --> ActivityManagerService: serviceDoneExecuting()
 activate ActivityManagerService
 ActivityManagerService --> ActiveServices: serviceDoneExecutingLocked()
 activate ActiveServices
+deactivate ActiveServices
+deactivate ActivityManagerService
 note right: anr拆雷
 
+ActiveServices --> ActiveServices: sendServiceArgsLocked()
+activate ActiveServices
 
+ActiveServices --> IApplicationThread: scheduleServiceArgs()
+activate IApplicationThread
+deactivate IApplicationThread
+deactivate ActivityManagerService
+deactivate ActiveServices
+deactivate ActiveServices
+deactivate ActiveServices
+
+IApplicationThread --> ActivityThread: handleServiceArgs()
+activate ActivityThread
+ActivityThread --> Service: onStartCommand()
+activate Service
+deactivate Service
+ActivityThread --> IActivityManager: serviceDoneExecuting()
+activate IActivityManager
+deactivate IActivityManager
+
+IActivityManager --> ActivityManagerService: serviceDoneExecuting()
+activate ActivityManagerService
+deactivate IActivityManager
+ActivityManagerService --> ActiveServices: serviceDoneExecutingLocked()
+activate ActiveServices
 
 
 @enduml

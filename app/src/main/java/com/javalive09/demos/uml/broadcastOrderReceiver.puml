@@ -147,7 +147,7 @@ BroadcastQueue -> BroadcastQueue:cancelBroadcastTimeoutLocked()
 activate BroadcastQueue
 note right: 有序广播receiver anr拆雷
 
-note left: anr 显示的条件:\n1. Settings.Secure.ANR_SHOW_BACKGROUND = 0\n2.1 system_server/n2.2 com.android.systemui\n2.3 ProcessRecord.hasOverlayUi/n2.4 ProcessRecord.hasTopUi\n2.5 displaying an activity
+note left: anr 显示的条件:\n1. Settings.Secure.ANR_SHOW_BACKGROUND = 0\n2.1 system_server\n2.2 com.android.systemui\n2.3 ProcessRecord.hasOverlayUi\n2.4 ProcessRecord.hasTopUi\n2.5 displaying an activity
 
 'BroadcastQueue -> BroadcastQueue:broadcastTimeoutLocked()
 'activate BroadcastQueue

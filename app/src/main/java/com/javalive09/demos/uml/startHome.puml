@@ -1,0 +1,23 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+autonumber
+
+ZygoteInit -> ZygoteInit: main()
+activate ZygoteInit
+ZygoteInit --> RuntimeInit_MethodAndArgsCaller: run()
+activate RuntimeInit_MethodAndArgsCaller
+RuntimeInit_MethodAndArgsCaller -> SystemServer: main()
+activate SystemServer
+SystemServer <-- SystemServer: run()
+activate SystemServer
+SystemServer <-- SystemServer: startOtherServices()
+activate SystemServer
+SystemServer <-- ActivityManagerService: systemReady()
+activate SystemServer
+ActivityManagerService <-- ActivityManagerService: startHomeActivityLocked()
+activate ActivityManagerService
+
+
+
+@enduml

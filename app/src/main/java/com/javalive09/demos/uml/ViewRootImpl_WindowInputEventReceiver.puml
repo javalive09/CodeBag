@@ -1,0 +1,31 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+autonumber
+
+InputDispatcher -> WindowInputEventReceiver: dispatchInputEvent
+activate WindowInputEventReceiver
+WindowInputEventReceiver -> WindowInputEventReceiver: dispatchInputEvent
+activate WindowInputEventReceiver
+WindowInputEventReceiver -> WindowInputEventReceiver: onInputEvent
+activate WindowInputEventReceiver
+WindowInputEventReceiver -> ViewRootImpl: enqueueInputEvent
+activate ViewRootImpl
+ViewRootImpl -> ViewRootImpl: doProcessInputEvents
+activate ViewRootImpl
+ViewRootImpl -> ViewRootImpl: deliverInputEvent
+activate ViewRootImpl
+ViewRootImpl -> InputStage: deliver
+activate InputStage
+deactivate InputStage
+ViewRootImpl -> ViewRootImpl: finishInputEvent
+activate ViewRootImpl
+ViewRootImpl -> WindowInputEventReceiver: finishInputEvent
+activate WindowInputEventReceiver
+WindowInputEventReceiver -> WindowInputEventReceiver: nativeFinishInputEvent
+activate WindowInputEventReceiver
+
+note right: deliverInputEvent
+
+
+@enduml

@@ -1,0 +1,38 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+
+class IInputForwarder {
+
+}
+class VirtualDisplay {
+
+}
+class Surface {
+
+}
+class SurfaceView {
+
+}
+class ActivityView {
+VirtualDisplay mVirtualDisplay
+SurfaceView mSurfaceView
+Surface mSurface
+IInputForwarder mInputForwarder
+public boolean onTouchEvent(MotionEvent event)
+}
+abstract class ViewGroup {
+
+}
+class View {
+
+}
+
+View <|-- ViewGroup
+ViewGroup <|-- ActivityView
+ActivityView --> SurfaceView
+ActivityView --> Surface
+ActivityView --> VirtualDisplay
+ActivityView --> IInputForwarder
+
+@enduml

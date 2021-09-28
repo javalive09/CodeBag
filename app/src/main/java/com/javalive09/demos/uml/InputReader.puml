@@ -1,0 +1,77 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+autonumber
+
+InputReader.cpp -> InputReader.cpp: threadLoop()
+activate InputReader.cpp
+InputReader.cpp -> InputReader.cpp: loopOnce()
+activate InputReader.cpp
+InputReader.cpp -> EventHub.cpp: getEvents()
+activate EventHub.cpp
+EventHub.cpp -> EventHub.cpp: scanDevicesLocked()
+activate EventHub.cpp
+deactivate EventHub.cpp
+EventHub.cpp -> EventHub.cpp: read()
+activate EventHub.cpp
+deactivate EventHub.cpp
+note right:从设备不断读取事件
+deactivate EventHub.cpp
+
+InputReader.cpp -> InputReader.cpp: processEventsLocked()
+activate InputReader.cpp
+InputReader.cpp -> InputReader.cpp: processEventsForDeviceLocked()
+activate InputReader.cpp
+
+InputReader.cpp -> InputDevice.cpp: process()
+activate InputDevice.cpp
+
+InputDevice.cpp -> MultiTouchInputMapper.cpp: process()
+activate MultiTouchInputMapper.cpp
+MultiTouchInputMapper.cpp -> TouchInputMapper.cpp: process()
+activate TouchInputMapper.cpp
+
+TouchInputMapper.cpp -> TouchInputMapper.cpp: sync()
+activate TouchInputMapper.cpp
+TouchInputMapper.cpp -> TouchInputMapper.cpp: processRawTouches()
+activate TouchInputMapper.cpp
+TouchInputMapper.cpp -> TouchInputMapper.cpp: cookAndDispatch()
+activate TouchInputMapper.cpp
+TouchInputMapper.cpp -> TouchInputMapper.cpp: dispatchTouches()
+activate TouchInputMapper.cpp
+TouchInputMapper.cpp -> TouchInputMapper.cpp: dispatchMotion()
+activate TouchInputMapper.cpp
+TouchInputMapper.cpp -> QueuedInputListener.cpp: notifyMotion()
+activate QueuedInputListener.cpp
+QueuedInputListener.cpp -> NotifyMotionArgs.cpp: new()
+activate NotifyMotionArgs.cpp
+deactivate NotifyMotionArgs.cpp
+QueuedInputListener.cpp -> vector.cpp: push_back()
+activate vector.cpp
+deactivate vector.cpp
+
+deactivate QueuedInputListener.cpp
+deactivate TouchInputMapper.cpp
+deactivate TouchInputMapper.cpp
+deactivate TouchInputMapper.cpp
+deactivate TouchInputMapper.cpp
+deactivate TouchInputMapper.cpp
+deactivate TouchInputMapper.cpp
+deactivate MultiTouchInputMapper.cpp
+deactivate InputDevice.cpp
+deactivate InputReader.cpp
+deactivate InputReader.cpp
+
+InputReader.cpp -> QueuedInputListener.cpp: flush()
+activate QueuedInputListener.cpp
+QueuedInputListener.cpp -> InputClassifier.cpp: notifyMotion()
+activate InputClassifier.cpp
+InputClassifier.cpp -> InputDispatcher.cpp: notifyMotion()
+activate InputDispatcher.cpp
+InputDispatcher.cpp -> MotionEntry.cpp: new()
+activate MotionEntry.cpp
+deactivate MotionEntry.cpp
+InputDispatcher.cpp -> InputDispatcher.cpp: enqueueInboundEventLocked()
+activate InputDispatcher.cpp
+
+@enduml
